@@ -1,0 +1,8 @@
+/app/
+/artisan
+/bootstrap/
+/config/
+/storage/
+
+/vendor/
+/.idea/
