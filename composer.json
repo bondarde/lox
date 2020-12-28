@@ -21,7 +21,7 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/",
-            "De\\Bondar\\LaravelComponents\\": "src/"
+            "BondarDe\\LaravelComponents\\": "src/"
         }
     },
     "autoload-dev": {
@@ -37,7 +37,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "De\\Bondar\\LaravelComponents\\LaravelComponentsServiceProvider"
+                "BondarDe\\LaravelComponents\\LaravelComponentsServiceProvider"
             ]
         }
     }

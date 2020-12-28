@@ -1,9 +1,9 @@
 <?php
 
-namespace De\Bondar\LaravelComponents;
+namespace BondarDe\LaravelComponents;
 
-use De\Bondar\LaravelComponents\View\Components\Form\Input;
-use De\Bondar\LaravelComponents\View\Components\Form\InputError;
+use BondarDe\LaravelComponents\View\Components\Form\Input;
+use BondarDe\LaravelComponents\View\Components\Form\InputError;
 use Illuminate\Support\ServiceProvider;
 
 class LaravelComponentsServiceProvider extends ServiceProvider
