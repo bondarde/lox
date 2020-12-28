@@ -1,12 +1,12 @@
 <?php
 
-namespace BondarDe\LaravelComponents;
+namespace BondarDe\LaravelToolbox;
 
-use BondarDe\LaravelComponents\View\Components\Form\Input;
-use BondarDe\LaravelComponents\View\Components\Form\InputError;
+use BondarDe\LaravelToolbox\View\Components\Form\Input;
+use BondarDe\LaravelToolbox\View\Components\Form\InputError;
 use Illuminate\Support\ServiceProvider;
 
-class LaravelComponentsServiceProvider extends ServiceProvider
+class LaravelToolboxServiceProvider extends ServiceProvider
 {
     const COMPONENTS = [
         'form.input' => Input::class,

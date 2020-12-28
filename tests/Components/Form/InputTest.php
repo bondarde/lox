@@ -2,7 +2,7 @@
 
 namespace Tests\Components\Form;
 
-use BondarDe\LaravelComponents\View\Components\Form\Input;
+use BondarDe\LaravelToolbox\View\Components\Form\Input;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Tests\Components\ComponentTestCase;
 

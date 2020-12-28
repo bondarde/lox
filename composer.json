@@ -1,6 +1,6 @@
 {
-    "name": "bond211/laravel-components",
-    "description": "Laravel components helper",
+    "name": "bondarde/laravel-toolbox",
+    "description": "Collection of Laravel components and utilities",
     "type": "library",
     "authors": [
         {
@@ -21,7 +21,7 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/",
-            "BondarDe\\LaravelComponents\\": "src/"
+            "BondarDe\\LaravelToolbox\\": "src/"
         }
     },
     "autoload-dev": {
@@ -37,7 +37,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "BondarDe\\LaravelComponents\\LaravelComponentsServiceProvider"
+                "BondarDe\\LaravelToolbox\\LaravelToolboxServiceProvider"
             ]
         }
     }

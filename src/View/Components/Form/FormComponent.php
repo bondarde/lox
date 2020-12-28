@@ -1,6 +1,6 @@
 <?php
 
-namespace BondarDe\LaravelComponents\View\Components\Form;
+namespace BondarDe\LaravelToolbox\View\Components\Form;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Session;
