@@ -15,7 +15,7 @@
 
 
 <label
-    class="flex overflow-hidden rounded-md shadow-sm border {{ $containerClass }}"
+    class="flex overflow-hidden rounded-md shadow-sm border ring-4 ring-transparent {{ $containerClass }}"
 >
     @if($prefix)
         <span class="flex items-center text-sm px-2 text-gray-600 bg-gray-50 border-r">{{ $prefix }}</span>

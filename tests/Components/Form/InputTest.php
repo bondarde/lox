@@ -18,7 +18,7 @@ class InputTest extends ComponentTestCase
     {
         $expected = <<<HTML
 <label
-    class="flex overflow-hidden rounded-md shadow-sm border focus-within:border-blue-300 focus-within:shadow-outline-blue"
+    class="flex overflow-hidden rounded-md shadow-sm border ring-4 ring-transparent focus-within:border-blue-300 focus-within:ring-blue-100"
 >
         <input
         type="text"
