@@ -8,6 +8,6 @@ class InputError extends Component
 {
     public function render()
     {
-        return view('laravel-components::form.input-error');
+        return view('laravel-toolbox::form.input-error');
     }
 }

@@ -15,7 +15,7 @@ class LaravelToolboxServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->loadViewsFrom(__DIR__ . '/components', 'laravel-components');
+        $this->loadViewsFrom(__DIR__ . '/components', 'laravel-toolbox');
         $this->loadViewComponentsAs('', self::COMPONENTS);
     }
 }

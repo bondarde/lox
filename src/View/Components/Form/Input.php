@@ -89,6 +89,6 @@ class Input extends FormComponent
 
     public function render()
     {
-        return view('laravel-components::form.input');
+        return view('laravel-toolbox::form.input');
     }
 }
