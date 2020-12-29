@@ -1,0 +1,19 @@
+@layer base {
+    .comma-separated-inline-list {
+        > li {
+            @apply inline-block;
+
+            &:not(:last-of-type):after {
+                content: ", ";
+            }
+        }
+    }
+
+    .link--active {
+        @apply bg-gradient-to-tr font-medium text-white from-indigo-800 to-indigo-600 shadow-inner;
+    }
+
+    .hover\:link--active:hover {
+        @apply from-indigo-900 to-indigo-700;
+    }
+}
