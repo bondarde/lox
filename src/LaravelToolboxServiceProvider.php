@@ -21,5 +21,14 @@ class LaravelToolboxServiceProvider extends ServiceProvider
     {
         $this->loadViewsFrom(__DIR__ . '/components', 'laravel-toolbox');
         $this->loadViewComponentsAs('', self::COMPONENTS);
+
+        $this->publishes([
+            __DIR__ . '/../resources/scss/' => resource_path('scss/laravel-toolbox'),
+        ], 'styles');
+
+        $this->publishes([
+            __DIR__ . '/../resources/tailwind/burger-menu' => resource_path('tailwind'),
+            __DIR__ . '/../resources/tailwind/tailwind.config.js' => base_path('tailwind.config.js'),
+        ], 'tailwind');
     }
 }
