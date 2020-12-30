@@ -10,6 +10,7 @@ use BondarDe\LaravelToolbox\View\Components\Form\InputError;
 use BondarDe\LaravelToolbox\View\Components\Form\Radio;
 use BondarDe\LaravelToolbox\View\Components\Form\Select;
 use BondarDe\LaravelToolbox\View\Components\Page;
+use BondarDe\LaravelToolbox\View\Components\Survey;
 use Illuminate\Support\ServiceProvider;
 
 class LaravelToolboxServiceProvider extends ServiceProvider
@@ -23,6 +24,7 @@ class LaravelToolboxServiceProvider extends ServiceProvider
         'form.checkbox' => Checkbox::class,
         'form.radio' => Radio::class,
         'form.select' => Select::class,
+        'survey' => Survey::class,
     ];
 
     public function boot()
