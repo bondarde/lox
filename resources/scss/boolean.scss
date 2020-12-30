@@ -1,0 +1,49 @@
+@layer components {
+    .form-boolean {
+        @apply relative w-10 mr-1 cursor-pointer;
+
+        // hide browser-styled checkbox
+        left: -2000px;
+
+        &:before,
+        &:after {
+            @apply block absolute left-0 top-0;
+
+            // show switch
+            left: 2000px;
+
+            content: "";
+
+            transition: all 211ms ease-in;
+        }
+
+        // slider’s box
+        &:before {
+            @apply select-none leading-normal h-5 w-10;
+            @apply bg-white border rounded-full shadow-inner;
+        }
+
+        // the actual slider
+        &:after {
+            @apply bg-white w-5 h-5 border rounded-full shadow;
+        }
+
+        &:checked {
+            &:before {
+                @apply shadow-none bg-gradient-to-tr from-indigo-800 to-indigo-600;
+            }
+
+            &:after {
+                @apply ml-5;
+            }
+        }
+
+        &:hover:after {
+            @apply bg-gray-50;
+        }
+
+        &:focus:before {
+            @apply border-blue-300 ring-4 ring-blue-100
+        }
+    }
+}
