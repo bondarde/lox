@@ -91,6 +91,12 @@ Page structure:
     </x-page>
 
 
+For page component you have to create page header and footer:
+
+    php artisan make:component PageHeader
+    php artisan make:component PageFooter
+
+
 ### Forms
 
     <x-form-row

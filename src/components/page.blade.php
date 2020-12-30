@@ -21,6 +21,8 @@
 </head>
 <body class="antialiased bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-50">
 <div class="min-h-screen">
+    <x-page-header/>
+
     <div class="container">
         @if($h1)
             <h1>{{ $h1 }}</h1>
@@ -34,6 +36,8 @@
 </div>
 
 @stack('modals')
+
+<x-page-footer/>
 
 @if($livewire)
     @livewireScripts
