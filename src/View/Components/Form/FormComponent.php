@@ -2,6 +2,8 @@
 
 namespace BondarDe\LaravelToolbox\View\Components\Form;
 
+use BondarDe\LaravelToolbox\Exceptions\IllegalStateException;
+use BondarDe\LaravelToolbox\SurveyItemValues\SurveyItemValues;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\MessageBag;
@@ -46,5 +48,20 @@ abstract class FormComponent extends Component
         }, array_keys($props), $props);
 
         return implode(' ', $props);
+    }
+
+    protected static function toOptions($options): array
+    {
+        switch (gettype($options)) {
+            case 'array':
+                return $options;
+            case 'string':
+                if (is_subclass_of($options, SurveyItemValues::class)) {
+                    return $options::all();
+                }
+        }
+
+        /** @noinspection PhpUnhandledExceptionInspection */
+        throw new IllegalStateException('Unsupported options type');
     }
 }

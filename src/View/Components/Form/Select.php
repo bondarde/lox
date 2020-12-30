@@ -2,8 +2,6 @@
 
 namespace BondarDe\LaravelToolbox\View\Components\Form;
 
-use BondarDe\LaravelToolbox\Exceptions\IllegalStateException;
-use BondarDe\LaravelToolbox\SurveyItemValues\SurveyItemValues;
 use Illuminate\Database\Eloquent\Model;
 
 class Select extends FormComponent
@@ -28,21 +26,6 @@ class Select extends FormComponent
         $this->options = self::toOptions($options);
         $this->old = self::toValue(null, $this->name, $model);
         $this->cssClasses = self::toCssClasses($containerClass, $this->name);
-    }
-
-    private static function toOptions($options): array
-    {
-        switch (gettype($options)) {
-            case 'array':
-                return $options;
-            case 'string':
-                if (is_subclass_of($options, SurveyItemValues::class)) {
-                    return $options::all();
-                }
-        }
-
-        /** @noinspection PhpUnhandledExceptionInspection */
-        throw new IllegalStateException('Unsupported options type');
     }
 
     private static function toCssClasses(string $containerClass, string $name): string
