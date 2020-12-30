@@ -11,6 +11,7 @@ use BondarDe\LaravelToolbox\View\Components\Form\Radio;
 use BondarDe\LaravelToolbox\View\Components\Form\Select;
 use BondarDe\LaravelToolbox\View\Components\Page;
 use BondarDe\LaravelToolbox\View\Components\Survey;
+use BondarDe\LaravelToolbox\View\Components\ValidationErrors;
 use Illuminate\Support\ServiceProvider;
 
 class LaravelToolboxServiceProvider extends ServiceProvider
@@ -25,6 +26,7 @@ class LaravelToolboxServiceProvider extends ServiceProvider
         'form.radio' => Radio::class,
         'form.select' => Select::class,
         'survey' => Survey::class,
+        'validation-errors' => ValidationErrors::class,
     ];
 
     public function boot()
