@@ -9,6 +9,9 @@ use Illuminate\View\Component;
 
 abstract class FormComponent extends Component
 {
+    protected const CONTAINER_CLASS_DEFAULT = 'focus-within:border-blue-300 focus-within:ring-blue-100';
+    protected const CONTAINER_CLASS_ERROR = 'border-red-400 text-red-900 bg-red-50 focus-within:ring-red-100';
+
     protected static function toValue($value, string $name, ?Model $model = null)
     {
         if ($value !== null) {
