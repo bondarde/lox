@@ -6,3 +6,4 @@
 
 /vendor/
 /.idea/
+.phpunit.result.cache
