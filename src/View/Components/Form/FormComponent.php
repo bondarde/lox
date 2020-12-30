@@ -3,7 +3,7 @@
 namespace BondarDe\LaravelToolbox\View\Components\Form;
 
 use BondarDe\LaravelToolbox\Exceptions\IllegalStateException;
-use BondarDe\LaravelToolbox\SurveyItemValues\SurveyItemValues;
+use BondarDe\LaravelToolbox\Surveys\SurveyItemValues;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\MessageBag;

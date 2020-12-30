@@ -1,6 +1,6 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\SurveyItemValues;
+namespace BondarDe\LaravelToolbox\Surveys;
 
 use Illuminate\Support\Str;
 
