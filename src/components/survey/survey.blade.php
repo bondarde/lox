@@ -25,10 +25,10 @@
         @include($stepFormTemplate)
     </div>
 
-    <div>
+    <x-form.form-actions>
         @if($previousStepIndex > -1)
             Zurück
         @endif
-    </div>
+    </x-form.form-actions>
 
 </form>

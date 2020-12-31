@@ -5,6 +5,7 @@ namespace BondarDe\LaravelToolbox;
 use BondarDe\LaravelToolbox\View\Components\Content;
 use BondarDe\LaravelToolbox\View\Components\Form\Boolean;
 use BondarDe\LaravelToolbox\View\Components\Form\Checkbox;
+use BondarDe\LaravelToolbox\View\Components\Form\FormActions;
 use BondarDe\LaravelToolbox\View\Components\Form\FormRow;
 use BondarDe\LaravelToolbox\View\Components\Form\Input;
 use BondarDe\LaravelToolbox\View\Components\Form\InputError;
@@ -22,6 +23,7 @@ class LaravelToolboxServiceProvider extends ServiceProvider
         'page' => Page::class,
         'content' => Content::class,
         'form.form-row' => FormRow::class,
+        'form.form-actions' => FormActions::class,
         'form.input' => Input::class,
         'form.input-error' => InputError::class,
         'form.checkbox' => Checkbox::class,
