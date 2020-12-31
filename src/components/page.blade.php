@@ -28,6 +28,7 @@
             <h1>{{ $h1 }}</h1>
         @endif
         {!! $header ?? '' !!}
+        <x-user-messages/>
     </div>
 
     <div class="{{ $wrapContent ? 'container py-10' : '' }}">
