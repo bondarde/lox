@@ -2,6 +2,10 @@
 
 namespace BondarDe\LaravelToolbox;
 
+use BondarDe\LaravelToolbox\View\Components\Buttons\DangerButton;
+use BondarDe\LaravelToolbox\View\Components\Buttons\DefaultButton;
+use BondarDe\LaravelToolbox\View\Components\Buttons\LinkButton;
+use BondarDe\LaravelToolbox\View\Components\Buttons\SuccessButton;
 use BondarDe\LaravelToolbox\View\Components\Content;
 use BondarDe\LaravelToolbox\View\Components\Form\Boolean;
 use BondarDe\LaravelToolbox\View\Components\Form\Checkbox;
@@ -33,6 +37,11 @@ class LaravelToolboxServiceProvider extends ServiceProvider
         'survey' => Survey::class,
         'validation-errors' => ValidationErrors::class,
         'user-messages' => UserMessages::class,
+
+        'button' => DefaultButton::class,
+        'button-success' => SuccessButton::class,
+        'button-danger' => DangerButton::class,
+        'button-link' => LinkButton::class,
     ];
 
     public function boot()
