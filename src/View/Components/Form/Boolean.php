@@ -13,7 +13,7 @@ class Boolean extends FormComponent
 
     public function __construct(
         string $name,
-        stdClass $model = null,
+        object $model = null,
         string $label = '',
         bool $showErrors = false
     )
