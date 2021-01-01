@@ -2,12 +2,12 @@
 
 namespace BondarDe\LaravelToolbox\View\Components\Buttons;
 
-use Illuminate\View\Component;
-
-class DangerButton extends Component
+class DangerButton extends DefaultButton
 {
-    public function render()
+    function makeAttributes(): array
     {
-        return view('laravel-toolbox::buttons.danger');
+        return [
+            'class' => 'inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest focus:outline-none disabled:opacity-25 transition ease-in-out duration-150 bg-red-800 focus:ring-red-200 focus:border-red-900 hover:bg-red-700 active:bg-red-700',
+        ];
     }
 }
