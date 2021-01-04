@@ -21,13 +21,7 @@ class InputTest extends ComponentTestCase
     class="flex overflow-hidden rounded-md shadow-sm border ring-4 ring-transparent focus-within:border-blue-300 focus-within:ring-blue-100"
 >
         <input
-        type="text"
-        name="test-name"
-        class="flex-grow border-none outline-none p-2 "
-        id="form-input-test-name"
-        placeholder=""
-        value=""
-        autocomplete="off"
+        type="text" name="test-name" class="flex-grow border-none outline-none p-2" id="form-input-test-name" placeholder="" autocomplete="off"
         />
     </label>
 

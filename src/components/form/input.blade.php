@@ -21,13 +21,15 @@
         <span class="flex items-center text-sm px-2 text-gray-600 bg-gray-50 border-r">{{ $prefix }}</span>
     @endif
     <input
-        type="{{ $type }}"
-        name="{{ $name }}"
-        class="flex-grow border-none outline-none p-2 {{ $inputClass }}"
-        id="form-input-{{ $name }}"
-        placeholder="{{ $placeholder }}"
-        value="{{ $value }}"
-        autocomplete="off"
+        {{ $attributes->merge([
+            'type' => $type ,
+            'name' => $name,
+            'class' => 'flex-grow border-none outline-none p-2 ' . $inputClass,
+            'id' => 'form-input-' . $name,
+            'value' => $value,
+            'placeholder' => $placeholder,
+            'autocomplete' => 'off',
+        ]) }}
         {!! $props !!}/>
     @if($suffix)
         <span class="flex items-center text-sm px-2 text-gray-600 bg-gray-50 border-l">{{ $suffix }}</span>
