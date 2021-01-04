@@ -52,16 +52,21 @@ abstract class FormComponent extends Component
 
     protected static function toOptions($options): array
     {
-        switch (gettype($options)) {
+        $type = gettype($options);
+
+        switch ($type) {
             case 'array':
                 return $options;
             case 'string':
                 if (is_subclass_of($options, SurveyItemValues::class)) {
                     return $options::all();
                 }
+
+                /** @noinspection PhpUnhandledExceptionInspection */
+                throw new IllegalStateException($options . ' is not a subclass of ' . SurveyItemValues::class);
         }
 
         /** @noinspection PhpUnhandledExceptionInspection */
-        throw new IllegalStateException('Unsupported options type');
+        throw new IllegalStateException('Unsupported options type: ' . $type);
     }
 }
