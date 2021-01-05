@@ -50,7 +50,7 @@ class Page extends Component
         }
 
         return [
-            '/css/app.' . config('app.version') . '.css',
+            '/=)/app.' . config('app.version') . '.css',
         ];
     }
 
@@ -63,7 +63,7 @@ class Page extends Component
         }
 
         return [
-            '/js/app.' . config('app.version') . '.js',
+            '/=)/app.' . config('app.version') . '.js',
         ];
     }
 
