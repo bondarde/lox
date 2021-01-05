@@ -6,9 +6,21 @@
     composer require bondarde/laravel-toolbox
 
 
-Styles:
+### Styles
+
+Publish:
 
     php artisan vendor:publish --provider="BondarDe\LaravelToolbox\LaravelToolboxServiceProvider" --tag=styles
+
+Add them to your `resources/app.scss`:
+
+    @import 'tailwindcss/base';
+    @import 'tailwindcss/components';
+    @import 'tailwindcss/utilities';
+
+    @import 'laravel-toolbox/base';
+    @import 'laravel-toolbox/tools';
+    @import 'laravel-toolbox/boolean';
 
 
 Tailwind config:
