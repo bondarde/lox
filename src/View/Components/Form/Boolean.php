@@ -2,8 +2,6 @@
 
 namespace BondarDe\LaravelToolbox\View\Components\Form;
 
-use stdClass;
-
 class Boolean extends FormComponent
 {
     public string $name;
