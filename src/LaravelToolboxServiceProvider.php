@@ -23,6 +23,8 @@ use Illuminate\Support\ServiceProvider;
 
 class LaravelToolboxServiceProvider extends ServiceProvider
 {
+    const NAMESPACE = 'laravel-toolbox';
+
     const COMPONENTS = [
         'page' => Page::class,
         'content' => Content::class,
@@ -46,7 +48,7 @@ class LaravelToolboxServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->loadViewsFrom(__DIR__ . '/components', 'laravel-toolbox');
+        $this->loadViewsFrom(__DIR__ . '/components', self::NAMESPACE);
         $this->loadViewComponentsAs('', self::COMPONENTS);
 
         $this->publishes([

@@ -17,11 +17,6 @@
     <option disabled value="" {{ $old === null ? 'selected' : '' }}>– bitte auswählen –</option>
 
     @foreach($options as $value => $label)
-        <option
-            value="{{ $value }}"
-            {{ $selected($value) }}
-        >
-            {{ $label }}
-        </option>
+        @include(\BondarDe\LaravelToolbox\LaravelToolboxServiceProvider::NAMESPACE.'::form._select-option')
     @endforeach
 </select>
