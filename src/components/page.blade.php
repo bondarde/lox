@@ -19,7 +19,7 @@
         @livewireStyles
     @endif
 </head>
-<body class="antialiased bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-50">
+<body class="antialiased bg-gray-50 dark:bg-black text-gray-800 dark:text-gray-100">
 <div class="min-h-screen">
     <x-page-header/>
 
