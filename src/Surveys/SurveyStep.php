@@ -25,5 +25,5 @@ interface SurveyStep
 
     public function getCustomAttributes(): array;
 
-    public function prepareForValidation(array $data): array;
+    public function prepareForValidation(array $data, Request $request): array;
 }

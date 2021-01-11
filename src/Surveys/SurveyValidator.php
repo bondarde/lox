@@ -38,7 +38,7 @@ class SurveyValidator
         $customAttributes = $currentStep->getCustomAttributes();
 
         $fields = array_keys($rules);
-        $data = $currentStep->prepareForValidation($request->only($fields));
+        $data = $currentStep->prepareForValidation($request->only($fields), $request);
 
         $validator = Validator::make(
             $data,
