@@ -19,7 +19,7 @@ interface SurveyStep
 
     public function getDescriptionHtml(): string;
 
-    public function getRules(Request $request, Model $model): array;
+    public function getRules(Request $request, ?Model $model = null): array;
 
     public function getMessages(): array;
 
