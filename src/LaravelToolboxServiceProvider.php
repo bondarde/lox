@@ -16,6 +16,7 @@ use BondarDe\LaravelToolbox\View\Components\Form\InputError;
 use BondarDe\LaravelToolbox\View\Components\Form\Radio;
 use BondarDe\LaravelToolbox\View\Components\Form\Select;
 use BondarDe\LaravelToolbox\View\Components\Page;
+use BondarDe\LaravelToolbox\View\Components\RelativeTimestamp;
 use BondarDe\LaravelToolbox\View\Components\Survey;
 use BondarDe\LaravelToolbox\View\Components\UserMessages;
 use BondarDe\LaravelToolbox\View\Components\ValidationErrors;
@@ -44,6 +45,8 @@ class LaravelToolboxServiceProvider extends ServiceProvider
         'button-success' => SuccessButton::class,
         'button-danger' => DangerButton::class,
         'button-link' => LinkButton::class,
+
+        'relative-timestamp' => RelativeTimestamp::class,
     ];
 
     public function boot()
