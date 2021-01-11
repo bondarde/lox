@@ -4,8 +4,51 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "29adc4798645e9e5c71dbe3ac863a72f",
+    "content-hash": "0ae7385b8fca0660fb1e0a86976f42b6",
     "packages": [
+        {
+            "name": "bond211/php-utils",
+            "version": "v0.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bond211/php-utils.git",
+                "reference": "b4de4c451cfb0657710a20a1e8118a2fc534858b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bond211/php-utils/zipball/b4de4c451cfb0657710a20a1e8118a2fc534858b",
+                "reference": "b4de4c451cfb0657710a20a1e8118a2fc534858b",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Bond211\\Utils\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alexander Bondar",
+                    "email": "alexander@bondar.de"
+                }
+            ],
+            "description": "PHP utils collection",
+            "support": {
+                "issues": "https://github.com/bond211/php-utils/issues",
+                "source": "https://github.com/bond211/php-utils/tree/v0.3.0"
+            },
+            "time": "2020-12-20T14:54:12+00:00"
+        },
         {
             "name": "brick/math",
             "version": "0.9.1",
