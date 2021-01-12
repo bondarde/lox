@@ -27,7 +27,6 @@
 
     <x-form.form-actions>
         @if($previousStepIndex > -1)
-            Zurück
         @endif
         <x-button>
             {{ $nextStepIndex > -1 ? 'Weiter' : 'Speichern' }}
