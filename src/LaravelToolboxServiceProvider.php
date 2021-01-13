@@ -15,6 +15,7 @@ use BondarDe\LaravelToolbox\View\Components\Form\Input;
 use BondarDe\LaravelToolbox\View\Components\Form\InputError;
 use BondarDe\LaravelToolbox\View\Components\Form\Radio;
 use BondarDe\LaravelToolbox\View\Components\Form\Select;
+use BondarDe\LaravelToolbox\View\Components\Form\Textarea;
 use BondarDe\LaravelToolbox\View\Components\Page;
 use BondarDe\LaravelToolbox\View\Components\RelativeTimestamp;
 use BondarDe\LaravelToolbox\View\Components\Survey;
@@ -32,6 +33,7 @@ class LaravelToolboxServiceProvider extends ServiceProvider
         'form.form-row' => FormRow::class,
         'form.form-actions' => FormActions::class,
         'form.input' => Input::class,
+        'form.textarea' => Textarea::class,
         'form.input-error' => InputError::class,
         'form.checkbox' => Checkbox::class,
         'form.radio' => Radio::class,
