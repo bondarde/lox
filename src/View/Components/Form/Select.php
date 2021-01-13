@@ -10,6 +10,7 @@ class Select extends FormComponent
     public array $options;
     public string $name;
     public string $cssClasses;
+    public bool $showErrors;
     public $old;
 
     public function __construct(
@@ -17,6 +18,7 @@ class Select extends FormComponent
         $options,
         string $label = '',
         string $containerClass = '',
+        bool $showErrors = false,
         ?Model $model = null
     )
     {
@@ -26,6 +28,7 @@ class Select extends FormComponent
         $this->options = self::toOptions($options);
         $this->old = self::toValue(null, $this->name, $model);
         $this->cssClasses = self::toCssClasses($containerClass, $this->name);
+        $this->showErrors = $showErrors;
     }
 
     private static function toCssClasses(string $containerClass, string $name): string

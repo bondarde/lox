@@ -18,10 +18,13 @@
     <label
         class="{{ ($display === \BondarDe\LaravelToolbox\View\Components\Form\Choice::DISPLAY_INLINE ? 'inline-block' : 'block') }} cursor-pointer mr-4 -ml-4 pl-4">
         <input
-            class="mr-1"
-            type="{{ $type }}"
-            name="{{ $name }}{{ $isList ? '[]' : '' }}"
-            value="{{ $value }}"
+            {{ $attributes->merge([
+                'type' => $type,
+                'name' => $name . ($isList ? '[]' : ''),
+                'value' => $value,
+                'class'=> 'mr-1',
+                'id' => 'form-input-' . $name,
+            ]) }}
             {!! $checked($value) !!}
         >
         {{ $label }}
