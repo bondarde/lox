@@ -58,10 +58,10 @@ abstract class  ValidationRules
         return Rule::requiredIf(fn() => $request->get($otherFieldName) === $value);
     }
 
-    public static function requiredIfOtherFieldHasAnyOfGivenValues(Request $request, string $otherArrayFieldName, array $values): RequiredIf
+    public static function requiredIfOtherFieldHasAnyOfGivenValues(Request $request, string $otherFieldName, array $values): RequiredIf
     {
-        return Rule::requiredIf(function () use ($request, $otherArrayFieldName, $values) {
-            $selectedValue = $request->get($otherArrayFieldName);
+        return Rule::requiredIf(function () use ($request, $otherFieldName, $values) {
+            $selectedValue = $request->get($otherFieldName);
 
             if (!$selectedValue) {
                 return false;
