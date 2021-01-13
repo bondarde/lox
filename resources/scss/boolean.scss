@@ -1,6 +1,9 @@
 @layer components {
     .form-boolean {
-        @apply relative w-10 mr-1 cursor-pointer;
+        -moz-appearance: initial;
+        margin-top: 4px;
+
+        @apply relative w-10 mr-1 cursor-pointer align-top;
 
         // hide browser-styled checkbox
         left: -2000px;
