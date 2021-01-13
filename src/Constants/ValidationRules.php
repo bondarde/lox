@@ -2,6 +2,10 @@
 
 namespace BondarDe\LaravelToolbox\Constants;
 
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\RequiredIf;
+
 abstract class  ValidationRules
 {
     const REQUIRED = 'required';
@@ -46,5 +50,33 @@ abstract class  ValidationRules
     public static function dateBefore(string $date = self::DATE_TODAY): string
     {
         return 'before:' . $date;
+    }
+
+
+    public static function requiredIfOtherFieldHasValue(Request $request, string $otherFieldName, $value): RequiredIf
+    {
+        return Rule::requiredIf(fn() => $request->get($otherFieldName) === $value);
+    }
+
+    public static function requiredIfOtherFieldHasAnyOfGivenValues(Request $request, string $otherArrayFieldName, array $values): RequiredIf
+    {
+        return Rule::requiredIf(function () use ($request, $otherArrayFieldName, $values) {
+            $selectedValue = $request->get($otherArrayFieldName);
+
+            if (!$selectedValue) {
+                return false;
+            }
+
+            return in_array($selectedValue, $values);
+        });
+    }
+
+    public static function requiredIfOtherFieldContainsValue(Request $request, string $otherArrayFieldName, $value): RequiredIf
+    {
+        return Rule::requiredIf(function () use ($request, $otherArrayFieldName, $value) {
+            $values = $request->get($otherArrayFieldName);
+
+            return $values && in_array($value, $values);
+        });
     }
 }
