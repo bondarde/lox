@@ -19,6 +19,7 @@ use BondarDe\LaravelToolbox\View\Components\Form\Textarea;
 use BondarDe\LaravelToolbox\View\Components\Page;
 use BondarDe\LaravelToolbox\View\Components\RelativeTimestamp;
 use BondarDe\LaravelToolbox\View\Components\Survey;
+use BondarDe\LaravelToolbox\View\Components\SurveyView;
 use BondarDe\LaravelToolbox\View\Components\UserMessages;
 use BondarDe\LaravelToolbox\View\Components\ValidationErrors;
 use Illuminate\Support\ServiceProvider;
@@ -40,6 +41,7 @@ class LaravelToolboxServiceProvider extends ServiceProvider
         'form.boolean' => Boolean::class,
         'form.select' => Select::class,
         'survey' => Survey::class,
+        'survey-view' => SurveyView::class,
         'validation-errors' => ValidationErrors::class,
         'user-messages' => UserMessages::class,
 
