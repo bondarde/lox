@@ -48,7 +48,7 @@ class Survey extends Component
         }, $steps);
 
 
-        $this->stepFormTemplate = $this->makeStepFormTemplate();
+        $this->stepFormTemplate = $this->makeCurrentStepFormTemplate();
 
         if ($this->currentStepIndex > 0) {
             $this->previousStepIndex = $this->currentStepIndex - 1;
@@ -59,7 +59,7 @@ class Survey extends Component
         }
     }
 
-    private function makeStepFormTemplate(): string
+    private function makeCurrentStepFormTemplate(): string
     {
         $currentStep = $this->steps[$this->currentStepIndex];
         $surveyTemplateId = $this->survey->getId();
