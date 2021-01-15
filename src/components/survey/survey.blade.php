@@ -2,7 +2,7 @@
     class="mb-4"
 />
 
-<form method="post" action="{{ $formActionUri }}">
+<form method="post" action="{{ $formActionUri }}" {{ $attributes }}>
     @csrf
 
     <div class="md:flex shadow rounded-lg select-none">
