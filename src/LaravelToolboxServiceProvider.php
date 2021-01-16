@@ -48,6 +48,8 @@ class LaravelToolboxServiceProvider extends ServiceProvider
         'user-messages' => UserMessages::class,
 
         'button' => DefaultButton::class,
+        'button-green' => SuccessButton::class,
+        'button-red' => DangerButton::class,
         'button-blue' => BlueButton::class,
         'button-light' => LightButton::class,
         'button-success' => SuccessButton::class,
