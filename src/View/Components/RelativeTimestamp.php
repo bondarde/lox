@@ -7,16 +7,21 @@ use Illuminate\View\Component;
 
 class RelativeTimestamp extends Component
 {
-    public Model $model;
-    public string $attr;
+    public string $label;
+    public string $timestamp = '';
 
     public function __construct(
         Model $model,
-        string $attr
+        string $attr,
+        bool $showTimestamp = true,
+        string $timestampFormat = 'j. M Y H:i'
     )
     {
-        $this->model = $model;
-        $this->attr = $attr;
+        $this->label = $model->{$attr}->diffForHumans();
+
+        if ($showTimestamp) {
+            $this->timestamp = $model->{$attr}->format($timestampFormat);
+        }
     }
 
     public function render()
