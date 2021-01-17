@@ -7,18 +7,18 @@
 
 @if($label)
     <label
-        class="block text-black text-sm"
+        class="block text-sm text-black dark:text-white"
         for="form-input-{{ $name }}"
     >{{ $label }}</label>
 @endif
 
 <label
-    class="flex overflow-hidden rounded-md shadow-sm border ring-4 ring-transparent {{ $containerClass }}"
+    class="flex overflow-hidden rounded-md shadow-sm border ring ring-transparent dark:border-gray-700 {{ $containerClass }}"
 >
     <textarea
         {{ $attributes->merge([
             'name' => $name,
-            'class' => 'flex-grow border-none outline-none p-2 ' . $inputClass,
+            'class' => 'flex-grow border-none outline-none p-2 dark:bg-gray-800 ' . $inputClass,
             'id' => 'form-input-' . $name,
             'autocomplete' => 'off',
             'rows' => '6',

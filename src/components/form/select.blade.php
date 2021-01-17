@@ -8,14 +8,14 @@
 <label>
     @if($label)
         <div
-            class="block text-black text-sm"
+            class="block text-sm text-black dark:text-white"
         >{{ $label }}</div>
     @endif
 
     <select
         {{ $attributes->merge([
             'name' => $name,
-            'class'=> 'border p-2 rounded-md shadow-sm border outline-none ring-4 ring-transparent w-full ' . $cssClasses,
+            'class'=> 'border p-2 rounded-md shadow-sm border outline-none ring ring-transparent w-full dark:border-gray-700 dark:bg-gray-800 ' . $cssClasses,
             'id' => 'form-input-' . $name,
         ]) }}
     >

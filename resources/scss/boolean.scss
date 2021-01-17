@@ -23,12 +23,12 @@
         // slider’s box
         &:before {
             @apply select-none leading-normal h-5 w-10;
-            @apply bg-white border rounded-full shadow-inner;
+            @apply bg-white dark:bg-gray-800 border rounded-full shadow-inner;
         }
 
         // the actual slider
         &:after {
-            @apply bg-white w-5 h-5 border rounded-full shadow;
+            @apply bg-white dark:bg-gray-100 w-5 h-5 border rounded-full shadow;
         }
 
         &:checked {
@@ -46,7 +46,7 @@
         }
 
         &:focus:before {
-            @apply border-blue-300 ring-4 ring-blue-100
+            @apply border-blue-300 ring ring-blue-100 dark:ring-blue-900
         }
     }
 }

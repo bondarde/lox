@@ -8,7 +8,7 @@
 
 @if($label)
     <label
-        class="block text-black text-sm"
+        class="block text-sm text-black dark:text-white"
         for="form-input-{{ $name }}"
     >{{ $label }}</label>
 @endif

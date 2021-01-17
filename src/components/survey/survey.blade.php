@@ -28,9 +28,9 @@
     <x-form.form-actions>
         @if($previousStepIndex > -1)
         @endif
-        <x-button>
+        <x-button-green>
             {{ $nextStepIndex > -1 ? 'Weiter' : 'Speichern' }}
-        </x-button>
+        </x-button-green>
     </x-form.form-actions>
 
 </form>
