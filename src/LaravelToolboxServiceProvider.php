@@ -15,6 +15,7 @@ use BondarDe\LaravelToolbox\View\Components\Form\FormActions;
 use BondarDe\LaravelToolbox\View\Components\Form\FormRow;
 use BondarDe\LaravelToolbox\View\Components\Form\Input;
 use BondarDe\LaravelToolbox\View\Components\Form\InputError;
+use BondarDe\LaravelToolbox\View\Components\Form\Matrix;
 use BondarDe\LaravelToolbox\View\Components\Form\Radio;
 use BondarDe\LaravelToolbox\View\Components\Form\Select;
 use BondarDe\LaravelToolbox\View\Components\Form\Textarea;
@@ -42,6 +43,7 @@ class LaravelToolboxServiceProvider extends ServiceProvider
         'form.radio' => Radio::class,
         'form.boolean' => Boolean::class,
         'form.select' => Select::class,
+        'form.matrix' => Matrix::class,
         'survey' => Survey::class,
         'survey-view' => SurveyView::class,
         'validation-errors' => ValidationErrors::class,
