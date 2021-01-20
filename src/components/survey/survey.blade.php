@@ -8,7 +8,7 @@
     <div class="md:flex shadow rounded-lg select-none">
         @foreach($steps as $step)
             <div
-                class="p-4 border flex-grow {{ $currentStepIndex === $loop->index ? 'link--active border-indigo-900' : 'bg-white hidden md:block' }} {{ $loop->index > 0 ? 'border-l-0' : '' }} {{ $loop->first ? 'rounded-l-lg' : '' }} {{ $loop->last ? 'rounded-r-lg' : '' }}"
+                class="p-4 border dark:border-gray-700 flex-grow {{ $currentStepIndex === $loop->index ? 'link--active border-indigo-900' : 'bg-white dark:bg-gray-800 hidden md:block' }} {{ $loop->index > 0 ? 'border-l-0' : '' }} {{ $loop->first ? 'rounded-l-lg' : '' }} {{ $loop->last ? 'rounded-r-lg' : '' }}"
             >
                 <strong>{{ $loop->iteration }}:</strong>
                 {!! $step->getLabelHtml() !!}
