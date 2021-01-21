@@ -20,9 +20,10 @@
                 @if($showPropLabel)
                     <td class="block md:table-cell px-2 py-1 font-bold border-b md:border-b-none md:border-r">
                         @if($showErrors)
-                            @error($propKey)
-                            <div class="font-weight-bold text-danger">{{ $message }}</div>
-                            @enderror
+                            <x-form.input-error
+                                for="{{ $propKey }}"
+                                class="mb-2"
+                            />
                         @endif
 
                         <div class="max-w-xs">
