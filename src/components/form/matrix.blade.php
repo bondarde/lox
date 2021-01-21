@@ -19,9 +19,11 @@
             <tr class="block md:table-row border md:border-t mb-8 rounded-lg overflow-hidden shadow md:shadow-none">
                 @if($showPropLabel)
                     <td class="block md:table-cell px-2 py-1 font-bold border-b md:border-b-none md:border-r">
-                        @error($propKey)
-                        <div class="font-weight-bold text-danger">{{ $message }}</div>
-                        @enderror
+                        @if($showErrors)
+                            @error($propKey)
+                            <div class="font-weight-bold text-danger">{{ $message }}</div>
+                            @enderror
+                        @endif
 
                         <div class="max-w-xs">
                             {{ $propLabel }}

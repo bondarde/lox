@@ -13,6 +13,7 @@ class Matrix extends FormComponent
     public ?Model $model;
     public bool $showPropLabel;
     public bool $strictCheck;
+    public bool $showErrors;
 
     public function __construct(
         array $fields,
@@ -21,6 +22,7 @@ class Matrix extends FormComponent
         ?string $maxValue = '',
         bool $showPropLabel = true,
         bool $strictCheck = false,
+        bool $showErrors = true,
         ?Model $model = null
     )
     {
@@ -31,6 +33,7 @@ class Matrix extends FormComponent
         $this->model = $model;
         $this->showPropLabel = $showPropLabel;
         $this->strictCheck = $strictCheck;
+        $this->showErrors = $showErrors;
     }
 
     public function old($key)
