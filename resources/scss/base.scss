@@ -19,26 +19,27 @@
         text-align: left;
     }
 
-    th,
-    td {
-        @apply px-4 py-2;
+    .table {
+        th,
+        td {
+            @apply px-4 py-2;
 
-        &:first-child {
-            @apply pl-0;
+            &:first-child {
+                @apply pl-0;
+            }
+
+            &:last-child {
+                @apply pr-0;
+            }
         }
 
-        &:last-child {
-            @apply pr-0;
+        th {
+            @apply align-bottom;
         }
-    }
 
-    th {
-        @apply align-bottom;
-    }
-
-    td {
-        @apply align-top;
-
+        td {
+            @apply align-top;
+        }
     }
 
     .user-badge {
