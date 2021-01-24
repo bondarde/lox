@@ -2,6 +2,8 @@
 
 namespace BondarDe\LaravelToolbox\Constants;
 
+use BondarDe\LaravelToolbox\Exceptions\IllegalStateException;
+use BondarDe\LaravelToolbox\Surveys\SurveyItemValues;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\RequiredIf;
@@ -78,5 +80,22 @@ abstract class  ValidationRules
 
             return $values && in_array($value, $values);
         });
+    }
+
+    public static function excludeOtherValuesIfSelected(string $exclusiveValue, string $labelClassName): callable
+    {
+        return function ($attribute, $values, $fail) use ($labelClassName, $exclusiveValue) {
+            if ($values && in_array($exclusiveValue, $values) && count($values) > 1) {
+                if (!is_subclass_of($labelClassName, SurveyItemValues::class)) {
+                    throw new IllegalStateException($labelClassName . ' is not a subclass of ' . SurveyItemValues::class);
+                }
+
+                $fail(
+                    'Sie haben „'
+                    . $labelClassName::label($exclusiveValue)
+                    . '“ gewählt, gleichzeitig andere Optionen ausgewählt.'
+                );
+            }
+        };
     }
 }
