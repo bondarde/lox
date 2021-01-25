@@ -16,7 +16,7 @@
 
 @foreach($options as $value => $label)
     <label
-        class="{{ ($display === \BondarDe\LaravelToolbox\View\Components\Form\Choice::DISPLAY_INLINE ? 'inline-block' : 'block') }} cursor-pointer mr-4 -ml-4 pl-4">
+        class="{{ ($display === \BondarDe\LaravelToolbox\View\Components\Form\Choice::DISPLAY_INLINE ? 'inline-block' : 'block') }} {{ $containerClass }} cursor-pointer mr-4 -ml-4 pl-4">
         <input
             {{ $attributes->merge([
                 'type' => $type,

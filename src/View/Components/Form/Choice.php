@@ -13,6 +13,8 @@ class Choice extends FormComponent
     public const DISPLAY_BLOCK = 1;
     public const DISPLAY_INLINE = 2;
 
+    public string $containerClass;
+
     #[ExpectedValues(values: [self::TYPE_RADIO, self::TYPE_CHECKBOX])]
     public string $type;
 
@@ -33,6 +35,7 @@ class Choice extends FormComponent
         string $name,
         array $options,
         bool $isList = false,
+        string $containerClass = '',
         string $type = self::TYPE_CHECKBOX,
         int $display = self::DISPLAY_BLOCK,
         ?Model $model = null,
@@ -49,6 +52,7 @@ class Choice extends FormComponent
         $this->display = $display;
         $this->old = self::toValue($value, $this->name, $model);
         $this->showErrors = $showErrors;
+        $this->containerClass = $containerClass;
     }
 
     public function checked($value): string
