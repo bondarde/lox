@@ -7,10 +7,19 @@
 
             <ul class="pl-4 list-disc">
                 @foreach ($errors->all() as $error)
+                    @if($loop->iteration > 5 && $errors->count() > 6)
+                        @break
+                    @endif
+
                     <li class="mt-1">{{ $error }}</li>
                 @endforeach
             </ul>
-            {{-- TODO: shorten the list if it gets too long --}}
+
+            @if($errors->count() > 6)
+                <p class="mt-2">
+                    … und {{ $errors->count() - 5 }} weitere.
+                </p>
+            @endif
         </div>
     </div>
 @endif
