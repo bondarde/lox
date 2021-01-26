@@ -16,23 +16,36 @@ class Survey extends Component
     public int $previousStepIndex = -1;
     public int $nextStepIndex = -1;
 
-    public string $formActionUri;
     public ?Model $model;
     public string $stepFormTemplate;
+
+    public string $formActionUri;
+    public ?string $cancelUri;
+    public ?string $cancelInfo;
+
+    public bool $allowNextStepNavigation;
 
     public function __construct(
         string $survey,
         string $formActionUri,
+        string $cancelUri = null,
+        string $cancelInfo = null,
+        bool $allowNextStepNavigation = true,
         Model $model = null,
         Request $request = null
     )
     {
-        $this->initFromRequest($request);
         $this->survey = new $survey;
-        $this->initSteps($this->survey->getSteps());
+        $this->model = $model;
 
         $this->formActionUri = $formActionUri;
-        $this->model = $model;
+        $this->cancelUri = $cancelUri;
+        $this->cancelInfo = $cancelInfo;
+
+        $this->allowNextStepNavigation = $allowNextStepNavigation;
+
+        $this->initFromRequest($request);
+        $this->initSteps($this->survey->getSteps());
     }
 
     private function initFromRequest(Request $request)
@@ -71,6 +84,37 @@ class Survey extends Component
             SurveyStep::MODE_EDIT,
             $stepTemplateId,
         );
+    }
+
+    public function showStepLink($stepIndex): bool
+    {
+        if (!$this->model) {
+            return false;
+        }
+        if ($this->currentStepIndex === $stepIndex) {
+            return false;
+        }
+        if ($stepIndex > $this->currentStepIndex && !$this->allowNextStepNavigation) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function toStepClasses(object $loop): string
+    {
+        $loop->index;
+        $loop->first;
+        $loop->last;
+
+        $classNames = [
+            'truncate whitespace-nowrap flex-1 p-4 border dark:border-gray-700',
+        ];
+        $classNames[] = $this->currentStepIndex === $loop->index ? 'link--active border-indigo-900' : 'bg-white dark:bg-gray-800 hidden md:block';
+        $classNames[] = ($loop->first) ? 'rounded-l-lg' : 'border-l-0';
+        $classNames[] = $loop->last ? 'rounded-r-lg' : '';
+
+        return implode(' ', $classNames);
     }
 
     public function render()

@@ -26,4 +26,6 @@ interface SurveyStep
     public function getCustomAttributes(): array;
 
     public function prepareForValidation(array $data, Request $request): array;
+
+    public function getUri(Model $model, int $step): string;
 }
