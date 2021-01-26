@@ -1,11 +1,9 @@
-<div {{ $attributes->merge(['class' => 'p-4 flex flex-col-reverse md:flex-row']) }}>
-    <div class="mb-4 w-full md:w-1/4">
-        {{ $back ?? '' }}
-    </div>
-    <div class="mb-4 w-full md:w-3/4">
+<div {{ $attributes->merge(['class' => 'p-4 flex flex-col md:flex-row-reverse']) }}>
+    <div class="mb-4 md:w-3/4">
         {{ $slot }}
     </div>
-    <div>
+    <div class="mb-4 md:w-1/4">
+        {{ $back ?? '' }}
     </div>
 </div>
 <div class="md:flex p-4 mb-8">
