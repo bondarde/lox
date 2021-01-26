@@ -5,7 +5,7 @@
 <form method="post" action="{{ $formActionUri }}" {{ $attributes }}>
     @csrf
 
-    <div class="md:flex shadow-sm rounded-lg select-none">
+    <div class="hidden md:flex shadow-sm rounded-lg select-none">
         @foreach($steps as $step)
             @if($showStepLink($loop->index))
                 <a
@@ -38,8 +38,8 @@
         value="{{ $currentStepIndex + 1 }}"
     >
 
-    <div class="my-8">
-        <h2 class="mb-8">{!! $steps[$currentStepIndex]->getLabelHtml() !!}</h2>
+    <div class="mb-8 md:mt-8">
+        <h2 class="mb-2">{!! $steps[$currentStepIndex]->getLabelHtml() !!}</h2>
         @include($stepFormTemplate)
     </div>
 
