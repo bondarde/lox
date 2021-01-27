@@ -1,13 +1,13 @@
-<div {{ $attributes }}>
-    <div
-        class="whitespace-nowrap"
+<span {{ $attributes }}>
+    <span
+        class="block whitespace-nowrap"
         title="{{ $timestamp }}"
     >
         {{ $label }}
-    </div>
-    <div
-        class="text-sm opacity-50 whitespace-nowrap"
+    </span>
+    <small
+        class="block opacity-50 whitespace-nowrap"
     >
         {{ $timestamp }}
-    </div>
-</div>
+    </small>
+</span>
