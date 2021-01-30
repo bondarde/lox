@@ -2,15 +2,31 @@
 
 namespace BondarDe\LaravelToolbox\Surveys;
 
+use Bond211\Utils\Support\Arrays;
 use Illuminate\Support\Str;
 
 abstract class SurveyItemValues
 {
     abstract public static function all(): array;
 
+    private static function flatAll(): array
+    {
+        $res = [];
+        $flattened = Arrays::flattenKeys(static::all());
+
+        foreach ($flattened as $key => $value) {
+            $parts = explode('.', $key);
+            $key = last($parts);
+
+            $res[$key] = $value;
+        }
+
+        return $res;
+    }
+
     public static function keys(): array
     {
-        return array_keys(static::all());
+        return array_keys(self::flatAll());
     }
 
     public static function label(?string $key): string
@@ -19,7 +35,7 @@ abstract class SurveyItemValues
             return '—';
         }
 
-        $all = static::all();
+        $all = self::flatAll();
 
         if (!isset($all[$key])) {
             return $key;
