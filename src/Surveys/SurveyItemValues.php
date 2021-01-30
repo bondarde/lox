@@ -24,9 +24,12 @@ abstract class SurveyItemValues
         return $res;
     }
 
-    public static function keys(): array
+    public static function keys(string $pattern = '*'): array
     {
-        return array_keys(self::flatAll());
+        $keys = array_keys(self::flatAll());
+        $keys = array_filter($keys, fn($key) => Str::is($pattern, $key));
+
+        return $keys;
     }
 
     public static function label(?string $key): string

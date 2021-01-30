@@ -82,6 +82,28 @@ class SurveyItemValuesTest extends TestCase
         self::assertEquals($keys, StatesDACH::keys());
     }
 
+    public function testKeysGetterWithPatternFromFlatArray()
+    {
+        $keys = [
+            'de-bw',
+            'de-by',
+            'de-be',
+            'de-bb',
+        ];
+        self::assertEquals($keys, StatesDE::keys('de-b*'));
+    }
+
+    public function testKeysGetterWithPatternFromMultidimensionalArray()
+    {
+        $keys = [
+            'de-bw',
+            'de-by',
+            'de-be',
+            'de-bb',
+        ];
+        self::assertEquals($keys, StatesDACH::keys('de-b*'));
+    }
+
     public function testLabelGetterForFlatArray()
     {
         self::assertEquals('Berlin', StatesDE::label('de-be'));
