@@ -18,10 +18,10 @@ class InputTest extends ComponentTestCase
     {
         $expected = <<<HTML
 <label
-    class="flex overflow-hidden rounded-md shadow-sm border ring-4 ring-transparent focus-within:border-blue-300 focus-within:ring-blue-100"
+    class="flex overflow-hidden rounded-md shadow-sm border ring ring-transparent dark:border-gray-700 focus-within:border-blue-300 dark:focus-within:border-blue-700 focus-within:ring-blue-100 dark:focus-within:ring-blue-900"
 >
         <input
-        type="text" name="test-name" class="flex-grow border-none outline-none p-2" id="form-input-test-name" placeholder="" autocomplete="off"
+        type="text" name="test-name" class="flex-grow border-none outline-none p-2 dark:bg-gray-800" id="form-input-test-name" placeholder="" autocomplete="off"
         />
     </label>
 
