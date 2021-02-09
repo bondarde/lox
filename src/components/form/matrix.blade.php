@@ -1,5 +1,5 @@
 <div class="overflow-x-auto">
-    <table class="w-full md:w-auto md:border-b">
+    <table class="w-full md:w-auto">
         <thead class="hidden md:table-header-group">
         <tr>
             @if($showPropLabel)
@@ -42,12 +42,38 @@
                                 name="{{ $propKey }}"
                                 value="{{ $valKey }}"
                                 {{ $checked($propKey, $valKey) }}>
-                            <span class="md:hidden">{{ $valLabel }}</span>
+                            <span class="md:hidden">
+                                {{ $valLabel }}
+                                @if($loop->first && $minValue)
+                                    ({{ $minValue }})
+                                @endif
+                                @if($loop->last && $maxValue)
+                                    ({{ $maxValue }})
+                                @endif
+                            </span>
                         </label>
                     </td>
                 @endforeach
             </tr>
         @endforeach
         </tbody>
+        @if($minValue || $maxValue)
+            <tfoot class="hidden md:table-footer-group">
+            <tr>
+                @if($showPropLabel)
+                    <td></td>
+                @endif
+                <td
+                    class="text-sm overflow-visible pl-2"
+                    style="max-width: 1rem"
+                >{{ $minValue }}</td>
+                <td colspan="{{ count($options) - 2 }}"></td>
+                <td
+                    class="text-sm overflow-visible pl-2"
+                    style="max-width: 1rem"
+                >{{ $maxValue }}</td>
+            </tr>
+            </tfoot>
+        @endif
     </table>
 </div>
