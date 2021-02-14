@@ -49,9 +49,14 @@ abstract class  ValidationRules
         return 'date-format:' . $format;
     }
 
-    public static function dateBefore(string $date = self::DATE_TODAY): string
+    public static function dateBefore(string $dateOrField = self::DATE_TODAY): string
     {
-        return 'before:' . $date;
+        return 'before:' . $dateOrField;
+    }
+
+    public static function dateAfter(string $dateOrField = self::DATE_TODAY): string
+    {
+        return 'after:' . $dateOrField;
     }
 
 
