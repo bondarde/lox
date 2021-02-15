@@ -94,7 +94,7 @@ abstract class  ValidationRules
                 return false;
             }
 
-            $valuesSelected = $request->get($otherArrayFieldName);
+            $valuesSelected = $request->get($otherArrayFieldName, []);
 
             if (!count($valuesSelected)) {
                 return false;
