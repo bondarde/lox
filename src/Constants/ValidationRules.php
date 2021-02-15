@@ -87,6 +87,25 @@ abstract class  ValidationRules
         });
     }
 
+    public static function requiredIfOtherFieldContainsAnyOfGivenValues(Request $request, string $otherArrayFieldName, array $valuesGiven): RequiredIf
+    {
+        return Rule::requiredIf(function () use ($request, $otherArrayFieldName, $valuesGiven) {
+            if (!count($valuesGiven)) {
+                return false;
+            }
+
+            $valuesSelected = $request->get($otherArrayFieldName);
+
+            if (!count($valuesSelected)) {
+                return false;
+            }
+
+            $intersection = array_intersect($valuesSelected, $valuesGiven);
+
+            return count($intersection) > 0;
+        });
+    }
+
     public static function excludeOtherValuesIfSelected(string $exclusiveValue, string $labelClassName): callable
     {
         return function ($attribute, $values, $fail) use ($labelClassName, $exclusiveValue) {
