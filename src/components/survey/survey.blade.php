@@ -5,32 +5,36 @@
 <form method="post" action="{{ $formActionUri }}" {{ $attributes }}>
     @csrf
 
-    <div class="hidden md:flex shadow-sm rounded-lg select-none">
-        @foreach($steps as $step)
-            @if($showStepLink($loop->index))
-                <a
-                    class="{{ $toStepClasses($loop) }}"
-                    href="{{ $step->getUri($model, $loop->iteration) }}"
-                    title="{{ $step->getLabelHtml() }}"
-                >
-                    <strong
-                        class="text-sm px-2 py-1 text-center bg-gray-100 bg-opacity-50 rounded-full overflow-hidden"
-                    >{{ $loop->iteration }}</strong>
-                    {!! $step->getLabelHtml() !!}
-                </a>
-            @else
-                <span
-                    class="{{ $toStepClasses($loop) }}"
-                    title="{{ $step->getLabelHtml() }}"
-                >
-                    <strong
-                        class="text-sm px-2 py-1 text-center bg-gray-100 bg-opacity-50 rounded-full overflow-hidden"
-                    >{{ $loop->iteration }}</strong>
-                    {!! $step->getLabelHtml() !!}
-                </span>
-            @endif
-        @endforeach
-    </div>
+
+    @if(count($steps) > 1)
+        <div class="hidden md:flex shadow-sm rounded-lg select-none">
+            @foreach($steps as $step)
+                @if($showStepLink($loop->index))
+                    <a
+                        class="{{ $toStepClasses($loop) }}"
+                        href="{{ $step->getUri($model, $loop->iteration) }}"
+                        title="{{ $step->getLabelHtml() }}"
+                    >
+                        <strong
+                            class="text-sm px-2 py-1 text-center bg-gray-100 bg-opacity-50 rounded-full overflow-hidden"
+                        >{{ $loop->iteration }}</strong>
+                        {!! $step->getLabelHtml() !!}
+                    </a>
+                @else
+                    <span
+                        class="{{ $toStepClasses($loop) }}"
+                        title="{{ $step->getLabelHtml() }}"
+                    >
+                        <strong
+                            class="text-sm px-2 py-1 text-center bg-gray-100 bg-opacity-50 rounded-full overflow-hidden"
+                        >{{ $loop->iteration }}</strong>
+                        {!! $step->getLabelHtml() !!}
+                    </span>
+                @endif
+            @endforeach
+        </div>
+    @endif
+
 
     <input
         type="hidden"
