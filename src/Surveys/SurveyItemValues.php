@@ -47,16 +47,27 @@ abstract class SurveyItemValues
         return $all[$key];
     }
 
-    public static function matching(string $pattern): array
+    public static function matching(string $keyPattern): array
+    {
+        return self::matchingInternal($keyPattern, static::all());
+    }
+
+    private static function matchingInternal(string $keyPattern, array $arr): array
     {
         $res = [];
 
-        foreach (static::all() as $key => $val) {
-            if (!Str::is($pattern, $key)) {
-                continue;
-            }
+        foreach ($arr as $key => $val) {
+            if (gettype($val) === 'array') {
+                $subRes = self::matchingInternal($keyPattern, $val);
+                if (count($subRes)) {
+                    $res[$key] = $subRes;
+                }
+            } else {
+                if (Str::is($keyPattern, $key)) {
+                    $res[$key] = $val;
+                }
 
-            $res[$key] = $val;
+            }
         }
 
         return $res;
