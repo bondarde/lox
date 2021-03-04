@@ -18,6 +18,7 @@ class Matrix extends FormComponent
     public function __construct(
         array $fields,
         $options,
+        string $pattern = '*',
         ?string $minValue = '',
         ?string $maxValue = '',
         bool $showPropLabel = true,
@@ -27,7 +28,7 @@ class Matrix extends FormComponent
     )
     {
         $this->props = $fields;
-        $this->options = self::toOptions($options);
+        $this->options = self::toOptions($options, $pattern);
         $this->minValue = $minValue;
         $this->maxValue = $maxValue;
         $this->model = $model;

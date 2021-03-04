@@ -16,6 +16,7 @@ class Select extends FormComponent
     public function __construct(
         string $name,
         $options,
+        string $pattern = '*',
         string $label = '',
         string $containerClass = '',
         bool $showErrors = false,
@@ -25,7 +26,7 @@ class Select extends FormComponent
         $this->label = $label;
         $this->name = $name;
         /** @noinspection PhpUnhandledExceptionInspection */
-        $this->options = self::toOptions($options);
+        $this->options = self::toOptions($options, $pattern);
         $this->old = self::toValue(null, $this->name, $model);
         $this->cssClasses = self::toCssClasses($containerClass, $this->name);
         $this->showErrors = $showErrors;

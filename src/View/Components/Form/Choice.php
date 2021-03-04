@@ -5,7 +5,7 @@ namespace BondarDe\LaravelToolbox\View\Components\Form;
 use Illuminate\Database\Eloquent\Model;
 use JetBrains\PhpStorm\ExpectedValues;
 
-class Choice extends FormComponent
+abstract class Choice extends FormComponent
 {
     public const TYPE_RADIO = 'radio';
     public const TYPE_CHECKBOX = 'checkbox';

@@ -50,7 +50,7 @@ abstract class FormComponent extends Component
         return implode(' ', $props);
     }
 
-    protected static function toOptions($options): array
+    protected static function toOptions($options, string $keyPattern): array
     {
         $type = gettype($options);
 
@@ -59,7 +59,7 @@ abstract class FormComponent extends Component
                 return $options;
             case 'string':
                 if (is_subclass_of($options, SurveyItemValues::class)) {
-                    return $options::all();
+                    return $options::matching($keyPattern);
                 }
 
                 /** @noinspection PhpUnhandledExceptionInspection */

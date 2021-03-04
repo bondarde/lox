@@ -9,6 +9,7 @@ class Radio extends Choice
     public function __construct(
         string $name,
         $options,
+        string $filter = '*',
         string $label = '',
         bool $isList = false,
         string $containerClass = '',
@@ -21,7 +22,7 @@ class Radio extends Choice
         parent::__construct(
             $label,
             $name,
-            self::toOptions($options),
+            self::toOptions($options, $filter),
             $isList,
             $containerClass,
             self::TYPE_RADIO,
