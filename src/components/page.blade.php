@@ -21,7 +21,7 @@
 
     <x-html-header/>
 </head>
-<body class="antialiased bg-gray-50 dark:bg-black text-gray-800 dark:text-gray-100">
+<body class="antialiased bg-gray-50 dark:bg-black text-gray-800 dark:text-gray-100 overflow-x-hidden">
 <div class="min-h-screen">
     <x-page-header/>
 
