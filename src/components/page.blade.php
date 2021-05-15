@@ -33,7 +33,7 @@
         <x-user-messages/>
     </div>
 
-    <div class="{{ $contentCssClasses ?? '' }} {{ $wrapContent ? 'container py-10' : '' }}">
+    <div class="{{ $attributes->get('contentCssClasses', '') }} {{ $wrapContent ? 'container py-10' : '' }}">
         {{ $slot }}
     </div>
 </div>
