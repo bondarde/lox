@@ -66,6 +66,11 @@ class LaravelToolboxServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/components', self::NAMESPACE);
         $this->loadViewComponentsAs('', self::COMPONENTS);
 
+        $this->configurePublishing();
+    }
+
+    private function configurePublishing()
+    {
         $this->publishes([
             __DIR__ . '/../resources/scss/' => resource_path('scss/laravel-toolbox'),
         ], 'styles');
