@@ -9,6 +9,7 @@ use BondarDe\LaravelToolbox\View\Components\Buttons\LightButton;
 use BondarDe\LaravelToolbox\View\Components\Buttons\LinkButton;
 use BondarDe\LaravelToolbox\View\Components\Buttons\SuccessButton;
 use BondarDe\LaravelToolbox\View\Components\Content;
+use BondarDe\LaravelToolbox\View\Components\ModelList;
 use BondarDe\LaravelToolbox\View\Components\Form\Boolean;
 use BondarDe\LaravelToolbox\View\Components\Form\Checkbox;
 use BondarDe\LaravelToolbox\View\Components\Form\FormActions;
@@ -59,6 +60,8 @@ class LaravelToolboxServiceProvider extends ServiceProvider
         'button-link' => LinkButton::class,
 
         'relative-timestamp' => RelativeTimestamp::class,
+
+        'model-list' => ModelList::class,
     ];
 
     public function boot()
