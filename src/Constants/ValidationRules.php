@@ -59,6 +59,11 @@ abstract class  ValidationRules
         return 'after:' . $dateOrField;
     }
 
+    public static function regex(string $pattern): string
+    {
+        return 'regex:/' . $pattern . '/';
+    }
+
 
     public static function requiredIfOtherFieldHasValue(Request $request, string $otherFieldName, $value): RequiredIf
     {
