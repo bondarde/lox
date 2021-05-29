@@ -75,7 +75,7 @@ class ModelList extends Component
 
         $this->links = $this->items->appends([
             'filters' => ModelListUrlQueryUtil::toQueryString($this->activeFilters),
-            'sort' => ModelListUrlQueryUtil::toQueryString($this->activeFilters),
+            'sort' => ModelListUrlQueryUtil::toQueryString($this->activeSorts),
         ])->links();
         $this->pageTitle = self::toPageTitle($this->items->total());
     }
