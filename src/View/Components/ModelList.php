@@ -5,11 +5,15 @@ namespace BondarDe\LaravelToolbox\View\Components;
 use BondarDe\LaravelToolbox\Exceptions\IllegalStateException;
 use BondarDe\LaravelToolbox\ModelList\ModelFilter;
 use BondarDe\LaravelToolbox\ModelList\ModelFilters;
+use BondarDe\LaravelToolbox\ModelList\ModelListFilterable;
+use BondarDe\LaravelToolbox\ModelList\ModelListQueryable;
+use BondarDe\LaravelToolbox\ModelList\ModelListSortable;
 use BondarDe\LaravelToolbox\ModelList\ModelSort;
 use BondarDe\LaravelToolbox\ModelList\ModelSorts;
 use BondarDe\LaravelToolbox\Support\ModelList\ModelListFilterStatsUtil;
 use BondarDe\LaravelToolbox\Support\ModelList\ModelListUrlQueryUtil;
 use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -34,25 +38,13 @@ class ModelList extends Component
     public function __construct(
         Request $request,
         string $model,
-        string $filters = null,
-        string $sorts = null,
         bool $withTrashed = false
     )
     {
         self::assertIsSubclassOf($model, Model::class);
-        if ($filters) {
-            self::assertIsSubclassOf($filters, ModelFilters::class);
-        } else {
-            $filters = new class extends ModelFilters {
-            };
-        }
-        if ($sorts) {
-            self::assertIsSubclassOf($sorts, ModelSorts::class);
-        } else {
-            $sorts = new class extends ModelSorts {
-            };
-        }
 
+        $filters = self::toModelFilters($model);
+        $sorts = self::toModelSorts($model);
 
         $this->allFilters = self::toArrayOfFiltersArray($filters::all());
         $this->allSorts = $sorts::all();
@@ -93,8 +85,8 @@ class ModelList extends Component
         bool $withTrashed
     ): LengthAwarePaginator
     {
-        /** @var Model $model */
-        $query = $model::query();
+        $query = self::toQueryBuilder($model);
+
         if ($withTrashed) {
             $query->withTrashed();
         }
@@ -189,6 +181,39 @@ class ModelList extends Component
         }
 
         return $allFilters;
+    }
+
+    private static function toQueryBuilder(string $model): EloquentBuilder
+    {
+        /** @var Model $model */
+
+        if (is_subclass_of($model, ModelListQueryable::class)) {
+            return $model::getModelListQuery();
+        }
+
+        return $model::query();
+    }
+
+    private static function toModelFilters(string $model): ModelFilters
+    {
+        if (is_subclass_of($model, ModelListFilterable::class)) {
+            $filters = (new $model)::getModelListFilters();
+            return new $filters;
+        }
+
+        return new class extends ModelFilters {
+        };
+    }
+
+    private static function toModelSorts(string $model): ModelSorts
+    {
+        if (is_subclass_of($model, ModelListSortable::class)) {
+            $sorts = (new $model)::getModelListSorts();
+            return new $sorts;
+        }
+
+        return new class extends ModelSorts {
+        };
     }
 
     public function isFilterActive(string $filter): bool
