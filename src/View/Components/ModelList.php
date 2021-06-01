@@ -51,7 +51,7 @@ class ModelList extends Component
 
         $this->activeFilters = explode(',', $request->get('filters') ?? $filters::DEFAULT_FILTER);
         $this->activeSorts = explode(',', $request->get('sort') ?? $sorts::DEFAULT_SORT);
-        $activePage = $request->get('page') ?? 1;
+        $activePage = $request->get('page', 1);
 
         $this->filterStats = ModelListFilterStatsUtil::toFilterStats($model, $this->allFilters, $this->activeFilters);
 
