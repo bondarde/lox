@@ -14,6 +14,7 @@ abstract class  ValidationRules
     const OPTIONAL = 'nullable';
     const STOP_ON_FIRST_ERROR = 'bail';
 
+    const TYPE_NUMERIC = 'numeric';
     const TYPE_STRING = 'string';
     const TYPE_INTEGER = 'int';
     const TYPE_BOOLEAN = 'boolean';
