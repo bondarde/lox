@@ -20,6 +20,7 @@ use BondarDe\LaravelToolbox\View\Components\Form\Matrix;
 use BondarDe\LaravelToolbox\View\Components\Form\Radio;
 use BondarDe\LaravelToolbox\View\Components\Form\Select;
 use BondarDe\LaravelToolbox\View\Components\Form\Textarea;
+use BondarDe\LaravelToolbox\View\Components\ModelMeta;
 use BondarDe\LaravelToolbox\View\Components\Page;
 use BondarDe\LaravelToolbox\View\Components\RelativeTimestamp;
 use BondarDe\LaravelToolbox\View\Components\Survey;
@@ -62,6 +63,7 @@ class LaravelToolboxServiceProvider extends ServiceProvider
         'relative-timestamp' => RelativeTimestamp::class,
 
         'model-list' => ModelList::class,
+        'model-meta' => ModelMeta::class,
     ];
 
     public function boot()

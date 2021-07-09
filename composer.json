@@ -10,12 +10,12 @@
     ],
     "require": {
         "php": "^7.4|^8.0",
+        "ext-json": "*",
         "laravel/framework": "^8.20",
         "bond211/php-utils": "^0.3.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.4",
-        "ext-json": "*",
         "facade/ignition": "^2.5",
         "nunomaduro/collision": "^5.1"
     },
