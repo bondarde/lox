@@ -21,6 +21,9 @@ use Illuminate\View\Component;
 
 class ModelList extends Component
 {
+    public const URL_PARAM_FILTERS = 'filters';
+    public const URL_PARAM_SORTS = 'sort';
+
     public LengthAwarePaginator $items;
     public string $pageTitle;
     public Htmlable $links;
@@ -49,8 +52,8 @@ class ModelList extends Component
         $this->allFilters = self::toArrayOfFiltersArray($filters::all());
         $this->allSorts = $sorts::all();
 
-        $this->activeFilters = explode(',', $request->get('filters') ?? $filters::DEFAULT_FILTER);
-        $this->activeSorts = explode(',', $request->get('sort') ?? $sorts::DEFAULT_SORT);
+        $this->activeFilters = explode(',', $request->get(self::URL_PARAM_FILTERS) ?? $filters::DEFAULT_FILTER);
+        $this->activeSorts = explode(',', $request->get(self::URL_PARAM_SORTS) ?? $sorts::DEFAULT_SORT);
         $activePage = $request->get('page', 1);
 
         $this->filterStats = ModelListFilterStatsUtil::toFilterStats($model, $this->allFilters, $this->activeFilters);
@@ -66,8 +69,8 @@ class ModelList extends Component
         );
 
         $this->links = $this->items->appends([
-            'filters' => ModelListUrlQueryUtil::toQueryString($this->activeFilters),
-            'sort' => ModelListUrlQueryUtil::toQueryString($this->activeSorts),
+            self::URL_PARAM_FILTERS => ModelListUrlQueryUtil::toQueryString($this->activeFilters),
+            self::URL_PARAM_SORTS => ModelListUrlQueryUtil::toQueryString($this->activeSorts),
         ])->links();
         $this->pageTitle = self::toPageTitle($this->items->total());
     }
