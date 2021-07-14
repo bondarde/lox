@@ -23,6 +23,8 @@ class ModelList extends Component
 {
     public const URL_PARAM_FILTERS = 'filters';
     public const URL_PARAM_SORTS = 'sort';
+    public const URL_PARAM_PAGE = 'page';
+    public const URL_PARAM_SEPARATOR = ',';
 
     public LengthAwarePaginator $items;
     public string $pageTitle;
@@ -52,9 +54,9 @@ class ModelList extends Component
         $this->allFilters = self::toArrayOfFiltersArray($filters::all());
         $this->allSorts = $sorts::all();
 
-        $this->activeFilters = explode(',', $request->get(self::URL_PARAM_FILTERS) ?? $filters::DEFAULT_FILTER);
-        $this->activeSorts = explode(',', $request->get(self::URL_PARAM_SORTS) ?? $sorts::DEFAULT_SORT);
-        $activePage = $request->get('page', 1);
+        $this->activeFilters = explode(self::URL_PARAM_SEPARATOR, $request->get(self::URL_PARAM_FILTERS) ?? $filters::DEFAULT_FILTER);
+        $this->activeSorts = explode(self::URL_PARAM_SEPARATOR, $request->get(self::URL_PARAM_SORTS) ?? $sorts::DEFAULT_SORT);
+        $activePage = $request->get(self::URL_PARAM_PAGE, 1);
 
         $this->filterStats = ModelListFilterStatsUtil::toFilterStats($model, $this->allFilters, $this->activeFilters);
 
