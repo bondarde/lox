@@ -10,11 +10,16 @@ class DefaultButton extends Component implements Button
     public array $defaultAttributes;
 
     public function __construct(
+        bool   $uppercase = false,
         string $tag = self::TAG_BUTTON
     )
     {
         $this->tag = $tag;
         $this->defaultAttributes = $this->makeAttributes();
+
+        if ($uppercase) {
+            $this->defaultAttributes[] = ' font-semibold text-sm uppercase tracking-widest';
+        }
 
         if ($tag === self::TAG_BUTTON) {
             $this->defaultAttributes['type'] = 'submit';
