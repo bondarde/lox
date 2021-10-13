@@ -12,6 +12,7 @@ class Page extends Component
     public string $title;
     public ?string $h1 = null;
     public bool $livewire;
+    public $breadcrumbAttr;
 
     public string $metaDescription = '';
     public array $cssFiles;
@@ -25,7 +26,8 @@ class Page extends Component
         ?string $metaRobots = null,
         ?string $title = null,
         ?string $h1 = null,
-        bool $livewire = false
+        bool $livewire = false,
+        $breadcrumbAttr = null
     )
     {
         $this->env = config('app.env');
@@ -39,6 +41,7 @@ class Page extends Component
         $this->cssFiles = self::toCssFiles($this->env);
         $this->jsFiles = self::toJsFiles($this->env);
         $this->livewire = $livewire;
+        $this->breadcrumbAttr = $breadcrumbAttr;
     }
 
     private static function toCssFiles(string $env): array

@@ -40,7 +40,9 @@
 
 @stack('modals')
 
-<x-page-footer/>
+<x-page-footer
+    :breadcrumbAttr="$breadcrumbAttr"
+/>
 
 @if($livewire)
     @livewireScripts
