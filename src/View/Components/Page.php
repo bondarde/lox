@@ -13,6 +13,7 @@ class Page extends Component
     public ?string $h1 = null;
     public bool $livewire;
     public $breadcrumbAttr;
+    public ?string $shareImage;
 
     public string $metaDescription = '';
     public array $cssFiles;
@@ -21,13 +22,14 @@ class Page extends Component
     private string $env;
 
     public function __construct(
-        bool $wrapContent = true,
-        string $metaDescription = '',
+        bool    $wrapContent = true,
+        string  $metaDescription = '',
         ?string $metaRobots = null,
         ?string $title = null,
         ?string $h1 = null,
-        bool $livewire = false,
-        $breadcrumbAttr = null
+        bool    $livewire = false,
+                $breadcrumbAttr = null,
+        ?string $shareImage = null
     )
     {
         $this->env = config('app.env');
@@ -42,6 +44,7 @@ class Page extends Component
         $this->jsFiles = self::toJsFiles($this->env);
         $this->livewire = $livewire;
         $this->breadcrumbAttr = $breadcrumbAttr;
+        $this->shareImage = $shareImage;
     }
 
     private static function toCssFiles(string $env): array
