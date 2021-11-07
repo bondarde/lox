@@ -2,7 +2,7 @@
 
 namespace BondarDe\LaravelToolbox\Surveys;
 
-use Bond211\Utils\Support\Arrays;
+use BondarDe\Utils\Support\Arrays;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
