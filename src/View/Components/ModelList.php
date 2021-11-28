@@ -10,10 +10,11 @@ use BondarDe\LaravelToolbox\ModelList\ModelListQueryable;
 use BondarDe\LaravelToolbox\ModelList\ModelListSortable;
 use BondarDe\LaravelToolbox\ModelList\ModelSort;
 use BondarDe\LaravelToolbox\ModelList\ModelSorts;
+use BondarDe\LaravelToolbox\ModelListData;
 use BondarDe\LaravelToolbox\Support\ModelList\ModelListFilterStatsUtil;
 use BondarDe\LaravelToolbox\Support\ModelList\ModelListUrlQueryUtil;
 use Illuminate\Contracts\Support\Htmlable;
-use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -42,33 +43,22 @@ class ModelList extends Component
      */
     public function __construct(
         Request $request,
-        string $model,
-        bool $withTrashed = false
+        string  $model,
+        bool    $withTrashed = false
     )
     {
         self::assertIsSubclassOf($model, Model::class);
 
-        $filters = self::toModelFilters($model);
-        $sorts = self::toModelSorts($model);
+        $modelListData = self::toModelListData($model, $request);
 
-        $this->allFilters = self::toArrayOfFiltersArray($filters::all());
-        $this->allSorts = $sorts::all();
+        $this->allFilters = $modelListData->allFilters;
+        $this->allSorts = $modelListData->allSorts;
+        $this->activeFilters = $modelListData->activeFilters;
+        $this->activeSorts = $modelListData->activeSorts;
 
-        $this->activeFilters = explode(self::URL_PARAM_SEPARATOR, $request->get(self::URL_PARAM_FILTERS) ?? $filters::DEFAULT_FILTER);
-        $this->activeSorts = explode(self::URL_PARAM_SEPARATOR, $request->get(self::URL_PARAM_SORTS) ?? $sorts::DEFAULT_SORT);
-        $activePage = $request->get(self::URL_PARAM_PAGE, 1);
-
+        $query = self::toUnpaginatedQuery($modelListData, $withTrashed);
+        $this->items = self::toItems($model, $query, $modelListData->activePage);
         $this->filterStats = ModelListFilterStatsUtil::toFilterStats($model, $this->allFilters, $this->activeFilters);
-
-        $this->items = self::toItems(
-            $model,
-            $activePage,
-            $this->allFilters,
-            $this->activeFilters,
-            $this->allSorts,
-            $this->activeSorts,
-            $withTrashed
-        );
 
         $this->links = $this->items->appends([
             self::URL_PARAM_FILTERS => ModelListUrlQueryUtil::toQueryString($this->activeFilters),
@@ -77,24 +67,48 @@ class ModelList extends Component
         $this->pageTitle = self::toPageTitle($this->items->total());
     }
 
+    public static function toModelListData(
+        string  $model,
+        Request $request
+    ): ModelListData
+    {
+        $filters = self::toModelFilters($model);
+        $sorts = self::toModelSorts($model);
+
+        $activePage = $request->get(self::URL_PARAM_PAGE, 1);
+        $allFilters = self::toArrayOfFiltersArray($filters::all());
+        $allSorts = $sorts::all();
+        $activeFilters = explode(self::URL_PARAM_SEPARATOR, $request->get(self::URL_PARAM_FILTERS) ?? $filters::DEFAULT_FILTER);
+        $activeSorts = explode(self::URL_PARAM_SEPARATOR, $request->get(self::URL_PARAM_SORTS) ?? $sorts::DEFAULT_SORT);
+
+        return new ModelListData(
+            $model,
+            $activePage,
+            $allFilters,
+            $activeFilters,
+            $allSorts,
+            $activeSorts,
+        );
+    }
+
     /**
      * @throws IllegalStateException
      */
-    private static function toItems(
-        string $model,
-        int $page,
-        array $allFilters,
-        array $activeFilters,
-        array $allSorts,
-        array $activeSorts,
-        bool $withTrashed
-    ): LengthAwarePaginator
+    public static function toUnpaginatedQuery(
+        ModelListData $modelListData,
+        bool          $withTrashed = false
+    ): Builder
     {
-        $query = self::toQueryBuilder($model);
+        $query = self::toQueryBuilder($modelListData->model);
 
         if ($withTrashed) {
             $query->withTrashed();
         }
+
+        $activeFilters = $modelListData->activeFilters;
+        $allFilters = $modelListData->allFilters;
+        $activeSorts = $modelListData->activeSorts;
+        $allSorts = $modelListData->allSorts;
 
         foreach ($activeFilters as $filterKey) {
             $filter = self::findFilterByKey($allFilters, $filterKey);
@@ -105,6 +119,15 @@ class ModelList extends Component
             $query->orderByRaw($sort->sql);
         }
 
+        return $query;
+    }
+
+    private static function toItems(
+        string  $model,
+        Builder $query,
+        int     $page
+    ): LengthAwarePaginator
+    {
         return $query
             ->paginate(
                 (new $model)->getPerPage(),
@@ -188,7 +211,7 @@ class ModelList extends Component
         return $allFilters;
     }
 
-    private static function toQueryBuilder(string $model): EloquentBuilder
+    private static function toQueryBuilder(string $model): Builder
     {
         /** @var Model $model */
 
@@ -203,6 +226,7 @@ class ModelList extends Component
     {
         if (is_subclass_of($model, ModelListFilterable::class)) {
             $filters = (new $model)::getModelListFilters();
+
             return new $filters;
         }
 
@@ -214,6 +238,7 @@ class ModelList extends Component
     {
         if (is_subclass_of($model, ModelListSortable::class)) {
             $sorts = (new $model)::getModelListSorts();
+
             return new $sorts;
         }
 
@@ -255,7 +280,7 @@ class ModelList extends Component
     {
         if (!$filter) {
             $filters = $this->activeFilters;
-        } elseif ($filter === ModelFilters::ALL) {
+        } else if ($filter === ModelFilters::ALL) {
             return ModelFilters::ALL;
         } else {
             $idx = ModelListUrlQueryUtil::toFilterIndex($this->activeFilters, $filter);
