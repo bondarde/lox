@@ -84,6 +84,14 @@ class Page extends Component
 
     public function render()
     {
-        return view('laravel-toolbox::page');
+        $height = config('laravel-toolbox.page.height') ?? 'min-h-screen';
+        $background = config('laravel-toolbox.page.background') ?? 'bg-gray-50 dark:bg-black';
+        $text = config('laravel-toolbox.page.text') ?? 'text-gray-800 dark:text-gray-100';
+
+        return view('laravel-toolbox::page', compact(
+            'height',
+            'background',
+            'text',
+        ));
     }
 }

@@ -9,7 +9,6 @@ use BondarDe\LaravelToolbox\View\Components\Buttons\LightButton;
 use BondarDe\LaravelToolbox\View\Components\Buttons\LinkButton;
 use BondarDe\LaravelToolbox\View\Components\Buttons\SuccessButton;
 use BondarDe\LaravelToolbox\View\Components\Content;
-use BondarDe\LaravelToolbox\View\Components\ModelList;
 use BondarDe\LaravelToolbox\View\Components\Form\Boolean;
 use BondarDe\LaravelToolbox\View\Components\Form\Checkbox;
 use BondarDe\LaravelToolbox\View\Components\Form\FormActions;
@@ -20,6 +19,7 @@ use BondarDe\LaravelToolbox\View\Components\Form\Matrix;
 use BondarDe\LaravelToolbox\View\Components\Form\Radio;
 use BondarDe\LaravelToolbox\View\Components\Form\Select;
 use BondarDe\LaravelToolbox\View\Components\Form\Textarea;
+use BondarDe\LaravelToolbox\View\Components\ModelList;
 use BondarDe\LaravelToolbox\View\Components\ModelMeta;
 use BondarDe\LaravelToolbox\View\Components\Page;
 use BondarDe\LaravelToolbox\View\Components\RelativeTimestamp;
@@ -65,6 +65,15 @@ class LaravelToolboxServiceProvider extends ServiceProvider
         'model-list' => ModelList::class,
         'model-meta' => ModelMeta::class,
     ];
+
+    public function register()
+    {
+        parent::register();
+
+        $this->mergeConfigFrom(
+            __DIR__ . '/config/laravel-toolbox.php', 'laravel-toolbox'
+        );
+    }
 
     public function boot()
     {

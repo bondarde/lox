@@ -25,8 +25,8 @@
         :shareImage="$shareImage"
     />
 </head>
-<body class="antialiased bg-gray-50 dark:bg-black text-gray-800 dark:text-gray-100 overflow-x-hidden">
-<div class="min-h-screen">
+<body class="antialiased overflow-x-hidden {{ $background }} {{ $text }}">
+<div class="{{ $height }}">
     <x-page-header/>
 
     <div class="container">
