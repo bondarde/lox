@@ -18,7 +18,7 @@
     <textarea
         {{ $attributes->merge([
             'name' => $name,
-            'class' => 'flex-grow border-none outline-none p-2 dark:bg-gray-800 ' . $inputClass,
+            'class' => 'grow border-none outline-none p-2 dark:bg-gray-800 ' . $inputClass,
             'id' => 'form-input-' . $name,
             'autocomplete' => 'off',
             'rows' => '6',

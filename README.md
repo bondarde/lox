@@ -12,11 +12,11 @@ Publish:
 
     php artisan vendor:publish --provider="BondarDe\LaravelToolbox\LaravelToolboxServiceProvider" --tag=styles
 
-Add them to your `resources/app.scss`:
+Add them to your `resources/scss/app.scss`:
 
-    @import 'tailwindcss/base';
-    @import 'tailwindcss/components';
-    @import 'tailwindcss/utilities';
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
 
     @import 'laravel-toolbox/base';
     @import 'laravel-toolbox/tools';
@@ -47,11 +47,13 @@ Burger menu as Tailwind plugin:
             "production": "mix --production"
         },
         "devDependencies": {
+            "autoprefixer": "^10.4.0",
             "laravel-mix": "^6.0.5",
+            "postcss": "^8.4.4",
             "resolve-url-loader": "^3.1.0",
             "sass": "^1.30.0",
             "sass-loader": "^8.0.2",
-            "tailwindcss": "^2.0.2"
+            "tailwindcss": "^3.0.1"
         }
     }
 
