@@ -9,6 +9,8 @@ use BondarDe\LaravelToolbox\View\Components\Buttons\LightButton;
 use BondarDe\LaravelToolbox\View\Components\Buttons\LinkButton;
 use BondarDe\LaravelToolbox\View\Components\Buttons\SuccessButton;
 use BondarDe\LaravelToolbox\View\Components\Content;
+use BondarDe\LaravelToolbox\View\Components\DateDiff;
+use BondarDe\LaravelToolbox\View\Components\DatesDiff;
 use BondarDe\LaravelToolbox\View\Components\Form\Boolean;
 use BondarDe\LaravelToolbox\View\Components\Form\Checkbox;
 use BondarDe\LaravelToolbox\View\Components\Form\FormActions;
@@ -21,6 +23,7 @@ use BondarDe\LaravelToolbox\View\Components\Form\Select;
 use BondarDe\LaravelToolbox\View\Components\Form\Textarea;
 use BondarDe\LaravelToolbox\View\Components\ModelList;
 use BondarDe\LaravelToolbox\View\Components\ModelMeta;
+use BondarDe\LaravelToolbox\View\Components\ModelSummary;
 use BondarDe\LaravelToolbox\View\Components\Page;
 use BondarDe\LaravelToolbox\View\Components\RelativeTimestamp;
 use BondarDe\LaravelToolbox\View\Components\Survey;
@@ -63,6 +66,7 @@ class LaravelToolboxServiceProvider extends ServiceProvider
         'relative-timestamp' => RelativeTimestamp::class,
 
         'model-list' => ModelList::class,
+        'model-summary' => ModelSummary::class,
         'model-meta' => ModelMeta::class,
     ];
 
