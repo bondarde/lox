@@ -65,6 +65,10 @@ class ModelSummary extends Component
 
         $value = $this->attributesValues[$attributeName] ?? '—';
 
+        if (is_object($value) || is_array($value)) {
+            return '<pre>' . json_encode($value, JSON_PRETTY_PRINT) . '</pre>';
+        }
+
         return nl2br(e($value));
     }
 
