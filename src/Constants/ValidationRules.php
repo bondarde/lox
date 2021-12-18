@@ -65,6 +65,11 @@ abstract class  ValidationRules
         return 'regex:/' . $pattern . '/';
     }
 
+    public static function unique(string $tableName, string $fieldName, string $exceptId): string
+    {
+        return 'unique:' . $tableName . ',' . $fieldName . ',' . $exceptId;
+    }
+
 
     public static function requiredIfOtherFieldHasValue(Request $request, string $otherFieldName, $value): RequiredIf
     {
