@@ -77,6 +77,13 @@ Configuration:
         mix
             .setPublicPath('./.build/dist')
             .disableNotifications()
+    } else {
+        // show debug output for dev build
+        mix.webpackConfig({
+            stats: {
+                children: true,
+            },
+        })
     }
 
 
@@ -123,3 +130,62 @@ For page component you have to create page header and footer:
 ### Buttons
 
 TBD
+
+
+## Authentication
+
+Following files have to be present:
+- .env.example
+- routes/web.php
+
+
+Install Jetstream:
+
+    composer require laravel/jetstream
+
+    php artisan jetstream:install livewire
+
+
+For teams support:
+
+    php artisan jetstream:install livewire --teams
+
+
+Adjust migrations if adjusting existing application
+
+    php artisan migrate
+
+
+    npm install && npm run dev
+
+
+    php artisan vendor:publish --tag=jetstream-views
+
+
+## ACL
+
+    composer require mateusjunges/laravel-acl
+
+
+    php artisan acl:install
+
+
+Customize table names in `config/acl.php`:
+
+    'tables' => [
+        'groups'                      => 'acl_groups',
+        'permissions'                 => 'acl_permissions',
+        'users'                       => 'users',
+        'group_has_permissions'       => 'acl_group_permissions',
+        'user_has_permissions'        => 'acl_user_permissions',
+        'user_has_groups'             => 'acl_user_groups',
+    ],
+
+
+Now, run migrations:
+
+    php artisan migrate
+
+
+
+Add `UsersTrait` to the `User` model:
