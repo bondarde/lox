@@ -25,7 +25,9 @@ class BladeComponentRenderer
     ): View
     {
         if (!class_exists($componentClassName)) {
-            throw new IllegalStateException('Blade component class not found');
+            $message = 'Blade component class not found: "' . $componentClassName . '"';
+
+            throw new IllegalStateException($message);
         }
 
         $reflection = (new ReflectionClass($componentClassName))->getConstructor();
