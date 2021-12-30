@@ -9,8 +9,6 @@ use BondarDe\LaravelToolbox\View\Components\Buttons\LightButton;
 use BondarDe\LaravelToolbox\View\Components\Buttons\LinkButton;
 use BondarDe\LaravelToolbox\View\Components\Buttons\SuccessButton;
 use BondarDe\LaravelToolbox\View\Components\Content;
-use BondarDe\LaravelToolbox\View\Components\DateDiff;
-use BondarDe\LaravelToolbox\View\Components\DatesDiff;
 use BondarDe\LaravelToolbox\View\Components\Form\Boolean;
 use BondarDe\LaravelToolbox\View\Components\Form\Checkbox;
 use BondarDe\LaravelToolbox\View\Components\Form\FormActions;
