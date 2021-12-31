@@ -33,6 +33,11 @@ Burger menu as Tailwind plugin:
     php artisan vendor:publish --provider="BondarDe\LaravelToolbox\LaravelToolboxServiceProvider" --tag=tailwind-burger-menu
 
 
+Views:
+
+    php artisan vendor:publish --provider="BondarDe\LaravelToolbox\LaravelToolboxServiceProvider" --tag=auth-views
+
+
 ### Laravel Mix & Tailwind CSS
 
 `package.json`:

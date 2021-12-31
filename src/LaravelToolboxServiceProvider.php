@@ -81,6 +81,7 @@ class LaravelToolboxServiceProvider extends ServiceProvider
     {
         $this->loadViewsFrom(__DIR__ . '/components', self::NAMESPACE);
         $this->loadViewComponentsAs('', self::COMPONENTS);
+        $this->loadRoutesFrom(__DIR__ . '/../routes/user.php');
 
         $this->configurePublishing();
     }
@@ -95,5 +96,10 @@ class LaravelToolboxServiceProvider extends ServiceProvider
             __DIR__ . '/../resources/tailwind/burger-menu' => resource_path('tailwind'),
             __DIR__ . '/../resources/tailwind/tailwind.config.js' => base_path('tailwind.config.js'),
         ], 'tailwind');
+
+        $this->publishes([
+            __DIR__ . '/../resources/views/auth' => resource_path('views/auth'),
+            __DIR__ . '/../resources/views/profile' => resource_path('views/profile'),
+        ], 'auth-views');
     }
 }
