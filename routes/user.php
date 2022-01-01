@@ -3,6 +3,8 @@
 use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\DeleteAccountConfirmationController;
 use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\DeleteAccountDeleteController;
 use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\LogoutOtherBrowserSessionsController;
+use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\RecoveryCodesResetConfirmController;
+use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\RecoveryCodesResetStartController;
 use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\SecondFactorDisableConfirmController;
 use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\SecondFactorDisableStartController;
 use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\SecondFactorEnableConfirmController;
@@ -50,6 +52,9 @@ Route::group([
 
         Route::get('/user/profile/disable-second-factor', SecondFactorDisableStartController::class)->name('user.profile.second-factor.disable.start');
         Route::post('/user/profile/disable-second-factor', SecondFactorDisableConfirmController::class)->name('user.profile.second-factor.disable.confirm');
+
+        Route::get('/user/profile/reset-recovery-codes', RecoveryCodesResetStartController::class)->name('user.profile.reset-recovery-codes.start');
+        Route::post('/user/profile/reset-recovery-codes', RecoveryCodesResetConfirmController::class)->name('user.profile.reset-recovery-codes.confirm');
 
         Route::post('/user/profile/logout-other-browser-sessions', LogoutOtherBrowserSessionsController::class)->name('user.profile.logout-other-browser-sessions');
 
