@@ -3,7 +3,9 @@
     h1="Login"
     metaRobots="noindex, nofollow"
 >
-    <x-validation-errors class="max-w-xl"/>
+    <x-validation-errors
+        class="max-w-xl mb-8"
+    />
 
     <x-content class="max-w-xl">
 
@@ -13,7 +15,10 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('login') }}">
+        <form
+            method="post"
+            action="{{ route('login') }}"
+        >
             @csrf
 
             <div>
