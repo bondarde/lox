@@ -22,6 +22,12 @@
     <div class="flex items-center mt-8">
 
         @if($user->{\App\Models\User::FIELD_TWO_FACTOR_SECRET})
+            <x-button-red
+                :tag="\BondarDe\LaravelToolbox\View\Components\Buttons\Button::TAG_LINK"
+                :href="route('user.profile.second-factor.disable.start')"
+            >
+                {{ __('Disable') }}
+            </x-button-red>
         @else
             <x-button
                 :tag="\BondarDe\LaravelToolbox\View\Components\Buttons\Button::TAG_LINK"

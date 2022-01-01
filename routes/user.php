@@ -3,6 +3,8 @@
 use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\DeleteAccountConfirmationController;
 use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\DeleteAccountDeleteController;
 use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\LogoutOtherBrowserSessionsController;
+use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\SecondFactorDisableConfirmController;
+use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\SecondFactorDisableStartController;
 use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\SecondFactorEnableConfirmController;
 use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\SecondFactorEnableStartController;
 use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\UserPasswordEditController;
@@ -45,6 +47,9 @@ Route::group([
     ], function () {
         Route::get('/user/profile/enable-second-factor', SecondFactorEnableStartController::class)->name('user.profile.second-factor.enable.start');
         Route::post('/user/profile/enable-second-factor', SecondFactorEnableConfirmController::class)->name('user.profile.second-factor.enable.confirm');
+
+        Route::get('/user/profile/disable-second-factor', SecondFactorDisableStartController::class)->name('user.profile.second-factor.disable.start');
+        Route::post('/user/profile/disable-second-factor', SecondFactorDisableConfirmController::class)->name('user.profile.second-factor.disable.confirm');
 
         Route::post('/user/profile/logout-other-browser-sessions', LogoutOtherBrowserSessionsController::class)->name('user.profile.logout-other-browser-sessions');
 
