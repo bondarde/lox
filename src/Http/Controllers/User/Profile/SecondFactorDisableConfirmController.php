@@ -4,7 +4,6 @@ namespace BondarDe\LaravelToolbox\Http\Controllers\User\Profile;
 
 use App\Models\User;
 use BondarDe\LaravelToolbox\Http\Requests\User\Profile\SecondFactorDisableRequest;
-use BondarDe\LaravelToolbox\Http\Requests\User\Profile\SecondFactorEnableRequest;
 use Illuminate\Validation\ValidationException;
 use Laravel\Fortify\Contracts\TwoFactorAuthenticationProvider;
 
@@ -21,7 +20,7 @@ class SecondFactorDisableConfirmController
 
         if (!$verificationPassed) {
             throw ValidationException::withMessages([
-                SecondFactorEnableRequest::CONFIRMATION_CODE => __('Invalid confirmation code'),
+                SecondFactorDisableRequest::CONFIRMATION_CODE => __('Invalid confirmation code'),
             ]);
         }
 
