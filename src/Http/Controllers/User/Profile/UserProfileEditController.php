@@ -2,15 +2,16 @@
 
 namespace BondarDe\LaravelToolbox\Http\Controllers\User\Profile;
 
+use BondarDe\LaravelToolbox\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 
-class UserProfileEditController
+class UserProfileEditController extends BaseController
 {
     public function __invoke(Request $request)
     {
         $user = $request->user();
 
-        return view('profile.edit-profile-information', compact(
+        return self::viewWithFallback('profile.edit-profile-information', compact(
             'user',
         ));
     }

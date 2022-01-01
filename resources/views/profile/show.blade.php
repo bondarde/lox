@@ -3,12 +3,12 @@
     :h1="__('Profile')"
 >
     <div class="max-w-xl">
-        @include('profile._profile-information')
-        @include('profile._password')
-        @include('profile._second-factor')
-        @include('profile._logout-other-browser-sessions', [
+        @includeFirst(['profile._profile-information', \BondarDe\LaravelToolbox\LaravelToolboxServiceProvider::NAMESPACE.'::profile._profile-information'])
+        @includeFirst(['profile._password', \BondarDe\LaravelToolbox\LaravelToolboxServiceProvider::NAMESPACE.'::profile._password'])
+        @includeFirst(['profile._second-factor', \BondarDe\LaravelToolbox\LaravelToolboxServiceProvider::NAMESPACE.'::profile._second-factor'])
+        @includeFirst(['profile._logout-other-browser-sessions', \BondarDe\LaravelToolbox\LaravelToolboxServiceProvider::NAMESPACE.'::profile._logout-other-browser-sessions'], [
             'sessions' => \App\Services\UsersService::getSessions($user),
         ])
-        @include('profile._delete-account')
+        @includeFirst(['profile._delete-account', \BondarDe\LaravelToolbox\LaravelToolboxServiceProvider::NAMESPACE.'::profile._delete-account'])
     </div>
 </x-page>

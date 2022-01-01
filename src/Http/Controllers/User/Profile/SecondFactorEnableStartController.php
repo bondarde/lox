@@ -3,11 +3,12 @@
 namespace BondarDe\LaravelToolbox\Http\Controllers\User\Profile;
 
 use App\Models\User;
+use BondarDe\LaravelToolbox\Http\Controllers\BaseController;
 use BondarDe\LaravelToolbox\Support\OneTimePasswordUtil;
 use Illuminate\Http\Request;
 use Laravel\Fortify\Contracts\TwoFactorAuthenticationProvider;
 
-class SecondFactorEnableStartController
+class SecondFactorEnableStartController extends BaseController
 {
     public function __invoke(Request $request, TwoFactorAuthenticationProvider $provider)
     {
@@ -20,7 +21,7 @@ class SecondFactorEnableStartController
 
         $pageTitle = __('Two Factor Authentication') . ': ' . __('Enable');
 
-        return view('profile.enable-second-factor', compact(
+        return self::viewWithFallback('profile.enable-second-factor', compact(
             'pageTitle',
             'secretKey',
             'recoveryCodes',

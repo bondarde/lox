@@ -2,10 +2,12 @@
 
 namespace BondarDe\LaravelToolbox\Http\Controllers\User\Profile;
 
-class UserPasswordEditController
+use BondarDe\LaravelToolbox\Http\Controllers\BaseController;
+
+class UserPasswordEditController extends BaseController
 {
     public function __invoke()
     {
-        return view('profile.update-password');
+        return self::viewWithFallback('profile.update-password');
     }
 }
