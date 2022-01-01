@@ -9,7 +9,21 @@ use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\UserPasswordEditContro
 use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\UserPasswordUpdateController;
 use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\UserProfileEditController;
 use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\UserProfileUpdateController;
+use BondarDe\LaravelToolbox\Http\Controllers\User\TwoFactorRecoveryController;
 use Illuminate\Support\Facades\Route;
+use Laravel\Fortify\Features;
+
+
+Route::group([
+    'middleware' => config('fortify.middleware', ['web']),
+], function () {
+    if (Features::enabled(Features::twoFactorAuthentication())) {
+        Route::get('/two-factor-recovery', TwoFactorRecoveryController::class)->name('two-factor.recovery')
+            ->middleware([
+                'guest:' . config('fortify.guard'),
+            ]);
+    }
+});
 
 Route::group([
     'middleware' => [
