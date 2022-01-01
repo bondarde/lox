@@ -1,6 +1,7 @@
 <x-page
     :title="__('Password confirmation')"
     :h1="__('Password confirmation')"
+    metaRobots="noindex, nofollow"
 >
     <x-content class="max-w-xl">
         <x-validation-errors class="mb-4"/>
