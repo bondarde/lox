@@ -3,6 +3,8 @@
 use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\DeleteAccountConfirmationController;
 use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\DeleteAccountDeleteController;
 use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\LogoutOtherBrowserSessionsController;
+use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\SecondFactorEnableConfirmController;
+use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\SecondFactorEnableStartController;
 use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\UserPasswordEditController;
 use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\UserPasswordUpdateController;
 use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\UserProfileEditController;
@@ -21,6 +23,15 @@ Route::group([
 
     Route::get('/user/profile/update-password', UserPasswordEditController::class)->name('user.profile.password.edit');
     Route::post('/user/profile/update-password', UserPasswordUpdateController::class)->name('user.profile.password.update');
+
+    Route::get('/user/profile/enable-second-factor', SecondFactorEnableStartController::class)->name('user.profile.second-factor.enable.start')
+        ->middleware([
+            'password.confirm',
+        ]);
+    Route::post('/user/profile/enable-second-factor', SecondFactorEnableConfirmController::class)->name('user.profile.second-factor.enable.confirm')
+        ->middleware([
+            'password.confirm',
+        ]);
 
     Route::post('/user/profile/logout-other-browser-sessions', LogoutOtherBrowserSessionsController::class)->name('user.profile.logout-other-browser-sessions')
         ->middleware([

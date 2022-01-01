@@ -23,7 +23,10 @@
 
         @if($user->{\App\Models\User::FIELD_TWO_FACTOR_SECRET})
         @else
-            <x-button type="button" wire:loading.attr="disabled">
+            <x-button
+                :tag="\BondarDe\LaravelToolbox\View\Components\Buttons\Button::TAG_LINK"
+                :href="route('user.profile.second-factor.enable.start')"
+            >
                 {{ __('Enable') }}
             </x-button>
         @endif
