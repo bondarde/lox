@@ -7,7 +7,7 @@
 
             <ul class="pl-4 list-disc">
                 @foreach ($errors->all() as $error)
-                    @if($loop->iteration > 5 && $errors->count() > 6)
+                    @if($loop->iteration > $limit && $errors->count() > $limit + 1)
                         @break
                     @endif
 
@@ -15,9 +15,9 @@
                 @endforeach
             </ul>
 
-            @if($errors->count() > 6)
+            @if($errors->count() > $limit + 1)
                 <p class="mt-2">
-                    … und {{ $errors->count() - 5 }} weitere.
+                    … und {{ $errors->count() - $limit }} weitere.
                 </p>
             @endif
         </div>
