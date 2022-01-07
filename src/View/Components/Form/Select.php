@@ -45,7 +45,7 @@ class Select extends FormComponent
 
     public function selected($value): string
     {
-        $isSelected = $value === $this->old;
+        $isSelected = $this->old !== null && $value == $this->old;
 
         if (!$isSelected) {
             return '';
