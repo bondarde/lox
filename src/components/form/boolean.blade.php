@@ -1,5 +1,6 @@
 <label class="block cursor-pointer">
     <input
+        {{ $attributes }}
         type="checkbox"
         class="form-boolean"
         name="{{ $name }}"
