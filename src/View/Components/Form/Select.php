@@ -15,11 +15,11 @@ class Select extends FormComponent
 
     public function __construct(
         string $name,
-        $options,
+               $options,
         string $pattern = '*',
         string $label = '',
         string $containerClass = '',
-        bool $showErrors = false,
+        bool   $showErrors = false,
         ?Model $model = null
     )
     {
