@@ -12,7 +12,7 @@
         "php": "^7.4|^8.0",
         "ext-json": "*",
         "laravel/framework": "^8.20",
-        "bondarde/php-utils": "^0.4.0",
+        "bondarde/php-utils": "^0.5.0",
         "laravel/fortify": "^1.8"
     },
     "require-dev": {
