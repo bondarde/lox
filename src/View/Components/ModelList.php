@@ -14,6 +14,7 @@ use BondarDe\LaravelToolbox\ModelList\ModelSorts;
 use BondarDe\LaravelToolbox\ModelListData;
 use BondarDe\LaravelToolbox\Support\ModelList\ModelListFilterStatsUtil;
 use BondarDe\LaravelToolbox\Support\ModelList\ModelListUrlQueryUtil;
+use Closure;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -148,7 +149,7 @@ class ModelList extends Component
             $query->where(function (Builder $q) use ($modelInstance, $modelListData, $values) {
                 foreach ($values as $value) {
                     foreach ($modelInstance::getModelListSearchFields() as $columnOrQueryModifier) {
-                        if (is_callable($columnOrQueryModifier)) {
+                        if ($columnOrQueryModifier instanceof Closure) {
                             $columnOrQueryModifier($q, $value);
                         } else if (is_string($columnOrQueryModifier)) {
                             $column = $columnOrQueryModifier;
