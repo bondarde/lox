@@ -183,12 +183,7 @@ class ModelList extends Component
 
     private static function toPageTitle(int $totalCount): string
     {
-        $singularPlural = ['Eintrag', 'Einträge'];
-        $singular = $singularPlural[0];
-        $plural = $singularPlural[1] ?? $singular;
-
-        return self::format($totalCount, 0, '', 'Keine') . ' '
-            . ($totalCount === 1 ? $singular : $plural);
+        return trans_choice('{0} No entries|{1} One entry|[2,*] :count entries', $totalCount);
     }
 
     private static function format($num, $decimals = 0, $suffix = '', $zero = '<span class="text-muted">—</span>')
