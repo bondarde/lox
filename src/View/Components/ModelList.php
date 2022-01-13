@@ -7,6 +7,7 @@ use BondarDe\LaravelToolbox\ModelList\ModelFilter;
 use BondarDe\LaravelToolbox\ModelList\ModelFilters;
 use BondarDe\LaravelToolbox\ModelList\ModelListFilterable;
 use BondarDe\LaravelToolbox\ModelList\ModelListQueryable;
+use BondarDe\LaravelToolbox\ModelList\ModelListSearchable;
 use BondarDe\LaravelToolbox\ModelList\ModelListSortable;
 use BondarDe\LaravelToolbox\ModelList\ModelSort;
 use BondarDe\LaravelToolbox\ModelList\ModelSorts;
@@ -24,6 +25,7 @@ class ModelList extends Component
 {
     public const URL_PARAM_FILTERS = 'filters';
     public const URL_PARAM_SORTS = 'sort';
+    public const URL_PARAM_SEARCH_QUERY = 'q';
     public const URL_PARAM_PAGE = 'page';
     public const URL_PARAM_SEPARATOR = ',';
 
@@ -34,9 +36,14 @@ class ModelList extends Component
     public array $allFilters;
     public array $allSorts;
 
+    public bool $showFilters;
+    public bool $showSorts;
+    public bool $showSearchQuery;
+
     private array $activeFilters;
     private array $activeSorts;
     private array $filterStats;
+    public ?string $searchQuery;
 
     /**
      * @throws IllegalStateException
@@ -55,6 +62,7 @@ class ModelList extends Component
         $this->allSorts = $modelListData->allSorts;
         $this->activeFilters = $modelListData->activeFilters;
         $this->activeSorts = $modelListData->activeSorts;
+        $this->searchQuery = $modelListData->searchQuery;
 
         $query = self::toUnpaginatedQuery($modelListData, $withTrashed);
         $this->items = self::toItems($model, $query, $modelListData->activePage);
@@ -63,8 +71,13 @@ class ModelList extends Component
         $this->links = $this->items->appends([
             self::URL_PARAM_FILTERS => ModelListUrlQueryUtil::toQueryString($this->activeFilters),
             self::URL_PARAM_SORTS => ModelListUrlQueryUtil::toQueryString($this->activeSorts),
+            self::URL_PARAM_SEARCH_QUERY => $this->searchQuery,
         ])->links();
         $this->pageTitle = self::toPageTitle($this->items->total());
+
+        $this->showFilters = is_subclass_of($model, ModelListFilterable::class);
+        $this->showSorts = is_subclass_of($model, ModelListSortable::class);
+        $this->showSearchQuery = is_subclass_of($model, ModelListSearchable::class);
     }
 
     public static function toModelListData(
@@ -80,6 +93,7 @@ class ModelList extends Component
         $allSorts = $sorts::all();
         $activeFilters = explode(self::URL_PARAM_SEPARATOR, $request->get(self::URL_PARAM_FILTERS) ?? $filters::DEFAULT_FILTER);
         $activeSorts = explode(self::URL_PARAM_SEPARATOR, $request->get(self::URL_PARAM_SORTS) ?? $sorts::DEFAULT_SORT);
+        $searchQuery = $request->get(self::URL_PARAM_SEARCH_QUERY);
 
         return new ModelListData(
             $model,
@@ -88,6 +102,7 @@ class ModelList extends Component
             $activeFilters,
             $allSorts,
             $activeSorts,
+            $searchQuery,
         );
     }
 
@@ -112,11 +127,40 @@ class ModelList extends Component
 
         foreach ($activeFilters as $filterKey) {
             $filter = self::findFilterByKey($allFilters, $filterKey);
-            $query->whereRaw($filter->sql);
+            $sql = $filter->sql;
+
+            if ($sql === 'TRUE') {
+                continue;
+            }
+
+            $sql = '(' . $sql . ')';
+            $query->whereRaw($sql);
         }
         foreach ($activeSorts as $sortKey) {
             $sort = self::findSortByKey($allSorts, $sortKey);
             $query->orderByRaw($sort->sql);
+        }
+        if ($modelListData->searchQuery && is_subclass_of($modelListData->model, ModelListSearchable::class)) {
+            $modelInstance = new $modelListData->model;
+
+            $values = explode(' ', trim($modelListData->searchQuery));
+
+            $query->where(function (Builder $q) use ($modelInstance, $modelListData, $values) {
+                foreach ($values as $value) {
+                    foreach ($modelInstance::getModelListSearchFields() as $columnOrQueryModifier) {
+                        if (is_callable($columnOrQueryModifier)) {
+                            $columnOrQueryModifier($q, $value);
+                        } else if (is_string($columnOrQueryModifier)) {
+                            $column = $columnOrQueryModifier;
+                            $searchValue = '%' . $value . '%';
+
+                            $q->orWhere($column, 'LIKE', $searchValue);
+                        } else {
+                            throw new IllegalStateException('Unsupported column config type: "' . gettype($columnOrQueryModifier) . '"');
+                        }
+                    }
+                }
+            });
         }
 
         return $query;
