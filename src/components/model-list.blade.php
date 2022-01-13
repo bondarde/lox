@@ -14,6 +14,7 @@
                             'filterCount' => $toFilterCount($key),
                             'filtersQuery' => $toFiltersQueryString($key),
                             'sortsQuery' => $toSortsQueryString(),
+                            'searchQuery' => $searchQuery,
                             'showDeleteFilterButton' => $key !== \BondarDe\LaravelToolbox\ModelList\ModelFilters::ALL,
                         ])
                     @endforeach
@@ -34,6 +35,7 @@
                         'title' => $sort->title,
                         'filtersQuery' => $toFiltersQueryString(),
                         'sortsQuery' => $toSortsQueryString($key),
+                        'searchQuery' => $searchQuery,
                     ])
                 @endforeach
             </ul>
@@ -45,10 +47,11 @@
         <form
             method="get"
             action="{{ route(Route::currentRouteName(), [
-            'filters' => $toFiltersQueryString(),
-            'sort' => $toSortsQueryString(),
         ]) }}"
         >
+            <input type="hidden" name="filters" value="{{ $toFiltersQueryString() }}">
+            <input type="hidden" name="sort" value="{{ $toSortsQueryString() }}">
+
             <h4 class="font-semibold">{{ __('Search') }}</h4>
             <x-form.input
                 name="q"

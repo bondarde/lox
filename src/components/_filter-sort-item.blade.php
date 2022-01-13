@@ -10,6 +10,7 @@
                    href="{{ route($routeName, [
                         'filters' => $filtersQuery,
                         'sort' => $sortsQuery,
+                        'q' => $searchQuery,
                     ]) }}">×</a>
             @endif
         </span>
@@ -18,6 +19,7 @@
            href="{{ route($routeName, [
             'filters' => $filtersQuery,
             'sort' => $sortsQuery,
+            'q' => $searchQuery,
         ]) }}">
             {{ $label }}
             @isset($filterCount)
