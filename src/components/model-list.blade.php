@@ -1,7 +1,7 @@
 <div @if($showFilters || $showSorts || $showSearchQuery) class="mb-8 flex flex-col space-y-8" @endif>
     @if($showFilters)
         <div>
-            <h4 class="font-semibold">Filter</h4>
+            <h4 class="font-semibold">{{ __('Filter') }}</h4>
             @foreach($allFilters as $filters)
                 <ul class="flex flex-wrap mb-2">
                     @foreach($filters as $key => $filter)
@@ -24,7 +24,7 @@
 
     @if($showSorts)
         <div>
-            <h4 class="font-semibold">Sortierung</h4>
+            <h4 class="font-semibold">{{ __('Sorting') }}</h4>
             <ul class="flex flex-wrap mb-4">
                 @foreach($allSorts as $key => $sort)
                     @include('laravel-toolbox::_filter-sort-item', [

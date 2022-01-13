@@ -1,0 +1,7 @@
+{
+    "Filter": "Filter",
+    "Sorting": "Sortierung",
+    "Search": "Suche",
+    "Search query": "Suchbegriff",
+    "{0} No entries|{1} One entry|[2,*] :count entries": "{0} Keine Einträge|{1} Ein Eintrag|[2,*] :count Einträge"
+}

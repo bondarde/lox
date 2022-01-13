@@ -83,6 +83,7 @@ class LaravelToolboxServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/../resources/views', self::NAMESPACE);
         $this->loadViewComponentsAs('', self::COMPONENTS);
         $this->loadRoutesFrom(__DIR__ . '/../routes/user.php');
+        $this->loadJsonTranslationsFrom(__DIR__ . '/../resources/lang');
 
         $this->configurePublishing();
     }
