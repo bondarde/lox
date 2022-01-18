@@ -4,7 +4,7 @@
     metaRobots="noindex, nofollow"
 >
     <div class="container">
-        <x-jet-validation-errors/>
+        <x-validation-errors/>
     </div>
 
     <x-content class="max-w-xl">
