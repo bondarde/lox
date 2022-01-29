@@ -7,10 +7,10 @@ use Illuminate\View\Component;
 
 class ModelMeta extends Component
 {
-    public Model $model;
+    public ?Model $model;
 
     public function __construct(
-        Model $model
+        ?Model $model = null
     )
     {
         $this->model = $model;
@@ -18,6 +18,10 @@ class ModelMeta extends Component
 
     public function render()
     {
+        if (is_null($this->model)) {
+            return '<div class="opacity-50 italic mb-8">null</div>';
+        }
+
         return view('laravel-toolbox::model-meta');
     }
 }
