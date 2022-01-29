@@ -2,6 +2,11 @@
     :title="__('Profile Information')"
     :h1="__('Profile Information')"
 >
+
+    <x-validation-errors
+        class="mb-8"
+    />
+
     <form
         method="post"
         action="{{ route('user.profile.profile-information.update') }}"
