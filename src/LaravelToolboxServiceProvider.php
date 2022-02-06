@@ -19,6 +19,7 @@ use BondarDe\LaravelToolbox\View\Components\Form\Matrix;
 use BondarDe\LaravelToolbox\View\Components\Form\Radio;
 use BondarDe\LaravelToolbox\View\Components\Form\Select;
 use BondarDe\LaravelToolbox\View\Components\Form\Textarea;
+use BondarDe\LaravelToolbox\View\Components\Form\TinyMce;
 use BondarDe\LaravelToolbox\View\Components\ModelList;
 use BondarDe\LaravelToolbox\View\Components\ModelMeta;
 use BondarDe\LaravelToolbox\View\Components\ModelSummary;
@@ -41,6 +42,7 @@ class LaravelToolboxServiceProvider extends ServiceProvider
         'form.form-actions' => FormActions::class,
         'form.input' => Input::class,
         'form.textarea' => Textarea::class,
+        'form.tiny-mce' => TinyMce::class,
         'form.input-error' => InputError::class,
         'form.checkbox' => Checkbox::class,
         'form.radio' => Radio::class,
