@@ -2,7 +2,7 @@
 
 namespace BondarDe\LaravelToolbox\Http\Controllers;
 
-use File;
+use Illuminate\Support\Facades\File;
 
 class TinyMceFilesController
 {
@@ -14,8 +14,26 @@ class TinyMceFilesController
             abort(404);
         }
 
-        readfile($absoluteFilename);
+        $headers = [
+            'Content-Type' => self::mimeType($absoluteFilename),
+        ];
 
-        response(['Content-Type' => File::type($absoluteFilename)]);
+        return response()->file($absoluteFilename, $headers);
+    }
+
+    private static function mimeType(string $absoluteFilename): string
+    {
+        $typeByExtension = [
+            'js' => 'text/javascript;charset=UTF-8',
+            'css' => 'text/css;charset=UTF-8',
+        ];
+
+        $extension = File::extension(strtolower($absoluteFilename));
+
+        if (!isset($typeByExtension[$extension])) {
+            return File::mimeType($absoluteFilename);
+        }
+
+        return $typeByExtension[$extension];
     }
 }
