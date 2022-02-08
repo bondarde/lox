@@ -11,7 +11,7 @@
     "require": {
         "php": "^7.4|^8.0",
         "ext-json": "*",
-        "laravel/framework": "^8.20",
+        "laravel/framework": "^8.0|^9.0",
         "bondarde/php-utils": "^0.5.0",
         "laravel/fortify": "^1.8",
         "tinymce/tinymce": "^5.10"
