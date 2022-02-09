@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9f71f1271a3c41af10964453ab8525f8",
+    "content-hash": "e5d710e1272ef7fa27217bf829a0233a",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -645,22 +645,22 @@
         },
         {
             "name": "laravel/fortify",
-            "version": "v1.10.1",
+            "version": "v1.10.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/fortify.git",
-                "reference": "a85e04a6ce1c704cd88970d6cbbc78b4b1b8ca5f"
+                "reference": "0047871070407e9b2727a2110425419312c009e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/fortify/zipball/a85e04a6ce1c704cd88970d6cbbc78b4b1b8ca5f",
-                "reference": "a85e04a6ce1c704cd88970d6cbbc78b4b1b8ca5f",
+                "url": "https://api.github.com/repos/laravel/fortify/zipball/0047871070407e9b2727a2110425419312c009e0",
+                "reference": "0047871070407e9b2727a2110425419312c009e0",
                 "shasum": ""
             },
             "require": {
                 "bacon/bacon-qr-code": "^2.0",
                 "ext-json": "*",
-                "illuminate/support": "^8.0|^9.0",
+                "illuminate/support": "^8.82|^9.0",
                 "php": "^7.3|^8.0",
                 "pragmarx/google2fa": "^7.0|^8.0"
             },
@@ -704,7 +704,7 @@
                 "issues": "https://github.com/laravel/fortify/issues",
                 "source": "https://github.com/laravel/fortify"
             },
-            "time": "2022-02-01T16:24:24+00:00"
+            "time": "2022-02-05T18:22:32+00:00"
         },
         {
             "name": "laravel/framework",
@@ -4571,16 +4571,16 @@
         },
         {
             "name": "tinymce/tinymce",
-            "version": "5.10.2",
+            "version": "5.10.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tinymce/tinymce-dist.git",
-                "reference": "ef9962f1d40abbb80a4fd4f023151fd28f891a6c"
+                "reference": "dadd7f25e31680f1c6bf61d2fb0b15794f425cd1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/ef9962f1d40abbb80a4fd4f023151fd28f891a6c",
-                "reference": "ef9962f1d40abbb80a4fd4f023151fd28f891a6c",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/dadd7f25e31680f1c6bf61d2fb0b15794f425cd1",
+                "reference": "dadd7f25e31680f1c6bf61d2fb0b15794f425cd1",
                 "shasum": ""
             },
             "type": "component",
@@ -4622,9 +4622,9 @@
                 "wysiwyg"
             ],
             "support": {
-                "source": "https://github.com/tinymce/tinymce-dist/tree/5.10.2"
+                "source": "https://github.com/tinymce/tinymce-dist/tree/5.10.3"
             },
-            "time": "2021-11-17T04:34:27+00:00"
+            "time": "2022-02-09T03:24:06+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -5025,12 +5025,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Facade\\Ignition\\": "src"
-                },
                 "files": [
                     "src/helpers.php"
-                ]
+                ],
+                "psr-4": {
+                    "Facade\\Ignition\\": "src"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
