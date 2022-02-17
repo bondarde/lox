@@ -2,14 +2,19 @@
 
 namespace BondarDe\LaravelToolbox\Http\Controllers\User\Profile;
 
+use BondarDe\LaravelToolbox\Services\UserService;
 use Illuminate\Http\Request;
 
 class UserProfileShowController
 {
-    public function __invoke(Request $request)
+    public function __invoke(Request $request, UserService $userService)
     {
-        return view('profile.show', [
-            'user' => $request->user(),
-        ]);
+        $user = $request->user();
+        $sessions = $userService->getSessions($user);
+
+        return view('profile.show', compact(
+            'user',
+            'sessions',
+        ));
     }
 }
