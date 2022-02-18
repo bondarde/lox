@@ -98,7 +98,7 @@ class LaravelToolboxServiceProvider extends ServiceProvider
         ], 'styles');
 
         $this->publishes([
-            __DIR__ . '/../resources/tailwind/burger-menu' => resource_path('tailwind'),
+            __DIR__ . '/../resources/tailwind/burger-menu' => resource_path('tailwind/burger-menu'),
             __DIR__ . '/../resources/tailwind/tailwind.config.js' => base_path('tailwind.config.js'),
         ], 'tailwind');
 
