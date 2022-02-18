@@ -40,8 +40,8 @@ class AclMakeAdminCommand extends Command
 
         if (filter_var($idOrEmail, FILTER_VALIDATE_EMAIL) !== false) {
             return $this->userService->findByEmail($idOrEmail);
-        } else if (is_int($idOrEmail)) {
-            return $this->userService->findById($idOrEmail);
+        } else if (is_numeric($idOrEmail)) {
+            return $this->userService->findById(intval($idOrEmail));
         }
 
         return null;
