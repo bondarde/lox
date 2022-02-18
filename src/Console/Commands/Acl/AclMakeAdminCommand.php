@@ -31,6 +31,8 @@ class AclMakeAdminCommand extends Command
 
         $user->assignGroup('admin');
 
+        $this->line('User "' . $user->{\App\Models\User::FIELD_NAME} . ' (' . $user->{User::FIELD_EMAIL} . ')" has been assigned to admins group');
+
         return self::SUCCESS;
     }
 
