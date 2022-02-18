@@ -3,6 +3,7 @@
 namespace BondarDe\LaravelToolbox;
 
 use BondarDe\LaravelToolbox\Console\Commands\Acl\AclMakeAdminCommand;
+use BondarDe\LaravelToolbox\Console\Commands\Acl\AclUpdateGroupsAndPermissionsCommand;
 use BondarDe\LaravelToolbox\View\Components\Buttons\BlueButton;
 use BondarDe\LaravelToolbox\View\Components\Buttons\DangerButton;
 use BondarDe\LaravelToolbox\View\Components\Buttons\DefaultButton;
@@ -85,12 +86,18 @@ class LaravelToolboxServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/components', self::NAMESPACE);
         $this->loadViewsFrom(__DIR__ . '/../resources/views', self::NAMESPACE);
         $this->loadViewComponentsAs('', self::COMPONENTS);
-        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
-        $this->loadRoutesFrom(__DIR__ . '/../routes/user.php');
         $this->loadJsonTranslationsFrom(__DIR__ . '/../resources/lang');
 
+        $this->configureRoutes();
         $this->configurePublishing();
         $this->configureCommands();
+    }
+
+    private function configureRoutes()
+    {
+        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
+        $this->loadRoutesFrom(__DIR__ . '/../routes/user.php');
+        $this->loadRoutesFrom(__DIR__ . '/../routes/admin.php');
     }
 
     private function configurePublishing()
@@ -125,6 +132,7 @@ class LaravelToolboxServiceProvider extends ServiceProvider
 
         $this->commands([
             AclMakeAdminCommand::class,
+            AclUpdateGroupsAndPermissionsCommand::class,
         ]);
     }
 }

@@ -26,4 +26,7 @@ return [
             'verify-email' => env('LARAVEL_TOOLBOX_VIEWS_AUTH_VERIFY_EMAIL', $viewPrefix . 'auth.verify-email'),
         ],
     ],
+
+    'acl_config' => null,
+
 ];

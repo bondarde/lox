@@ -75,4 +75,21 @@ class UserService
             $agent->setUserAgent($session->user_agent);
         });
     }
+
+    public function update(
+        User   $user,
+        array  $attributes,
+        ?array $groupIds = null,
+        ?array $permissionIds = null
+    )
+    {
+        $user->update($attributes);
+
+        if (!is_null($groupIds)) {
+            $user->groups()->sync($groupIds);
+        }
+        if (!is_null($permissionIds)) {
+            $user->permissions()->sync($permissionIds);
+        }
+    }
 }
