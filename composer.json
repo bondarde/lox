@@ -19,7 +19,7 @@
         "ext-json": "*",
         "laravel/framework": "^8.0|^9.0",
         "bondarde/php-utils": "^0.5.0",
-        "laravel/fortify": "^1.8",
+        "laravel/fortify": "^1.10",
         "mateusjunges/laravel-acl": "dev-l9-compatibility",
         "tinymce/tinymce": "^5.10",
         "jenssegers/agent": "^2.6",

@@ -6,6 +6,8 @@ class TwoFactorRecoveryController
 {
     public function __invoke()
     {
-        return view('auth.two-factor-recovery');
+        $view = config('laravel-toolbox.views.two-factor-recovery');
+
+        return view($view);
     }
 }

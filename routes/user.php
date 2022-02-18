@@ -12,7 +12,7 @@ use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\SecondFactorEnableStar
 use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\UserPasswordEditController;
 use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\UserPasswordUpdateController;
 use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\UserProfileEditController;
-use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\UserProfileShowController;
+use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\UserProfileIndexController;
 use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\UserProfileUpdateController;
 use BondarDe\LaravelToolbox\Http\Controllers\User\TwoFactorRecoveryController;
 use Illuminate\Support\Facades\Route;
@@ -37,7 +37,7 @@ Route::group([
         'verified',
     ],
 ], function () {
-    Route::get('/user/profile', UserProfileShowController::class)->name('profile.show');
+    Route::get('/user', UserProfileIndexController::class)->name('user.index');
 
     Route::get('/user/profile/profile-information', UserProfileEditController::class)->name('user.profile.profile-information.edit');
     Route::post('/user/profile/profile-information', UserProfileUpdateController::class)->name('user.profile.profile-information.update');

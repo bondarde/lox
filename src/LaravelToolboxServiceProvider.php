@@ -103,8 +103,15 @@ class LaravelToolboxServiceProvider extends ServiceProvider
         ], 'tailwind');
 
         $this->publishes([
-            __DIR__ . '/../resources/views/auth' => resource_path('views/auth'),
-            __DIR__ . '/../resources/views/profile/show.blade.php' => resource_path('views/profile/show.blade.php'),
-        ], 'auth-views');
+            __DIR__ . '/config/laravel-toolbox.php' => config_path('laravel-toolbox.php'),
+        ], 'toolbox-config');
+
+        $this->publishes([
+            __DIR__ . '/../resources/views/auth' => resource_path('views/vendor/bondarde/laravel-toolbox/auth'),
+        ], 'toolbox-auth-views');
+
+        $this->publishes([
+            __DIR__ . '/../resources/views/profile' => resource_path('views/vendor/bondarde/laravel-toolbox/profile'),
+        ], 'toolbox-profile-views');
     }
 }
