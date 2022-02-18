@@ -5,11 +5,13 @@ namespace BondarDe\LaravelToolbox\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Junges\ACL\Concerns\UsersTrait;
 
 class User extends Authenticatable
 {
     use HasFactory;
     use Notifiable;
+    use UsersTrait;
 
     const FIELD_NAME = 'name';
     const FIELD_EMAIL = 'email';

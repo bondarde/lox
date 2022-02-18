@@ -2,6 +2,7 @@
 
 namespace BondarDe\LaravelToolbox;
 
+use BondarDe\LaravelToolbox\Console\Commands\Acl\AclMakeAdminCommand;
 use BondarDe\LaravelToolbox\View\Components\Buttons\BlueButton;
 use BondarDe\LaravelToolbox\View\Components\Buttons\DangerButton;
 use BondarDe\LaravelToolbox\View\Components\Buttons\DefaultButton;
@@ -89,6 +90,7 @@ class LaravelToolboxServiceProvider extends ServiceProvider
         $this->loadJsonTranslationsFrom(__DIR__ . '/../resources/lang');
 
         $this->configurePublishing();
+        $this->configureCommands();
     }
 
     private function configurePublishing()
@@ -113,5 +115,16 @@ class LaravelToolboxServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../resources/views/profile' => resource_path('views/vendor/bondarde/laravel-toolbox/profile'),
         ], 'toolbox-profile-views');
+    }
+
+    private function configureCommands()
+    {
+        if (!$this->app->runningInConsole()) {
+            return;
+        }
+
+        $this->commands([
+            AclMakeAdminCommand::class,
+        ]);
     }
 }

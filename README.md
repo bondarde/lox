@@ -5,6 +5,38 @@
 
     composer require bondarde/laravel-toolbox
 
+    php artisan acl:install
+
+Customize table names in `config/acl.php`:
+
+    'tables' => [
+        'groups'                      => 'acl_groups',
+        'permissions'                 => 'acl_permissions',
+        'users'                       => 'users',
+        'group_has_permissions'       => 'acl_group_permissions',
+        'user_has_permissions'        => 'acl_user_permissions',
+        'user_has_groups'             => 'acl_user_groups',
+    ],
+
+
+Run migrations:
+
+    php artisan migrate
+
+
+Create admins user group:
+
+    php artisan group:create "Admin" "admin" "Admins users group"
+
+
+After signing up, assign admin group to (your) user by ID or e-mail address:
+
+    php artisan acl:make-admin 1
+
+or:
+
+    php artisan acl:make-admin mail@example.com
+
 
 ### Styles
 

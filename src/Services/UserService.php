@@ -10,6 +10,21 @@ use Jenssegers\Agent\Agent;
 
 class UserService
 {
+    public function findById(int $id): ?User
+    {
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
+        return User::query()
+            ->find($id);
+    }
+
+    public function findByEmail(string $email): ?User
+    {
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
+        return User::query()
+            ->where(User::FIELD_EMAIL, $email)
+            ->first();
+    }
+
     public function delete(User $user)
     {
         $user = $user->fresh();
