@@ -25,6 +25,8 @@ class User extends Authenticatable
     const ATTRIBUTE_PERMISSIONS = 'permissions';
 
 
+    protected $perPage = 100;
+
     protected $fillable = [
         self::FIELD_NAME,
         self::FIELD_EMAIL,

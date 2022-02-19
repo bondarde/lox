@@ -18,7 +18,11 @@
                 </a>
             </td>
             <td>
-                {{ $user->{\BondarDe\LaravelToolbox\Models\User::FIELD_EMAIL} }}
+                <a
+                    href="{{ route('admin.users.show', $user) }}"
+                >
+                    {{ $user->{\BondarDe\LaravelToolbox\Models\User::FIELD_EMAIL} }}
+                </a>
             </td>
             <td>
                 @include(\BondarDe\LaravelToolbox\LaravelToolboxServiceProvider::NAMESPACE.'::admin.users._groups', ['groups' => $user->groups])
