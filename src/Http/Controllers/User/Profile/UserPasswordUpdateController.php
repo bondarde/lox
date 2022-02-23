@@ -18,7 +18,7 @@ class UserPasswordUpdateController
             User::FIELD_PASSWORD => Hash::make($newPassword),
         ])->save();
 
-        return redirect(route('profile.show'))
+        return redirect(route('user.index'))
             ->with('success-message', __('Password updated'));
     }
 }

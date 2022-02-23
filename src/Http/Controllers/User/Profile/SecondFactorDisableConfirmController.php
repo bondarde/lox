@@ -31,7 +31,7 @@ class SecondFactorDisableConfirmController
             ])
             ->save();
 
-        return redirect(route('profile.show'))
+        return redirect(route('user.index'))
             ->with('success-message', __('2FA has been disabled'));
     }
 }

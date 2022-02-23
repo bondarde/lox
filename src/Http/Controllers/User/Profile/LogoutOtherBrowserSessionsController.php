@@ -11,7 +11,7 @@ class LogoutOtherBrowserSessionsController
     {
         $userService->deleteOtherSessionRecords($request->user(), $request->session()->getId());
 
-        return redirect(route('profile.show'))
+        return redirect(route('user.index'))
             ->with('success-message', __('Other sessions have been terminated'));
     }
 }

@@ -12,7 +12,7 @@ class UserProfileUpdateController
 
         $user->update($request->validated());
 
-        return redirect(route('profile.show'))
+        return redirect(route('user.index'))
             ->with('success-message', __('Profile updated'));
     }
 }

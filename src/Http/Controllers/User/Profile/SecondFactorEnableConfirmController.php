@@ -40,7 +40,7 @@ class SecondFactorEnableConfirmController
             ])
             ->save();
 
-        return redirect(route('profile.show'))
+        return redirect(route('user.index'))
             ->with('success-message', __('Enabled'));
     }
 }
