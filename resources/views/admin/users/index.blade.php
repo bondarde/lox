@@ -1,4 +1,4 @@
-<x-page
+<x-admin-page
     :title="__('Users')"
     :h1="__('Users')"
 >
@@ -9,4 +9,4 @@
             'users' => $component->items,
         ])
     </x-model-list>
-</x-page>
+</x-admin-page>

@@ -1,4 +1,4 @@
-<x-page
+<x-admin-page
     :title="__('User') . ' ' . $user->{\BondarDe\LaravelToolbox\Models\User::FIELD_EMAIL}"
     :h1="__('User') . ' ' . $user->{\BondarDe\LaravelToolbox\Models\User::FIELD_EMAIL}"
 >
@@ -84,4 +84,4 @@
 
     </form>
 
-</x-page>
+</x-admin-page>
