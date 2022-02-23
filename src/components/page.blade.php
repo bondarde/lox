@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>{{ $title }} - {{ config('app.name') }}</title>
+    <title>{{ trim(config('page.title.suffix') . ' ' . $title . config('page.title.suffix', ' - '.config('app.name'))) }}</title>
 
     @if($metaDescription)
         <meta name="description" content="{{ $metaDescription }}">
