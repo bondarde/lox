@@ -13,7 +13,7 @@
 
     <x-button
         :tag="\BondarDe\LaravelToolbox\View\Components\Buttons\Button::TAG_LINK"
-        :href="route('profile.show')"
+        :href="route('user.index')"
     >
         {{ __('I have noted the new recovery codes') }}
     </x-button>
