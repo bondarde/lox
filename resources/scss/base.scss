@@ -22,22 +22,36 @@
     .table {
         th,
         td {
-            @apply px-4 py-2;
+            &:not([class*="px-"]):not([class*="pl-"]) {
+                @apply pl-4;
+            }
 
-            &:first-child {
+            &:not([class*="px-"]):not([class*="pr-"]) {
+                @apply pr-4;
+            }
+
+            &:not([class*="py-"]):not([class*="pt-"]) {
+                @apply pt-2;
+            }
+
+            &:not([class*="py-"]):not([class*="pb-"]) {
+                @apply pb-2;
+            }
+
+            &:first-child:not([class*="pl-"]) {
                 @apply pl-0;
             }
 
-            &:last-child {
+            &:last-child:not([class*="pr-"]) {
                 @apply pr-0;
             }
         }
 
-        th {
+        th:not([class*="align-"]) {
             @apply align-bottom;
         }
 
-        td {
+        td:not([class*="align-"]) {
             @apply align-top;
         }
     }
