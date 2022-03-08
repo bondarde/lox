@@ -71,6 +71,7 @@ class Input extends FormComponent
 
         switch ($this->type) {
             case self::TYPE_NUMBER:
+            case self::TYPE_DATE:
                 $props['step'] = $this->step;
                 if ($this->min !== null) {
                     $props['min'] = $this->min;
