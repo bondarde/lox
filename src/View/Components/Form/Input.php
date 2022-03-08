@@ -29,16 +29,16 @@ class Input extends FormComponent
         string $label = '',
         string $containerClass = '',
         string $inputClass = '',
-        $type = self::TYPE_TEXT,
-        $step = 1,
-        $min = null,
-        $max = null,
-        $placeholder = '',
-        $prefix = '',
-        $suffix = '',
-        $model = null,
-        $value = null,
-        bool $showErrors = false
+               $type = self::TYPE_TEXT,
+               $step = 1,
+               $min = null,
+               $max = null,
+               $placeholder = '',
+               $prefix = '',
+               $suffix = '',
+               $model = null,
+               $value = null,
+        bool   $showErrors = false
     )
     {
         $this->name = $name;
