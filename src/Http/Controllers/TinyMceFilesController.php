@@ -3,12 +3,17 @@
 namespace BondarDe\LaravelToolbox\Http\Controllers;
 
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class TinyMceFilesController
 {
     public function __invoke(string $filename)
     {
-        $absoluteFilename = base_path('vendor/tinymce/tinymce/' . $filename);
+        if (Str::of($filename)->is('langs/*.js')) {
+            $absoluteFilename = base_path('vendor/tweeb/tinymce-i18n/' . $filename);
+        } else {
+            $absoluteFilename = base_path('vendor/tinymce/tinymce/' . $filename);
+        }
 
         if (!File::exists($absoluteFilename)) {
             abort(404);

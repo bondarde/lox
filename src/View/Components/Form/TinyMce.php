@@ -41,6 +41,7 @@ class TinyMce extends Component
             'convert_urls' => false,
             'entity_encoding' => 'raw',
             'width' => '100%',
+            'language' => app()->getLocale(),
         ];
     }
 
