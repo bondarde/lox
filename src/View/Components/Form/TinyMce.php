@@ -2,7 +2,6 @@
 
 namespace BondarDe\LaravelToolbox\View\Components\Form;
 
-use BondarDe\LaravelToolbox\Exceptions\IllegalStateException;
 use Illuminate\View\Component;
 
 class TinyMce extends Component
@@ -12,16 +11,12 @@ class TinyMce extends Component
     public array $editorConfig;
 
     public function __construct(
-        ?string $selector = null,
-        ?array  $config = null,
-        string  $src = '/tinymce/tinymce.min.js'
+        string $selector,
+        array  $config = [],
+        string $src = '/tinymce/tinymce.min.js'
     )
     {
-        if (is_null($selector) && is_null($config)) {
-            throw new IllegalStateException('Either selector or config is required.');
-        }
-
-        $this->editorConfig = $config ?? self::makeConfig($selector);
+        $this->editorConfig = self::makeConfig($selector, $config);
 
         if (defined('TOOLBOX_TINY_MCE_LIB_LOADED')) {
             $this->loadJsLib = false;
@@ -32,9 +27,12 @@ class TinyMce extends Component
         }
     }
 
-    private static function makeConfig(string $selector): array
+    private static function makeConfig(
+        string $selector,
+        array  $config
+    ): array
     {
-        return [
+        return array_merge([
             'selector' => $selector,
             'plugins' => 'autoresize code wordcount link image',
             'toolbar' => 'undo redo | styleselect | bold italic | link image | code',
@@ -42,7 +40,7 @@ class TinyMce extends Component
             'entity_encoding' => 'raw',
             'width' => '100%',
             'language' => app()->getLocale(),
-        ];
+        ], $config);
     }
 
     public function render()
