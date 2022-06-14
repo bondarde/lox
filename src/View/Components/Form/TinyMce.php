@@ -9,10 +9,14 @@ class TinyMce extends Component
     public string $jsLibSrc;
     public bool $loadJsLib;
     public array $editorConfig;
+    public bool $enableImageUpload;
+    public string $imagesUploadUrl;
 
     public function __construct(
         string $selector,
         array  $config = [],
+        bool   $enableImageUpload = false,
+        string $imagesUploadUrl = '/tinymce-upload',
         string $src = '/tinymce/tinymce.min.js'
     )
     {
@@ -25,6 +29,8 @@ class TinyMce extends Component
             $this->jsLibSrc = $src;
             define('TOOLBOX_TINY_MCE_LIB_LOADED', true);
         }
+        $this->enableImageUpload = $enableImageUpload;
+        $this->imagesUploadUrl = $imagesUploadUrl;
     }
 
     private static function makeConfig(
