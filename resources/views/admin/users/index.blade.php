@@ -3,7 +3,7 @@
     :h1="__('Users')"
 >
     <x-model-list
-        :model="\BondarDe\LaravelToolbox\Models\User::class"
+        :model="config('auth.providers.users.model')"
     >
         @includeFirst(['admin.users._users_list', \BondarDe\LaravelToolbox\LaravelToolboxServiceProvider::NAMESPACE . '::admin.users._users_list'], [
             'users' => $component->items,
