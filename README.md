@@ -5,7 +5,8 @@
 
     composer require bondarde/laravel-toolbox
 
-    php artisan acl:install
+    php artisan vendor:publish --provider="Junges\ACL\Providers\ACLServiceProvider"
+
 
 Customize table names in `config/acl.php`:
 
@@ -14,14 +15,25 @@ Customize table names in `config/acl.php`:
         'permissions'                 => 'acl_permissions',
         'users'                       => 'users',
         'group_has_permissions'       => 'acl_group_permissions',
-        'user_has_permissions'        => 'acl_user_permissions',
-        'user_has_groups'             => 'acl_user_groups',
+        'model_has_permissions'       => 'acl_user_permissions',
+        'model_has_groups'            => 'acl_user_groups',
     ],
 
 
 Run migrations:
 
     php artisan migrate
+
+
+If needed, add middlewares to the `app/Http/Kernel.php` file, in the `$routeMiddleware` array:
+
+    protected $routeMiddleware = [
+        …
+        'groups' => \Junges\ACL\Middlewares\GroupMiddleware::class,
+        'permissions' => \Junges\ACL\Middlewares\PermissionMiddleware::class,
+        'permission_or_group' => \Junges\ACL\Middlewares\PermissionOrGroupMiddleware::class,
+        …
+    ];
 
 
 Create admins user group:
@@ -169,59 +181,48 @@ For page component you have to create page header and footer:
 TBD
 
 
-## Authentication
-
-Following files have to be present:
-- .env.example
-- routes/web.php
 
 
-Install Jetstream:
-
-    composer require laravel/jetstream
-
-    php artisan jetstream:install livewire
 
 
-For teams support:
-
-    php artisan jetstream:install livewire --teams
 
 
-Adjust migrations if adjusting existing application
 
-    php artisan migrate
+### FortifyServiceProvider
+
+Publish:
+
+    php artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider"
 
 
-    npm install && npm run dev
+Add in `boot()`:
+
+    Fortify::registerView(config('laravel-toolbox.views.auth.register'));
+    Fortify::loginView(config('laravel-toolbox.views.auth.login'));
+    Fortify::confirmPasswordView(config('laravel-toolbox.views.auth.confirm-password'));
+    Fortify::requestPasswordResetLinkView(config('laravel-toolbox.views.auth.forgot-password'));
+    Fortify::resetPasswordView(config('laravel-toolbox.views.auth.reset-password'));
+    Fortify::twoFactorChallengeView(config('laravel-toolbox.views.auth.two-factor-challenge'));
+    Fortify::verifyEmailView(config('laravel-toolbox.views.auth.verify-email'));
 
 
-    php artisan vendor:publish --tag=jetstream-views
+In `config/app.php` add service provider:
+
+    \App\Providers\FortifyServiceProvider::class,
 
 
 ## ACL
-
-    composer require mateusjunges/laravel-acl
 
 
     php artisan acl:install
 
 
-Customize table names in `config/acl.php`:
 
-    'tables' => [
-        'groups'                      => 'acl_groups',
-        'permissions'                 => 'acl_permissions',
-        'users'                       => 'users',
-        'group_has_permissions'       => 'acl_group_permissions',
-        'user_has_permissions'        => 'acl_user_permissions',
-        'user_has_groups'             => 'acl_user_groups',
-    ],
+ACL setup for each deployment:
+
+     art make:command AclSetupCommand
 
 
-Now, run migrations:
-
-    php artisan migrate
 
 
 
