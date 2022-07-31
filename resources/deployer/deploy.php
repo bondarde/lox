@@ -44,4 +44,5 @@ task('build', [
     'build:laravel',
     'build:vite',
     'build:htaccess_minified_redirects',
+    'build:opcache_reset',
 ])->desc('Main build script');

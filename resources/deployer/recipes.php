@@ -2,8 +2,10 @@
 
 /** @noinspection PhpUnhandledExceptionInspection */
 
+use Ramsey\Uuid\Uuid;
 use function Deployer\after;
 use function Deployer\get;
+use function Deployer\invoke;
 use function Deployer\output;
 use function Deployer\parse;
 use function Deployer\runLocally;
@@ -46,6 +48,14 @@ set('package_name', function () {
 
     return $composerJson->name;
 });
+
+set('opcache_reset_token_filename', '{{root_dir}}/.build/.opcache-reset-token-{{stage}}');
+
+set('opcache_token', function () {
+    return runLocally('cat {{opcache_reset_token_filename}}');
+});
+
+set('opcache_filename', 'opcache-reset.php');
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -153,6 +163,35 @@ task('build:htaccess_minified_redirects', function () {
 })->once();
 
 
+task('build:generate_opcache_reset_token', function () {
+    $rootDir = get('root_dir');
+    require $rootDir . '/vendor/autoload.php';
+
+    $uuid = Uuid::uuid4()->toString();
+
+    runLocally('echo "' . $uuid . '" > {{opcache_reset_token_filename}}');
+});
+
+
+task('build:opcache_reset', function () {
+    invoke('build:generate_opcache_reset_token');
+    $token = get('opcache_token');
+
+    $filename = get('opcache_filename');
+    $target = parse('{{build_path}}/public/{{opcache_filename}}');
+
+    $lines = array_map(fn(string $line) => str_replace(
+        '$token = die();',
+        '$token = \'' . $token . '\';',
+        $line,
+    ), file(__DIR__ . '/' . $filename));
+
+    file_put_contents($target, implode('', $lines));
+})
+    ->desc('Create file for OPCache reset')
+    ->once();
+
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //// Deployment tasks //////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -163,6 +202,21 @@ task('deploy:vendors', $disabledFn);
 
 
 task('deploy:clear_opcache', function () {
+    $filename = get('opcache_filename');
+    $token = get('opcache_token');
+    $date = date('Y-m-d');
+    $hash = md5($token . $date);
+
+    $host = get('alias');
+    if ($host === get('domain_prod')) {
+        $host = get('domain_prod_www');
+    }
+
+    $url = "https://$host/$filename?hash=$hash";
+    $cmd = "curl -L $url";
+
+    writeln("Clearing OPCache: <fg=blue>$url</> …");
+    writeln(runLocally($cmd));
 });
 
 
