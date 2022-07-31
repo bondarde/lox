@@ -13,7 +13,11 @@
     <meta name="robots" content="{{ $metaRobots }}">
 
     @foreach($cssFiles as $file)
-        <link rel="stylesheet" href="{{ $file }}">
+        @if(\Illuminate\Support\Facades\App::environment(\BondarDe\LaravelToolbox\Constants\Environment::LOCAL))
+            @vite([$file])
+        @else
+            <link rel="stylesheet" href="{{ $file }}">
+        @endif
     @endforeach
     @if($livewire)
         @livewireStyles
@@ -53,7 +57,11 @@
 @endif
 
 @foreach($jsFiles as $file)
-    <script src="{{ $file }}"></script>
+    @if(\Illuminate\Support\Facades\App::environment(\BondarDe\LaravelToolbox\Constants\Environment::LOCAL))
+        @vite([$file])
+    @else
+        <script src="{{ $file }}"></script>
+    @endif
 @endforeach
 
 </body>

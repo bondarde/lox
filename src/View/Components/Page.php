@@ -51,7 +51,7 @@ class Page extends Component
     {
         if ($env === Environment::LOCAL) {
             return [
-                '/css/app.css?t=' . time(),
+                'resources/scss/app.scss',
             ];
         }
 
@@ -64,7 +64,7 @@ class Page extends Component
     {
         if ($env === Environment::LOCAL) {
             return [
-                '/js/app.js?t=' . time(),
+                'resources/js/app.js',
             ];
         }
 
