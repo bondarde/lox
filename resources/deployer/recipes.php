@@ -117,7 +117,7 @@ task('build:vite', function () {
     runLocally('mkdir {{build_path}}/public/=\)');
     runLocally('cat {{vite_build_path}}/{{vite_css_file}} > "{{build_path}}/public/=)/app.{{git_revision}}.css"');
     runLocally('cat {{vite_build_path}}/{{vite_js_file}} > "{{build_path}}/public/=)/app.{{git_revision}}.js"');
-});
+})->once();
 
 
 task('build:htaccess_minified_redirects', function () {
@@ -150,7 +150,7 @@ task('build:htaccess_minified_redirects', function () {
     writeln('<fg=green>' . $message . '</>');
 
     file_put_contents($filename, implode('', $lines));
-});
+})->once();
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
