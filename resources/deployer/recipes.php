@@ -120,7 +120,7 @@ task('build:vite', function () {
 });
 
 
-task('build:htaccess-minified-redirects', function () {
+task('build:htaccess_minified_redirects', function () {
     $filename = parse('{{build_path}}/public/.htaccess');
     $cwd = runLocally('pwd');
 

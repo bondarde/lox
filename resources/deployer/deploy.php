@@ -43,5 +43,5 @@ host(get('domain_test'))
 task('build', [
     'build:laravel',
     'build:vite',
-    'build:htaccess-minified-redirects',
+    'build:htaccess_minified_redirects',
 ])->desc('Main build script');
