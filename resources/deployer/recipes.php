@@ -122,8 +122,6 @@ task('build:vite', function () {
 
 task('build:htaccess_minified_redirects', function () {
     $filename = parse('{{build_path}}/public/.htaccess');
-    $cwd = runLocally('pwd');
-
     $gitRevision = get('git_revision');
 
     $lines = file($filename);
