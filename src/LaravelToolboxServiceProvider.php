@@ -4,6 +4,7 @@ namespace BondarDe\LaravelToolbox;
 
 use BondarDe\LaravelToolbox\Console\Commands\Acl\AclMakeAdminCommand;
 use BondarDe\LaravelToolbox\Console\Commands\Acl\AclUpdateGroupsAndPermissionsCommand;
+use BondarDe\LaravelToolbox\Constants\Environment;
 use BondarDe\LaravelToolbox\View\Components\Buttons\BlueButton;
 use BondarDe\LaravelToolbox\View\Components\Buttons\DangerButton;
 use BondarDe\LaravelToolbox\View\Components\Buttons\DefaultButton;
@@ -31,6 +32,7 @@ use BondarDe\LaravelToolbox\View\Components\Survey;
 use BondarDe\LaravelToolbox\View\Components\SurveyView;
 use BondarDe\LaravelToolbox\View\Components\UserMessages;
 use BondarDe\LaravelToolbox\View\Components\ValidationErrors;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 
 class LaravelToolboxServiceProvider extends ServiceProvider
@@ -98,6 +100,10 @@ class LaravelToolboxServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
         $this->loadRoutesFrom(__DIR__ . '/../routes/user.php');
         $this->loadRoutesFrom(__DIR__ . '/../routes/admin.php');
+
+        if (App::environment(Environment::LOCAL)) {
+            $this->loadRoutesFrom(__DIR__ . '/../routes/local.php');
+        }
     }
 
     private function configurePublishing()
