@@ -39,7 +39,10 @@ set('git_revision', function () {
 });
 
 set('git_tag', function () {
-    return runLocally('git describe --exact-match --tags $(git log -n1 --pretty=\'%H\')');
+    return match (get('stage')) {
+        'test' => runLocally('git describe --tags --candidates=100 $(git log -n1 --pretty=\'%H\')'),
+        default => runLocally('git describe --exact-match --tags $(git log -n1 --pretty=\'%H\')'),
+    };
 });
 
 set('package_name', function () {
