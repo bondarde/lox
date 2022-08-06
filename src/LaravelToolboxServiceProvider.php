@@ -78,6 +78,8 @@ class LaravelToolboxServiceProvider extends ServiceProvider
     {
         parent::register();
 
+        $this->app->register(LaravelToolboxViewServiceProvider::class);
+
         $this->mergeConfigFrom(
             __DIR__ . '/config/laravel-toolbox.php', 'laravel-toolbox'
         );
