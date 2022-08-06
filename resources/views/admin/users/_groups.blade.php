@@ -1,5 +1,5 @@
 <div class="mb-8">
-    @if(optional($groups)->count())
+    @if($groups?->count())
         <ul>
             @foreach($groups as $group)
                 <li>

@@ -1,5 +1,5 @@
 <div class="mb-8">
-    @if(optional($permissions)->count())
+    @if($permissions?->count())
         <ul>
             @foreach($permissions as $permission)
                 <li>
