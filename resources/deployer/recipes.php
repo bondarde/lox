@@ -215,6 +215,11 @@ task('deploy:clear_opcache', function () {
         $host = get('domain_prod_www');
     }
 
+    $authBasic = get('auth_basic');
+    if ($authBasic) {
+        $host = $authBasic . '@' . $host;
+    }
+
     $url = "https://$host/$filename?hash=$hash";
     $cmd = "curl -L $url";
 
