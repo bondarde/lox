@@ -52,7 +52,8 @@ class ModelList extends Component
     public function __construct(
         Request $request,
         string  $model,
-        bool    $withTrashed = false
+        bool    $withTrashed = false,
+        bool    $withArchived = false,
     )
     {
         self::assertIsSubclassOf($model, Model::class);
@@ -65,7 +66,7 @@ class ModelList extends Component
         $this->activeSorts = $modelListData->activeSorts;
         $this->searchQuery = $modelListData->searchQuery;
 
-        $query = self::toUnpaginatedQuery($modelListData, $withTrashed);
+        $query = self::toUnpaginatedQuery($modelListData, $withTrashed, $withArchived);
         $this->items = self::toItems($model, $query, $modelListData->activePage);
         $this->filterStats = ModelListFilterStatsUtil::toFilterStats($model, $this->allFilters, $this->activeFilters);
 
@@ -112,13 +113,18 @@ class ModelList extends Component
      */
     public static function toUnpaginatedQuery(
         ModelListData $modelListData,
-        bool          $withTrashed = false
+        bool          $withTrashed = false,
+        bool          $withArchived = false,
     ): Builder
     {
         $query = self::toQueryBuilder($modelListData->model);
 
         if ($withTrashed) {
             $query->withTrashed();
+        }
+
+        if ($withArchived) {
+            $query->withArchived();
         }
 
         $activeFilters = $modelListData->activeFilters;
