@@ -1,5 +1,7 @@
 <?php
 
+date_default_timezone_set('Europe/Berlin');
+
 header('Expires: Fri, 10 Sep 2010 00:13:33 GMT');
 
 $token = die();
