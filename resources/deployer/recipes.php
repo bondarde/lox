@@ -250,7 +250,7 @@ task('build:update_env_from_aws_secrets', function () {
 
     // append secrets to env file
     foreach ($secrets as $key => $value) {
-        runLocally('echo "' . $key . '=' . $value . '" >> {{ env_file_path }}');
+        runLocally('echo "' . $key . '=\"' . $value . '\"" >> {{ env_file_path }}');
     }
 })->once();
 
