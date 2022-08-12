@@ -239,7 +239,7 @@ task('build:update_env_from_aws_secrets', function () {
         $projectPrefix,
         $useCache,
         $cacheFile,
-        fn()=> ask('AWS MFA Code:'),
+        fn() => ask('AWS MFA Code:'),
     );
 
     writeln('Loading AWS secrets…');
