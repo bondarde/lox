@@ -60,7 +60,7 @@
     @if(\Illuminate\Support\Facades\App::environment(\BondarDe\LaravelToolbox\Constants\Environment::LOCAL))
         @vite([$file], '../.build/.vite')
     @else
-        <script src="{{ $file }}"></script>
+        <script type="module" src="{{ $file }}"></script>
     @endif
 @endforeach
 
