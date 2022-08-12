@@ -2,7 +2,7 @@
 
 namespace BondarDe\LaravelToolbox\Data\Aws;
 
-use BondarDe\LaravelToolbox\Exceptions\IllegalStateException;
+use Closure;
 
 class AwsSecretsLoadConfig
 {
@@ -13,11 +13,8 @@ class AwsSecretsLoadConfig
         public readonly string  $projectPrefix,
         public readonly bool    $useCredentialsCache,
         public readonly string  $cacheFile,
-        public readonly ?string $mfaCode,
+        public readonly Closure $mfaCodeProvider,
     )
     {
-        if (!$this->useCredentialsCache && !$this->mfaCode) {
-            throw new IllegalStateException('MFA code is required if no cache used.');
-        }
     }
 }

@@ -231,7 +231,6 @@ task('build:update_env_from_aws_secrets', function () {
         throw new Exception('AWS secrets setup is incomplete.');
     }
 
-    $mfaCode = ask('AWS MFA Code:');
 
     $config = new AwsSecretsLoadConfig(
         $region,
@@ -240,7 +239,7 @@ task('build:update_env_from_aws_secrets', function () {
         $projectPrefix,
         $useCache,
         $cacheFile,
-        $mfaCode,
+        fn()=> ask('AWS MFA Code:'),
     );
 
     writeln('Loading AWS secrets…');

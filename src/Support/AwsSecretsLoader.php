@@ -6,7 +6,6 @@ use Aws\SecretsManager\SecretsManagerClient;
 use Aws\Sts\StsClient;
 use BondarDe\LaravelToolbox\Data\Aws\AwsSecretsLoadConfig;
 use BondarDe\LaravelToolbox\Data\Aws\StsCredentials;
-use BondarDe\LaravelToolbox\Exceptions\IllegalStateException;
 use Carbon\Carbon;
 
 class AwsSecretsLoader
@@ -44,8 +43,10 @@ class AwsSecretsLoader
     {
         $awsRegion = $config->awsRegion;
         $mfaDeviceSerialNumber = $config->mfaDeviceSerialNumber;
-        $mfaCode = $config->mfaCode;
         $useCredentialsCache = $config->useCredentialsCache;
+
+        $mfaCodeProvider = $config->mfaCodeProvider;
+        $mfaCode = $mfaCodeProvider();
 
         $stsClient = new StsClient([
             'version' => '2011-06-15',
@@ -66,29 +67,29 @@ class AwsSecretsLoader
     {
         $awsRegion = $config->awsRegion;
         $secretId = $config->secretId;
-        $mfaCode = $config->mfaCode;
         $cacheFile = $config->cacheFile;
 
-        if (!$mfaCode && $config->useCredentialsCache) {
+        if ($config->useCredentialsCache) {
             // load from cache
 
             $serializedValue = file_get_contents($cacheFile);
             $stsCredentials = unserialize($serializedValue);
 
             if ($stsCredentials->expiresAt->isBefore(Carbon::now())) {
-                throw new IllegalStateException('STS credentials expired ' . $stsCredentials->expiresAt->diffForHumans() . ': ' . $stsCredentials->expiresAt->toString());
+                // update credentials if expired
+
+                $stsCredentials = self::loadStsCredentials(
+                    $config,
+                );
+
+                $serializedValue = serialize($stsCredentials);
+                file_put_contents($cacheFile, $serializedValue);
             }
         } else {
             // request from AWS
             $stsCredentials = self::loadStsCredentials(
                 $config,
             );
-
-            if ($config->useCredentialsCache) {
-                // store to cache
-                $serializedValue = serialize($stsCredentials);
-                file_put_contents($cacheFile, $serializedValue);
-            }
         }
 
         $client = new SecretsManagerClient([
