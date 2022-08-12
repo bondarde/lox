@@ -108,7 +108,9 @@ task('build:laravel', function () {
     runLocally('echo "APP_VERSION=\"{{git_revision}}\"" >> {{env_file_path}}');
 
     // Store Sentry release
-    runLocally('echo "SENTRY_RELEASE=\"{{package_name}}@{{git_tag}}:{{git_revision}}\"" >> {{env_file_path}}');
+    $packageName = get('package_name');
+    $sentryPackageName = str_replace('/', '-', $packageName);
+    runLocally('echo "SENTRY_RELEASE=\"' . $sentryPackageName . '@{{git_tag}}:{{git_revision}}\"" >> {{env_file_path}}');
 })->once();
 
 
