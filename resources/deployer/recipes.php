@@ -2,8 +2,11 @@
 
 /** @noinspection PhpUnhandledExceptionInspection */
 
+use BondarDe\LaravelToolbox\Data\Aws\AwsSecretsLoadConfig;
+use BondarDe\LaravelToolbox\Support\AwsSecretsLoader;
 use Ramsey\Uuid\Uuid;
 use function Deployer\after;
+use function Deployer\ask;
 use function Deployer\get;
 use function Deployer\invoke;
 use function Deployer\output;
@@ -33,6 +36,7 @@ set('stage', function () {
 
 set('build_path', '{{root_dir}}/.build/{{stage}}');
 set('vite_build_path', '{{root_dir}}/.build/.vite');
+set('env_file_path', '{{build_path}}/.env');
 
 set('git_revision', function () {
     return runLocally('git rev-parse --verify --short=12 HEAD');
@@ -87,7 +91,7 @@ task('build:laravel', function () {
     runLocally('mkdir -p {{build_path}}');
 
     // Copy Laravel files
-    runLocally('cp .env.{{stage}} {{build_path}}/.env');
+    runLocally('cp .env.{{stage}} {{env_file_path}}');
     runLocally('rsync -r artisan {{build_path}}');
     runLocally('rsync -r app {{build_path}}');
     runLocally('rsync -r bootstrap {{build_path}}');
@@ -101,10 +105,10 @@ task('build:laravel', function () {
     runLocally('rsync -r composer.json {{build_path}}');
 
     // Store Git revision as app version
-    runLocally('echo "APP_VERSION=\"{{git_revision}}\"" >> {{build_path}}/.env');
+    runLocally('echo "APP_VERSION=\"{{git_revision}}\"" >> {{env_file_path}}');
 
     // Store Sentry release
-    runLocally('echo "SENTRY_RELEASE=\"{{package_name}}@{{git_tag}}:{{git_revision}}\"" >> {{build_path}}/.env');
+    runLocally('echo "SENTRY_RELEASE=\"{{package_name}}@{{git_tag}}:{{git_revision}}\"" >> {{env_file_path}}');
 })->once();
 
 
@@ -205,6 +209,51 @@ task('build', [
     'build:htaccess_minified_redirects',
     'build:opcache_reset',
 ])->desc('Main build script');
+
+
+task('build:update_env_from_aws_secrets', function () {
+    $rootDir = get('root_dir');
+    require $rootDir . '/vendor/autoload.php';
+
+    $region = get('aws_secrets_region');
+    $deviceSerialNumber = get('aws_secrets_device_serial_number');
+    $secretId = get('aws_secrets_secret_id');
+    $projectPrefix = get('aws_secrets_project_prefix');
+    $useCache = get('aws_secrets_use_cache', true);
+    $cacheFile = get('aws_secrets_cache_file', '{{root_dir}}/.build/.aws-sts-credentials');
+
+    if (
+        !$region
+        || !$deviceSerialNumber
+        || !$secretId
+        || !$projectPrefix
+    ) {
+        throw new Exception('AWS secrets setup is incomplete.');
+    }
+
+    $mfaCode = ask('AWS MFA Code:');
+
+    $config = new AwsSecretsLoadConfig(
+        $region,
+        $deviceSerialNumber,
+        $secretId,
+        $projectPrefix,
+        $useCache,
+        $cacheFile,
+        $mfaCode,
+    );
+
+    writeln('Loading AWS secrets…');
+    $secrets = AwsSecretsLoader::getSecrets(
+        $config,
+    );
+    writeln('Got <fg=red>' . count($secrets) . ' secrets</>, writing out to <fg=blue>{{ env_file_path }}</>…');
+
+    // append secrets to env file
+    foreach ($secrets as $key => $value) {
+        runLocally('echo "' . $key . '=' . $value . '" >> {{ env_file_path }}');
+    }
+})->once();
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
