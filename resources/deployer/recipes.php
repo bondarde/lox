@@ -281,7 +281,8 @@ task('deploy:clear_opcache', function () {
         $host = $authBasic . '@' . $host;
     }
 
-    $url = "https://$host/$filename?hash=$hash";
+    $protocol = get('protocol', "https");
+    $url = "$protocol://$host/$filename?hash=$hash";
     $cmd = "curl -L $url";
 
     writeln("Clearing OPCache: <fg=blue>$url</> …");
