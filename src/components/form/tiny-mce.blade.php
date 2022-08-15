@@ -10,7 +10,6 @@
         ...{
             setup: function (editor) {
                 editor.on('init change', function () {
-                    console.log('init, change')
                     editor.save()
                 })
             },
