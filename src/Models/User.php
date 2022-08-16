@@ -2,18 +2,19 @@
 
 namespace BondarDe\LaravelToolbox\Models;
 
+use BondarDe\LaravelToolbox\Constants\ModelCastTypes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Junges\ACL\Concerns\HasGroups;
-use Junges\ACL\Concerns\HasPermissions;
+use Laravel\Fortify\TwoFactorAuthenticatable;
 
 class User extends Authenticatable
 {
     use HasFactory;
     use Notifiable;
+    use TwoFactorAuthenticatable;
     use HasGroups;
-    use HasPermissions;
 
     const FIELD_NAME = 'name';
     const FIELD_EMAIL = 'email';
@@ -39,8 +40,8 @@ class User extends Authenticatable
         self::FIELD_REMEMBER_TOKEN,
     ];
     protected $casts = [
+        self::FIELD_EMAIL_VERIFIED_AT => ModelCastTypes::DATETIME,
     ];
-    protected $dates = [
-        self::FIELD_EMAIL_VERIFIED_AT,
-    ];
+
+    private string $guard_name = 'web';
 }

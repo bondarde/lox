@@ -11,12 +11,11 @@ class AclMakeAdminCommand extends Command
     protected $signature = 'acl:make-admin {idOrEmail}';
     protected $description = 'Assign admin privileges to the user with provided ID or e-mail';
 
-    private UserService $userService;
-
-    public function __construct(UserService $userService)
+    public function __construct(
+        private readonly UserService $userService,
+    )
     {
         parent::__construct();
-        $this->userService = $userService;
     }
 
     public function handle(): int
@@ -31,7 +30,7 @@ class AclMakeAdminCommand extends Command
 
         $user->assignGroup('admin');
 
-        $this->line('User "' . $user->{\App\Models\User::FIELD_NAME} . ' (' . $user->{User::FIELD_EMAIL} . ')" has been assigned to admins group');
+        $this->info('User "' . $user->{\App\Models\User::FIELD_NAME} . ' (' . $user->{User::FIELD_EMAIL} . ')" has been assigned to admins group');
 
         return self::SUCCESS;
     }

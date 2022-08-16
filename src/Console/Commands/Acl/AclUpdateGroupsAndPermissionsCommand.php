@@ -9,49 +9,59 @@ use BondarDe\LaravelToolbox\Services\AclService;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Artisan;
-use Junges\ACL\Console\Commands\CreateGroup;
-use Junges\ACL\Console\Commands\CreatePermission;
-use Junges\ACL\Exceptions\GroupAlreadyExistsException;
-use Junges\ACL\Exceptions\PermissionAlreadyExistsException;
 
 class AclUpdateGroupsAndPermissionsCommand extends Command
 {
     protected $signature = 'acl:update-groups-and-permission';
     protected $description = 'Updates groups and privileges to make them available';
 
-    private AclService $aclService;
+    private Collection $groups;
+    private Collection $permissions;
 
-    public function __construct(AclService $aclService)
+    public function __construct(
+        private readonly AclService $aclService,
+    )
     {
         parent::__construct();
-        $this->aclService = $aclService;
     }
 
+    /**
+     * @throws Exception
+     */
     public function handle(): int
     {
         $basicConfig = $this->basicAclConfig();
-        $config = config('laravel-toolbox.acl_config');
 
-        $groups = $basicConfig->groups();
-        $permissions = $basicConfig->permissions();
+        $this->groups = $basicConfig->groups();
+        $this->permissions = $basicConfig->permissions();
 
-        if (!is_null($config)) {
-            if (!is_subclass_of($config, IsAclConfig::class)) {
-                $message = 'ACL config has to implement "' . IsAclConfig::class . '"';
-                throw new Exception($message);
-            }
-
-            $config = new $config;
-
-            $groups = $groups->merge($config->groups());
-            $permissions = $permissions->merge($config->permissions());
-        }
-
-        $this->setupGroups($groups);
-        $this->setupGroupPermissions($permissions);
+        $this->extendGroupsAndPermissionsList();
+        $this->setupGroups($this->groups);
+        $this->setupGroupPermissions($this->permissions);
 
         return self::SUCCESS;
+    }
+
+    /**
+     * @throws Exception
+     */
+    private function extendGroupsAndPermissionsList()
+    {
+        $config = config('laravel-toolbox.acl_config');
+
+        if (is_null($config)) {
+            return;
+        }
+
+        if (!is_subclass_of($config, IsAclConfig::class)) {
+            $message = 'ACL config has to implement "' . IsAclConfig::class . '"';
+            throw new Exception($message);
+        }
+
+        $config = new $config;
+
+        $this->groups = $this->groups->merge($config->groups());
+        $this->permissions = $this->permissions->merge($config->permissions());
     }
 
     private function basicAclConfig(): IsAclConfig
@@ -64,14 +74,14 @@ class AclUpdateGroupsAndPermissionsCommand extends Command
             public function groups(): Collection
             {
                 return collect([
-                    new AclSetupGroup('Admins', self::GROUP_ADMIN, 'Admin users group'),
+                    new AclSetupGroup(self::GROUP_ADMIN, 'Admins', 'web'),
                 ]);
             }
 
             public function permissions(): Collection
             {
                 return collect([
-                    new AclSetupPermission('Model: meta', self::PERMISSION_MODEL_VIEW_META, 'View models meta data'),
+                    new AclSetupPermission(self::PERMISSION_MODEL_VIEW_META, 'View models meta data', 'web'),
                 ]);
             }
         };
@@ -79,49 +89,39 @@ class AclUpdateGroupsAndPermissionsCommand extends Command
 
     private function setupGroups(Collection $groups)
     {
-        $groups->each(function (AclSetupGroup $group) {
-            $this->line('Creating group "' . $group->slug . '"…');
+        $groups->each(function (AclSetupGroup $groupSetup) {
+            $this->line('Creating/updating group "' . $groupSetup->name . '"…');
 
-            try {
-                Artisan::call(
-                    CreateGroup::class,
-                    [
-                        'name' => $group->name,
-                        'slug' => $group->slug,
-                        'description' => $group->description,
-                    ],
-                    $this->getOutput(),
-                );
-            } catch (GroupAlreadyExistsException $e) {
+            $group = $this->aclService->updateOrCreateGroup($groupSetup);
+
+            if ($group->wasRecentlyCreated) {
+                $this->info('Created.');
+            } else {
+                $this->line('Updated.');
             }
         });
     }
 
     private function setupGroupPermissions(Collection $permissions)
     {
-        $permissions->each(function (AclSetupPermission $permission) {
-            $this->line('Creating permission "' . $permission->slug . '"…');
+        $permissions->each(function (AclSetupPermission $permissionSetup) {
+            $this->line('Creating/updating permission "' . $permissionSetup->name . '"…');
 
-            try {
-                Artisan::call(
-                    CreatePermission::class,
-                    [
-                        'name' => $permission->name,
-                        'slug' => $permission->slug,
-                        'description' => $permission->description,
-                    ],
-                    $this->getOutput(),
-                );
-            } catch (PermissionAlreadyExistsException $e) {
+            $permission = $this->aclService->updateOrCreatePermission($permissionSetup);
+
+            if ($permission->wasRecentlyCreated) {
+                $this->info('Created.');
+            } else {
+                $this->line('Updated.');
             }
 
-            foreach ($permission->groupSlugs as $groupSlug) {
-                $this->line('Assigning permission "' . $permission->slug . '" to group "' . $groupSlug . '"…');
+            foreach ($permissionSetup->groupNames as $groupName) {
+                $this->line('Assigning permission "' . $permissionSetup->name . '" to group "' . $groupName . '"…');
 
-                $this->aclService->findGroupBySlugOrFail($groupSlug)
-                    ->assignPermissions($permission->slug);
+                $this->aclService->findGroupByNameAndGuardOrFail($groupName, $permissionSetup->guard)
+                    ->assignPermission($permissionSetup->name);
 
-                $this->line('Done.');
+                $this->info('Groups assignment done.');
             }
         });
     }
