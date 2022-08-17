@@ -2,7 +2,7 @@
 
 namespace BondarDe\LaravelToolbox\Console\Commands\Acl;
 
-use BondarDe\LaravelToolbox\Models\User;
+use App\Models\User;
 use BondarDe\LaravelToolbox\Services\UserService;
 use Illuminate\Console\Command;
 

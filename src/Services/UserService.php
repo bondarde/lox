@@ -2,7 +2,7 @@
 
 namespace BondarDe\LaravelToolbox\Services;
 
-use BondarDe\LaravelToolbox\Models\User;
+use App\Models\User;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
