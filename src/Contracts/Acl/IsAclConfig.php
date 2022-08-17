@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 interface IsAclConfig
 {
-    public function groups(): Collection;
+    public function roles(): Collection;
 
     public function permissions(): Collection;
 }

@@ -2,8 +2,8 @@
 
 namespace BondarDe\LaravelToolbox;
 
-use BondarDe\LaravelToolbox\Console\Commands\Acl\AclMakeAdminCommand;
-use BondarDe\LaravelToolbox\Console\Commands\Acl\AclUpdateGroupsAndPermissionsCommand;
+use BondarDe\LaravelToolbox\Console\Commands\Acl\AclMakeSuperAdminCommand;
+use BondarDe\LaravelToolbox\Console\Commands\Acl\AclUpdateRolesAndPermissionsCommand;
 use BondarDe\LaravelToolbox\Constants\Environment;
 use BondarDe\LaravelToolbox\View\Components\Buttons\BlueButton;
 use BondarDe\LaravelToolbox\View\Components\Buttons\DangerButton;
@@ -78,8 +78,6 @@ class LaravelToolboxServiceProvider extends ServiceProvider
     {
         parent::register();
 
-        $this->app->register(LaravelToolboxViewServiceProvider::class);
-
         $this->mergeConfigFrom(
             __DIR__ . '/config/laravel-toolbox.php', 'laravel-toolbox'
         );
@@ -139,8 +137,8 @@ class LaravelToolboxServiceProvider extends ServiceProvider
         }
 
         $this->commands([
-            AclMakeAdminCommand::class,
-            AclUpdateGroupsAndPermissionsCommand::class,
+            AclMakeSuperAdminCommand::class,
+            AclUpdateRolesAndPermissionsCommand::class,
         ]);
     }
 }

@@ -6,15 +6,15 @@ use BondarDe\LaravelToolbox\Constants\ModelCastTypes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Junges\ACL\Concerns\HasGroups;
 use Laravel\Fortify\TwoFactorAuthenticatable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     use HasFactory;
     use Notifiable;
     use TwoFactorAuthenticatable;
-    use HasGroups;
+    use HasRoles;
 
     const FIELD_NAME = 'name';
     const FIELD_EMAIL = 'email';
@@ -24,7 +24,7 @@ class User extends Authenticatable
     const FIELD_TWO_FACTOR_RECOVERY_CODES = 'two_factor_recovery_codes';
     const FIELD_EMAIL_VERIFIED_AT = 'email_verified_at';
 
-    const ATTRIBUTE_GROUPS = 'groups';
+    const ATTRIBUTE_ROLES = 'roles';
     const ATTRIBUTE_PERMISSIONS = 'permissions';
 
 
@@ -42,6 +42,4 @@ class User extends Authenticatable
     protected $casts = [
         self::FIELD_EMAIL_VERIFIED_AT => ModelCastTypes::DATETIME,
     ];
-
-    private string $guard_name = 'web';
 }

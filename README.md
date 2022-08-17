@@ -5,18 +5,17 @@
 
     composer require bondarde/laravel-toolbox
 
-    php artisan vendor:publish --provider="Junges\ACL\Providers\ACLServiceProvider"
+    php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
 
 
-Customize table names in `config/acl.php`:
+If needed, customize table names in `config/permission.php`, e.g.:
 
-    'tables' => [
-        'groups'                      => 'acl_groups',
-        'permissions'                 => 'acl_permissions',
-        'users'                       => 'users',
-        'group_has_permissions'       => 'acl_group_permissions',
-        'model_has_permissions'       => 'acl_user_permissions',
-        'model_has_groups'            => 'acl_user_groups',
+    'table_names' => [
+        'roles'                 => 'acl_roles',
+        'permissions'           => 'acl_permissions',
+        'model_has_permissions' => 'acl_model_has_permissions',
+        'model_has_roles'       => 'acl_model_has_roles',
+        'role_has_permissions'  => 'acl_role_has_permissions',
     ],
 
 
@@ -29,25 +28,34 @@ If needed, add middlewares to the `app/Http/Kernel.php` file, in the `$routeMidd
 
     protected $routeMiddleware = [
         …
-        'groups' => \Junges\ACL\Middlewares\GroupMiddleware::class,
-        'permissions' => \Junges\ACL\Middlewares\PermissionMiddleware::class,
-        'permission_or_group' => \Junges\ACL\Middlewares\PermissionOrGroupMiddleware::class,
+        'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
+        'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
+        'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
         …
     ];
 
 
-Create admins user group:
+If needed, grant "super-admin" role all permissions in `AuthServiceProvider`'s `boot()` method:
 
-    php artisan group:create "Admin" "admin" "Admins users group"
+    Gate::before(
+        fn($user, $ability) => $user->hasRole(AclSetupData::ROLE_SUPER_ADMIN) && $ability !== AclSetupData::PERMISSION_VIEW_MODEL_META_DATA
+            ? true
+            : null
+    );
+
+
+Create super-admin role and all configured roles/permissions:
+
+    php artisan acl:update-roles-and-permission
 
 
 After signing up, assign admin group to (your) user by ID or e-mail address:
 
-    php artisan acl:make-admin 1
+    php artisan acl:make-super-admin 1
 
 or:
 
-    php artisan acl:make-admin mail@example.com
+    php artisan acl:make-super-admin mail@example.com
 
 
 ### Styles
@@ -211,19 +219,3 @@ In `config/app.php` add service provider:
     \App\Providers\FortifyServiceProvider::class,
 
 
-## ACL
-
-
-    php artisan acl:install
-
-
-
-ACL setup for each deployment:
-
-     art make:command AclSetupCommand
-
-
-
-
-
-Add `UsersTrait` to the `User` model:

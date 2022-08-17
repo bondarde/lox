@@ -6,6 +6,7 @@ use BondarDe\LaravelToolbox\Data\Aws\AwsSecretsLoadConfig;
 use BondarDe\LaravelToolbox\Support\AwsSecretsLoader;
 use Ramsey\Uuid\Uuid;
 use function Deployer\after;
+use function Deployer\artisan;
 use function Deployer\ask;
 use function Deployer\get;
 use function Deployer\invoke;
@@ -296,3 +297,6 @@ task('deploy:upload', function () {
 
     upload('{{build_path}}/', '{{release_path}}/');
 });
+
+after('artisan:migrate', artisan('acl:update-roles-and-permission'))
+    ->desc('ACL setup');

@@ -2,44 +2,42 @@
 
 namespace BondarDe\LaravelToolbox\Services;
 
-use BondarDe\LaravelToolbox\Data\Acl\AclSetupGroup;
 use BondarDe\LaravelToolbox\Data\Acl\AclSetupPermission;
+use BondarDe\LaravelToolbox\Data\Acl\AclSetupRole;
 use Illuminate\Support\Collection;
-use Junges\ACL\Models\Group;
-use Junges\ACL\Models\Permission;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class AclService
 {
-    public function getGroups(): Collection
+    public function roles(): Collection
     {
-        return Group::query()->get();
+        return Role::query()->get();
     }
 
-    public function getPermissions(): Collection
+    public function permissions(): Collection
     {
         return Permission::query()->get();
     }
 
-    public function findGroupByNameAndGuardOrFail(
+    public function findRoleByNameAndGuardOrFail(
         string $name,
         string $guard,
-    ): Group
+    ): Role
     {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return Group::query()
+        return Role::query()
             ->where('name', $name)
             ->where('guard_name', $guard)
             ->sole();
     }
 
-    public function updateOrCreateGroup(AclSetupGroup $group): Group
+    public function updateOrCreateRole(AclSetupRole $role): Role
     {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return Group::query()->updateOrCreate([
-            'name' => $group->name,
-            'guard_name' => $group->guard,
-        ], [
-            'description' => $group->description,
+        return Role::query()->updateOrCreate([
+            'name' => $role->name,
+            'guard_name' => $role->guard,
         ]);
     }
 
@@ -49,8 +47,6 @@ class AclService
         return Permission::query()->updateOrCreate([
             'name' => $permission->name,
             'guard_name' => $permission->guard,
-        ], [
-            'description' => $permission->description,
         ]);
     }
 }

@@ -6,9 +6,8 @@ class AclSetupPermission extends AclSetupData
 {
     public function __construct(
         public readonly string $name,
-        public readonly string $description,
         public readonly string $guard,
-        public readonly array  $groupNames = [],
+        public readonly array  $roleNames = [],
     )
     {
     }

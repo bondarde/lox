@@ -6,10 +6,10 @@ use App\Models\User;
 use BondarDe\LaravelToolbox\Services\UserService;
 use Illuminate\Console\Command;
 
-class AclMakeAdminCommand extends Command
+class AclMakeSuperAdminCommand extends Command
 {
-    protected $signature = 'acl:make-admin {idOrEmail}';
-    protected $description = 'Assign admin privileges to the user with provided ID or e-mail';
+    protected $signature = 'acl:make-super-admin {idOrEmail}';
+    protected $description = 'Assign super-admin privileges to the user with provided ID or e-mail';
 
     public function __construct(
         private readonly UserService $userService,
@@ -28,9 +28,9 @@ class AclMakeAdminCommand extends Command
             return self::INVALID;
         }
 
-        $user->assignGroup('admin');
+        $user->assignRole('super-admin');
 
-        $this->info('User "' . $user->{\App\Models\User::FIELD_NAME} . ' (' . $user->{User::FIELD_EMAIL} . ')" has been assigned to admins group');
+        $this->info('User "' . $user->{User::FIELD_NAME} . ' (' . $user->{User::FIELD_EMAIL} . ')" has been assigned to "super-admin" role.');
 
         return self::SUCCESS;
     }

@@ -21,7 +21,7 @@ class UserUpdateRequest extends FormRequest
                 ValidationRules::TYPE_STRING,
             ],
 
-            User::ATTRIBUTE_GROUPS => [
+            User::ATTRIBUTE_ROLES => [
                 ValidationRules::OPTIONAL,
                 ValidationRules::TYPE_ARRAY,
             ],

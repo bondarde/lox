@@ -3,19 +3,20 @@
 namespace BondarDe\LaravelToolbox\Console\Commands\Acl;
 
 use BondarDe\LaravelToolbox\Contracts\Acl\IsAclConfig;
-use BondarDe\LaravelToolbox\Data\Acl\AclSetupGroup;
+use BondarDe\LaravelToolbox\Data\Acl\AclSetupData;
 use BondarDe\LaravelToolbox\Data\Acl\AclSetupPermission;
+use BondarDe\LaravelToolbox\Data\Acl\AclSetupRole;
 use BondarDe\LaravelToolbox\Services\AclService;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 
-class AclUpdateGroupsAndPermissionsCommand extends Command
+class AclUpdateRolesAndPermissionsCommand extends Command
 {
-    protected $signature = 'acl:update-groups-and-permission';
-    protected $description = 'Updates groups and privileges to make them available';
+    protected $signature = 'acl:update-roles-and-permission';
+    protected $description = 'Updates roles and permissions list';
 
-    private Collection $groups;
+    private Collection $roles;
     private Collection $permissions;
 
     public function __construct(
@@ -32,12 +33,12 @@ class AclUpdateGroupsAndPermissionsCommand extends Command
     {
         $basicConfig = $this->basicAclConfig();
 
-        $this->groups = $basicConfig->groups();
+        $this->roles = $basicConfig->roles();
         $this->permissions = $basicConfig->permissions();
 
-        $this->extendGroupsAndPermissionsList();
-        $this->setupGroups($this->groups);
-        $this->setupGroupPermissions($this->permissions);
+        $this->extendRolesAndPermissionsList();
+        $this->setupRoles($this->roles);
+        $this->setupRolePermissions($this->permissions);
 
         return self::SUCCESS;
     }
@@ -45,7 +46,7 @@ class AclUpdateGroupsAndPermissionsCommand extends Command
     /**
      * @throws Exception
      */
-    private function extendGroupsAndPermissionsList()
+    private function extendRolesAndPermissionsList()
     {
         $config = config('laravel-toolbox.acl_config');
 
@@ -60,41 +61,37 @@ class AclUpdateGroupsAndPermissionsCommand extends Command
 
         $config = new $config;
 
-        $this->groups = $this->groups->merge($config->groups());
+        $this->roles = $this->roles->merge($config->roles());
         $this->permissions = $this->permissions->merge($config->permissions());
     }
 
     private function basicAclConfig(): IsAclConfig
     {
         return new class implements IsAclConfig {
-            const GROUP_ADMIN = 'admin';
-
-            const PERMISSION_MODEL_VIEW_META = 'model:view-meta';
-
-            public function groups(): Collection
+            public function roles(): Collection
             {
                 return collect([
-                    new AclSetupGroup(self::GROUP_ADMIN, 'Admins', 'web'),
+                    new AclSetupRole(AclSetupData::ROLE_SUPER_ADMIN, 'web'),
                 ]);
             }
 
             public function permissions(): Collection
             {
                 return collect([
-                    new AclSetupPermission(self::PERMISSION_MODEL_VIEW_META, 'View models meta data', 'web'),
+                    new AclSetupPermission(AclSetupData::PERMISSION_VIEW_MODEL_META_DATA, 'web'),
                 ]);
             }
         };
     }
 
-    private function setupGroups(Collection $groups)
+    private function setupRoles(Collection $roles)
     {
-        $groups->each(function (AclSetupGroup $groupSetup) {
-            $this->line('Creating/updating group "' . $groupSetup->name . '"…');
+        $roles->each(function (AclSetupRole $roleSetup) {
+            $this->line('Creating/updating role "' . $roleSetup->name . '"…');
 
-            $group = $this->aclService->updateOrCreateGroup($groupSetup);
+            $role = $this->aclService->updateOrCreateRole($roleSetup);
 
-            if ($group->wasRecentlyCreated) {
+            if ($role->wasRecentlyCreated) {
                 $this->info('Created.');
             } else {
                 $this->line('Updated.');
@@ -102,7 +99,7 @@ class AclUpdateGroupsAndPermissionsCommand extends Command
         });
     }
 
-    private function setupGroupPermissions(Collection $permissions)
+    private function setupRolePermissions(Collection $permissions)
     {
         $permissions->each(function (AclSetupPermission $permissionSetup) {
             $this->line('Creating/updating permission "' . $permissionSetup->name . '"…');
@@ -115,13 +112,13 @@ class AclUpdateGroupsAndPermissionsCommand extends Command
                 $this->line('Updated.');
             }
 
-            foreach ($permissionSetup->groupNames as $groupName) {
-                $this->line('Assigning permission "' . $permissionSetup->name . '" to group "' . $groupName . '"…');
+            foreach ($permissionSetup->roleNames as $roleName) {
+                $this->line('Assigning permission "' . $permissionSetup->name . '" to role "' . $roleName . '"…');
 
-                $this->aclService->findGroupByNameAndGuardOrFail($groupName, $permissionSetup->guard)
-                    ->assignPermission($permissionSetup->name);
+                $this->aclService->findRoleByNameAndGuardOrFail($roleName, $permissionSetup->guard)
+                    ->givePermissionTo($permissionSetup->name);
 
-                $this->info('Groups assignment done.');
+                $this->info('Roles assignment done.');
             }
         });
     }
