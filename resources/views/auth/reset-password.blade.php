@@ -1,6 +1,6 @@
 <x-page
-    title="Passwort zurücksetzen"
-    h1="Passwort zurücksetzen"
+    :title="__('Reset Password')"
+    :h1="__('Reset Password')"
     metaRobots="noindex, nofollow"
 >
     <div class="container">
@@ -18,10 +18,11 @@
 
             <div>
                 <x-form.input
-                    :label="__('Email')"
-                    :placeholder="__('Email')"
+                    :label="__('E-mail address')"
+                    :placeholder="__('mail@example.com')"
                     type="email"
                     name="email"
+                    autocomplete="email"
                     :value="old('email', $request->email)"
                     required
                     autofocus

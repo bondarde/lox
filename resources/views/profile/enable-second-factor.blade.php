@@ -74,7 +74,7 @@
                 :name="\BondarDe\LaravelToolbox\Http\Requests\User\Profile\SecondFactorEnableRequest::RECOVERY_CODES_STORED"
                 :checked="false"
             >
-                {{ __('Recovery codes stored') }}
+                {{ __('I have stored the above recovery codes') }}
             </x-form.boolean>
         </x-form.form-row>
 

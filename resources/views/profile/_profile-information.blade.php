@@ -1,6 +1,6 @@
 <h2>{{ __('Profile Information') }}</h2>
 <small>
-    {{ __('Update your account\'s profile information and email address.') }}
+    {{ __('Update your account’s profile information and email address.') }}
 </small>
 
 <x-content>
@@ -10,7 +10,7 @@
     </div>
 
     <div class="mt-4">
-        <small>{{ __('Email') }}</small>
+        <small>{{ __('E-mail address') }}</small>
         <div class="font-semibold">{{ $user->{\App\Models\User::FIELD_EMAIL} }}</div>
     </div>
 

@@ -7,7 +7,7 @@
 
 <x-content>
     <p class="opacity-75">
-        {{ __('When two factor authentication is enabled, you will be prompted for a secure, random token during authentication. You may retrieve this token from your phone\'s Google Authenticator application.') }}
+        {{ __('When two factor authentication is enabled, you will be prompted for a secure, random token during authentication. You may retrieve this token from your phone’s application, e.g. Authy or Google Authenticator.') }}
     </p>
 
     <p class="my-4">

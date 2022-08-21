@@ -1,6 +1,6 @@
 <x-page
-    title="Login"
-    h1="Login"
+    :title="__('Login')"
+    :h1="__('Login')"
     metaRobots="noindex, nofollow"
 >
     <x-validation-errors
@@ -23,7 +23,7 @@
 
             <div>
                 <x-form.input
-                    label="{{ __('Email') }}"
+                    label="{{ __('E-mail address') }}"
                     type="email"
                     name="email"
                     :value="old('email')"
@@ -31,7 +31,7 @@
                     autofocus
                     tabindex="10"
                     autocomplete="email"
-                    placeholder="{{ __('Email') }}"
+                    placeholder="{{ __('E-mail address') }}"
                 />
             </div>
 
@@ -60,7 +60,7 @@
 
             <div class="flex items-center justify-end mt-4">
                 @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900"
+                    <a class="underline text-sm text-gray-600 hover:no-underline hover:text-gray-900"
                        href="{{ route('password.request') }}"
                        tabindex="100"
                     >
@@ -80,12 +80,13 @@
 
 
     <p class="my-8">
-        Haben Sie noch keinen Account?
+        {{ __('You have no account yet?') }}
         <a
-            class="link whitespace-nowrap"
+            class="underline hover:no-underline whitespace-nowrap"
             href="{{ route('register') }}"
+            tabindex="110"
         >
-            Zur Registrierung
+            {{ __('Create new account') }}
         </a>
     </p>
 

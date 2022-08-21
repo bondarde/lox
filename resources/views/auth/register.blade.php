@@ -1,6 +1,6 @@
 <x-page
-    title="Registrierung"
-    h1="Registrierung"
+    :title="__('Create new account')"
+    :h1="__('Create New Account')"
     metaRobots="noindex, nofollow"
 >
     <x-validation-errors
@@ -23,19 +23,19 @@
                 required
                 autofocus
                 autocomplete="name"
-                placeholder="Erika Mustermann"
+                placeholder="{{ __('Jane Doe') }}"
                 tabindex="10"
             />
 
 
             <div class="mt-4">
                 <x-form.input
-                    label="{{ __('Email') }}"
+                    label="{{ __('E-mail address') }}"
                     type="email"
                     name="{{ \App\Models\User::FIELD_EMAIL }}"
                     :value="old(\App\Models\User::FIELD_NAME)"
                     required
-                    placeholder="mail@example.de"
+                    placeholder="{{ __('mail@example.com') }}"
                     autocomplete="email"
                     tabindex="10"
                 />
@@ -48,26 +48,26 @@
                     name="{{ \App\Models\User::FIELD_PASSWORD }}"
                     required
                     autocomplete="new-password"
-                    placeholder="Min. 8 Zeichen"
+                    :placeholder="__('At least 8 characters')"
                     tabindex="10"
                 />
                 <p class="mt-1 text-sm opacity-75">
-                    Bitte wählen Sie ein möglichst komplexes Passwort.
+                    {{ __('Please choose as complex password as possible.') }}
                 </p>
             </div>
 
             <div class="mt-4">
                 <x-form.input
-                    label="{{ __('Confirm Password') }}"
+                    label="{{ __('Confirm password') }}"
                     type="password"
                     name="password_confirmation"
                     required
                     autocomplete="new-password"
-                    placeholder="Passwort-Wiederholung"
+                    :placeholder="__('Password confirmation')"
                     tabindex="10"
                 />
                 <p class="mt-1 text-sm opacity-75">
-                    Bitte wiederholen Sie das Passwort, um Fehler bei Eingabe auszuschließen.
+                    {{ __('Please confirm your password to avoid errors.') }}
                 </p>
             </div>
 
