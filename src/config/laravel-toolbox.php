@@ -27,6 +27,10 @@ return [
         ],
     ],
 
+    'profile' => [
+        'allow-delete' => env('LARAVEL_TOOLBOX_PROFILE_ALLOW_DELETE', false),
+    ],
+
     'acl_config' => null,
 
 ];
