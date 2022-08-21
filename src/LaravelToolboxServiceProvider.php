@@ -122,12 +122,8 @@ class LaravelToolboxServiceProvider extends ServiceProvider
         ], 'toolbox-config');
 
         $this->publishes([
-            __DIR__ . '/../resources/views/auth' => resource_path('views/vendor/bondarde/laravel-toolbox/auth'),
-        ], 'toolbox-auth-views');
-
-        $this->publishes([
-            __DIR__ . '/../resources/views/profile' => resource_path('views/vendor/bondarde/laravel-toolbox/profile'),
-        ], 'toolbox-profile-views');
+            __DIR__ . '/../resources/views' => resource_path('views/vendor/bondarde/laravel-toolbox'),
+        ], 'views');
     }
 
     private function configureCommands()
