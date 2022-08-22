@@ -119,7 +119,7 @@ class LaravelToolboxServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__ . '/config/laravel-toolbox.php' => config_path('laravel-toolbox.php'),
-        ], 'toolbox-config');
+        ], 'config');
 
         $this->publishes([
             __DIR__ . '/../resources/views' => resource_path('views/vendor/bondarde/laravel-toolbox'),
