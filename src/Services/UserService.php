@@ -34,7 +34,7 @@ class UserService
         $user->delete();
     }
 
-    public function deleteOtherSessionRecords(User $user, string $currentSessionId)
+    public function deleteOtherSessionRecords(User $user, string $currentSessionId): void
     {
         if (config('session.driver') !== 'database') {
             return;
@@ -79,14 +79,14 @@ class UserService
     public function update(
         User   $user,
         array  $attributes,
-        ?array $groupIds = null,
+        ?array $roleIds = null,
         ?array $permissionIds = null
-    )
+    ): void
     {
         $user->update($attributes);
 
-        if (!is_null($groupIds)) {
-            $user->groups()->sync($groupIds);
+        if (!is_null($roleIds)) {
+            $user->roles()->sync($roleIds);
         }
         if (!is_null($permissionIds)) {
             $user->permissions()->sync($permissionIds);

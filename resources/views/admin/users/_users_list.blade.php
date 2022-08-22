@@ -3,7 +3,7 @@
     <tr>
         <th>{{ __('Name') }}</th>
         <th>{{ __('E-Mail Address') }}</th>
-        <th>{{ __('Groups') }}</th>
+        <th>{{ __('Roles') }}</th>
         <th>{{ __('Permissions') }}</th>
     </tr>
     </thead>
@@ -11,7 +11,7 @@
         <tr class="border-t">
             <td>
                 <a
-                    class="underline hover:no-underline"
+                    class="link"
                     href="{{ route('admin.users.show', $user) }}"
                 >
                     {{ $user->{\BondarDe\LaravelToolbox\Models\User::FIELD_NAME} }}
@@ -25,10 +25,10 @@
                 </a>
             </td>
             <td>
-                @include(\BondarDe\LaravelToolbox\LaravelToolboxServiceProvider::NAMESPACE.'::admin.users._groups', ['groups' => $user->groups])
+                @include(\BondarDe\LaravelToolbox\LaravelToolboxServiceProvider::NAMESPACE.'::admin.users._assigned_roles', ['roles' => $user->roles, 'emptyText' => '—'])
             </td>
             <td>
-                @include(\BondarDe\LaravelToolbox\LaravelToolboxServiceProvider::NAMESPACE.'::admin.users._permissions', ['permissions' => $user->permissions])
+                @include(\BondarDe\LaravelToolbox\LaravelToolboxServiceProvider::NAMESPACE.'::admin.users._assigned_permissions', ['permissions' => $user->permissions, 'emptyText' => '—'])
             </td>
         </tr>
     @endforeach

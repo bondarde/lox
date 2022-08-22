@@ -2,29 +2,32 @@
 
 namespace BondarDe\LaravelToolbox\Http\Controllers\Admin\Users;
 
+use App\Models\User;
 use BondarDe\LaravelToolbox\LaravelToolboxServiceProvider;
-use BondarDe\LaravelToolbox\Models\User;
 use BondarDe\LaravelToolbox\Services\AclService;
-use Junges\ACL\Models\Group;
-use Junges\ACL\Models\Permission;
-use View;
+use Illuminate\Support\Facades\View;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class AdminUserEditController
 {
-    public function __invoke(User $user, AclService $aclService)
+    public function __invoke(
+        User       $user,
+        AclService $aclService,
+    )
     {
-        $groups = $aclService->getGroups()
+        $roles = $aclService->roles()
             ->sortBy('name')
             ->keyBy('id')
-            ->map(fn(Group $group) => $group->name . ' (' . $group->description . ')')
+            ->map(fn(Role $role) => $role->name)
             ->toArray();
-        $permissions = $aclService->getPermissions()
+        $permissions = $aclService->permissions()
             ->sortBy('name')
             ->keyBy('id')
-            ->map(fn(Permission $permission) => $permission->name . ' (' . $permission->description . ')')
+            ->map(fn(Permission $permission) => $permission->name)
             ->toArray();
 
-        $activeGroups = $user->groups
+        $activeRoles = $user->roles
             ->pluck('id')
             ->toArray();
         $activePermissions = $user->permissions
@@ -32,14 +35,11 @@ class AdminUserEditController
             ->toArray();
 
 
-        return View::first([
-            'admin.users.edit',
-            LaravelToolboxServiceProvider::NAMESPACE . '::admin.users.edit',
-        ], compact(
+        return View::make(LaravelToolboxServiceProvider::NAMESPACE . '::admin.users.edit', compact(
             'user',
-            'groups',
+            'roles',
             'permissions',
-            'activeGroups',
+            'activeRoles',
             'activePermissions',
         ));
     }

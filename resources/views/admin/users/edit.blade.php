@@ -8,6 +8,7 @@
         action="{{ route('admin.users.update', $user) }}"
     >
         @csrf
+        @method('PATCH')
 
         <x-form.form-row
             :for="\BondarDe\LaravelToolbox\Models\User::FIELD_NAME"
@@ -23,7 +24,7 @@
 
         <x-form.form-row
             :for="\BondarDe\LaravelToolbox\Models\User::FIELD_EMAIL"
-            :label="__('E-mail')"
+            :label="__('E-mail address')"
         >
             <x-form.input
                 :name="\BondarDe\LaravelToolbox\Models\User::FIELD_EMAIL"
@@ -34,15 +35,15 @@
 
 
         <x-form.form-row
-            label="Groups"
-            for="groups"
+            :label="__('Roles')"
+            :for="\App\Models\User::ATTRIBUTE_ROLES"
         >
-            @if(count($groups))
+            @if(count($roles))
                 <x-form.checkbox
                     :isList="true"
-                    name="groups"
-                    :options="$groups"
-                    :value="$activeGroups"
+                    :name="\App\Models\User::ATTRIBUTE_ROLES"
+                    :options="$roles"
+                    :value="$activeRoles"
                 />
             @else
                 <p class="opacity-50">
@@ -53,8 +54,8 @@
 
 
         <x-form.form-row
-            label="Permissions"
-            for="permissions"
+            :label="__('Permissions')"
+            :for="\App\Models\User::ATTRIBUTE_PERMISSIONS"
         >
             @if(count($permissions))
                 <x-form.checkbox
