@@ -1,5 +1,10 @@
 <x-slot name="header">
+    <h1>
+        {{ __('User') . ' ' . $user->{\BondarDe\LaravelToolbox\Models\User::FIELD_EMAIL} }}
+    </h1>
+
     <x-button
+        class="mt-2 mb-8"
         :tag="\BondarDe\LaravelToolbox\View\Components\Buttons\Button::TAG_LINK"
         :href="route('admin.users.edit', $user)"
     >{{ __('Edit user') }}</x-button>
