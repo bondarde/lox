@@ -12,12 +12,14 @@ class AclService
 {
     public function roles(): Collection
     {
-        return Role::query()->get();
+        return Role::all()
+            ->sortBy('name');
     }
 
     public function permissions(): Collection
     {
-        return Permission::query()->get();
+        return Permission::all()
+            ->sortBy('name');
     }
 
     public function findRoleByNameAndGuardOrFail(

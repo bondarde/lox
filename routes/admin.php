@@ -33,6 +33,8 @@ Route::group([
     Route::get('user-roles/new', AdminUserRoleCreateController::class)->name('user-roles.create');
     Route::post('user-roles', AdminUserRoleStoreController::class)->name('user-roles.store');
     Route::get('user-roles/{role}', AdminUserRoleShowController::class)->name('user-roles.show');
+    Route::get('user-roles/{role}/edit', AdminUserRoleEditController::class)->name('user-roles.edit');
+    Route::patch('user-roles/{role}', AdminUserRoleUpdateController::class)->name('user-roles.update');
 
     Route::get('user-permissions', AdminPermissionIndexController::class)->name('user-permissions.index');
     Route::get('user-permissions/{permission}', AdminPermissionShowController::class)->name('user-permissions.show');

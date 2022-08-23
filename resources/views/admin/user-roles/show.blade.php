@@ -1,7 +1,19 @@
 <x-admin-page
-    :title="__('User Role')"
-    :h1="__('User Role')"
+    :title="__('Role')"
 >
+    <x-slot:header>
+        <h1 class="mb-2">
+            {{ __('Role') }}
+        </h1>
+
+        <x-button
+            class="mb-8"
+            :tag="\BondarDe\LaravelToolbox\View\Components\Buttons\Button::TAG_LINK"
+            :href="route('admin.user-roles.edit', $role)"
+        >
+            {{ __('Edit Role') }}
+        </x-button>
+    </x-slot:header>
 
     <x-content>
         <p>

@@ -21,3 +21,15 @@
     />
     <p class="text-sm">Z.B. „web“ oder „api“</p>
 </x-form.form-row>
+
+<x-form.form-row
+    :show-errors="false"
+    :label="__('Permissions')"
+>
+    <x-form.checkbox
+        :isList="true"
+        name="permissions"
+        :options="$availablePermissions"
+        :value="old('permissions') ?? $activePermissions"
+    />
+</x-form.form-row>
