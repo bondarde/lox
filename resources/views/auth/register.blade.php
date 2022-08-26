@@ -33,7 +33,7 @@
                     label="{{ __('E-mail address') }}"
                     type="email"
                     name="{{ \App\Models\User::FIELD_EMAIL }}"
-                    :value="old(\App\Models\User::FIELD_NAME)"
+                    :value="old(\App\Models\User::FIELD_EMAIL)"
                     required
                     placeholder="{{ __('mail@example.com') }}"
                     autocomplete="email"
