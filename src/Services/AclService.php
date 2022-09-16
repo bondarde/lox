@@ -19,7 +19,16 @@ class AclService
     public function permissions(): Collection
     {
         return Permission::all()
-            ->sortBy('name');
+            ->sort(function (Permission $a, Permission $b) {
+                $nameA = $a->name;
+                $nameB = $b->name;
+                [$verbA, $entityA] = explode(' ', $nameA, 2);
+                [$verbB, $entityB] = explode(' ', $nameB, 2);
+
+                $res = strcmp($entityA, $entityB);
+
+                return $res !== 0 ? $res : strcmp($verbA, $verbB);
+            });
     }
 
     public function findRoleByNameAndGuardOrFail(
