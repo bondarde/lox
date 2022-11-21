@@ -29,11 +29,11 @@
         :shareImage="$shareImage"
     />
 </head>
-<body class="antialiased overflow-x-hidden {{ $background }} {{ $text }}">
-<div class="{{ $height }}">
+<body class="{{ $bodyClasses }}">
+<div class="{{ $contentWrapClasses }}">
     <x-page-header/>
 
-    <div class="container">
+    <div class="{{ $wrapContent ? $pageContentWrapperClasses : '' }}">
         @if($h1)
             <h1>{{ $h1 }}</h1>
         @endif
@@ -41,7 +41,7 @@
         <x-user-messages/>
     </div>
 
-    <div class="{{ $attributes->get('contentCssClasses', '') }} {{ $wrapContent ? 'container py-10' : '' }}">
+    <div class="{{ $attributes->get('contentCssClasses', '') }} {{ $wrapContent ? $pageContentWrapperClasses : '' }}">
         {{ $slot }}
     </div>
 </div>

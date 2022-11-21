@@ -3,48 +3,38 @@
 namespace BondarDe\LaravelToolbox\View\Components;
 
 use BondarDe\LaravelToolbox\Constants\Environment;
+use BondarDe\LaravelToolbox\Contracts\View\PageConfig;
 use Illuminate\View\Component;
 
 class Page extends Component
 {
-    public bool $wrapContent;
     public string $metaRobots;
     public string $title;
-    public ?string $h1 = null;
-    public bool $livewire;
-    public $breadcrumbAttr;
-    public ?string $shareImage;
 
-    public string $metaDescription = '';
     public array $cssFiles;
     public array $jsFiles;
 
     private string $env;
 
     public function __construct(
-        bool    $wrapContent = true,
-        string  $metaDescription = '',
-        ?string $metaRobots = null,
-        ?string $title = null,
-        ?string $h1 = null,
-        bool    $livewire = false,
-                $breadcrumbAttr = null,
-        ?string $shareImage = null
+        readonly private PageConfig $config,
+        readonly public bool        $wrapContent = true,
+        readonly public string      $metaDescription = '',
+        ?string                     $metaRobots = null,
+        ?string                     $title = null,
+        readonly public ?string     $h1 = null,
+        readonly public bool        $livewire = false,
+        public                      $breadcrumbAttr = null,
+        readonly public ?string     $shareImage = null,
     )
     {
         $this->env = config('app.env');
 
-        $this->metaDescription = $metaDescription;
         $this->metaRobots = self::toMetaRobots($metaRobots, $this->env);
         $this->title = $title ?? '';
-        $this->h1 = $h1;
-        $this->wrapContent = $wrapContent;
 
         $this->cssFiles = self::toCssFiles($this->env);
         $this->jsFiles = self::toJsFiles($this->env);
-        $this->livewire = $livewire;
-        $this->breadcrumbAttr = $breadcrumbAttr;
-        $this->shareImage = $shareImage;
     }
 
     private static function toCssFiles(string $env): array
@@ -84,14 +74,16 @@ class Page extends Component
 
     public function render()
     {
-        $height = config('laravel-toolbox.page.height') ?? 'min-h-screen';
-        $background = config('laravel-toolbox.page.background') ?? 'bg-gray-50 dark:bg-black';
-        $text = config('laravel-toolbox.page.text') ?? 'text-gray-800 dark:text-gray-100';
+        $bodyClasses = $this->config->bodyClasses();
+        $contentWrapClasses = $this->config->contentWrapClasses();
+        $pageHeaderWrapperClasses = $this->config->pageHeaderWrapperClasses();
+        $pageContentWrapperClasses = $this->config->pageContentWrapperClasses();
 
         return view('laravel-toolbox::page', compact(
-            'height',
-            'background',
-            'text',
+            'bodyClasses',
+            'contentWrapClasses',
+            'pageHeaderWrapperClasses',
+            'pageContentWrapperClasses',
         ));
     }
 }

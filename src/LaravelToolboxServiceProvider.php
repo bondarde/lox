@@ -5,6 +5,7 @@ namespace BondarDe\LaravelToolbox;
 use BondarDe\LaravelToolbox\Console\Commands\Acl\AclMakeSuperAdminCommand;
 use BondarDe\LaravelToolbox\Console\Commands\Acl\AclUpdateRolesAndPermissionsCommand;
 use BondarDe\LaravelToolbox\Constants\Environment;
+use BondarDe\LaravelToolbox\Contracts\View\PageConfig;
 use BondarDe\LaravelToolbox\View\Components\Buttons\BlueButton;
 use BondarDe\LaravelToolbox\View\Components\Buttons\DangerButton;
 use BondarDe\LaravelToolbox\View\Components\Buttons\DefaultButton;
@@ -32,6 +33,7 @@ use BondarDe\LaravelToolbox\View\Components\Survey;
 use BondarDe\LaravelToolbox\View\Components\SurveyView;
 use BondarDe\LaravelToolbox\View\Components\UserMessages;
 use BondarDe\LaravelToolbox\View\Components\ValidationErrors;
+use BondarDe\LaravelToolbox\View\DefaultPageConfig;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 
@@ -136,5 +138,10 @@ class LaravelToolboxServiceProvider extends ServiceProvider
             AclMakeSuperAdminCommand::class,
             AclUpdateRolesAndPermissionsCommand::class,
         ]);
+    }
+
+    private function configureConfig()
+    {
+        $this->app->bind(PageConfig::class, DefaultPageConfig::class);
     }
 }
