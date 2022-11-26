@@ -3,6 +3,7 @@
 /** @noinspection PhpUnhandledExceptionInspection */
 
 use BondarDe\LaravelToolbox\Data\Aws\AwsSecretsLoadConfig;
+use BondarDe\LaravelToolbox\Exceptions\IllegalStateException;
 use BondarDe\LaravelToolbox\Support\AwsSecretsLoader;
 use Ramsey\Uuid\Uuid;
 use function Deployer\after;
@@ -127,11 +128,22 @@ task('build:vite', function () {
     $manifestPath = parse('{{vite_build_path}}/manifest.json');
     $manifest = json_decode(file_get_contents($manifestPath));
 
-    $jsFile = $manifest->{'resources/js/app.js'}->file;
-    $cssFile = $manifest->{'resources/scss/app.scss'}->file;
+    $jsSourceFilename = match (true) {
+        isset($manifest->{'resources/js/app.js'}) => 'resources/js/app.js',
+        isset($manifest->{'resources/ts/app.ts'}) => 'resources/ts/app.ts',
+        default => throw new IllegalStateException('Source JS file not found'),
+    };
+    $cssSourceFilename = match (true) {
+        isset($manifest->{'resources/css/app.css'}) => 'resources/css/app.css',
+        isset($manifest->{'resources/scss/app.scss'}) => 'resources/scss/app.scss',
+        default => throw new IllegalStateException('Source JS file not found'),
+    };
 
-    set('vite_js_file', $jsFile);
-    set('vite_css_file', $cssFile);
+    $jsTargetFile = $manifest->{$jsSourceFilename}->file;
+    $cssTargetFile = $manifest->{$cssSourceFilename}->file;
+
+    set('vite_js_file', $jsTargetFile);
+    set('vite_css_file', $cssTargetFile);
 
     // Copy CSS & JS into public dir
     runLocally('mkdir {{build_path}}/public/=\)');
