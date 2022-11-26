@@ -95,6 +95,8 @@ class LaravelToolboxServiceProvider extends ServiceProvider
         $this->configureRoutes();
         $this->configurePublishing();
         $this->configureCommands();
+
+        $this->configureConfig();
     }
 
     private function configureRoutes()
