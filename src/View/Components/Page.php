@@ -4,6 +4,8 @@ namespace BondarDe\LaravelToolbox\View\Components;
 
 use BondarDe\LaravelToolbox\Constants\Environment;
 use BondarDe\LaravelToolbox\Contracts\View\PageConfig;
+use BondarDe\LaravelToolbox\Exceptions\IllegalStateException;
+use BondarDe\LaravelToolbox\Support\ViteManifestParser;
 use Illuminate\View\Component;
 
 class Page extends Component
@@ -16,6 +18,9 @@ class Page extends Component
 
     private string $env;
 
+    /**
+     * @throws IllegalStateException
+     */
     public function __construct(
         readonly private PageConfig $config,
         readonly public bool        $wrapContent = true,
@@ -37,11 +42,14 @@ class Page extends Component
         $this->jsFiles = self::toJsFiles($this->env);
     }
 
+    /**
+     * @throws IllegalStateException
+     */
     private static function toCssFiles(string $env): array
     {
         if ($env === Environment::LOCAL) {
             return [
-                'resources/scss/app.scss',
+                ViteManifestParser::getStylesheetFilePath(),
             ];
         }
 
@@ -50,11 +58,14 @@ class Page extends Component
         ];
     }
 
+    /**
+     * @throws IllegalStateException
+     */
     private static function toJsFiles(string $env): array
     {
         if ($env === Environment::LOCAL) {
             return [
-                'resources/js/app.js',
+                ViteManifestParser::getJavascriptFilePath(),
             ];
         }
 

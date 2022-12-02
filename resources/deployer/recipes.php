@@ -3,8 +3,8 @@
 /** @noinspection PhpUnhandledExceptionInspection */
 
 use BondarDe\LaravelToolbox\Data\Aws\AwsSecretsLoadConfig;
-use BondarDe\LaravelToolbox\Exceptions\IllegalStateException;
 use BondarDe\LaravelToolbox\Support\AwsSecretsLoader;
+use BondarDe\LaravelToolbox\Support\ViteManifestParser;
 use Ramsey\Uuid\Uuid;
 use function Deployer\after;
 use function Deployer\artisan;
@@ -117,6 +117,9 @@ task('build:laravel', function () {
 
 
 task('build:vite', function () {
+    $rootDir = get('root_dir');
+    require $rootDir . '/vendor/autoload.php';
+
     writeln('Building JS & CSS with Vite…');
     $buildResult = runLocally('npm run build');
     if (output()->isDebug()) {
@@ -128,16 +131,8 @@ task('build:vite', function () {
     $manifestPath = parse('{{vite_build_path}}/manifest.json');
     $manifest = json_decode(file_get_contents($manifestPath));
 
-    $jsSourceFilename = match (true) {
-        isset($manifest->{'resources/js/app.js'}) => 'resources/js/app.js',
-        isset($manifest->{'resources/ts/app.ts'}) => 'resources/ts/app.ts',
-        default => throw new IllegalStateException('Source JS file not found'),
-    };
-    $cssSourceFilename = match (true) {
-        isset($manifest->{'resources/css/app.css'}) => 'resources/css/app.css',
-        isset($manifest->{'resources/scss/app.scss'}) => 'resources/scss/app.scss',
-        default => throw new IllegalStateException('Source JS file not found'),
-    };
+    $jsSourceFilename = ViteManifestParser::getJavascriptFilePath($rootDir);
+    $cssSourceFilename = ViteManifestParser::getStylesheetFilePath($rootDir);
 
     $jsTargetFile = $manifest->{$jsSourceFilename}->file;
     $cssTargetFile = $manifest->{$cssSourceFilename}->file;
