@@ -16,21 +16,21 @@ class Page extends Component
     public array $cssFiles;
     public array $jsFiles;
 
-    private string $env;
+    protected string $env;
 
     /**
      * @throws IllegalStateException
      */
     public function __construct(
-        readonly private PageConfig $config,
-        readonly public bool        $wrapContent = true,
-        readonly public string      $metaDescription = '',
-        ?string                     $metaRobots = null,
-        ?string                     $title = null,
-        readonly public ?string     $h1 = null,
-        readonly public bool        $livewire = false,
-        public                      $breadcrumbAttr = null,
-        readonly public ?string     $shareImage = null,
+        readonly protected PageConfig $config,
+        readonly public bool          $wrapContent = true,
+        readonly public string        $metaDescription = '',
+        ?string                       $metaRobots = null,
+        ?string                       $title = null,
+        readonly public ?string       $h1 = null,
+        readonly public bool          $livewire = false,
+        public                        $breadcrumbAttr = null,
+        readonly public ?string       $shareImage = null,
     )
     {
         $this->env = config('app.env');
