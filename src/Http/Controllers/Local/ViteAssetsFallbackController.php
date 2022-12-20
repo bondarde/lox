@@ -10,9 +10,15 @@ class ViteAssetsFallbackController
     {
         $path = base_path('.build/.vite/assets/' . $file);
 
+        /** @noinspection PhpVoidFunctionResultUsedInspection */
         $mime = match (File::extension($path)) {
             'css' => 'text/css',
             'js' => 'application/javascript',
+            'woff' => 'font/woff',
+            'woff2' => 'font/woff2',
+            'eot' => 'application/vnd.ms-fontobject',
+            'ttf' => 'font/ttf',
+            'svg' => 'image/svg+xml',
             default => abort(404),
         };
 

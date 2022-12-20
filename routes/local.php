@@ -2,4 +2,4 @@
 
 use BondarDe\LaravelToolbox\Http\Controllers\Local\ViteAssetsFallbackController;
 
-Route::get('.build/.vite/assets/{file}', ViteAssetsFallbackController::class);
+Route::get('.build/.vite/assets/{file}', ViteAssetsFallbackController::class)->where('file', '.*');
