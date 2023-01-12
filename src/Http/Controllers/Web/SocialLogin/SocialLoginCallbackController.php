@@ -4,6 +4,7 @@ namespace BondarDe\LaravelToolbox\Http\Controllers\Web\SocialLogin;
 
 use App\Models\User;
 use BondarDe\LaravelToolbox\Exceptions\SocialLoginErrorException;
+use BondarDe\LaravelToolbox\Services\AppleToken;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,10 +20,15 @@ class SocialLoginCallbackController
     }
 
     public function __invoke(
-        string  $provider,
-        Request $request,
+        string     $provider,
+        Request    $request,
+        AppleToken $appleToken,
     )
     {
+        if ($provider === 'apple') {
+            config()->set('services.apple.client_secret', $appleToken->generate());
+        }
+
         if ($request->has('error')) {
             $error = $request->get('error');
             self::logLoginError($error, $request);

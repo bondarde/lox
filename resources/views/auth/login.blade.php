@@ -95,6 +95,15 @@
         </div>
         <div class="sm:w-1/3 flex flex-col gap-4">
             @if(\Laravel\Fortify\Features::enabled('social-login'))
+                @if(\Laravel\Fortify\Features::optionEnabled('social-login', 'apple'))
+                    <x-button
+                        :tag="\BondarDe\LaravelToolbox\View\Components\Buttons\Button::TAG_LINK"
+                        :href="route('social-login.redirect', 'apple')"
+                        tabindex="150"
+                    >
+                        {{ __('Sign in with :provider', ['provider' => 'Apple']) }}
+                    </x-button>
+                @endif
                 @if(\Laravel\Fortify\Features::optionEnabled('social-login', 'facebook'))
                     <x-button
                         class="bg-blue-700 hover:bg-blue-800"
