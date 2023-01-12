@@ -93,33 +93,36 @@
                 </p>
             @endif
         </div>
-        <div class="sm:w-1/3">
+        <div class="sm:w-1/3 flex flex-col gap-4">
             @if(\Laravel\Fortify\Features::enabled('social-login'))
-                @if(\Laravel\Fortify\Features::enabled('social-login:facebook'))
+                @if(\Laravel\Fortify\Features::optionEnabled('social-login', 'facebook'))
                     <x-button
-                        class="bg-blue-500 hover:bg-blue-400"
+                        class="bg-blue-700 hover:bg-blue-800"
                         :tag="\BondarDe\LaravelToolbox\View\Components\Buttons\Button::TAG_LINK"
                         :href="route('social-login.redirect', 'facebook')"
+                        tabindex="150"
                     >
-                        {{ __ ('Sign in with :provider', ['provider' => 'Facebook']) }}
+                        {{ __('Sign in with :provider', ['provider' => 'Facebook']) }}
                     </x-button>
                 @endif
-                @if(\Laravel\Fortify\Features::enabled('social-login:twitter'))
+                @if(\Laravel\Fortify\Features::optionEnabled('social-login', 'twitter'))
                     <x-button
-                        class="bg-blue-500 hover:bg-blue-400"
+                        class="bg-blue-500 hover:bg-blue-700"
                         :tag="\BondarDe\LaravelToolbox\View\Components\Buttons\Button::TAG_LINK"
                         :href="route('social-login.redirect', 'twitter')"
+                        tabindex="150"
                     >
-                        {{ __ ('Sign in with :provider', ['provider' => 'Twitter']) }}
+                        {{ __('Sign in with :provider', ['provider' => 'Twitter']) }}
                     </x-button>
                 @endif
                 @if(\Laravel\Fortify\Features::optionEnabled('social-login', 'google'))
                     <x-button
-                        class="bg-blue-500 hover:bg-blue-400"
+                        class="bg-red-500 hover:bg-red-600"
                         :tag="\BondarDe\LaravelToolbox\View\Components\Buttons\Button::TAG_LINK"
                         :href="route('social-login.redirect', 'google')"
+                        tabindex="150"
                     >
-                        {{ __ ('Sign in with :provider', ['provider' => 'Google']) }}
+                        {{ __('Sign in with :provider', ['provider' => 'Google']) }}
                     </x-button>
                 @endif
             @endif
