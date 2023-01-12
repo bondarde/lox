@@ -65,6 +65,7 @@
     "Sorting": "Sortierung",
     "Search": "Suche",
     "Search query": "Suchbegriff",
+    "Sign in with :provider": "Login mit :provider",
     "You successfully signed in with :provider!": "Sie haben sich erfolgreich mit :provider eingeloggt!",
     "Login with :provider failed.": "Login mit :provider ist fehlgeschlagen.",
     "{0} No entries|{1} One entry|[2,*] :count entries": "{0} Keine Einträge|{1} Ein Eintrag|[2,*] :count Einträge"

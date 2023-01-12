@@ -101,7 +101,7 @@
                         :tag="\BondarDe\LaravelToolbox\View\Components\Buttons\Button::TAG_LINK"
                         :href="route('social-login.redirect', 'facebook')"
                     >
-                        {{ __ ('Sign in with Facebook') }}
+                        {{ __ ('Sign in with :provider', ['provider' => 'Facebook']) }}
                     </x-button>
                 @endif
                 @if(\Laravel\Fortify\Features::enabled('social-login:twitter'))
@@ -110,7 +110,7 @@
                         :tag="\BondarDe\LaravelToolbox\View\Components\Buttons\Button::TAG_LINK"
                         :href="route('social-login.redirect', 'twitter')"
                     >
-                        {{ __ ('Sign in with Twitter') }}
+                        {{ __ ('Sign in with :provider', ['provider' => 'Twitter']) }}
                     </x-button>
                 @endif
                 @if(\Laravel\Fortify\Features::optionEnabled('social-login', 'google'))
@@ -119,7 +119,7 @@
                         :tag="\BondarDe\LaravelToolbox\View\Components\Buttons\Button::TAG_LINK"
                         :href="route('social-login.redirect', 'google')"
                     >
-                        {{ __ ('Sign in with Google') }}
+                        {{ __ ('Sign in with :provider', ['provider' => 'Google']) }}
                     </x-button>
                 @endif
             @endif
