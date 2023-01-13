@@ -85,76 +85,41 @@ Burger menu as Tailwind plugin:
     php artisan vendor:publish --provider="BondarDe\LaravelToolbox\LaravelToolboxServiceProvider" --tag=tailwind-burger-menu
 
 
-Views:
-
-    php artisan vendor:publish --provider="BondarDe\LaravelToolbox\LaravelToolboxServiceProvider" --tag=auth-views
 
 
-### Laravel Mix & Tailwind CSS
+
+### Laravel Vite & Tailwind CSS
 
 `package.json`:
 
     {
         "private": true,
         "scripts": {
-            "development": "mix",
-            "watch": "mix watch",
-            "watch-poll": "mix watch -- --watch-options-poll=1000",
-            "hot": "mix watch --hot",
-            "production": "mix --production"
+            "dev": "vite",
+            "build": "vite build"
         },
         "devDependencies": {
             "autoprefixer": "^10.4.0",
-            "laravel-mix": "^6.0.5",
+            "laravel-vite-plugin": "^0.5.2",
             "postcss": "^8.4.4",
-            "resolve-url-loader": "^3.1.0",
             "sass": "^1.30.0",
-            "sass-loader": "^8.0.2",
-            "tailwindcss": "^3.0.1"
+            "sass-loader": "^12.6.0",
+            "tailwindcss": "^3.2.0",
+            "vite": "^3.0.4"
         }
     }
 
 
-### Laravel Mix Configuration
+## Build and Deployment
 
-    touch webpack.mix.js
+Add to `config/sentry.php`:
 
+    'release' => env('SENTRY_RELEASE', env('APP_VERSION')),
 
-Configuration:
+Build for different stages:
 
-    const mix = require('laravel-mix')
-    const tailwindcss = require('tailwindcss')
-
-    // avoid creation of mix-manifest.json
-    Mix.manifest.refresh = _ => void 0
-
-
-    // adjust output directory for production build
-    if (mix.inProduction()) {
-        mix
-            .setPublicPath('./.build/dist')
-            .disableNotifications()
-    } else {
-        // show debug output for dev build
-        mix.webpackConfig({
-            stats: {
-                children: true,
-            },
-        })
-    }
-
-
-    // Mix build
-    mix
-        .js('resources/js/app.js', 'js')
-        .sass('resources/scss/app.scss', 'css', {}, [
-            tailwindcss('./tailwind.config.js'),
-        ])
-
-
-Compile:
-
-    npx mix
+    composer/bin/dep build stage=test
+    composer/bin/dep deploy stage=test
 
 
 ## Usage
@@ -171,8 +136,11 @@ Page structure:
 
 For page component you have to create page header and footer:
 
+    php artisan make:component HtmlHeader
     php artisan make:component PageHeader
     php artisan make:component PageFooter
+
+    php artisan make:component AdminPage
 
 
 ### Forms
