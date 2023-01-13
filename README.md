@@ -219,3 +219,29 @@ In `config/app.php` add service provider:
     \App\Providers\FortifyServiceProvider::class,
 
 
+### SSO
+
+Add `"sso"` to `features` array in `config/fortify.php`.
+
+In `config/fortify-options.php`, add SSO providers, e.g.:
+
+    return [
+        'sso' => [
+            'apple' => true,
+            'facebook' => true,
+            'twitter' => true,
+        ],
+    ];
+
+
+
+
+
+For each provider, install Socialite Providers package:
+
+    composer install socialiteproviders/<provider>
+
+Follow installation steps:
+https://socialiteproviders.com/
+
+

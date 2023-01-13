@@ -6,10 +6,10 @@ use BondarDe\LaravelToolbox\Http\Controllers\Web\SocialLogin\SocialLoginRedirect
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 
-if (Features::enabled('social-login')) {
+if (Features::enabled('sso')) {
     Route::group(['middleware' => ['web']], function () {
-        Route::get('login/{socialLoginProvider}', SocialLoginRedirectController::class)->name('social-login.redirect');
-        Route::any('login/{socialLoginProvider}/callback', SocialLoginCallbackController::class)->name('social-login.callback');
+        Route::get('login/{provider}', SocialLoginRedirectController::class)->name('sso.redirect');
+        Route::any('login/{provider}/callback', SocialLoginCallbackController::class)->name('sso.callback');
     });
 }
 Route::get('tinymce/{file}', TinyMceFilesController::class)->where('file', '.*');
