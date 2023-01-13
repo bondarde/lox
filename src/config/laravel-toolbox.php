@@ -33,4 +33,8 @@ return [
 
     'acl_config' => null,
 
+    'sso' => [
+        'column_prefix' => env('LARAVEL_TOOLBOX_SSO_COLUMN_PREFIX', 'sso'),
+    ],
+
 ];

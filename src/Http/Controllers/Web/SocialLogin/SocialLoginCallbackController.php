@@ -53,7 +53,7 @@ class SocialLoginCallbackController
             $email = $provider . '-login-' . $id . '@example.com';
         }
 
-        $user = User::findOrCreateUserForSocialProvider($provider, $id, $email, $name);
+        $user = User::findOrCreateUserForSsoProvider($provider, $id, $email, $name);
 
         Auth::login($user, true);
 

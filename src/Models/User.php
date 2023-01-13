@@ -45,19 +45,20 @@ class User extends Authenticatable
         self::FIELD_EMAIL_VERIFIED_AT => ModelCastTypes::DATETIME,
     ];
 
-    public static function findOrCreateUserForSocialProvider($provider, $id, $email, $name)
+    public static function findOrCreateUserForSsoProvider($provider, $id, $email, $name)
     {
-        $providerIdColumn = 'social_' . $provider . '_id';
+        $ssoColumnPrefix = config('laravel-toolbox.sso.column_prefix');
+        $ssoIdColumnName = $ssoColumnPrefix . '_' . $provider . '_id';
 
-        // find a user for given social provider
+        // find a user for given SSO provider
         $user = \App\Models\User::query()
-            ->where($providerIdColumn, $id)
+            ->where($ssoIdColumnName, $id)
             ->first();
 
-        return $user ?? self::updateOrCreateSocialUser($id, $email, $name, $providerIdColumn);
+        return $user ?? self::updateOrCreateSsoUser($id, $email, $name, $ssoIdColumnName);
     }
 
-    private static function updateOrCreateSocialUser($id, $email, $name, string $providerIdColumn)
+    private static function updateOrCreateSsoUser($id, $email, $name, string $ssoIdColumnName)
     {
         // find user by e-mail
         $user = User::query()
@@ -71,7 +72,7 @@ class User extends Authenticatable
                     self::FIELD_EMAIL => $email,
                     self::FIELD_NAME => $name,
                     self::FIELD_PASSWORD => Hash::make(Str::random(60)),
-                    $providerIdColumn => $id,
+                    $ssoIdColumnName => $id,
                 ]);
         }
 
@@ -80,8 +81,8 @@ class User extends Authenticatable
         if (!$user->{self::FIELD_NAME}) {
             $user->{self::FIELD_NAME} = $name;
         }
-        // save social id
-        $user->$providerIdColumn = $id;
+        // save SSO ID
+        $user->$ssoIdColumnName = $id;
 
         $user->save();
 
