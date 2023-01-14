@@ -1,10 +1,10 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Controllers\Web\SocialLogin;
+namespace BondarDe\LaravelToolbox\Http\Controllers\Web\Sso;
 
 use Laravel\Socialite\Facades\Socialite;
 
-class SocialLoginRedirectController
+class SsoRedirectController
 {
     public function __invoke(string $provider)
     {

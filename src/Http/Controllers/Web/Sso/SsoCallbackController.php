@@ -1,6 +1,6 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Controllers\Web\SocialLogin;
+namespace BondarDe\LaravelToolbox\Http\Controllers\Web\Sso;
 
 use App\Models\User;
 use BondarDe\LaravelToolbox\Exceptions\SocialLoginErrorException;
@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use Throwable;
 
-class SocialLoginCallbackController
+class SsoCallbackController
 {
     public function redirectToProvider(string $provider)
     {
@@ -66,6 +66,10 @@ class SocialLoginCallbackController
     private static function logLoginError(string $message, Request $request, Throwable $previous = null)
     {
         $socialLoginErrorException = new SocialLoginErrorException($message, 0, $previous);
+
+//        configureScope(function (SentryScope $scope) use ($request): void {
+//            $scope->setExtras($request->all());
+//        });
 
         app('sentry')->captureException($socialLoginErrorException);
     }
