@@ -123,6 +123,10 @@ class LaravelToolboxServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__ . '/config/laravel-toolbox.php' => config_path('laravel-toolbox.php'),
+            __DIR__ . '/../package.json' => base_path('package.json'),
+            __DIR__ . '/../tailwind.config.js' => base_path('tailwind.config.js'),
+            __DIR__ . '/../vite.config.js' => base_path('vite.config.js'),
+            __DIR__ . '/../postcss.config.js' => base_path('postcss.config.js'),
         ], 'config');
 
         $this->publishes([

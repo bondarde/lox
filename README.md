@@ -58,6 +58,17 @@ or:
     php artisan acl:make-super-admin mail@example.com
 
 
+Publish config:
+
+    php artisan vendor:publish --provider="BondarDe\LaravelToolbox\LaravelToolboxServiceProvider" --tag=config
+
+This command also publishes:
+- `package.json`
+- `postcss.config.json`
+- `tailwind.config.js`
+- `vite.config.js`
+
+
 ### Styles
 
 Publish:
@@ -120,6 +131,13 @@ Build for different stages:
 
     composer/bin/dep build stage=test
     composer/bin/dep deploy stage=test
+
+
+### Vite Builds
+
+    npm run vite
+
+    npm run vite build
 
 
 ## Usage

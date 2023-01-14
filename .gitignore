@@ -3,8 +3,9 @@
 /bootstrap/
 /config/
 /storage/
-
 /vendor/
+/node_modules/
 /.idea/
 .phpunit.result.cache
 composer.lock
+/package-lock.json
