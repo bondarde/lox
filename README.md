@@ -225,7 +225,7 @@ In `config/fortify-options.php`, add SSO providers, e.g.:
 
 For each provider, install Socialite Providers package:
 
-    composer install socialiteproviders/<provider>
+    composer require socialiteproviders/<provider>
 
 Follow installation steps:
 https://socialiteproviders.com/
