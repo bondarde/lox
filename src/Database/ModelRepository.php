@@ -14,7 +14,7 @@ abstract class ModelRepository
     /**
      * @return T
      */
-    abstract public function model(): Model;
+    abstract public function model(): string;
 
     private function query(): Builder
     {
