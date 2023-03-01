@@ -16,7 +16,7 @@ abstract class ModelRepository
      */
     abstract public function model(): string;
 
-    private function query(): Builder
+    public function query(): Builder
     {
         return $this->model()::query();
     }
