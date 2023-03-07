@@ -12,6 +12,7 @@ abstract class  ValidationRules
 {
     const REQUIRED = 'required';
     const OPTIONAL = 'nullable';
+    const PROHIBITED = 'prohibited';
     const STOP_ON_FIRST_ERROR = 'bail';
 
     const TYPE_NUMERIC = 'numeric';
