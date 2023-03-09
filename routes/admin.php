@@ -1,5 +1,6 @@
 <?php
 
+use BondarDe\LaravelToolbox\Data\Acl\AclSetupData;
 use BondarDe\LaravelToolbox\Http\Controllers\Admin\UserPermissions\AdminPermissionIndexController;
 use BondarDe\LaravelToolbox\Http\Controllers\Admin\UserPermissions\AdminPermissionShowController;
 use BondarDe\LaravelToolbox\Http\Controllers\Admin\UserRoles\AdminUserRoleCreateController;
@@ -19,23 +20,37 @@ Route::group([
         'web',
         'auth:sanctum',
         'verified',
-        'role:super-admin',
     ],
     'prefix' => 'admin/',
     'as' => 'admin.',
 ], function () {
-    Route::get('users', AdminUserIndexController::class)->name('users.index');
-    Route::get('users/{user}', AdminUserShowController::class)->name('users.show');
-    Route::get('users/{user}/edit', AdminUserEditController::class)->name('users.edit');
-    Route::patch('users/{user}/edit', AdminUserUpdateController::class)->name('users.update');
+    Route::group([
+        'middleware' => [
+            'can:' . AclSetupData::PERMISSION_VIEW_USERS,
+        ],
+    ], function () {
+        Route::pattern('role', '^(?!new$).*');
 
-    Route::get('user-roles', AdminUserRoleIndexController::class)->name('user-roles.index');
-    Route::get('user-roles/new', AdminUserRoleCreateController::class)->name('user-roles.create');
-    Route::post('user-roles', AdminUserRoleStoreController::class)->name('user-roles.store');
-    Route::get('user-roles/{role}', AdminUserRoleShowController::class)->name('user-roles.show');
-    Route::get('user-roles/{role}/edit', AdminUserRoleEditController::class)->name('user-roles.edit');
-    Route::patch('user-roles/{role}', AdminUserRoleUpdateController::class)->name('user-roles.update');
+        Route::get('users', AdminUserIndexController::class)->name('users.index');
+        Route::get('users/{user}', AdminUserShowController::class)->name('users.show');
 
-    Route::get('user-permissions', AdminPermissionIndexController::class)->name('user-permissions.index');
-    Route::get('user-permissions/{permission}', AdminPermissionShowController::class)->name('user-permissions.show');
+        Route::get('user-roles', AdminUserRoleIndexController::class)->name('user-roles.index');
+        Route::get('user-roles/{role}', AdminUserRoleShowController::class)->name('user-roles.show');
+
+        Route::get('user-permissions', AdminPermissionIndexController::class)->name('user-permissions.index');
+        Route::get('user-permissions/{permission}', AdminPermissionShowController::class)->name('user-permissions.show');
+    });
+    Route::group([
+        'middleware' => [
+            'can:' . AclSetupData::PERMISSION_EDIT_USERS,
+        ],
+    ], function () {
+        Route::get('users/{user}/edit', AdminUserEditController::class)->name('users.edit');
+        Route::patch('users/{user}/edit', AdminUserUpdateController::class)->name('users.update');
+
+        Route::get('user-roles/new', AdminUserRoleCreateController::class)->name('user-roles.create');
+        Route::post('user-roles', AdminUserRoleStoreController::class)->name('user-roles.store');
+        Route::get('user-roles/{role}/edit', AdminUserRoleEditController::class)->name('user-roles.edit');
+        Route::patch('user-roles/{role}', AdminUserRoleUpdateController::class)->name('user-roles.update');
+    });
 });
