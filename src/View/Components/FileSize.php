@@ -27,11 +27,11 @@ class FileSize extends Component
 
         $data = match (true) {
             $this->bytes > $thresholdGiga => [
-                'number' => $this->bytes / ($factor * $factor),
+                'number' => $this->bytes / $thresholdGiga,
                 'unit' => $this->binary ? 'GiB' : 'GB',
             ],
             $this->bytes > $thresholdMega => [
-                'number' => $this->bytes / ($factor * $factor),
+                'number' => $this->bytes / $thresholdMega,
                 'unit' => $this->binary ? 'MiB' : 'MB',
             ],
             $this->bytes < $factor => [
