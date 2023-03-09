@@ -1,6 +1,8 @@
 <?php
 
 use BondarDe\LaravelToolbox\Data\Acl\AclSetupData;
+use BondarDe\LaravelToolbox\Http\Controllers\Admin\Database\AdminDatabaseStatusIndexController;
+use BondarDe\LaravelToolbox\Http\Controllers\Admin\Database\AdminDatabaseStatusTableController;
 use BondarDe\LaravelToolbox\Http\Controllers\Admin\UserPermissions\AdminPermissionIndexController;
 use BondarDe\LaravelToolbox\Http\Controllers\Admin\UserPermissions\AdminPermissionShowController;
 use BondarDe\LaravelToolbox\Http\Controllers\Admin\UserRoles\AdminUserRoleCreateController;
@@ -52,5 +54,14 @@ Route::group([
         Route::post('user-roles', AdminUserRoleStoreController::class)->name('user-roles.store');
         Route::get('user-roles/{role}/edit', AdminUserRoleEditController::class)->name('user-roles.edit');
         Route::patch('user-roles/{role}', AdminUserRoleUpdateController::class)->name('user-roles.update');
+    });
+
+    Route::group([
+        'middleware' => [
+            'can:' . AclSetupData::PERMISSION_VIEW_DATABASE_STATUS,
+        ],
+    ], function () {
+        Route::get('database-status', AdminDatabaseStatusIndexController::class)->name('database-status.index');
+        Route::get('database-status/table:{table}', AdminDatabaseStatusTableController::class)->name('database-status.table');
     });
 });
