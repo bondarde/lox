@@ -33,7 +33,7 @@ HTML;
     public function test_renders_gigabytes_binary()
     {
         $expected = <<<HTML
-<span class="whitespace-nowrap" title="1,082,949,632 bytes">1,032.78</span>
+<span class="whitespace-nowrap" title="1,082,949,632 bytes">1.01</span>
 GiB
 
 HTML;
