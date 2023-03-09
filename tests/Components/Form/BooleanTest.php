@@ -2,14 +2,11 @@
 
 namespace Tests\Components\Form;
 
-use BondarDe\LaravelToolbox\View\Components\Form\Boolean;
-use Tests\Components\ComponentTestCase;
-use Tests\CreatesApplication;
+use Illuminate\Support\Facades\Blade;
+use Tests\TestCase;
 
-class BooleanTest extends ComponentTestCase
+class BooleanTest extends TestCase
 {
-    use CreatesApplication;
-
     public function testBasicTemplateRendering()
     {
         $expected = <<<HTML
@@ -23,13 +20,9 @@ class BooleanTest extends ComponentTestCase
 </label>
 
 HTML;
+        $actual = Blade::render('<x-form.boolean name="yes-no">Please check</x-form.boolean>');
 
-        $data = [
-            'name' => 'yes-no',
-            'label' => 'Please check',
-        ];
-
-        $this->compareHtml(Boolean::class, $expected, $data);
+        self::assertEquals($expected, $actual);
     }
 
     public function testWithModelChecked()
@@ -51,12 +44,8 @@ HTML;
         ];
         $model = json_decode(json_encode($model));
 
-        $data = [
-            'name' => 'is_active',
-            'label' => 'Please check',
-            'model' => $model,
-        ];
+        $actual = Blade::render('<x-form.boolean name="is_active" :model="$model">Please check</x-form.boolean>', compact('model'));
 
-        $this->compareHtml(Boolean::class, $expected, $data);
+        self::assertEquals($expected, $actual);
     }
 }

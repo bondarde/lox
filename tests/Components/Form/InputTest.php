@@ -2,16 +2,17 @@
 
 namespace Tests\Components\Form;
 
-use BondarDe\LaravelToolbox\View\Components\Form\Input;
-use Illuminate\Contracts\Container\BindingResolutionException;
-use Tests\Components\ComponentTestCase;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\View\ViewException;
+use Tests\TestCase;
 
-class InputTest extends ComponentTestCase
+class InputTest extends TestCase
 {
     public function testFailsWithoutName()
     {
-        $this->expectException(BindingResolutionException::class);
-        $this->compareHtml(Input::class, '');
+        $this->expectException(ViewException::class);
+
+        Blade::render('<x-form.input />');
     }
 
     public function testBasicTemplateRendering()
@@ -26,11 +27,8 @@ class InputTest extends ComponentTestCase
     </label>
 
 HTML;
+        $actual = Blade::render('<x-form.input name="test-name" />');
 
-        $data = [
-            'name' => 'test-name',
-        ];
-
-        $this->compareHtml(Input::class, $expected, $data);
+        self::assertEquals($expected, $actual);
     }
 }
