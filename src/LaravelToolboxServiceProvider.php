@@ -27,6 +27,7 @@ use BondarDe\LaravelToolbox\View\Components\Form\TinyMce;
 use BondarDe\LaravelToolbox\View\Components\ModelList;
 use BondarDe\LaravelToolbox\View\Components\ModelMeta;
 use BondarDe\LaravelToolbox\View\Components\ModelSummary;
+use BondarDe\LaravelToolbox\View\Components\Number;
 use BondarDe\LaravelToolbox\View\Components\Page;
 use BondarDe\LaravelToolbox\View\Components\RelativeTimestamp;
 use BondarDe\LaravelToolbox\View\Components\Survey;
@@ -74,6 +75,8 @@ class LaravelToolboxServiceProvider extends ServiceProvider
         'model-list' => ModelList::class,
         'model-summary' => ModelSummary::class,
         'model-meta' => ModelMeta::class,
+
+        'number' => Number::class,
     ];
 
     public function register()
@@ -90,6 +93,7 @@ class LaravelToolboxServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/components', self::NAMESPACE);
         $this->loadViewsFrom(__DIR__ . '/../resources/views', self::NAMESPACE);
         $this->loadViewComponentsAs('', self::COMPONENTS);
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', self::NAMESPACE);
         $this->loadJsonTranslationsFrom(__DIR__ . '/../resources/lang');
 
         $this->configureRoutes();
