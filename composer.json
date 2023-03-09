@@ -2,6 +2,7 @@
     "name": "bondarde/laravel-toolbox",
     "description": "Collection of Laravel components and utilities",
     "type": "library",
+    "license": "MIT",
     "authors": [
         {
             "name": "Alexander Bondar",
