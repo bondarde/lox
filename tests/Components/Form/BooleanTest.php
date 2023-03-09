@@ -15,8 +15,8 @@ class BooleanTest extends ComponentTestCase
         $expected = <<<HTML
 <label class="block cursor-pointer">
     <input
-        type="checkbox"
         class="form-boolean"
+        type="checkbox"
         name="yes-no"
         >
     <span class="align-middle select-none">Please check</span>
@@ -37,8 +37,8 @@ HTML;
         $expected = <<<HTML
 <label class="block cursor-pointer">
     <input
-        type="checkbox"
         class="form-boolean"
+        type="checkbox"
         name="is_active"
         checked="checked">
     <span class="align-middle select-none">Please check</span>
