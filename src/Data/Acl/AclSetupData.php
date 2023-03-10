@@ -8,7 +8,7 @@ abstract class AclSetupData
     public const PERMISSION_VIEW_MODEL_META_DATA = 'view model meta data';
     public const PERMISSION_VIEW_USERS = 'view users';
     public const PERMISSION_EDIT_USERS = 'edit users';
-    public const PERMISSION_VIEW_DATABASE_STATUS = 'view database status';
+    public const PERMISSION_VIEW_SYSTEM_STATUS = 'view system status';
 
     public function __construct(
         public readonly string $name,

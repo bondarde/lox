@@ -1,6 +1,6 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Controllers\Admin\Database;
+namespace BondarDe\LaravelToolbox\Http\Controllers\Admin\System\Database;
 
 use BondarDe\LaravelToolbox\LaravelToolboxServiceProvider;
 use Illuminate\Contracts\View\View;
@@ -18,7 +18,11 @@ class AdminDatabaseStatusTableController
         $output = Artisan::output();
         $tableStatus = json_decode($output);
 
-        return view(LaravelToolboxServiceProvider::NAMESPACE . '::admin.database-status.table', compact(
+        if (!$tableStatus) {
+            abort(404);
+        }
+
+        return view(LaravelToolboxServiceProvider::NAMESPACE . '::admin.system.database.table', compact(
             'table',
         ), [
             'size' => $tableStatus->table->size,

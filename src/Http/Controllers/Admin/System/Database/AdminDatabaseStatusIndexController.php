@@ -1,6 +1,6 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Controllers\Admin\Database;
+namespace BondarDe\LaravelToolbox\Http\Controllers\Admin\System\Database;
 
 use BondarDe\LaravelToolbox\LaravelToolboxServiceProvider;
 use Illuminate\Contracts\View\View;
@@ -21,7 +21,7 @@ class AdminDatabaseStatusIndexController
         $tableSizeSum = collect($databaseStatus->tables)->sum('size');
         $views = $databaseStatus->views;
 
-        return view(LaravelToolboxServiceProvider::NAMESPACE . '::admin.database-status.index', compact(
+        return view(LaravelToolboxServiceProvider::NAMESPACE . '::admin.system.database.index', compact(
             'databaseStatus',
             'tableSizeSum',
             'views',

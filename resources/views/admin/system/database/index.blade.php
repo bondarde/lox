@@ -41,7 +41,7 @@
                     <td>
                         <a
                             class="hover:underline"
-                            href="{{ route('admin.database-status.table', $table->table) }}"
+                            href="{{ route('admin.system.database.table', $table->table) }}"
                         >
                             {{ $table->table }}
                         </a>

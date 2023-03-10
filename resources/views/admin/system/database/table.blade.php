@@ -126,7 +126,7 @@
                         <td>
                             <a
                                 class="hover:underline"
-                                href="{{ route('admin.database-status.table', $foreignKey->foreign_table) }}"
+                                href="{{ route('admin.system.database.table', $foreignKey->foreign_table) }}"
                             >
                                 {{ $foreignKey->foreign_table }}
                             </a>

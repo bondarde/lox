@@ -1,8 +1,13 @@
 <?php
 
 use BondarDe\LaravelToolbox\Data\Acl\AclSetupData;
-use BondarDe\LaravelToolbox\Http\Controllers\Admin\Database\AdminDatabaseStatusIndexController;
-use BondarDe\LaravelToolbox\Http\Controllers\Admin\Database\AdminDatabaseStatusTableController;
+use BondarDe\LaravelToolbox\Http\Controllers\Admin\System\AdminAboutController;
+use BondarDe\LaravelToolbox\Http\Controllers\Admin\System\AdminEventsController;
+use BondarDe\LaravelToolbox\Http\Controllers\Admin\System\AdminRoutesController;
+use BondarDe\LaravelToolbox\Http\Controllers\Admin\System\AdminScheduleController;
+use BondarDe\LaravelToolbox\Http\Controllers\Admin\System\AdminSystemStatusIndexController;
+use BondarDe\LaravelToolbox\Http\Controllers\Admin\System\Database\AdminDatabaseStatusIndexController;
+use BondarDe\LaravelToolbox\Http\Controllers\Admin\System\Database\AdminDatabaseStatusTableController;
 use BondarDe\LaravelToolbox\Http\Controllers\Admin\UserPermissions\AdminPermissionIndexController;
 use BondarDe\LaravelToolbox\Http\Controllers\Admin\UserPermissions\AdminPermissionShowController;
 use BondarDe\LaravelToolbox\Http\Controllers\Admin\UserRoles\AdminUserRoleCreateController;
@@ -57,11 +62,20 @@ Route::group([
     });
 
     Route::group([
+        'prefix' => 'system/',
+        'as' => 'system.',
         'middleware' => [
-            'can:' . AclSetupData::PERMISSION_VIEW_DATABASE_STATUS,
+            'can:' . AclSetupData::PERMISSION_VIEW_SYSTEM_STATUS,
         ],
     ], function () {
-        Route::get('database-status', AdminDatabaseStatusIndexController::class)->name('database-status.index');
-        Route::get('database-status/table:{table}', AdminDatabaseStatusTableController::class)->name('database-status.table');
+        Route::get('/', AdminSystemStatusIndexController::class)->name('index');
+
+        Route::get('about', AdminAboutController::class)->name('about');
+        Route::get('schedule', AdminScheduleController::class)->name('schedule');
+        Route::get('events', AdminEventsController::class)->name('events');
+        Route::get('routes', AdminRoutesController::class)->name('routes');
+
+        Route::get('database', AdminDatabaseStatusIndexController::class)->name('database.index');
+        Route::get('database/table:{table}', AdminDatabaseStatusTableController::class)->name('database.table');
     });
 });
