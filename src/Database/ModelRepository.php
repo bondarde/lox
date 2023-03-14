@@ -2,6 +2,7 @@
 
 namespace BondarDe\LaravelToolbox\Database;
 
+use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -16,9 +17,26 @@ abstract class ModelRepository
      */
     abstract public function model(): string;
 
-    public function query(): Builder
+    public function query(
+        array|Closure|null $filter = null,
+    ): Builder
     {
-        return $this->model()::query();
+        $q = $this->model()::query();
+
+        if ($filter instanceof Closure) {
+            $filter($q);
+        } else if (is_array($filter)) {
+            $q->where($filter);
+        }
+
+        return $q;
+    }
+
+    public function count(
+        array|Closure|null $filter = null,
+    ): int
+    {
+        return $this->query($filter)->count();
     }
 
     /**
@@ -27,6 +45,15 @@ abstract class ModelRepository
     public function all(): Collection
     {
         return $this->query()->get();
+    }
+
+    /**
+     * @return T
+     */
+    public function create(array $attributes): Model
+    {
+        return $this->query()
+            ->create($attributes);
     }
 
     /**
@@ -49,5 +76,16 @@ abstract class ModelRepository
     {
         return $this->query()
             ->find($id);
+    }
+
+    public function random(
+        int                $limit = 1,
+        array|Closure|null $filter = null,
+    ): Collection
+    {
+        return $this->query($filter)
+            ->inRandomOrder()
+            ->limit($limit)
+            ->get();
     }
 }
