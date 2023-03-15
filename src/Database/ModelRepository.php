@@ -88,4 +88,17 @@ abstract class ModelRepository
             ->limit($limit)
             ->get();
     }
+
+    public function update(
+        Model|int|string $model,
+        array            $attributes,
+        array            $options = [],
+    ): bool
+    {
+        if (gettype($model) === 'integer' || gettype($model) === 'string') {
+            $model = $this->get($model);
+        }
+
+        return $model->update($attributes, $options);
+    }
 }
