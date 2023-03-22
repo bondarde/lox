@@ -36,6 +36,11 @@ class AdminSystemStatusIndexController
                 'All routes',
                 route('admin.system.routes'),
             ),
+            new SystemCategory(
+                'Cache',
+                'Values cached with filesystem driver',
+                route('admin.system.cache'),
+            ),
         ];
 
         return view(LaravelToolboxServiceProvider::NAMESPACE . '::admin.system.index', compact(
