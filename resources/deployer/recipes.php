@@ -5,7 +5,7 @@
 use BondarDe\LaravelToolbox\Data\Aws\AwsSecretsLoadConfig;
 use BondarDe\LaravelToolbox\Support\AwsSecretsLoader;
 use BondarDe\LaravelToolbox\Support\ViteManifestParser;
-use Ramsey\Uuid\Uuid;
+use Illuminate\Support\Str;
 use function Deployer\after;
 use function Deployer\artisan;
 use function Deployer\ask;
@@ -58,13 +58,18 @@ set('package_name', function () {
     return $composerJson->name;
 });
 
-set('opcache_reset_token_filename', '{{root_dir}}/.build/.opcache-reset-token-{{stage}}');
+set('opcache_config_filename', '{{ root_dir }}/.build/.opcache-config-{{stage}}');
 
 set('opcache_token', function () {
-    return runLocally('cat {{opcache_reset_token_filename}}');
-});
+    $json = runLocally('cat {{ opcache_config_filename }}');
 
-set('opcache_filename', 'opcache-reset.php');
+    return json_decode($json)->token;
+});
+set('opcache_filename', function () {
+    $json = runLocally('cat {{ opcache_config_filename }}');
+
+    return json_decode($json)->filename;
+});
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -183,28 +188,30 @@ task('build:htaccess_minified_redirects', function () {
 })->once();
 
 
-task('build:generate_opcache_reset_token', function () {
+task('build:generate_opcache_config', function () {
     $rootDir = get('root_dir');
     require $rootDir . '/vendor/autoload.php';
 
-    $uuid = Uuid::uuid4()->toString();
+    $token = Str::uuid();
 
-    runLocally('echo "' . $uuid . '" > {{opcache_reset_token_filename}}');
+    $filename = 'opcache-reset-' . Str::uuid() . '.php';
+    $config = compact('token', 'filename');
+
+    runLocally('echo \'' . json_encode($config) . '\' > {{ opcache_config_filename }}');
 });
 
 
 task('build:opcache_reset', function () {
-    invoke('build:generate_opcache_reset_token');
-    $token = get('opcache_token');
+    invoke('build:generate_opcache_config');
 
-    $filename = get('opcache_filename');
+    $token = get('opcache_token');
     $target = parse('{{build_path}}/public/{{opcache_filename}}');
 
     $lines = array_map(fn(string $line) => str_replace(
         '$token = die();',
         '$token = \'' . $token . '\';',
         $line,
-    ), file(__DIR__ . '/' . $filename));
+    ), file(__DIR__ . '/opcache-reset.php'));
 
     file_put_contents($target, implode('', $lines));
 })
