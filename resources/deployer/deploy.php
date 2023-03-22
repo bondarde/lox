@@ -5,7 +5,6 @@
 use function Deployer\get;
 use function Deployer\host;
 use function Deployer\set;
-use function Deployer\task;
 
 require_once 'vendor/deployer/deployer/recipe/laravel.php';
 require_once 'vendor/bondarde/laravel-toolbox/resources/deployer/recipes.php';
@@ -26,23 +25,8 @@ set('domain_test', 'test.example.com');
 
 host(get('domain_prod'))
     ->set('labels', ['stage' => 'prod'])
-    ->set('shared_files', [])
     ->set('deploy_path', '/var/www/{{domain_prod}}');
 
 host(get('domain_test'))
     ->set('labels', ['stage' => 'test'])
-    ->set('shared_files', [])
     ->set('deploy_path', '/var/www/{{domain_test}}');
-
-
-################################################################################
-### Tasks ######################################################################
-################################################################################
-
-
-task('build', [
-    'build:laravel',
-    'build:vite',
-    'build:htaccess_minified_redirects',
-    'build:opcache_reset',
-])->desc('Main build script');
