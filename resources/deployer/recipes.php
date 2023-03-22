@@ -100,7 +100,10 @@ task('build:laravel', function () {
     runLocally('rsync -r config {{build_path}}');
     runLocally('rsync -r database {{build_path}}');
     runLocally('rsync -r public {{build_path}}');
-    runLocally('rsync -r lang {{build_path}}');
+    $langDir = get('root_dir') . '/lang';
+    if (is_dir($langDir)) {
+        runLocally('rsync -r lang {{build_path}}');
+    }
     runLocally('rsync -r resources/views {{build_path}}/resources');
     runLocally('rsync -r routes {{build_path}}');
     runLocally('rsync --include=.php --exclude=.git --recursive --copy-links vendor {{build_path}}');
