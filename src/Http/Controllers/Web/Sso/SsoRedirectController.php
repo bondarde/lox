@@ -2,12 +2,18 @@
 
 namespace BondarDe\LaravelToolbox\Http\Controllers\Web\Sso;
 
+use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 
-class SsoRedirectController
+class SsoRedirectController extends SsoController
 {
-    public function __invoke(string $provider)
+    public function __invoke(
+        string  $provider,
+        Request $request,
+    )
     {
+        $this->validateSsoProvider($provider, $request);
+
         $driver = match ($provider) {
             'twitter' => Socialite::with('Twitter'),
             default => Socialite::driver($provider),

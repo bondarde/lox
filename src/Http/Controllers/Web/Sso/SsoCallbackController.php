@@ -11,20 +11,16 @@ use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use Throwable;
 
-class SsoCallbackController
+class SsoCallbackController extends SsoController
 {
-    public function redirectToProvider(string $provider)
-    {
-        return Socialite::driver($provider)
-            ->redirect();
-    }
-
     public function __invoke(
         string     $provider,
         Request    $request,
         AppleToken $appleToken,
     )
     {
+        $this->validateSsoProvider($provider, $request);
+
         if ($provider === 'apple') {
             config()->set('services.apple.client_secret', $appleToken->generate());
         }
