@@ -288,7 +288,7 @@ task('deploy:clear_opcache', function () {
     $filename = get('opcache_filename');
     $token = get('opcache_token');
     $date = date('Y-m-d');
-    $hash = md5($token . $date);
+    $hash = sha1($token . $date);
 
     $host = get('alias');
     if ($host === get('domain_prod')) {
