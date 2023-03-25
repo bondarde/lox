@@ -4,6 +4,7 @@ namespace BondarDe\LaravelToolbox\Support\ModelList;
 
 use BondarDe\LaravelToolbox\ModelList\ModelFilter;
 use Closure;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class ModelListFilterStatsUtil
@@ -56,11 +57,11 @@ class ModelListFilterStatsUtil
     }
 
     private static function addActiveFilters(
-        &$res,
-        $query,
-        string $filter,
-        array $activeFilters,
-        array $allFilters,
+        array   &$res,
+        Builder $query,
+        string  $filter,
+        array   $activeFilters,
+        array   $allFilters,
     ): void
     {
         if (!in_array($filter, $activeFilters)) {
@@ -75,7 +76,13 @@ class ModelListFilterStatsUtil
         }
 
         foreach ($activeFilters as $activeFilter) {
-            $query->whereRaw($allFilters[$activeFilter]->sql);
+            $sql = $allFilters[$activeFilter]->query;
+
+            if ($sql instanceof Closure) {
+                $sql($query);
+            } else {
+                $query->whereRaw($sql);
+            }
         }
 
         $count = $query->count();
