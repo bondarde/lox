@@ -2,16 +2,15 @@
 
 namespace BondarDe\LaravelToolbox\ModelList;
 
+use Closure;
+
 class ModelFilter
 {
-    public string $label;
-    public string $title;
-    public string $sql;
-
-    public function __construct(string $label, string $sql, ?string $title = null)
+    public function __construct(
+        public readonly string         $label,
+        public readonly string|Closure $query,
+        public readonly ?string        $title = null,
+    )
     {
-        $this->label = $label;
-        $this->title = $title ?? $label;
-        $this->sql = $sql;
     }
 }

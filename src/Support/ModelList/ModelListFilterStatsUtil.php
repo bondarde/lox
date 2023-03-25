@@ -3,6 +3,7 @@
 namespace BondarDe\LaravelToolbox\Support\ModelList;
 
 use BondarDe\LaravelToolbox\ModelList\ModelFilter;
+use Closure;
 use Illuminate\Database\Eloquent\Model;
 
 class ModelListFilterStatsUtil
@@ -31,7 +32,12 @@ class ModelListFilterStatsUtil
                 $query = $model::query()->withTrashed();
             }
 
-            $query->whereRaw($dbFilter->sql);
+            $sql = $dbFilter->query;
+            if ($sql instanceof Closure) {
+                $sql($query);
+            } else {
+                $query->whereRaw($sql);
+            }
 
             $count = $query->count();
             $res[$filter] = [

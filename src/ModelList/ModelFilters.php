@@ -13,7 +13,7 @@ abstract class ModelFilters
     public static function all(): array
     {
         return [
-            self::ALL => new ModelFilter('alle', 'TRUE'),
+            self::ALL => new ModelFilter(__('all'), fn() => null),
         ];
     }
 

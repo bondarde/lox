@@ -143,7 +143,12 @@ class ModelList extends Component
 
         foreach ($activeFilters as $filterKey) {
             $filter = self::findFilterByKey($allFilters, $filterKey);
-            $sql = $filter->sql;
+            $sql = $filter->query;
+
+            if ($sql instanceof Closure) {
+                $sql($query);
+                continue;
+            }
 
             if ($sql === 'TRUE') {
                 continue;
