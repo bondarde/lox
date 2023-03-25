@@ -3,7 +3,10 @@
         <span class="p-1 shadow bg-yellow-50">
             {{ $label }}
             @isset($filterCount)
-                <small class="opacity-50">{{ $filterCount }}</small>
+                <x-number
+                    class="text-sm opacity-50"
+                    :number="$filterCount"
+                />
             @endisset
             @if($showDeleteFilterButton ?? false)
                 <a class="ml-1 text-red-700"
@@ -23,7 +26,10 @@
         ]) }}">
             {{ $label }}
             @isset($filterCount)
-                <small class="opacity-50">{{ $filterCount }}</small>
+                <x-number
+                    class="text-sm opacity-50"
+                    :number="$filterCount"
+                />
             @endisset
         </a>
     @endif
