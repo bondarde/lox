@@ -9,15 +9,20 @@ class ModelListFilterStatsUtil
 {
     public static function toFilterStats(
         string $model,
-        array $allFilters,
-        array $activeFilters
+        array  $allFilters,
+        array  $activeFilters,
+        int    $hideCountsOver,
     ): array
     {
+        $calculateCounts = true;
         $res = [];
 
         $flattenedFilters = array_merge([], ...$allFilters);
 
         foreach ($flattenedFilters as $filter => $dbFilter) {
+            if (!$calculateCounts) {
+                continue;
+            }
             /** @var ModelFilter $dbFilter */
             /** @var Model $model */
 
@@ -28,9 +33,15 @@ class ModelListFilterStatsUtil
 
             $query->whereRaw($dbFilter->sql);
 
+            $count = $query->count();
             $res[$filter] = [
-                'count' => $query->count(),
+                'count' => $count,
             ];
+
+            if ($count >= $hideCountsOver) {
+                $calculateCounts = false;
+                continue;
+            }
 
             self::addActiveFilters($res, $query, $filter, $activeFilters, $flattenedFilters);
         }
@@ -43,8 +54,8 @@ class ModelListFilterStatsUtil
         $query,
         string $filter,
         array $activeFilters,
-        array $allFilters
-    )
+        array $allFilters,
+    ): void
     {
         if (!in_array($filter, $activeFilters)) {
             $activeFilters[] = $filter;
@@ -61,8 +72,9 @@ class ModelListFilterStatsUtil
             $query->whereRaw($allFilters[$activeFilter]->sql);
         }
 
+        $count = $query->count();
         $res[$key] = [
-            'count' => $query->count(),
+            'count' => $count,
         ];
     }
 }

@@ -17,6 +17,7 @@ use BondarDe\LaravelToolbox\Support\ModelList\ModelListUrlQueryUtil;
 use BondarDe\LaravelToolbox\Support\NumbersFormatter;
 use Closure;
 use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -55,6 +56,7 @@ class ModelList extends Component
         string  $model,
         bool    $withTrashed = false,
         bool    $withArchived = false,
+        int     $hideCountsOver = 1_000_000,
         string  $pageTitle = '{0} No entries|{1} One entry|[2,*] :count entries',
     )
     {
@@ -70,7 +72,12 @@ class ModelList extends Component
 
         $query = self::toUnpaginatedQuery($modelListData, $withTrashed, $withArchived);
         $this->items = self::toItems($model, $query, $modelListData->activePage);
-        $this->filterStats = ModelListFilterStatsUtil::toFilterStats($model, $this->allFilters, $this->activeFilters);
+        $this->filterStats = ModelListFilterStatsUtil::toFilterStats(
+            $model,
+            $this->allFilters,
+            $this->activeFilters,
+            $hideCountsOver,
+        );
 
         $this->links = $this->items->appends([
             self::URL_PARAM_FILTERS => ModelListUrlQueryUtil::toQueryString($this->activeFilters),
@@ -86,7 +93,7 @@ class ModelList extends Component
 
     public static function toModelListData(
         string  $model,
-        Request $request
+        Request $request,
     ): ModelListData
     {
         $filters = self::toModelFilters($model);
@@ -313,7 +320,7 @@ class ModelList extends Component
         return $idx >= 0;
     }
 
-    public function toFilterCount(string $filter): int
+    public function toFilterCount(string $filter): ?int
     {
         if ($filter === ModelFilters::ALL) {
             $key = ModelFilters::ALL;
@@ -326,7 +333,7 @@ class ModelList extends Component
             $key = ModelListUrlQueryUtil::toQueryString($filters);
         }
 
-        return $this->filterStats[$key]['count'];
+        return $this->filterStats[$key]['count'] ?? null;
     }
 
     public function toFiltersQueryString(?string $filter = null): string
@@ -351,7 +358,7 @@ class ModelList extends Component
         return $sort ?: '';
     }
 
-    public function render()
+    public function render(): View
     {
         return view('laravel-toolbox::model-list');
     }
