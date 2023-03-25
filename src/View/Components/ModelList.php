@@ -14,6 +14,7 @@ use BondarDe\LaravelToolbox\ModelList\ModelSorts;
 use BondarDe\LaravelToolbox\ModelListData;
 use BondarDe\LaravelToolbox\Support\ModelList\ModelListFilterStatsUtil;
 use BondarDe\LaravelToolbox\Support\ModelList\ModelListUrlQueryUtil;
+use BondarDe\LaravelToolbox\Support\NumbersFormatter;
 use Closure;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Builder;
@@ -54,6 +55,7 @@ class ModelList extends Component
         string  $model,
         bool    $withTrashed = false,
         bool    $withArchived = false,
+        string  $pageTitle = '{0} No entries|{1} One entry|[2,*] :count entries',
     )
     {
         self::assertIsSubclassOf($model, Model::class);
@@ -75,7 +77,7 @@ class ModelList extends Component
             self::URL_PARAM_SORTS => ModelListUrlQueryUtil::toQueryString($this->activeSorts),
             self::URL_PARAM_SEARCH_QUERY => $this->searchQuery,
         ])->links();
-        $this->pageTitle = self::toPageTitle($this->items->total());
+        $this->pageTitle = self::toPageTitle($pageTitle, $this->items->total());
 
         $this->showFilters = is_subclass_of($model, ModelListFilterable::class);
         $this->showSorts = is_subclass_of($model, ModelListSortable::class);
@@ -188,9 +190,14 @@ class ModelList extends Component
             );
     }
 
-    private static function toPageTitle(int $totalCount): string
+    private static function toPageTitle(
+        string $pageTitle,
+        int    $totalCount,
+    ): string
     {
-        return trans_choice('{0} No entries|{1} One entry|[2,*] :count entries', $totalCount);
+        return trans_choice($pageTitle, $totalCount, [
+            'count' => NumbersFormatter::format($totalCount),
+        ]);
     }
 
     private static function format($num, $decimals = 0, $suffix = '', $zero = '<span class="text-muted">—</span>')
