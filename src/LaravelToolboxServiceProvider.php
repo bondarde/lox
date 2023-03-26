@@ -13,6 +13,7 @@ use BondarDe\LaravelToolbox\View\Components\Buttons\LightButton;
 use BondarDe\LaravelToolbox\View\Components\Buttons\LinkButton;
 use BondarDe\LaravelToolbox\View\Components\Buttons\SuccessButton;
 use BondarDe\LaravelToolbox\View\Components\Content;
+use BondarDe\LaravelToolbox\View\Components\DashboardItem;
 use BondarDe\LaravelToolbox\View\Components\FileSize;
 use BondarDe\LaravelToolbox\View\Components\Form\Boolean;
 use BondarDe\LaravelToolbox\View\Components\Form\Checkbox;
@@ -82,6 +83,7 @@ class LaravelToolboxServiceProvider extends ServiceProvider
         'file-size' => FileSize::class,
 
         'rendering-stats' => RenderingStats::class,
+        'dashboard-item' => DashboardItem::class,
     ];
 
     public function register()
