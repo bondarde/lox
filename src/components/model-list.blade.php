@@ -1,9 +1,13 @@
-<div @if($showFilters || $showSorts || $showSearchQuery) class="mb-8 flex flex-col space-y-8" @endif>
+<div
+    @class([
+        'mb-8 flex flex-col space-y-8' => $showFilters || $showSorts || $showSearchQuery
+    ])
+>
     @if($showFilters)
         <div>
             <h4 class="font-semibold">{{ __('Filter') }}</h4>
             @foreach($allFilters as $filters)
-                <ul class="flex flex-wrap mb-2">
+                <ul class="flex flex-wrap mb-3 -mx-1 gap-x-4 gap-y-1">
                     @foreach($filters as $key => $filter)
                         @include('laravel-toolbox::_filter-sort-item', [
                             'routeName' => Route::currentRouteName(),
@@ -26,7 +30,7 @@
     @if($showSorts)
         <div>
             <h4 class="font-semibold">{{ __('Sorting') }}</h4>
-            <ul class="flex flex-wrap mb-4">
+            <ul class="flex flex-wrap mb-2 gap-x-4 gap-y-1">
                 @foreach($allSorts as $key => $sort)
                     @include('laravel-toolbox::_filter-sort-item', [
                         'routeName' => Route::currentRouteName(),
@@ -46,8 +50,7 @@
     @if($showSearchQuery)
         <form
             method="get"
-            action="{{ route(Route::currentRouteName(), [
-        ]) }}"
+            action="{{ route(Route::currentRouteName()) }}"
         >
             <input type="hidden" name="filters" value="{{ $toFiltersQueryString() }}">
             <input type="hidden" name="sort" value="{{ $toSortsQueryString() }}">
@@ -62,11 +65,9 @@
     @endif
 </div>
 
-@if($items->total() > $items->perPage())
-    {!! $links !!}
-@endif
-
 <h1>{!! $pageTitle !!}</h1>
+
+{!! $links !!}
 
 @if($items->count())
     <x-content class="overflow-x-auto">
@@ -76,6 +77,4 @@
     <p class="text-muted mt-5">Keine Einträge zum ausgewählten Filter wurden gefunden.</p>
 @endif
 
-@if($items->total() > $items->perPage())
-    {!! $links !!}
-@endif
+{!! $links !!}

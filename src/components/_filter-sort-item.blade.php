@@ -1,6 +1,6 @@
-<li class="mr-4" @if(isset($title)) title="{{ $title }}" @endif>
+<li @if(isset($title)) title="{{ $title }}" @endif>
     @if($isActive)
-        <span class="p-1 shadow bg-yellow-50">
+        <span class="p-1 shadow rounded bg-yellow-50 dark:bg-yellow-50/30">
             {{ $label }}
             @isset($filterCount)
                 <x-number
@@ -9,26 +9,36 @@
                 />
             @endisset
             @if($showDeleteFilterButton ?? false)
-                <a class="ml-1 text-red-700"
-                   href="{{ route($routeName, [
+                <a
+                    class="ml-1 text-red-700"
+                    href="{{ route($routeName, [
                         'filters' => $filtersQuery,
                         'sort' => $sortsQuery,
                         'q' => $searchQuery,
-                    ]) }}">×</a>
+                    ]) }}"
+                >×</a>
             @endif
         </span>
     @else
-        <a class="p-1 @if(isset($filterCount) && $filterCount === 0) opacity-50 @endif"
-           href="{{ route($routeName, [
-            'filters' => $filtersQuery,
-            'sort' => $sortsQuery,
-            'q' => $searchQuery,
-        ]) }}">
-            {{ $label }}
+        <a
+            @class([
+                'p-1 group',
+                'opacity-50' => isset($filterCount) && $filterCount === 0,
+            ])
+            href="{{ route($routeName, [
+                'filters' => $filtersQuery,
+                'sort' => $sortsQuery,
+                'q' => $searchQuery,
+            ]) }}"
+        >
+            <span
+                class="group-hover:underline"
+            >{{ $label }}</span>
             @isset($filterCount)
                 <x-number
                     class="text-sm opacity-50"
                     :number="$filterCount"
+                    zero=""
                 />
             @endisset
         </a>

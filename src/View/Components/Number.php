@@ -11,7 +11,8 @@ class Number extends Component
     public function __construct(
         public readonly float|int $number,
         public readonly int       $decimals = 0,
-        public readonly ?string   $suffix = null
+        public readonly ?string   $suffix = null,
+        public readonly string    $zero = '<span class="opacity-50">—</span>',
     )
     {
     }
@@ -22,6 +23,7 @@ class Number extends Component
             $this->number,
             $this->decimals,
             $this->suffix,
+            $this->zero,
         );
 
         return view('laravel-toolbox::number', compact(

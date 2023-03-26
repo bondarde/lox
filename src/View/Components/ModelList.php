@@ -3,6 +3,7 @@
 namespace BondarDe\LaravelToolbox\View\Components;
 
 use BondarDe\LaravelToolbox\Exceptions\IllegalStateException;
+use BondarDe\LaravelToolbox\LaravelToolboxServiceProvider;
 use BondarDe\LaravelToolbox\ModelList\ModelFilter;
 use BondarDe\LaravelToolbox\ModelList\ModelFilters;
 use BondarDe\LaravelToolbox\ModelList\ModelListFilterable;
@@ -83,7 +84,7 @@ class ModelList extends Component
             self::URL_PARAM_FILTERS => ModelListUrlQueryUtil::toQueryString($this->activeFilters),
             self::URL_PARAM_SORTS => ModelListUrlQueryUtil::toQueryString($this->activeSorts),
             self::URL_PARAM_SEARCH_QUERY => $this->searchQuery,
-        ])->links();
+        ])->links(LaravelToolboxServiceProvider::NAMESPACE . '::pagination');
         $this->pageTitle = self::toPageTitle($pageTitle, $this->items->total());
 
         $this->showFilters = is_subclass_of($model, ModelListFilterable::class);
