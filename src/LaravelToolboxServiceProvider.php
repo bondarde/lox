@@ -29,6 +29,7 @@ use BondarDe\LaravelToolbox\View\Components\Form\TinyMce;
 use BondarDe\LaravelToolbox\View\Components\ModelList;
 use BondarDe\LaravelToolbox\View\Components\ModelMeta;
 use BondarDe\LaravelToolbox\View\Components\ModelSummary;
+use BondarDe\LaravelToolbox\View\Components\NavItem;
 use BondarDe\LaravelToolbox\View\Components\Number;
 use BondarDe\LaravelToolbox\View\Components\Page;
 use BondarDe\LaravelToolbox\View\Components\RelativeTimestamp;
@@ -84,6 +85,7 @@ class LaravelToolboxServiceProvider extends ServiceProvider
 
         'rendering-stats' => RenderingStats::class,
         'dashboard-item' => DashboardItem::class,
+        'nav-item' => NavItem::class,
     ];
 
     public function register()
