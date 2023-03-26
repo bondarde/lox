@@ -10,7 +10,7 @@ class FileSize extends Component
 {
     public function __construct(
         public readonly int  $bytes,
-        private readonly int $decimals = 2,
+        private readonly int $decimals = 1,
         public readonly bool $binary = true,
     )
     {
