@@ -31,6 +31,7 @@ use BondarDe\LaravelToolbox\View\Components\ModelSummary;
 use BondarDe\LaravelToolbox\View\Components\Number;
 use BondarDe\LaravelToolbox\View\Components\Page;
 use BondarDe\LaravelToolbox\View\Components\RelativeTimestamp;
+use BondarDe\LaravelToolbox\View\Components\RenderingStats;
 use BondarDe\LaravelToolbox\View\Components\Survey;
 use BondarDe\LaravelToolbox\View\Components\SurveyView;
 use BondarDe\LaravelToolbox\View\Components\UserMessages;
@@ -79,6 +80,8 @@ class LaravelToolboxServiceProvider extends ServiceProvider
 
         'number' => Number::class,
         'file-size' => FileSize::class,
+
+        'rendering-stats' => RenderingStats::class,
     ];
 
     public function register()
