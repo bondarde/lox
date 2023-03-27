@@ -21,7 +21,7 @@ HTML;
     public function test_renders_1024_bytes_binary()
     {
         $expected = <<<HTML
-<span class="whitespace-nowrap" title="1,024 bytes">1.00</span>
+<span class="whitespace-nowrap" title="1,024 bytes">1.0</span>
 KiB
 
 HTML;
@@ -37,7 +37,7 @@ HTML;
 GiB
 
 HTML;
-        $actual = Blade::render('<x-file-size bytes="1082949632" />');
+        $actual = Blade::render('<x-file-size bytes="1082949632" :decimals="2" />');
 
         self::assertEquals($expected, $actual);
     }
@@ -49,7 +49,7 @@ HTML;
 KB
 
 HTML;
-        $actual = Blade::render('<x-file-size bytes="1024" :binary="false" />');
+        $actual = Blade::render('<x-file-size bytes="1024" :binary="false" :decimals="2" />');
 
         self::assertEquals($expected, $actual);
     }
@@ -57,7 +57,7 @@ HTML;
     public function testRendersWithAdditionalCssClasses()
     {
         $expected = <<<HTML
-<span class="whitespace-nowrap text-sm" title="1,024 bytes">1.00</span>
+<span class="whitespace-nowrap text-sm" title="1,024 bytes">1.0</span>
 KiB
 
 HTML;
