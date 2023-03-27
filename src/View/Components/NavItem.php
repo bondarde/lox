@@ -13,7 +13,8 @@ class NavItem extends Component
     public function __construct(
         public readonly string  $href,
         string|array            $activeRoute,
-        public readonly ?string $info = null
+        public readonly ?string $info = null,
+        public readonly ?string $containerClass = null,
     )
     {
         $active = Route::is($activeRoute);

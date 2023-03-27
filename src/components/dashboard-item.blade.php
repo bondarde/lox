@@ -1,6 +1,6 @@
 <a
     {{ $attributes->merge([
-        'class' => 'inline-block p-4 rounded-lg shadow hover:shadow-lg mr-4 mb-4 ' . $cssClasses,
+        'class' => 'inline-block p-4 rounded-lg shadow hover:shadow-lg ' . $cssClasses,
         'href' => $href,
     ]) }}
 >
