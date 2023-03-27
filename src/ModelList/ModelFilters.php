@@ -48,7 +48,7 @@ abstract class ModelFilters
             $date->month($m);
 
             return new ModelFilter(
-                $date->format('M'),
+                $date->isoFormat('MMM'),
                 'MONTH(' . $fieldName . ') = ' . $m,
             );
         };
