@@ -65,7 +65,7 @@
     @endif
 </div>
 
-<h1>{!! $pageTitle !!}</h1>
+<h1>{!! ucfirst($pageTitle) !!}</h1>
 
 {!! $links !!}
 
