@@ -1,6 +1,9 @@
 <div {{ $attributes }}>
     <div>
         {{ now()->format('Y-m-d H:i:s') }}
+        <br>
+        App version:
+        {{ config('app.version') }}
     </div>
     <div>
         Rendering time:
