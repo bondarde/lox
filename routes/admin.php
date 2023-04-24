@@ -4,6 +4,7 @@ use BondarDe\LaravelToolbox\Data\Acl\AclSetupData;
 use BondarDe\LaravelToolbox\Http\Controllers\Admin\System\AdminAboutController;
 use BondarDe\LaravelToolbox\Http\Controllers\Admin\System\AdminCacheController;
 use BondarDe\LaravelToolbox\Http\Controllers\Admin\System\AdminEventsController;
+use BondarDe\LaravelToolbox\Http\Controllers\Admin\System\AdminPhpInfoController;
 use BondarDe\LaravelToolbox\Http\Controllers\Admin\System\AdminRoutesController;
 use BondarDe\LaravelToolbox\Http\Controllers\Admin\System\AdminScheduleController;
 use BondarDe\LaravelToolbox\Http\Controllers\Admin\System\AdminSystemStatusIndexController;
@@ -76,6 +77,7 @@ Route::group([
         Route::get('events', AdminEventsController::class)->name('events');
         Route::get('routes', AdminRoutesController::class)->name('routes');
         Route::get('cache', AdminCacheController::class)->name('cache');
+        Route::get('php-info', AdminPhpInfoController::class)->name('php-info');
 
         Route::get('database', AdminDatabaseStatusIndexController::class)->name('database.index');
         Route::get('database/table:{table}', AdminDatabaseStatusTableController::class)->name('database.table');
