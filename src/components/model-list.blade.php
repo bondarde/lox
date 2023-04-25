@@ -1,6 +1,6 @@
 <div
     @class([
-        'mb-8 flex flex-col space-y-8' => $showFilters || $showSorts || $showSearchQuery
+        'mb-8 flex flex-col space-y-8' => $showFilters || $showSorts || $showSearchQuery,
     ])
 >
     @if($showFilters)
@@ -10,7 +10,8 @@
                 <ul class="flex flex-wrap mb-3 -mx-1 gap-x-4 gap-y-1">
                     @foreach($filters as $key => $filter)
                         @include('laravel-toolbox::_filter-sort-item', [
-                            'routeName' => Route::currentRouteName(),
+                            'routeName' => $routeName,
+                            'routeParams' => $routeParams,
                             'isActive' => $isFilterActive($key),
                             'filter' => $key,
                             'label' => $filter->label,
@@ -33,7 +34,8 @@
             <ul class="flex flex-wrap mb-2 gap-x-4 gap-y-1">
                 @foreach($allSorts as $key => $sort)
                     @include('laravel-toolbox::_filter-sort-item', [
-                        'routeName' => Route::currentRouteName(),
+                        'routeName' => $routeName,
+                        'routeParams' => $routeParams,
                         'isActive' => $isSortActive($key),
                         'label' => $sort->label,
                         'title' => $sort->title,
@@ -50,7 +52,10 @@
     @if($showSearchQuery)
         <form
             method="get"
-            action="{{ route(Route::currentRouteName()) }}"
+            action="{{ route(
+                $routeName,
+                $routeParams,
+            ) }}"
         >
             <input type="hidden" name="filters" value="{{ $toFiltersQueryString() }}">
             <input type="hidden" name="sort" value="{{ $toSortsQueryString() }}">

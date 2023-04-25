@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Route;
 use Illuminate\View\Component;
 
 class ModelList extends Component
@@ -49,6 +50,9 @@ class ModelList extends Component
     private array $filterStats;
     public ?string $searchQuery;
 
+    public readonly string $routeName;
+    public readonly array $routeParams;
+
     /**
      * @throws IllegalStateException
      */
@@ -62,6 +66,9 @@ class ModelList extends Component
     )
     {
         self::assertIsSubclassOf($model, Model::class);
+
+        $this->routeName = Route::current()->getName();
+        $this->routeParams = Route::current()->parameters();
 
         $modelListData = self::toModelListData($model, $request);
 

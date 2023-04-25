@@ -17,6 +17,11 @@ class AdminSystemStatusIndexController
                 route('admin.system.about'),
             ),
             new SystemCategory(
+                'Models',
+                'Application’s Eloquent models',
+                route('admin.system.models.index'),
+            ),
+            new SystemCategory(
                 'Database',
                 'Database details: tables sizes, indexes, foreign keys',
                 route('admin.system.database.index'),

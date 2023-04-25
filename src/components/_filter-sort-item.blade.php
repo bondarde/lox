@@ -12,6 +12,7 @@
                 <a
                     class="ml-1 text-red-700"
                     href="{{ route($routeName, [
+                        ...$routeParams,
                         'filters' => $filtersQuery,
                         'sort' => $sortsQuery,
                         'q' => $searchQuery,
@@ -26,6 +27,7 @@
                 'opacity-50' => isset($filterCount) && $filterCount === 0,
             ])
             href="{{ route($routeName, [
+                ...$routeParams,
                 'filters' => $filtersQuery,
                 'sort' => $sortsQuery,
                 'q' => $searchQuery,

@@ -10,6 +10,9 @@ use BondarDe\LaravelToolbox\Http\Controllers\Admin\System\AdminScheduleControlle
 use BondarDe\LaravelToolbox\Http\Controllers\Admin\System\AdminSystemStatusIndexController;
 use BondarDe\LaravelToolbox\Http\Controllers\Admin\System\Database\AdminDatabaseStatusIndexController;
 use BondarDe\LaravelToolbox\Http\Controllers\Admin\System\Database\AdminDatabaseStatusTableController;
+use BondarDe\LaravelToolbox\Http\Controllers\Admin\System\Models\AdminModelsDetailsController;
+use BondarDe\LaravelToolbox\Http\Controllers\Admin\System\Models\AdminModelsIndexController;
+use BondarDe\LaravelToolbox\Http\Controllers\Admin\System\Models\AdminModelsListController;
 use BondarDe\LaravelToolbox\Http\Controllers\Admin\UserPermissions\AdminPermissionIndexController;
 use BondarDe\LaravelToolbox\Http\Controllers\Admin\UserPermissions\AdminPermissionShowController;
 use BondarDe\LaravelToolbox\Http\Controllers\Admin\UserRoles\AdminUserRoleCreateController;
@@ -81,5 +84,9 @@ Route::group([
 
         Route::get('database', AdminDatabaseStatusIndexController::class)->name('database.index');
         Route::get('database/table:{table}', AdminDatabaseStatusTableController::class)->name('database.table');
+
+        Route::get('models', AdminModelsIndexController::class)->name('models.index');
+        Route::get('models/{model}', AdminModelsListController::class)->name('models.list');
+        Route::get('models/{model}/{id}', AdminModelsDetailsController::class)->name('models.details');
     });
 });
