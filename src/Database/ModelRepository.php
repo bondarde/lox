@@ -5,6 +5,7 @@ namespace BondarDe\LaravelToolbox\Database;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
 
 /**
@@ -100,5 +101,21 @@ abstract class ModelRepository
         }
 
         return $model->update($attributes, $options);
+    }
+
+    public function delete(
+        Model|int|string $model,
+        bool             $forceDelete = false,
+    ): bool
+    {
+        if (gettype($model) === 'integer' || gettype($model) === 'string') {
+            $model = $this->get($model);
+        }
+
+        if ($forceDelete && in_array(SoftDeletes::class, class_uses_recursive($this->modelName()))) {
+            return $model->forceDelete();
+        }
+
+        return $model->delete();
     }
 }
