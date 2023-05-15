@@ -22,6 +22,7 @@ abstract class  ValidationRules
     const TYPE_ARRAY = 'array';
     const TYPE_DATE = 'date';
     const TYPE_UUID = 'uuid';
+    const TYPE_FILE = 'file';
 
     const DATE_YESTERDAY = 'yesterday';
     const DATE_TODAY = 'today';
