@@ -21,6 +21,7 @@ abstract class  ValidationRules
     const TYPE_BOOLEAN = 'boolean';
     const TYPE_ARRAY = 'array';
     const TYPE_DATE = 'date';
+    const TYPE_UUID = 'uuid';
 
     const DATE_YESTERDAY = 'yesterday';
     const DATE_TODAY = 'today';
