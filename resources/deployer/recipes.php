@@ -101,7 +101,7 @@ task('build:laravel', function () {
     runLocally('cp .env.{{stage}} {{env_file_path}}');
     runLocally('rsync -r artisan {{build_path}}');
     runLocally('rsync -r app {{build_path}}');
-    runLocally('rsync -r bootstrap {{build_path}}');
+    runLocally('rsync -r bootstrap/app.php {{build_path}}/bootstrap/');
     runLocally('rsync -r config {{build_path}}');
     runLocally('rsync -r database {{build_path}}');
     runLocally('rsync -r public {{build_path}}');
