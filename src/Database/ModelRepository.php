@@ -51,6 +51,15 @@ abstract class ModelRepository
     /**
      * @return T
      */
+    public function new(array $attributes): Model
+    {
+        return $this->query()
+            ->newModelInstance($attributes);
+    }
+
+    /**
+     * @return T
+     */
     public function create(array $attributes): Model
     {
         return $this->query()
