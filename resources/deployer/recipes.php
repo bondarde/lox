@@ -9,10 +9,15 @@ use Illuminate\Support\Str;
 use function Deployer\after;
 use function Deployer\artisan;
 use function Deployer\ask;
+use function Deployer\before;
+use function Deployer\cd;
+use function Deployer\error;
 use function Deployer\get;
+use function Deployer\info;
 use function Deployer\invoke;
 use function Deployer\output;
 use function Deployer\parse;
+use function Deployer\run;
 use function Deployer\runLocally;
 use function Deployer\set;
 use function Deployer\task;
@@ -29,8 +34,11 @@ set('allow_anonymous_stats', false);
 
 set('writable_mode', 'chmod');
 set('writable_use_sudo', true);
-set('writable_recursive', true);
-set('writable_chmod_mode', '777');
+set('writable_recursive', false);
+set('writable_chmod_mode', '0770');
+set('opcache_reset_mode', 'local');
+set('server_user', 'www-data');
+set('chown_use_sudo', true);
 
 set('stage', function () {
     return get('labels')['stage'];
@@ -79,11 +87,13 @@ set('opcache_filename', function () {
 // If deploy fails, automatically unlock.
 after('deploy:failed', 'deploy:unlock');
 
-// Upload codebase after deploy:prepare
-after('deploy:prepare', 'deploy:upload');
-
 // Clear OPCache after symlink
 after('deploy:symlink', 'deploy:clear_opcache');
+
+// Adjust permissions
+after('deploy:writable', 'deploy:assign_upload_to_server_user');
+after('deploy:writable', 'deploy:assign_releases_dir_to_server_user');
+after('deploy:writable', 'deploy:assign_writable_dirs_to_server_user');
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -202,6 +212,12 @@ task('build:generate_opcache_config', function () {
 
 
 task('build:opcache_reset', function () {
+    if (get('opcache_reset_mode') !== 'remote') {
+        writeln('NOOP');
+
+        return;
+    }
+
     invoke('build:generate_opcache_config');
 
     $token = get('opcache_token');
@@ -248,7 +264,7 @@ task('build:update_env_from_aws_secrets', function () {
         || !$secretId
         || !$projectPrefix
     ) {
-        throw new Exception('AWS secrets setup is incomplete.');
+        throw error('AWS secrets setup is incomplete.');
     }
 
 
@@ -280,11 +296,33 @@ task('build:update_env_from_aws_secrets', function () {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 $disabledFn = fn() => writeln('<fg=gray>Task disabled</>');
-task('deploy:update_code', $disabledFn);
 task('deploy:vendors', $disabledFn);
 
 
 task('deploy:clear_opcache', function () {
+    $mode = get('opcache_reset_mode');
+    if ($mode === 'local') {
+        invoke('deploy:clear_opcache_local');
+    } else if ($mode === 'remote') {
+        invoke('deploy:clear_opcache_remote');
+    } else {
+        writeln('NOOP');
+    }
+});
+
+task('deploy:clear_opcache_local', function () {
+    $result = run('curl http://127.0.0.1/opcache-reset.php');
+
+    writeln("Clearing OPCache: <fg=green>$result</>");
+
+    if ($result !== 'bool(true)') {
+        throw error('OPCache reset failed.');
+    }
+
+    info("OPCache cleared.");
+});
+
+task('deploy:clear_opcache_remote', function () {
     $filename = get('opcache_filename');
     $token = get('opcache_token');
     $date = date('Y-m-d');
@@ -309,7 +347,7 @@ task('deploy:clear_opcache', function () {
 });
 
 
-task('deploy:upload', function () {
+task('deploy:update_code', function () {
     writeln('Uploading {{build_path}} → {{release_path}}');
 
     upload('{{build_path}}/', '{{release_path}}/');
@@ -317,3 +355,43 @@ task('deploy:upload', function () {
 
 after('artisan:migrate', artisan('acl:update-roles-and-permission'))
     ->desc('ACL setup');
+
+
+task('deploy:assign_releases_dir_to_server_user', function () {
+    $sudo = get('chown_use_sudo') ? 'sudo' : '';
+    $serverUser = get('server_user');
+
+    writeln("Assign releases directory to server user ($serverUser)…");
+
+    run("$sudo chown $serverUser {{deploy_path}}/releases");
+});
+
+task('deploy:assign_writable_dirs_to_server_user', function () {
+    $sudo = get('chown_use_sudo') ? 'sudo' : '';
+    $serverUser = get('server_user');
+
+    writeln("Assign writable directories to server user ($serverUser)…");
+
+    $dirs = join(' ', get('writable_dirs'));
+
+    cd('{{ release_or_current_path }}');
+    run("$sudo chown $serverUser $dirs");
+});
+
+task('deploy:assign_upload_to_server_user', function () {
+    $sudo = get('chown_use_sudo') ? 'sudo' : '';
+    $serverUser = get('server_user');
+
+    writeln("Assign uploaded files & directories to server user ($serverUser)…");
+
+    cd('{{ release_or_current_path }}');
+    run("$sudo chown -R $serverUser ./*");
+});
+
+before('artisan:storage:link', function () {
+    $sudo = get('chown_use_sudo') ? 'sudo' : '';
+    writeln("Make dirs writable for deployer user (group)…");
+
+    cd('{{ release_or_current_path }}');
+    run("$sudo chmod -R g+w ./*");
+});
