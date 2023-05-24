@@ -2,6 +2,7 @@
 
 namespace BondarDe\LaravelToolbox\View\Components\Buttons;
 
+use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
 class DefaultButton extends Component implements Button
@@ -42,7 +43,7 @@ class DefaultButton extends Component implements Button
         ];
     }
 
-    public function render()
+    public function render(): View
     {
         return view('laravel-toolbox::buttons.button');
     }
