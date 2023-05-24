@@ -123,14 +123,17 @@ Burger menu as Tailwind plugin:
 
 ## Build and Deployment
 
-Add to `config/sentry.php`:
-
-    'release' => env('SENTRY_RELEASE', env('APP_VERSION')),
-
 Build for different stages:
 
     composer/bin/dep build stage=test
     composer/bin/dep deploy stage=test
+
+
+For **local**  OPCache reset, a call to `http://127.0.0.1/opcache-reset.php` has to call PHP’s `opcache_clear()`
+
+If not possible, add in `deploy.php`:
+
+    set('opcache_reset_mode', 'remote');
 
 
 ### Vite Builds
