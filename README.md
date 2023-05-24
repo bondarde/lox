@@ -24,9 +24,9 @@ Run migrations:
     php artisan migrate
 
 
-If needed, add middlewares to the `app/Http/Kernel.php` file, in the `$routeMiddleware` array:
+If needed, add middleware aliases to the `app/Http/Kernel.php` file, in the `$middlewareAliases` array:
 
-    protected $routeMiddleware = [
+    protected $middlewareAliases = [
         …
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
         'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
@@ -136,6 +136,16 @@ If not possible, add in `deploy.php`:
     set('opcache_reset_mode', 'remote');
 
 
+User `deployer` should be able to execute `sudo` without password prompt for `chmod`, `chown` and `chgrp`:
+
+    sudo visudo
+
+
+    deployer ALL=(ALL:ALL) NOPASSWD: /usr/bin/chmod *
+    deployer ALL=(ALL:ALL) NOPASSWD: /usr/bin/chown *
+    deployer ALL=(ALL:ALL) NOPASSWD: /usr/bin/chgrp *
+
+
 ### Vite Builds
 
     npm run vite
@@ -206,6 +216,13 @@ Add in `boot()`:
 In `config/app.php` add service provider:
 
     \App\Providers\FortifyServiceProvider::class,
+
+
+Database Session storage:
+
+    php artisan session:table
+
+    php artisan migrate
 
 
 ### SSO
