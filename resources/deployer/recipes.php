@@ -39,6 +39,7 @@ set('writable_chmod_mode', '0770');
 set('opcache_reset_mode', 'local');
 set('server_user', 'www-data');
 set('chown_use_sudo', true);
+set('shared_files', []);
 
 set('stage', function () {
     return get('labels')['stage'];
