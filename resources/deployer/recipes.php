@@ -375,7 +375,7 @@ task('deploy:assign_writable_dirs_to_server_user', function () {
     $dirs = join(' ', get('writable_dirs'));
 
     cd('{{ release_or_current_path }}');
-    run("$sudo chown $serverUser $dirs");
+    run("$sudo chown -R $serverUser $dirs");
 });
 
 task('deploy:assign_upload_to_server_user', function () {
