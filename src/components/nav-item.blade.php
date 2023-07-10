@@ -1,4 +1,4 @@
-<li>
+<li @class([$containerClass])>
     <a
         {{ $attributes->merge([
             'class' => $cssClasses,
