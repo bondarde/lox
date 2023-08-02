@@ -2,9 +2,9 @@
 
 namespace BondarDe\LaravelToolbox\Repositories;
 
+use App\Models\User as ApplicationUser;
 use BondarDe\LaravelToolbox\Database\ModelRepository;
 use BondarDe\LaravelToolbox\Models\User;
-use App\Models\User as ApplicationUser;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -25,25 +25,24 @@ class UserRepository extends ModelRepository
             ->where($ssoIdColumnName, $id)
             ->first();
 
-        return $user ?? self::updateOrCreateSsoUser($id, $email, $name, $ssoIdColumnName);
+        return $user ?? $this->updateOrCreateSsoUser($id, $email, $name, $ssoIdColumnName);
     }
 
     private function updateOrCreateSsoUser($id, $email, $name, string $ssoIdColumnName)
     {
         // find user by e-mail
-        $user = User::query()
+        $user = $this->query()
             ->where(User::FIELD_EMAIL, $email)
             ->first();
 
         if ($user == null) {
             // create & return new user
-            return User::query()
-                ->create([
-                    User::FIELD_EMAIL => $email,
-                    User::FIELD_NAME => $name,
-                    User::FIELD_PASSWORD => Hash::make(Str::random(60)),
-                    $ssoIdColumnName => $id,
-                ]);
+            return $this->create([
+                User::FIELD_EMAIL => $email,
+                User::FIELD_NAME => $name,
+                User::FIELD_PASSWORD => Hash::make(Str::random(60)),
+                $ssoIdColumnName => $id,
+            ]);
         }
 
 
