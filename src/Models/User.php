@@ -44,48 +44,4 @@ class User extends Authenticatable
     protected $casts = [
         self::FIELD_EMAIL_VERIFIED_AT => ModelCastTypes::DATETIME,
     ];
-
-    public static function findOrCreateUserForSsoProvider($provider, $id, $email, $name)
-    {
-        $ssoColumnPrefix = config('laravel-toolbox.sso.column_prefix');
-        $ssoIdColumnName = $ssoColumnPrefix . '_' . $provider . '_id';
-
-        // find a user for given SSO provider
-        $user = \App\Models\User::query()
-            ->where($ssoIdColumnName, $id)
-            ->first();
-
-        return $user ?? self::updateOrCreateSsoUser($id, $email, $name, $ssoIdColumnName);
-    }
-
-    private static function updateOrCreateSsoUser($id, $email, $name, string $ssoIdColumnName)
-    {
-        // find user by e-mail
-        $user = User::query()
-            ->where(self::FIELD_EMAIL, $email)
-            ->first();
-
-        if ($user == null) {
-            // create & return new user
-            return User::query()
-                ->create([
-                    self::FIELD_EMAIL => $email,
-                    self::FIELD_NAME => $name,
-                    self::FIELD_PASSWORD => Hash::make(Str::random(60)),
-                    $ssoIdColumnName => $id,
-                ]);
-        }
-
-
-        // update name if not yet set
-        if (!$user->{self::FIELD_NAME}) {
-            $user->{self::FIELD_NAME} = $name;
-        }
-        // save SSO ID
-        $user->$ssoIdColumnName = $id;
-
-        $user->save();
-
-        return $user;
-    }
 }

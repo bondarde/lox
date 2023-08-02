@@ -14,9 +14,10 @@ use Throwable;
 class SsoCallbackController extends SsoController
 {
     public function __invoke(
-        string     $provider,
-        Request    $request,
-        AppleToken $appleToken,
+        string         $provider,
+        Request        $request,
+        AppleToken     $appleToken,
+        UserRepository $userRepository,
     )
     {
         $this->validateSsoProvider($provider, $request);
@@ -52,7 +53,7 @@ class SsoCallbackController extends SsoController
             $email = $provider . '-login-' . $id . '@example.com';
         }
 
-        $user = User::findOrCreateUserForSsoProvider($provider, $id, $email, $name);
+        $user = $userRepository->findOrCreateUserForSsoProvider($provider, $id, $email, $name);
 
         Auth::login($user, true);
 
