@@ -1,4 +1,4 @@
-# Laravel Toolbox
+# LOX
 
 
 ## Installation
