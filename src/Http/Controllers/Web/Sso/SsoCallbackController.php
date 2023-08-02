@@ -4,6 +4,7 @@ namespace BondarDe\LaravelToolbox\Http\Controllers\Web\Sso;
 
 use App\Models\User;
 use BondarDe\LaravelToolbox\Exceptions\SocialLoginErrorException;
+use BondarDe\LaravelToolbox\Repositories\UserRepository;
 use BondarDe\LaravelToolbox\Services\AppleToken;
 use Exception;
 use Illuminate\Http\Request;
