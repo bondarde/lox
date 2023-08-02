@@ -42,7 +42,10 @@ class SsoCallbackController extends SsoController
 
         $id = $user->id;
         $email = $user->email;
-        $name = $user->name;
+        $name = trim(match ($provider) {
+            'apple' => $user?->name?->firstName . ' ' . $user?->name?->lastName,
+            default => $user?->name,
+        }) ?: (ucfirst($provider) . ' User ' . $id);
 
         if (!$email) {
             // generate unique email if none received from login provider
