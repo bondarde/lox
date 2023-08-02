@@ -4,6 +4,7 @@ namespace BondarDe\LaravelToolbox\Repositories;
 
 use BondarDe\LaravelToolbox\Database\ModelRepository;
 use BondarDe\LaravelToolbox\Models\User;
+use App\Models\User as ApplicationUser;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -11,7 +12,7 @@ class UserRepository extends ModelRepository
 {
     public function model(): string
     {
-        return User::class;
+        return ApplicationUser::class;
     }
 
     public function findOrCreateUserForSsoProvider($provider, $id, $email, $name)
