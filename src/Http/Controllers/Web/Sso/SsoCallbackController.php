@@ -66,10 +66,6 @@ class SsoCallbackController extends SsoController
     {
         $socialLoginErrorException = new SocialLoginErrorException($message, 0, $previous);
 
-//        configureScope(function (SentryScope $scope) use ($request): void {
-//            $scope->setExtras($request->all());
-//        });
-
         app('sentry')->captureException($socialLoginErrorException);
     }
 
