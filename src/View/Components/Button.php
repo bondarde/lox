@@ -41,8 +41,8 @@ class Button extends Component
             case 'success':
             case 'green':
                 $this->background = 'bg-green-700';
-                $this->text = 'text-green-100';
-                $this->hover = 'hover:bg-green-600 hover:text-green-100';
+                $this->text = 'text-green-50';
+                $this->hover = 'hover:bg-green-600 hover:text-white';
                 $this->active = 'active:bg-green-800';
                 $this->focus = 'focus:ring-green-100 focus:border-green-900';
                 break;
@@ -56,8 +56,8 @@ class Button extends Component
             case 'danger':
             case 'red':
                 $this->background = 'bg-red-800';
-                $this->text = 'text-red-100';
-                $this->hover = 'hover:bg-red-700 hover:text-red-50';
+                $this->text = 'text-red-50';
+                $this->hover = 'hover:bg-red-700 hover:text-white';
                 $this->active = 'active:bg-red-700';
                 $this->focus = 'focus:ring-red-200 focus:border-red-900';
                 break;
