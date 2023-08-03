@@ -5,7 +5,7 @@
 
     <x-button
         class="mt-2 mb-8"
-        :tag="\BondarDe\Lox\View\Components\Button::TAG_LINK"
+        tag="a"
         :href="route('admin.users.edit', $user)"
     >{{ __('Edit user') }}</x-button>
 </x-slot>

@@ -76,10 +76,11 @@
             <x-button>{{ __('Save') }}</x-button>
 
             <x-slot name="cancel">
-                <x-button-light
-                    :tag="\BondarDe\Lox\View\Components\Button::TAG_LINK"
+                <x-button
+                    color="light"
+                    tag="a"
                     :href="route('admin.users.show', $user)"
-                >{{ __('Cancel') }}</x-button-light>
+                >{{ __('Cancel') }}</x-button>
             </x-slot>
         </x-form.form-actions>
 

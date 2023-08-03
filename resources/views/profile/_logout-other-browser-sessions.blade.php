@@ -74,9 +74,11 @@
             action="{{ route('logout') }}"
         >
             @csrf
-            <x-button-red>
+            <x-button
+                color="red"
+            >
                 {{ __('Logout') }}
-            </x-button-red>
+            </x-button>
         </form>
     </div>
 

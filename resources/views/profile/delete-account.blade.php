@@ -36,9 +36,11 @@
         </x-form.form-row>
 
         <x-form.form-actions>
-            <x-button-red>
+            <x-button
+                color="red"
+            >
                 {{ __('Delete Account') }}
-            </x-button-red>
+            </x-button>
         </x-form.form-actions>
     </form>
 

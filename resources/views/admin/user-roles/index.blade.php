@@ -36,11 +36,12 @@
         </table>
     </x-model-list>
 
-    <x-button-green
-        :tag="\BondarDe\Lox\View\Components\Button::TAG_LINK"
+    <x-button
+        color="success"
+        tag="a"
         :href="route('admin.user-roles.create')"
     >
         {{ __('Create New Role') }}
-    </x-button-green>
+    </x-button>
 
 </x-admin-page>

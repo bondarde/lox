@@ -24,22 +24,23 @@
         @if($user->{\App\Models\User::FIELD_TWO_FACTOR_SECRET})
             <div class="grow">
                 <x-button
-                    :tag="\BondarDe\Lox\View\Components\Button::TAG_LINK"
+                    tag="a"
                     :href="route('user.profile.reset-recovery-codes.start')"
                 >
                     {{ __('Regenerate Recovery Codes') }}
                 </x-button>
             </div>
-            <x-button-red
+            <x-button
+                color="red"
                 class="mt-4 sm:mt-0"
-                :tag="\BondarDe\Lox\View\Components\Button::TAG_LINK"
+                tag="a"
                 :href="route('user.profile.second-factor.disable.start')"
             >
                 {{ __('Disable') }}
-            </x-button-red>
+            </x-button>
         @else
             <x-button
-                :tag="\BondarDe\Lox\View\Components\Button::TAG_LINK"
+                tag="a"
                 :href="route('user.profile.second-factor.enable.start')"
             >
                 {{ __('Enable') }}

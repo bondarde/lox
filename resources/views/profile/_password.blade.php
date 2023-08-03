@@ -10,7 +10,7 @@
     <div class="flex items-center mt-4">
         @if(Laravel\Fortify\Features::updatePasswords())
             <x-button
-                :tag="\BondarDe\Lox\View\Components\Button::TAG_LINK"
+                tag="a"
                 :href="route('user.profile.password.edit')"
             >
                 {{ __('Update Password') }}

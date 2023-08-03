@@ -11,12 +11,13 @@
     </p>
 
     <div class="flex items-center mt-8">
-        <x-button-red
-            :tag="\BondarDe\Lox\View\Components\Button::TAG_LINK"
+        <x-button
+            color="red"
+            tag="a"
             :href="route('user.profile.delete-account.confirm')"
         >
             {{ __('Delete Account') }}
-        </x-button-red>
+        </x-button>
     </div>
 
 </x-content>

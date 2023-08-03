@@ -17,7 +17,7 @@
     <div class="flex items-center mt-4">
         @if(Laravel\Fortify\Features::canUpdateProfileInformation())
             <x-button
-                :tag="\BondarDe\Lox\View\Components\Button::TAG_LINK"
+                tag="a"
                 :href="route('user.profile.profile-information.edit')"
             >
                 {{ __('Edit') }}

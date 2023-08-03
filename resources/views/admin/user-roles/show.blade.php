@@ -8,7 +8,7 @@
 
         <x-button
             class="mb-8"
-            :tag="\BondarDe\Lox\View\Components\Button::TAG_LINK"
+            tag="a"
             :href="route('admin.user-roles.edit', $role)"
         >
             {{ __('Edit Role') }}

@@ -48,12 +48,13 @@
     </div>
 
     <x-form.form-actions>
-        <x-button-green
-            class="w-full max-w-sm justify-center"
+        <x-button
+            color="green"
+            width="w-full max-w-sm"
         >
             {{ $nextStepIndex > -1 ? 'Weiter' : 'Speichern' }}
             <span class="ml-4">➜</span>
-        </x-button-green>
+        </x-button>
         @if($nextStepIndex > -1)
             <div class="text-sm opacity-75 mt-1">
                 Zu „{!! $steps[$nextStepIndex]->getLabelHtml() !!}“
@@ -63,13 +64,14 @@
 
         @if($previousStepIndex > -1)
             <x-slot name="back">
-                <x-button-light
-                    tag="{{ \BondarDe\Lox\View\Components\Button::TAG_LINK }}"
-                    href="{{ $steps[$previousStepIndex]->getUri($model, $previousStepIndex + 1) }}"
+                <x-button
+                    color="light"
+                    tag="a"
+                    :href="$steps[$previousStepIndex]->getUri($model, $previousStepIndex + 1)"
                 >
                     ←
                     Zurück
-                </x-button-light>
+                </x-button>
                 <div class="text-sm opacity-75 mt-1">
                     Zu „{!! $steps[$previousStepIndex]->getLabelHtml() !!}“
                 </div>
@@ -78,13 +80,14 @@
 
         @if($cancelUri)
             <x-slot name="cancel">
-                <x-button-danger
+                <x-button
+                    color="danger"
                     class="opacity-75"
-                    tag="{{ \BondarDe\Lox\View\Components\Button::TAG_LINK }}"
-                    href="{{ $cancelUri }}"
+                    tag="a"
+                    :href="$cancelUri"
                 >
                     Abbrechen
-                </x-button-danger>
+                </x-button>
                 @if($cancelInfo)
                     <div class="text-sm opacity-75 mt-1">
                         {{ $cancelInfo }}
