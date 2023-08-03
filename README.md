@@ -3,7 +3,7 @@
 
 ## Installation
 
-    composer require bondarde/laravel-toolbox
+    composer require bondarde/lox
 
     php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
 
@@ -60,7 +60,7 @@ or:
 
 Publish config:
 
-    php artisan vendor:publish --provider="BondarDe\LaravelToolbox\LaravelToolboxServiceProvider" --tag=config
+    php artisan vendor:publish --provider="BondarDe\Lox\LoxServiceProvider" --tag=config
 
 This command also publishes:
 - `package.json`
@@ -73,7 +73,7 @@ This command also publishes:
 
 Publish:
 
-    php artisan vendor:publish --provider="BondarDe\LaravelToolbox\LaravelToolboxServiceProvider" --tag=styles
+    php artisan vendor:publish --provider="BondarDe\Lox\LoxServiceProvider" --tag=styles
 
 Add them to your `resources/scss/app.scss`:
 
@@ -81,19 +81,19 @@ Add them to your `resources/scss/app.scss`:
     @tailwind components;
     @tailwind utilities;
 
-    @import 'laravel-toolbox/base';
-    @import 'laravel-toolbox/tools';
-    @import 'laravel-toolbox/boolean';
+    @import 'lox/base';
+    @import 'lox/tools';
+    @import 'lox/boolean';
 
 
 Tailwind config:
 
-    php artisan vendor:publish --provider="BondarDe\LaravelToolbox\LaravelToolboxServiceProvider" --tag=tailwind
+    php artisan vendor:publish --provider="BondarDe\Lox\LoxServiceProvider" --tag=tailwind
 
 
 Burger menu as Tailwind plugin:
 
-    php artisan vendor:publish --provider="BondarDe\LaravelToolbox\LaravelToolboxServiceProvider" --tag=tailwind-burger-menu
+    php artisan vendor:publish --provider="BondarDe\Lox\LoxServiceProvider" --tag=tailwind-burger-menu
 
 
 
@@ -204,13 +204,13 @@ Publish:
 
 Add in `boot()`:
 
-    Fortify::registerView(config('laravel-toolbox.views.auth.register'));
-    Fortify::loginView(config('laravel-toolbox.views.auth.login'));
-    Fortify::confirmPasswordView(config('laravel-toolbox.views.auth.confirm-password'));
-    Fortify::requestPasswordResetLinkView(config('laravel-toolbox.views.auth.forgot-password'));
-    Fortify::resetPasswordView(config('laravel-toolbox.views.auth.reset-password'));
-    Fortify::twoFactorChallengeView(config('laravel-toolbox.views.auth.two-factor-challenge'));
-    Fortify::verifyEmailView(config('laravel-toolbox.views.auth.verify-email'));
+    Fortify::registerView(config('lox.views.auth.register'));
+    Fortify::loginView(config('lox.views.auth.login'));
+    Fortify::confirmPasswordView(config('lox.views.auth.confirm-password'));
+    Fortify::requestPasswordResetLinkView(config('lox.views.auth.forgot-password'));
+    Fortify::resetPasswordView(config('lox.views.auth.reset-password'));
+    Fortify::twoFactorChallengeView(config('lox.views.auth.two-factor-challenge'));
+    Fortify::verifyEmailView(config('lox.views.auth.verify-email'));
 
 
 In `config/app.php` add service provider:
