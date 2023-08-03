@@ -1,9 +1,9 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Controllers\Admin\System;
+namespace BondarDe\Lox\Http\Controllers\Admin\System;
 
-use BondarDe\LaravelToolbox\Http\Controllers\Admin\System\Data\ScheduleEvent;
-use BondarDe\LaravelToolbox\LaravelToolboxServiceProvider;
+use BondarDe\Lox\Http\Controllers\Admin\System\Data\ScheduleEvent;
+use BondarDe\Lox\LoxServiceProvider;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Console\AboutCommand;
@@ -19,7 +19,7 @@ class AdminScheduleController
             ->map(fn($event) => ScheduleEvent::from($event))
             ->sortBy('nextRun');
 
-        return view(LaravelToolboxServiceProvider::NAMESPACE . '::admin.system.schedule', compact(
+        return view(LoxServiceProvider::NAMESPACE . '::admin.system.schedule', compact(
             'scheduleEvents',
         ));
     }

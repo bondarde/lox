@@ -1,6 +1,6 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Data\Aws;
+namespace BondarDe\Lox\Data\Aws;
 
 use Closure;
 

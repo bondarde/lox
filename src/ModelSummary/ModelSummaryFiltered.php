@@ -1,6 +1,6 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\ModelSummary;
+namespace BondarDe\Lox\ModelSummary;
 
 interface ModelSummaryFiltered
 {

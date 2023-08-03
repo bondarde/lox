@@ -1,11 +1,11 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Controllers\User\Profile;
+namespace BondarDe\Lox\Http\Controllers\User\Profile;
 
 use App\Models\User;
-use BondarDe\LaravelToolbox\Http\Controllers\BaseController;
-use BondarDe\LaravelToolbox\Http\Requests\User\Profile\RecoveryCodesResetRequest;
-use BondarDe\LaravelToolbox\Support\OneTimePasswordUtil;
+use BondarDe\Lox\Http\Controllers\BaseController;
+use BondarDe\Lox\Http\Requests\User\Profile\RecoveryCodesResetRequest;
+use BondarDe\Lox\Support\OneTimePasswordUtil;
 use Illuminate\Validation\ValidationException;
 use Laravel\Fortify\Contracts\TwoFactorAuthenticationProvider;
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Controllers\User\Profile;
+namespace BondarDe\Lox\Http\Controllers\User\Profile;
 
-use BondarDe\LaravelToolbox\Services\UserService;
+use BondarDe\Lox\Services\UserService;
 use Illuminate\Http\Request;
 
 class LogoutOtherBrowserSessionsController

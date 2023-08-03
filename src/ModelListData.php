@@ -1,6 +1,6 @@
 <?php
 
-namespace BondarDe\LaravelToolbox;
+namespace BondarDe\Lox;
 
 class ModelListData
 {

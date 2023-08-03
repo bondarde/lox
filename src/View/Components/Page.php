@@ -1,11 +1,11 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\View\Components;
+namespace BondarDe\Lox\View\Components;
 
-use BondarDe\LaravelToolbox\Constants\Environment;
-use BondarDe\LaravelToolbox\Contracts\View\PageConfig;
-use BondarDe\LaravelToolbox\Exceptions\IllegalStateException;
-use BondarDe\LaravelToolbox\Support\ViteManifestParser;
+use BondarDe\Lox\Constants\Environment;
+use BondarDe\Lox\Contracts\View\PageConfig;
+use BondarDe\Lox\Exceptions\IllegalStateException;
+use BondarDe\Lox\Support\ViteManifestParser;
 use Illuminate\View\Component;
 
 class Page extends Component
@@ -90,7 +90,7 @@ class Page extends Component
         $pageHeaderWrapperClasses = $this->config->pageHeaderWrapperClasses();
         $pageContentWrapperClasses = $this->config->pageContentWrapperClasses();
 
-        return view('laravel-toolbox::page', compact(
+        return view('lox::page', compact(
             'bodyClasses',
             'contentWrapClasses',
             'pageHeaderWrapperClasses',

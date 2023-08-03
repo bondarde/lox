@@ -1,9 +1,9 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Console\Commands\Acl;
+namespace BondarDe\Lox\Console\Commands\Acl;
 
 use App\Models\User;
-use BondarDe\LaravelToolbox\Services\UserService;
+use BondarDe\Lox\Services\UserService;
 use Illuminate\Console\Command;
 
 class AclMakeSuperAdminCommand extends Command

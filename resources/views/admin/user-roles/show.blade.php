@@ -8,7 +8,7 @@
 
         <x-button
             class="mb-8"
-            :tag="\BondarDe\LaravelToolbox\View\Components\Buttons\Button::TAG_LINK"
+            :tag="\BondarDe\Lox\View\Components\Button::TAG_LINK"
             :href="route('admin.user-roles.edit', $role)"
         >
             {{ __('Edit Role') }}
@@ -25,10 +25,10 @@
     </x-content>
 
     <h2>{{ __('Permissions') }}</h2>
-    @include(\BondarDe\LaravelToolbox\LaravelToolboxServiceProvider::NAMESPACE . '::admin.users._assigned_permissions', ['permissions' => $role->permissions])
+    @include(\BondarDe\Lox\LoxServiceProvider::NAMESPACE . '::admin.users._assigned_permissions', ['permissions' => $role->permissions])
 
 
     <h2>{{ __('Users') }}</h2>
-    @include(\BondarDe\LaravelToolbox\LaravelToolboxServiceProvider::NAMESPACE . '::admin.users._assigned_users', ['users' => $role->users])
+    @include(\BondarDe\Lox\LoxServiceProvider::NAMESPACE . '::admin.users._assigned_users', ['users' => $role->users])
 
 </x-admin-page>

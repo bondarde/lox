@@ -1,11 +1,11 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Controllers\Web\Sso;
+namespace BondarDe\Lox\Http\Controllers\Web\Sso;
 
 use App\Models\User;
-use BondarDe\LaravelToolbox\Exceptions\SocialLoginErrorException;
-use BondarDe\LaravelToolbox\Repositories\UserRepository;
-use BondarDe\LaravelToolbox\Services\AppleToken;
+use BondarDe\Lox\Exceptions\SocialLoginErrorException;
+use BondarDe\Lox\Repositories\UserRepository;
+use BondarDe\Lox\Services\AppleToken;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

@@ -1,9 +1,9 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Controllers\User\Profile;
+namespace BondarDe\Lox\Http\Controllers\User\Profile;
 
 use App\Services\UsersService;
-use BondarDe\LaravelToolbox\Http\Requests\User\Profile\AccountDeleteRequest;
+use BondarDe\Lox\Http\Requests\User\Profile\AccountDeleteRequest;
 
 class DeleteAccountDeleteController
 {

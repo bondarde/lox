@@ -14,21 +14,21 @@
                     class="link"
                     href="{{ route('admin.users.show', $user) }}"
                 >
-                    {{ $user->{\BondarDe\LaravelToolbox\Models\User::FIELD_NAME} }}
+                    {{ $user->{\BondarDe\Lox\Models\User::FIELD_NAME} }}
                 </a>
             </td>
             <td>
                 <a
                     href="{{ route('admin.users.show', $user) }}"
                 >
-                    {{ $user->{\BondarDe\LaravelToolbox\Models\User::FIELD_EMAIL} }}
+                    {{ $user->{\BondarDe\Lox\Models\User::FIELD_EMAIL} }}
                 </a>
             </td>
             <td>
-                @include(\BondarDe\LaravelToolbox\LaravelToolboxServiceProvider::NAMESPACE.'::admin.users._assigned_roles', ['roles' => $user->roles, 'emptyText' => '—'])
+                @include(\BondarDe\Lox\LoxServiceProvider::NAMESPACE.'::admin.users._assigned_roles', ['roles' => $user->roles, 'emptyText' => '—'])
             </td>
             <td>
-                @include(\BondarDe\LaravelToolbox\LaravelToolboxServiceProvider::NAMESPACE.'::admin.users._assigned_permissions', ['permissions' => $user->permissions, 'emptyText' => '—'])
+                @include(\BondarDe\Lox\LoxServiceProvider::NAMESPACE.'::admin.users._assigned_permissions', ['permissions' => $user->permissions, 'emptyText' => '—'])
             </td>
         </tr>
     @endforeach

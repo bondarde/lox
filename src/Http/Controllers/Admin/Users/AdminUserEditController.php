@@ -1,10 +1,10 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Controllers\Admin\Users;
+namespace BondarDe\Lox\Http\Controllers\Admin\Users;
 
 use App\Models\User;
-use BondarDe\LaravelToolbox\LaravelToolboxServiceProvider;
-use BondarDe\LaravelToolbox\Services\AclService;
+use BondarDe\Lox\LoxServiceProvider;
+use BondarDe\Lox\Services\AclService;
 use Illuminate\Support\Facades\View;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -35,7 +35,7 @@ class AdminUserEditController
             ->toArray();
 
 
-        return View::make(LaravelToolboxServiceProvider::NAMESPACE . '::admin.users.edit', compact(
+        return View::make(LoxServiceProvider::NAMESPACE . '::admin.users.edit', compact(
             'user',
             'roles',
             'permissions',

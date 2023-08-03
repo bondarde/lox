@@ -12,7 +12,7 @@
     </x-content>
 
     <x-button
-        :tag="\BondarDe\LaravelToolbox\View\Components\Buttons\Button::TAG_LINK"
+        :tag="\BondarDe\Lox\View\Components\Button::TAG_LINK"
         :href="route('user.index')"
     >
         {{ __('I have noted the new recovery codes') }}

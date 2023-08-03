@@ -1,8 +1,8 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Controllers\Admin\System;
+namespace BondarDe\Lox\Http\Controllers\Admin\System;
 
-use BondarDe\LaravelToolbox\LaravelToolboxServiceProvider;
+use BondarDe\Lox\LoxServiceProvider;
 
 class AdminPhpInfoController
 {
@@ -12,7 +12,7 @@ class AdminPhpInfoController
         phpinfo();
         $phpInfoContents = ob_get_clean();
 
-        return view(LaravelToolboxServiceProvider::NAMESPACE . '::admin.system.php-info', compact(
+        return view(LoxServiceProvider::NAMESPACE . '::admin.system.php-info', compact(
             'phpInfoContents',
         ));
     }

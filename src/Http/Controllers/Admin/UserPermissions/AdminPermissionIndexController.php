@@ -1,13 +1,13 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Controllers\Admin\UserPermissions;
+namespace BondarDe\Lox\Http\Controllers\Admin\UserPermissions;
 
-use BondarDe\LaravelToolbox\LaravelToolboxServiceProvider;
+use BondarDe\Lox\LoxServiceProvider;
 
 class AdminPermissionIndexController
 {
     public function __invoke()
     {
-        return view(LaravelToolboxServiceProvider::NAMESPACE . '::admin.user-permissions.index');
+        return view(LoxServiceProvider::NAMESPACE . '::admin.user-permissions.index');
     }
 }

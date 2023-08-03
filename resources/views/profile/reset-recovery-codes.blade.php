@@ -10,14 +10,14 @@
         @csrf
 
         <x-form.form-row
-            :for="\BondarDe\LaravelToolbox\Http\Requests\User\Profile\RecoveryCodesResetRequest::CONFIRMATION_CODE"
+            :for="\BondarDe\Lox\Http\Requests\User\Profile\RecoveryCodesResetRequest::CONFIRMATION_CODE"
             label="Code"
         >
             <x-form.input
                 containerClass="max-w-xs"
                 label="Code"
                 placeholder="Code"
-                :name="\BondarDe\LaravelToolbox\Http\Requests\User\Profile\RecoveryCodesResetRequest::CONFIRMATION_CODE"
+                :name="\BondarDe\Lox\Http\Requests\User\Profile\RecoveryCodesResetRequest::CONFIRMATION_CODE"
                 value=""
                 autofocus
                 required

@@ -1,8 +1,8 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\View;
+namespace BondarDe\Lox\View;
 
-use BondarDe\LaravelToolbox\Contracts\View\PageConfig;
+use BondarDe\Lox\Contracts\View\PageConfig;
 
 class DefaultPageConfig implements PageConfig
 {

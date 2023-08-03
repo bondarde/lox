@@ -1,6 +1,6 @@
 <x-admin-page
-    :title="__('User') . ' ' . $user->{\BondarDe\LaravelToolbox\Models\User::FIELD_EMAIL}"
-    :h1="__('User') . ' ' . $user->{\BondarDe\LaravelToolbox\Models\User::FIELD_EMAIL}"
+    :title="__('User') . ' ' . $user->{\BondarDe\Lox\Models\User::FIELD_EMAIL}"
+    :h1="__('User') . ' ' . $user->{\BondarDe\Lox\Models\User::FIELD_EMAIL}"
 >
 
     <form
@@ -11,11 +11,11 @@
         @method('PATCH')
 
         <x-form.form-row
-            :for="\BondarDe\LaravelToolbox\Models\User::FIELD_NAME"
+            :for="\BondarDe\Lox\Models\User::FIELD_NAME"
             :label="__('Name')"
         >
             <x-form.input
-                :name="\BondarDe\LaravelToolbox\Models\User::FIELD_NAME"
+                :name="\BondarDe\Lox\Models\User::FIELD_NAME"
                 :model="$user"
                 :placeholder="__('Name')"
             />
@@ -23,11 +23,11 @@
 
 
         <x-form.form-row
-            :for="\BondarDe\LaravelToolbox\Models\User::FIELD_EMAIL"
+            :for="\BondarDe\Lox\Models\User::FIELD_EMAIL"
             :label="__('E-mail address')"
         >
             <x-form.input
-                :name="\BondarDe\LaravelToolbox\Models\User::FIELD_EMAIL"
+                :name="\BondarDe\Lox\Models\User::FIELD_EMAIL"
                 :model="$user"
                 :placeholder="__('E-mail')"
             />
@@ -77,7 +77,7 @@
 
             <x-slot name="cancel">
                 <x-button-light
-                    :tag="\BondarDe\LaravelToolbox\View\Components\Buttons\Button::TAG_LINK"
+                    :tag="\BondarDe\Lox\View\Components\Button::TAG_LINK"
                     :href="route('admin.users.show', $user)"
                 >{{ __('Cancel') }}</x-button-light>
             </x-slot>

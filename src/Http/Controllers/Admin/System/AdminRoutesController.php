@@ -1,8 +1,8 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Controllers\Admin\System;
+namespace BondarDe\Lox\Http\Controllers\Admin\System;
 
-use BondarDe\LaravelToolbox\LaravelToolboxServiceProvider;
+use BondarDe\Lox\LoxServiceProvider;
 use Illuminate\Routing\Router;
 
 class AdminRoutesController
@@ -14,7 +14,7 @@ class AdminRoutesController
         $routes = collect($router->getRoutes()->getRoutes())
             ->sortBy('uri');
 
-        return view(LaravelToolboxServiceProvider::NAMESPACE . '::admin.system.routes', compact(
+        return view(LoxServiceProvider::NAMESPACE . '::admin.system.routes', compact(
             'routes',
         ));
     }

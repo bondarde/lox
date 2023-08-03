@@ -1,8 +1,8 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Controllers\Admin\Users;
+namespace BondarDe\Lox\Http\Controllers\Admin\Users;
 
-use BondarDe\LaravelToolbox\LaravelToolboxServiceProvider;
+use BondarDe\Lox\LoxServiceProvider;
 
 class AdminUserShowController
 {
@@ -11,7 +11,7 @@ class AdminUserShowController
         $userModel = config('auth.providers.users.model');
         $user = $userModel::query()->findOrFail($userId);
 
-        return view(LaravelToolboxServiceProvider::NAMESPACE . '::admin.users.show', compact(
+        return view(LoxServiceProvider::NAMESPACE . '::admin.users.show', compact(
             'user',
         ));
     }

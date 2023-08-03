@@ -1,8 +1,8 @@
 <?php
 
-use BondarDe\LaravelToolbox\Http\Controllers\TinyMceFilesController;
-use BondarDe\LaravelToolbox\Http\Controllers\Web\Sso\SsoCallbackController;
-use BondarDe\LaravelToolbox\Http\Controllers\Web\Sso\SsoRedirectController;
+use BondarDe\Lox\Http\Controllers\TinyMceFilesController;
+use BondarDe\Lox\Http\Controllers\Web\Sso\SsoCallbackController;
+use BondarDe\Lox\Http\Controllers\Web\Sso\SsoRedirectController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 

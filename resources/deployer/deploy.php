@@ -7,7 +7,7 @@ use function Deployer\host;
 use function Deployer\set;
 
 require_once 'vendor/deployer/deployer/recipe/laravel.php';
-require_once 'vendor/bondarde/laravel-toolbox/resources/deployer/recipes.php';
+require_once 'vendor/bondarde/lox/resources/deployer/recipes.php';
 
 date_default_timezone_set('Europe/Berlin');
 set('root_dir', __DIR__);

@@ -1,6 +1,6 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\ModelList;
+namespace BondarDe\Lox\ModelList;
 
 use Illuminate\Database\Eloquent\Builder;
 

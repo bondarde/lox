@@ -1,9 +1,9 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Services;
+namespace BondarDe\Lox\Services;
 
-use BondarDe\LaravelToolbox\Data\Acl\AclSetupPermission;
-use BondarDe\LaravelToolbox\Data\Acl\AclSetupRole;
+use BondarDe\Lox\Data\Acl\AclSetupPermission;
+use BondarDe\Lox\Data\Acl\AclSetupRole;
 use Illuminate\Support\Collection;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;

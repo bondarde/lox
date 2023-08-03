@@ -1,7 +1,8 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\View\Components\Form;
+namespace BondarDe\Lox\View\Components\Form;
 
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 
 class Select extends FormComponent
@@ -55,8 +56,8 @@ class Select extends FormComponent
         return 'selected="selected"';
     }
 
-    public function render()
+    public function render(): View
     {
-        return view('laravel-toolbox::form.select');
+        return view('lox::form.select');
     }
 }

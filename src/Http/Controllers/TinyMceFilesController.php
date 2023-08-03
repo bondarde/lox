@@ -1,6 +1,6 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Controllers;
+namespace BondarDe\Lox\Http\Controllers;
 
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;

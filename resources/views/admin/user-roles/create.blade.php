@@ -9,7 +9,7 @@
     >
         @csrf
 
-        @include(\BondarDe\LaravelToolbox\LaravelToolboxServiceProvider::NAMESPACE . '::admin.user-roles._user_role_edit_form', ['model' => null])
+        @include(\BondarDe\Lox\LoxServiceProvider::NAMESPACE . '::admin.user-roles._user_role_edit_form', ['model' => null])
 
         <x-form.form-actions>
             <x-button>

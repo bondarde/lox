@@ -1,6 +1,6 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Surveys;
+namespace BondarDe\Lox\Surveys;
 
 interface Survey
 {

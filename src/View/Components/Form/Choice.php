@@ -1,7 +1,8 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\View\Components\Form;
+namespace BondarDe\Lox\View\Components\Form;
 
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 use JetBrains\PhpStorm\ExpectedValues;
 
@@ -72,8 +73,8 @@ abstract class Choice extends FormComponent
         return 'checked="checked"';
     }
 
-    public function render()
+    public function render(): View
     {
-        return view('laravel-toolbox::form.choice');
+        return view('lox::form.choice');
     }
 }

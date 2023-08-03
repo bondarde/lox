@@ -36,16 +36,16 @@
                     {{ __('Results') }}
                     @if ($paginator->firstItem())
                         <span class="font-medium"
-                        >{{ \BondarDe\LaravelToolbox\Support\NumbersFormatter::format($paginator->firstItem()) }}</span>
+                        >{{ \BondarDe\Lox\Support\NumbersFormatter::format($paginator->firstItem()) }}</span>
                         {!! __('to') !!}
                         <span class="font-medium"
-                        >{{ \BondarDe\LaravelToolbox\Support\NumbersFormatter::format($paginator->lastItem()) }}</span>
+                        >{{ \BondarDe\Lox\Support\NumbersFormatter::format($paginator->lastItem()) }}</span>
                     @else
                         {{ $paginator->count() }}
                     @endif
                     {!! __('of') !!}
                     <span class="font-medium"
-                    >{{ \BondarDe\LaravelToolbox\Support\NumbersFormatter::format($paginator->total()) }}</span>
+                    >{{ \BondarDe\Lox\Support\NumbersFormatter::format($paginator->total()) }}</span>
                 </p>
             </div>
 

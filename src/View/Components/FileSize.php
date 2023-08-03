@@ -1,8 +1,8 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\View\Components;
+namespace BondarDe\Lox\View\Components;
 
-use BondarDe\LaravelToolbox\Support\NumbersFormatter;
+use BondarDe\Lox\Support\NumbersFormatter;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
@@ -48,6 +48,6 @@ class FileSize extends Component
         $data['decimals'] ??= $decimals;
         $data['title'] = NumbersFormatter::format($this->bytes) . ' bytes';
 
-        return view('laravel-toolbox::file-size', $data);
+        return view('lox::file-size', $data);
     }
 }

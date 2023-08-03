@@ -1,8 +1,8 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Surveys\ItemValues\Common;
+namespace BondarDe\Lox\Surveys\ItemValues\Common;
 
-use BondarDe\LaravelToolbox\Surveys\SurveyItemValues;
+use BondarDe\Lox\Surveys\SurveyItemValues;
 
 class NoYes extends SurveyItemValues
 {

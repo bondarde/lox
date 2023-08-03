@@ -1,7 +1,8 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\View\Components\Form;
+namespace BondarDe\Lox\View\Components\Form;
 
+use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
 class TinyMce extends Component
@@ -22,12 +23,12 @@ class TinyMce extends Component
     {
         $this->editorConfig = self::makeConfig($selector, $config);
 
-        if (defined('TOOLBOX_TINY_MCE_LIB_LOADED')) {
+        if (defined('LOX_TINY_MCE_LIB_LOADED')) {
             $this->loadJsLib = false;
         } else {
             $this->loadJsLib = true;
             $this->jsLibSrc = $src;
-            define('TOOLBOX_TINY_MCE_LIB_LOADED', true);
+            define('LOX_TINY_MCE_LIB_LOADED', true);
         }
         $this->enableImageUpload = $enableImageUpload;
         $this->imagesUploadUrl = $imagesUploadUrl;
@@ -49,8 +50,8 @@ class TinyMce extends Component
         ], $config);
     }
 
-    public function render()
+    public function render(): View
     {
-        return view('laravel-toolbox::form.tiny-mce');
+        return view('lox::form.tiny-mce');
     }
 }

@@ -1,7 +1,8 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\View\Components;
+namespace BondarDe\Lox\View\Components;
 
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\View\Component;
 
@@ -28,8 +29,8 @@ class RelativeTimestamp extends Component
         }
     }
 
-    public function render()
+    public function render(): View
     {
-        return view('laravel-toolbox::relative-timestamp');
+        return view('lox::relative-timestamp');
     }
 }

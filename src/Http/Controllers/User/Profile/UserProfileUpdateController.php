@@ -1,8 +1,8 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Controllers\User\Profile;
+namespace BondarDe\Lox\Http\Controllers\User\Profile;
 
-use BondarDe\LaravelToolbox\Http\Requests\User\Profile\UserProfileUpdateRequest;
+use BondarDe\Lox\Http\Requests\User\Profile\UserProfileUpdateRequest;
 
 class UserProfileUpdateController
 {

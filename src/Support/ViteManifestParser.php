@@ -1,8 +1,8 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Support;
+namespace BondarDe\Lox\Support;
 
-use BondarDe\LaravelToolbox\Exceptions\IllegalStateException;
+use BondarDe\Lox\Exceptions\IllegalStateException;
 use Illuminate\Support\Str;
 
 class ViteManifestParser

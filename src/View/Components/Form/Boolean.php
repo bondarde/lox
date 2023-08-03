@@ -1,6 +1,8 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\View\Components\Form;
+namespace BondarDe\Lox\View\Components\Form;
+
+use Illuminate\Contracts\View\View;
 
 class Boolean extends FormComponent
 {
@@ -36,8 +38,8 @@ class Boolean extends FormComponent
         return 'checked="checked"';
     }
 
-    public function render()
+    public function render(): View
     {
-        return view('laravel-toolbox::form.boolean');
+        return view('lox::form.boolean');
     }
 }

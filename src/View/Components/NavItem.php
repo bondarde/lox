@@ -1,6 +1,6 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\View\Components;
+namespace BondarDe\Lox\View\Components;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +33,6 @@ class NavItem extends Component
 
     public function render(): View
     {
-        return view('laravel-toolbox::nav-item');
+        return view('lox::nav-item');
     }
 }

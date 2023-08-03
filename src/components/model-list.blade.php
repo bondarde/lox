@@ -9,7 +9,7 @@
             @foreach($allFilters as $filters)
                 <ul class="flex flex-wrap mb-3 -mx-1 gap-x-4 gap-y-1">
                     @foreach($filters as $key => $filter)
-                        @include('laravel-toolbox::_filter-sort-item', [
+                        @include('lox::_filter-sort-item', [
                             'routeName' => $routeName,
                             'routeParams' => $routeParams,
                             'isActive' => $isFilterActive($key),
@@ -20,7 +20,7 @@
                             'filtersQuery' => $toFiltersQueryString($key),
                             'sortsQuery' => $toSortsQueryString(),
                             'searchQuery' => $searchQuery,
-                            'showDeleteFilterButton' => $key !== \BondarDe\LaravelToolbox\ModelList\ModelFilters::ALL,
+                            'showDeleteFilterButton' => $key !== \BondarDe\Lox\ModelList\ModelFilters::ALL,
                         ])
                     @endforeach
                 </ul>
@@ -33,7 +33,7 @@
             <h4 class="font-semibold">{{ __('Sorting') }}</h4>
             <ul class="flex flex-wrap mb-2 gap-x-4 gap-y-1">
                 @foreach($allSorts as $key => $sort)
-                    @include('laravel-toolbox::_filter-sort-item', [
+                    @include('lox::_filter-sort-item', [
                         'routeName' => $routeName,
                         'routeParams' => $routeParams,
                         'isActive' => $isSortActive($key),

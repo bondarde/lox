@@ -1,6 +1,6 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\View\Components;
+namespace BondarDe\Lox\View\Components;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -25,6 +25,6 @@ class RenderingStats extends Component
 
     public function render(): View
     {
-        return view('laravel-toolbox::rendering-stats');
+        return view('lox::rendering-stats');
     }
 }

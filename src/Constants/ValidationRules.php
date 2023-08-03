@@ -1,9 +1,9 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Constants;
+namespace BondarDe\Lox\Constants;
 
-use BondarDe\LaravelToolbox\Exceptions\IllegalStateException;
-use BondarDe\LaravelToolbox\Surveys\SurveyItemValues;
+use BondarDe\Lox\Exceptions\IllegalStateException;
+use BondarDe\Lox\Surveys\SurveyItemValues;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\RequiredIf;

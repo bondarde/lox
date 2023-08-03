@@ -1,10 +1,10 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Controllers\Admin\Users;
+namespace BondarDe\Lox\Http\Controllers\Admin\Users;
 
 use App\Models\User;
-use BondarDe\LaravelToolbox\Http\Requests\Admin\Users\UserUpdateRequest;
-use BondarDe\LaravelToolbox\Services\UserService;
+use BondarDe\Lox\Http\Requests\Admin\Users\UserUpdateRequest;
+use BondarDe\Lox\Services\UserService;
 
 class AdminUserUpdateController
 {

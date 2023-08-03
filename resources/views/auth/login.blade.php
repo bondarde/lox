@@ -97,7 +97,7 @@
             @if(\Laravel\Fortify\Features::enabled('sso'))
                 @if(\Laravel\Fortify\Features::optionEnabled('sso', 'apple'))
                     <x-button
-                        :tag="\BondarDe\LaravelToolbox\View\Components\Buttons\Button::TAG_LINK"
+                        :tag="\BondarDe\Lox\View\Components\Button::TAG_LINK"
                         :href="route('sso.redirect', 'apple')"
                         tabindex="150"
                     >
@@ -107,7 +107,7 @@
                 @if(\Laravel\Fortify\Features::optionEnabled('sso', 'facebook'))
                     <x-button
                         class="bg-blue-700 hover:bg-blue-800"
-                        :tag="\BondarDe\LaravelToolbox\View\Components\Buttons\Button::TAG_LINK"
+                        :tag="\BondarDe\Lox\View\Components\Button::TAG_LINK"
                         :href="route('sso.redirect', 'facebook')"
                         tabindex="150"
                     >
@@ -117,7 +117,7 @@
                 @if(\Laravel\Fortify\Features::optionEnabled('sso', 'twitter'))
                     <x-button
                         class="bg-blue-500 hover:bg-blue-700"
-                        :tag="\BondarDe\LaravelToolbox\View\Components\Buttons\Button::TAG_LINK"
+                        :tag="\BondarDe\Lox\View\Components\Button::TAG_LINK"
                         :href="route('sso.redirect', 'twitter')"
                         tabindex="150"
                     >
@@ -127,7 +127,7 @@
                 @if(\Laravel\Fortify\Features::optionEnabled('sso', 'google'))
                     <x-button
                         class="bg-red-500 hover:bg-red-600"
-                        :tag="\BondarDe\LaravelToolbox\View\Components\Buttons\Button::TAG_LINK"
+                        :tag="\BondarDe\Lox\View\Components\Button::TAG_LINK"
                         :href="route('sso.redirect', 'google')"
                         tabindex="150"
                     >

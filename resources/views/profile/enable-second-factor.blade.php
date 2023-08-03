@@ -38,23 +38,23 @@
 
         <input
             type="hidden"
-            name="{{ \BondarDe\LaravelToolbox\Http\Requests\User\Profile\SecondFactorEnableRequest::SECRET_KEY }}"
+            name="{{ \BondarDe\Lox\Http\Requests\User\Profile\SecondFactorEnableRequest::SECRET_KEY }}"
             value="{{ $secretKeyEncrypted }}"
         >
 
         <input
             type="hidden"
-            name="{{ \BondarDe\LaravelToolbox\Http\Requests\User\Profile\SecondFactorEnableRequest::RECOVERY_CODES }}"
+            name="{{ \BondarDe\Lox\Http\Requests\User\Profile\SecondFactorEnableRequest::RECOVERY_CODES }}"
             value="{{ $recoveryCodesEncrypted }}"
         >
 
         <x-form.form-row
-            :for="\BondarDe\LaravelToolbox\Http\Requests\User\Profile\SecondFactorEnableRequest::CONFIRMATION_CODE"
+            :for="\BondarDe\Lox\Http\Requests\User\Profile\SecondFactorEnableRequest::CONFIRMATION_CODE"
             :label="__('Confirmation Code')"
         >
             <x-form.input
                 containerClass="max-w-xs"
-                :name="\BondarDe\LaravelToolbox\Http\Requests\User\Profile\SecondFactorEnableRequest::CONFIRMATION_CODE"
+                :name="\BondarDe\Lox\Http\Requests\User\Profile\SecondFactorEnableRequest::CONFIRMATION_CODE"
                 :label="__('Confirmation Code')"
                 :placeholder="__('Confirmation Code')"
                 value=""
@@ -65,13 +65,13 @@
         </x-form.form-row>
 
         <x-form.form-row
-            :for="\BondarDe\LaravelToolbox\Http\Requests\User\Profile\SecondFactorEnableRequest::RECOVERY_CODES_STORED"
+            :for="\BondarDe\Lox\Http\Requests\User\Profile\SecondFactorEnableRequest::RECOVERY_CODES_STORED"
             :label="__('Recovery codes stored')"
         >
             <x-form.boolean
                 :label="__('Recovery codes stored')"
                 :placeholder="__('Recovery codes stored')"
-                :name="\BondarDe\LaravelToolbox\Http\Requests\User\Profile\SecondFactorEnableRequest::RECOVERY_CODES_STORED"
+                :name="\BondarDe\Lox\Http\Requests\User\Profile\SecondFactorEnableRequest::RECOVERY_CODES_STORED"
                 :checked="false"
             >
                 {{ __('I have stored the above recovery codes') }}

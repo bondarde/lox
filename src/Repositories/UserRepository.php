@@ -1,10 +1,10 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Repositories;
+namespace BondarDe\Lox\Repositories;
 
 use App\Models\User as ApplicationUser;
-use BondarDe\LaravelToolbox\Database\ModelRepository;
-use BondarDe\LaravelToolbox\Models\User;
+use BondarDe\Lox\Database\ModelRepository;
+use BondarDe\Lox\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -17,7 +17,7 @@ class UserRepository extends ModelRepository
 
     public function findOrCreateUserForSsoProvider($provider, $id, $email, $name)
     {
-        $ssoColumnPrefix = config('laravel-toolbox.sso.column_prefix');
+        $ssoColumnPrefix = config('lox.sso.column_prefix');
         $ssoIdColumnName = $ssoColumnPrefix . '_' . $provider . '_id';
 
         // find a user for given SSO provider

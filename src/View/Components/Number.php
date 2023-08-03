@@ -1,8 +1,8 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\View\Components;
+namespace BondarDe\Lox\View\Components;
 
-use BondarDe\LaravelToolbox\Support\NumbersFormatter;
+use BondarDe\Lox\Support\NumbersFormatter;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
@@ -26,7 +26,7 @@ class Number extends Component
             $this->zero,
         );
 
-        return view('laravel-toolbox::number', compact(
+        return view('lox::number', compact(
             'formatted',
         ));
     }

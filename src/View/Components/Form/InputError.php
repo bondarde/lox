@@ -1,7 +1,8 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\View\Components\Form;
+namespace BondarDe\Lox\View\Components\Form;
 
+use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
 class InputError extends Component
@@ -15,8 +16,8 @@ class InputError extends Component
         $this->for = $for;
     }
 
-    public function render()
+    public function render(): View
     {
-        return view('laravel-toolbox::form.input-error');
+        return view('lox::form.input-error');
     }
 }

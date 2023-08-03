@@ -1,13 +1,14 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\View\Components;
+namespace BondarDe\Lox\View\Components;
 
+use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
 class UserMessages extends Component
 {
-    public function render()
+    public function render(): View
     {
-        return view('laravel-toolbox::user-messages');
+        return view('lox::user-messages');
     }
 }

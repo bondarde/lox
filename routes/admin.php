@@ -1,30 +1,30 @@
 <?php
 
-use BondarDe\LaravelToolbox\Data\Acl\AclSetupData;
-use BondarDe\LaravelToolbox\Http\Controllers\Admin\System\AdminAboutController;
-use BondarDe\LaravelToolbox\Http\Controllers\Admin\System\AdminCacheController;
-use BondarDe\LaravelToolbox\Http\Controllers\Admin\System\AdminEventsController;
-use BondarDe\LaravelToolbox\Http\Controllers\Admin\System\AdminPhpInfoController;
-use BondarDe\LaravelToolbox\Http\Controllers\Admin\System\AdminRoutesController;
-use BondarDe\LaravelToolbox\Http\Controllers\Admin\System\AdminScheduleController;
-use BondarDe\LaravelToolbox\Http\Controllers\Admin\System\AdminSystemStatusIndexController;
-use BondarDe\LaravelToolbox\Http\Controllers\Admin\System\Database\AdminDatabaseStatusIndexController;
-use BondarDe\LaravelToolbox\Http\Controllers\Admin\System\Database\AdminDatabaseStatusTableController;
-use BondarDe\LaravelToolbox\Http\Controllers\Admin\System\Models\AdminModelsDetailsController;
-use BondarDe\LaravelToolbox\Http\Controllers\Admin\System\Models\AdminModelsIndexController;
-use BondarDe\LaravelToolbox\Http\Controllers\Admin\System\Models\AdminModelsListController;
-use BondarDe\LaravelToolbox\Http\Controllers\Admin\UserPermissions\AdminPermissionIndexController;
-use BondarDe\LaravelToolbox\Http\Controllers\Admin\UserPermissions\AdminPermissionShowController;
-use BondarDe\LaravelToolbox\Http\Controllers\Admin\UserRoles\AdminUserRoleCreateController;
-use BondarDe\LaravelToolbox\Http\Controllers\Admin\UserRoles\AdminUserRoleEditController;
-use BondarDe\LaravelToolbox\Http\Controllers\Admin\UserRoles\AdminUserRoleIndexController;
-use BondarDe\LaravelToolbox\Http\Controllers\Admin\UserRoles\AdminUserRoleShowController;
-use BondarDe\LaravelToolbox\Http\Controllers\Admin\UserRoles\AdminUserRoleStoreController;
-use BondarDe\LaravelToolbox\Http\Controllers\Admin\UserRoles\AdminUserRoleUpdateController;
-use BondarDe\LaravelToolbox\Http\Controllers\Admin\Users\AdminUserEditController;
-use BondarDe\LaravelToolbox\Http\Controllers\Admin\Users\AdminUserIndexController;
-use BondarDe\LaravelToolbox\Http\Controllers\Admin\Users\AdminUserShowController;
-use BondarDe\LaravelToolbox\Http\Controllers\Admin\Users\AdminUserUpdateController;
+use BondarDe\Lox\Data\Acl\AclSetupData;
+use BondarDe\Lox\Http\Controllers\Admin\System\AdminAboutController;
+use BondarDe\Lox\Http\Controllers\Admin\System\AdminCacheController;
+use BondarDe\Lox\Http\Controllers\Admin\System\AdminEventsController;
+use BondarDe\Lox\Http\Controllers\Admin\System\AdminPhpInfoController;
+use BondarDe\Lox\Http\Controllers\Admin\System\AdminRoutesController;
+use BondarDe\Lox\Http\Controllers\Admin\System\AdminScheduleController;
+use BondarDe\Lox\Http\Controllers\Admin\System\AdminSystemStatusIndexController;
+use BondarDe\Lox\Http\Controllers\Admin\System\Database\AdminDatabaseStatusIndexController;
+use BondarDe\Lox\Http\Controllers\Admin\System\Database\AdminDatabaseStatusTableController;
+use BondarDe\Lox\Http\Controllers\Admin\System\Models\AdminModelsDetailsController;
+use BondarDe\Lox\Http\Controllers\Admin\System\Models\AdminModelsIndexController;
+use BondarDe\Lox\Http\Controllers\Admin\System\Models\AdminModelsListController;
+use BondarDe\Lox\Http\Controllers\Admin\UserPermissions\AdminPermissionIndexController;
+use BondarDe\Lox\Http\Controllers\Admin\UserPermissions\AdminPermissionShowController;
+use BondarDe\Lox\Http\Controllers\Admin\UserRoles\AdminUserRoleCreateController;
+use BondarDe\Lox\Http\Controllers\Admin\UserRoles\AdminUserRoleEditController;
+use BondarDe\Lox\Http\Controllers\Admin\UserRoles\AdminUserRoleIndexController;
+use BondarDe\Lox\Http\Controllers\Admin\UserRoles\AdminUserRoleShowController;
+use BondarDe\Lox\Http\Controllers\Admin\UserRoles\AdminUserRoleStoreController;
+use BondarDe\Lox\Http\Controllers\Admin\UserRoles\AdminUserRoleUpdateController;
+use BondarDe\Lox\Http\Controllers\Admin\Users\AdminUserEditController;
+use BondarDe\Lox\Http\Controllers\Admin\Users\AdminUserIndexController;
+use BondarDe\Lox\Http\Controllers\Admin\Users\AdminUserShowController;
+use BondarDe\Lox\Http\Controllers\Admin\Users\AdminUserUpdateController;
 use Illuminate\Support\Facades\Route;
 
 Route::group([

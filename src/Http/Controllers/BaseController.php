@@ -1,8 +1,8 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Controllers;
+namespace BondarDe\Lox\Http\Controllers;
 
-use BondarDe\LaravelToolbox\LaravelToolboxServiceProvider;
+use BondarDe\Lox\LoxServiceProvider;
 use Illuminate\Support\Facades\View;
 
 abstract class BaseController
@@ -11,7 +11,7 @@ abstract class BaseController
     {
         $views = [
             $viewName,
-            LaravelToolboxServiceProvider::NAMESPACE . '::' . $viewName,
+            LoxServiceProvider::NAMESPACE . '::' . $viewName,
         ];
 
         return View::first($views, $data, $mergeData);

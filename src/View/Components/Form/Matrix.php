@@ -1,7 +1,8 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\View\Components\Form;
+namespace BondarDe\Lox\View\Components\Form;
 
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 
 class Matrix extends FormComponent
@@ -16,15 +17,15 @@ class Matrix extends FormComponent
     public bool $showErrors;
 
     public function __construct(
-        array $fields,
-        $options,
-        string $pattern = '*',
+        array   $fields,
+                $options,
+        string  $pattern = '*',
         ?string $minValue = '',
         ?string $maxValue = '',
-        bool $showPropLabel = true,
-        bool $strictCheck = false,
-        bool $showErrors = true,
-        ?Model $model = null
+        bool    $showPropLabel = true,
+        bool    $strictCheck = false,
+        bool    $showErrors = true,
+        ?Model  $model = null
     )
     {
         $this->props = $fields;
@@ -69,8 +70,8 @@ class Matrix extends FormComponent
         return 'checked="checked"';
     }
 
-    public function render()
+    public function render(): View
     {
-        return view('laravel-toolbox::form.matrix');
+        return view('lox::form.matrix');
     }
 }

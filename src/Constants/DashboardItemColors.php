@@ -1,6 +1,6 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Constants;
+namespace BondarDe\Lox\Constants;
 
 enum DashboardItemColors: string
 {

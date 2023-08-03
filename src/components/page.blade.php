@@ -13,7 +13,7 @@
     <meta name="robots" content="{{ $metaRobots }}">
 
     @foreach($cssFiles as $file)
-        @if(\Illuminate\Support\Facades\App::environment(\BondarDe\LaravelToolbox\Constants\Environment::LOCAL))
+        @if(\Illuminate\Support\Facades\App::environment(\BondarDe\Lox\Constants\Environment::LOCAL))
             @vite([$file], '../.build/.vite')
         @else
             <link rel="stylesheet" href="{{ $file }}">
@@ -57,7 +57,7 @@
 @endif
 
 @foreach($jsFiles as $file)
-    @if(\Illuminate\Support\Facades\App::environment(\BondarDe\LaravelToolbox\Constants\Environment::LOCAL))
+    @if(\Illuminate\Support\Facades\App::environment(\BondarDe\Lox\Constants\Environment::LOCAL))
         @vite([$file], '../.build/.vite')
     @else
         <script type="module" src="{{ $file }}"></script>

@@ -1,15 +1,15 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Controllers\Admin\UserRoles;
+namespace BondarDe\Lox\Http\Controllers\Admin\UserRoles;
 
-use BondarDe\LaravelToolbox\LaravelToolboxServiceProvider;
+use BondarDe\Lox\LoxServiceProvider;
 use Spatie\Permission\Models\Role;
 
 class AdminUserRoleShowController
 {
     public function __invoke(Role $role)
     {
-        return view(LaravelToolboxServiceProvider::NAMESPACE . '::admin.user-roles.show', compact(
+        return view(LoxServiceProvider::NAMESPACE . '::admin.user-roles.show', compact(
             'role',
         ));
     }

@@ -1,9 +1,9 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Controllers\User\Profile;
+namespace BondarDe\Lox\Http\Controllers\User\Profile;
 
 use App\Models\User;
-use BondarDe\LaravelToolbox\Http\Requests\User\Profile\SecondFactorDisableRequest;
+use BondarDe\Lox\Http\Requests\User\Profile\SecondFactorDisableRequest;
 use Illuminate\Validation\ValidationException;
 use Laravel\Fortify\Contracts\TwoFactorAuthenticationProvider;
 

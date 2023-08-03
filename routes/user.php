@@ -1,20 +1,20 @@
 <?php
 
-use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\DeleteAccountConfirmationController;
-use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\DeleteAccountDeleteController;
-use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\LogoutOtherBrowserSessionsController;
-use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\RecoveryCodesResetConfirmController;
-use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\RecoveryCodesResetStartController;
-use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\SecondFactorDisableConfirmController;
-use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\SecondFactorDisableStartController;
-use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\SecondFactorEnableConfirmController;
-use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\SecondFactorEnableStartController;
-use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\UserPasswordEditController;
-use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\UserPasswordUpdateController;
-use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\UserProfileEditController;
-use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\UserProfileIndexController;
-use BondarDe\LaravelToolbox\Http\Controllers\User\Profile\UserProfileUpdateController;
-use BondarDe\LaravelToolbox\Http\Controllers\User\TwoFactorRecoveryController;
+use BondarDe\Lox\Http\Controllers\User\Profile\DeleteAccountConfirmationController;
+use BondarDe\Lox\Http\Controllers\User\Profile\DeleteAccountDeleteController;
+use BondarDe\Lox\Http\Controllers\User\Profile\LogoutOtherBrowserSessionsController;
+use BondarDe\Lox\Http\Controllers\User\Profile\RecoveryCodesResetConfirmController;
+use BondarDe\Lox\Http\Controllers\User\Profile\RecoveryCodesResetStartController;
+use BondarDe\Lox\Http\Controllers\User\Profile\SecondFactorDisableConfirmController;
+use BondarDe\Lox\Http\Controllers\User\Profile\SecondFactorDisableStartController;
+use BondarDe\Lox\Http\Controllers\User\Profile\SecondFactorEnableConfirmController;
+use BondarDe\Lox\Http\Controllers\User\Profile\SecondFactorEnableStartController;
+use BondarDe\Lox\Http\Controllers\User\Profile\UserPasswordEditController;
+use BondarDe\Lox\Http\Controllers\User\Profile\UserPasswordUpdateController;
+use BondarDe\Lox\Http\Controllers\User\Profile\UserProfileEditController;
+use BondarDe\Lox\Http\Controllers\User\Profile\UserProfileIndexController;
+use BondarDe\Lox\Http\Controllers\User\Profile\UserProfileUpdateController;
+use BondarDe\Lox\Http\Controllers\User\TwoFactorRecoveryController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 

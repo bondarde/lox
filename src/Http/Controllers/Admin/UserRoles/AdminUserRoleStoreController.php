@@ -1,8 +1,8 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Controllers\Admin\UserRoles;
+namespace BondarDe\Lox\Http\Controllers\Admin\UserRoles;
 
-use BondarDe\LaravelToolbox\Http\Requests\Admin\Users\AdminUserRoleUpdateRequest;
+use BondarDe\Lox\Http\Requests\Admin\Users\AdminUserRoleUpdateRequest;
 use Spatie\Permission\Models\Role;
 
 class AdminUserRoleStoreController

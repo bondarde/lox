@@ -1,8 +1,8 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Controllers\Admin\System;
+namespace BondarDe\Lox\Http\Controllers\Admin\System;
 
-use BondarDe\LaravelToolbox\LaravelToolboxServiceProvider;
+use BondarDe\Lox\LoxServiceProvider;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Console\AboutCommand;
 use Illuminate\Foundation\Console\EventListCommand;
@@ -17,7 +17,7 @@ class AdminEventsController extends EventListCommand
         $this->setLaravel($laravel);
         $events = $this->getListenersOnDispatcher();
 
-        return view(LaravelToolboxServiceProvider::NAMESPACE . '::admin.system.events', compact(
+        return view(LoxServiceProvider::NAMESPACE . '::admin.system.events', compact(
             'events',
         ));
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Data\Acl;
+namespace BondarDe\Lox\Data\Acl;
 
 class AclSetupRole extends AclSetupData
 {

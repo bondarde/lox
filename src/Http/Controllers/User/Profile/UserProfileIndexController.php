@@ -1,8 +1,8 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Controllers\User\Profile;
+namespace BondarDe\Lox\Http\Controllers\User\Profile;
 
-use BondarDe\LaravelToolbox\Services\UserService;
+use BondarDe\Lox\Services\UserService;
 use Illuminate\Http\Request;
 
 class UserProfileIndexController
@@ -12,7 +12,7 @@ class UserProfileIndexController
         $user = $request->user();
         $sessions = $userService->getSessions($user);
 
-        $view = config('laravel-toolbox.views.profile.index');
+        $view = config('lox.views.profile.index');
 
         return view($view, compact(
             'user',

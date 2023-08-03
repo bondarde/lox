@@ -1,6 +1,6 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Services;
+namespace BondarDe\Lox\Services;
 
 use Carbon\CarbonImmutable;
 use Firebase\JWT\JWT;

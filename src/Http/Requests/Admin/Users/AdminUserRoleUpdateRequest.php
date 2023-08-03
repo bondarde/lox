@@ -1,8 +1,8 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Requests\Admin\Users;
+namespace BondarDe\Lox\Http\Requests\Admin\Users;
 
-use BondarDe\LaravelToolbox\Constants\ValidationRules;
+use BondarDe\Lox\Constants\ValidationRules;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 

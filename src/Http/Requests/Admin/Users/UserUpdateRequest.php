@@ -1,9 +1,9 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Requests\Admin\Users;
+namespace BondarDe\Lox\Http\Requests\Admin\Users;
 
-use BondarDe\LaravelToolbox\Constants\ValidationRules;
-use BondarDe\LaravelToolbox\Models\User;
+use BondarDe\Lox\Constants\ValidationRules;
+use BondarDe\Lox\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserUpdateRequest extends FormRequest

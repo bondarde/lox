@@ -1,15 +1,16 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\View\Components;
+namespace BondarDe\Lox\View\Components;
 
-use BondarDe\LaravelToolbox\Surveys\SurveyStep;
+use BondarDe\Lox\Surveys\SurveyStep;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\View\Component;
 
 class Survey extends Component
 {
-    private \BondarDe\LaravelToolbox\Surveys\Survey $survey;
+    private \BondarDe\Lox\Surveys\Survey $survey;
 
     public array $steps;
     public int $currentStepIndex;
@@ -26,12 +27,12 @@ class Survey extends Component
     public bool $allowNextStepNavigation;
 
     public function __construct(
-        string $survey,
-        string $formActionUri,
-        string $cancelUri = null,
-        string $cancelInfo = null,
-        bool $allowNextStepNavigation = true,
-        Model $model = null,
+        string  $survey,
+        string  $formActionUri,
+        string  $cancelUri = null,
+        string  $cancelInfo = null,
+        bool    $allowNextStepNavigation = true,
+        Model   $model = null,
         Request $request = null
     )
     {
@@ -117,8 +118,8 @@ class Survey extends Component
         return implode(' ', $classNames);
     }
 
-    public function render()
+    public function render(): View
     {
-        return view('laravel-toolbox::survey.survey');
+        return view('lox::survey.survey');
     }
 }

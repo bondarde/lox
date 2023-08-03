@@ -1,7 +1,8 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\View\Components;
+namespace BondarDe\Lox\View\Components;
 
+use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
 class ValidationErrors extends Component
@@ -15,8 +16,8 @@ class ValidationErrors extends Component
         $this->limit = $limit;
     }
 
-    public function render()
+    public function render(): View
     {
-        return view('laravel-toolbox::validation-errors');
+        return view('lox::validation-errors');
     }
 }

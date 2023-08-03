@@ -1,9 +1,9 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Controllers\Admin\System;
+namespace BondarDe\Lox\Http\Controllers\Admin\System;
 
-use BondarDe\LaravelToolbox\Http\Controllers\Admin\System\Data\SystemCategory;
-use BondarDe\LaravelToolbox\LaravelToolboxServiceProvider;
+use BondarDe\Lox\Http\Controllers\Admin\System\Data\SystemCategory;
+use BondarDe\Lox\LoxServiceProvider;
 use Illuminate\Contracts\View\View;
 
 class AdminSystemStatusIndexController
@@ -53,7 +53,7 @@ class AdminSystemStatusIndexController
             ),
         ];
 
-        return view(LaravelToolboxServiceProvider::NAMESPACE . '::admin.system.index', compact(
+        return view(LoxServiceProvider::NAMESPACE . '::admin.system.index', compact(
             'categories',
         ));
     }

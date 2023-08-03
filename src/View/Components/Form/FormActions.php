@@ -1,11 +1,13 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\View\Components\Form;
+namespace BondarDe\Lox\View\Components\Form;
+
+use Illuminate\Contracts\View\View;
 
 class FormActions extends FormComponent
 {
-    public function render()
+    public function render(): View
     {
-        return view('laravel-toolbox::form.form-actions');
+        return view('lox::form.form-actions');
     }
 }

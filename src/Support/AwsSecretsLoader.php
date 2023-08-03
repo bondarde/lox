@@ -1,11 +1,11 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Support;
+namespace BondarDe\Lox\Support;
 
 use Aws\SecretsManager\SecretsManagerClient;
 use Aws\Sts\StsClient;
-use BondarDe\LaravelToolbox\Data\Aws\AwsSecretsLoadConfig;
-use BondarDe\LaravelToolbox\Data\Aws\StsCredentials;
+use BondarDe\Lox\Data\Aws\AwsSecretsLoadConfig;
+use BondarDe\Lox\Data\Aws\StsCredentials;
 use Carbon\Carbon;
 
 class AwsSecretsLoader

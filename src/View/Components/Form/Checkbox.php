@@ -1,6 +1,6 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\View\Components\Form;
+namespace BondarDe\Lox\View\Components\Form;
 
 use Illuminate\Database\Eloquent\Model;
 

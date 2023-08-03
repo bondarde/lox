@@ -1,8 +1,8 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Support\ModelList;
+namespace BondarDe\Lox\Support\ModelList;
 
-use BondarDe\LaravelToolbox\ModelList\ModelFilters;
+use BondarDe\Lox\ModelList\ModelFilters;
 
 class ModelListUrlQueryUtil
 {

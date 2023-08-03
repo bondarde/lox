@@ -12,7 +12,7 @@
 
     <div class="flex items-center mt-8">
         <x-button-red
-            :tag="\BondarDe\LaravelToolbox\View\Components\Buttons\Button::TAG_LINK"
+            :tag="\BondarDe\Lox\View\Components\Button::TAG_LINK"
             :href="route('user.profile.delete-account.confirm')"
         >
             {{ __('Delete Account') }}

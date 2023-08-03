@@ -1,6 +1,6 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\View\Components;
+namespace BondarDe\Lox\View\Components;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -20,6 +20,6 @@ class Content extends Component
 
     public function render(): View
     {
-        return view('laravel-toolbox::content');
+        return view('lox::content');
     }
 }

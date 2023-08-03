@@ -1,8 +1,9 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\View\Components;
+namespace BondarDe\Lox\View\Components;
 
-use BondarDe\LaravelToolbox\Surveys\SurveyStep;
+use BondarDe\Lox\Surveys\SurveyStep;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\View\Component;
 
@@ -11,12 +12,12 @@ class SurveyView extends Component
     public array $templates;
     public ?Model $model;
 
-    private \BondarDe\LaravelToolbox\Surveys\Survey $survey;
+    private \BondarDe\Lox\Surveys\Survey $survey;
     private array $steps;
 
     public function __construct(
         string $survey,
-        Model $model = null
+        Model  $model = null
     )
     {
         $this->survey = new $survey;
@@ -48,8 +49,8 @@ class SurveyView extends Component
         );
     }
 
-    public function render()
+    public function render(): View
     {
-        return view('laravel-toolbox::survey.survey-view');
+        return view('lox::survey.survey-view');
     }
 }

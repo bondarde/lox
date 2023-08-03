@@ -1,8 +1,8 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Support;
+namespace BondarDe\Lox\Support;
 
-use BondarDe\LaravelToolbox\LaravelToolboxServiceProvider;
+use BondarDe\Lox\LoxServiceProvider;
 
 class NumbersFormatter
 {
@@ -23,8 +23,8 @@ class NumbersFormatter
             $suffix = '<small class="opacity-50">&thinsp;' . $suffix . '</small>';
         }
 
-        $thousands_separator = __(LaravelToolboxServiceProvider::NAMESPACE . '::numbers.thousands_separator');
-        $decimal_separator = __(LaravelToolboxServiceProvider::NAMESPACE . '::numbers.decimal_separator');
+        $thousands_separator = __(LoxServiceProvider::NAMESPACE . '::numbers.thousands_separator');
+        $decimal_separator = __(LoxServiceProvider::NAMESPACE . '::numbers.decimal_separator');
 
         $formatted = number_format(abs($number), $decimals, $decimal_separator, $thousands_separator);
 

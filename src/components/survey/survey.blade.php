@@ -38,7 +38,7 @@
 
     <input
         type="hidden"
-        name="{{ \BondarDe\LaravelToolbox\Surveys\SurveyStep::CURRENT_STEP_FORM_PARAMETER }}"
+        name="{{ \BondarDe\Lox\Surveys\SurveyStep::CURRENT_STEP_FORM_PARAMETER }}"
         value="{{ $currentStepIndex + 1 }}"
     >
 
@@ -64,7 +64,7 @@
         @if($previousStepIndex > -1)
             <x-slot name="back">
                 <x-button-light
-                    tag="{{ \BondarDe\LaravelToolbox\View\Components\Buttons\Button::TAG_LINK }}"
+                    tag="{{ \BondarDe\Lox\View\Components\Button::TAG_LINK }}"
                     href="{{ $steps[$previousStepIndex]->getUri($model, $previousStepIndex + 1) }}"
                 >
                     ←
@@ -80,7 +80,7 @@
             <x-slot name="cancel">
                 <x-button-danger
                     class="opacity-75"
-                    tag="{{ \BondarDe\LaravelToolbox\View\Components\Buttons\Button::TAG_LINK }}"
+                    tag="{{ \BondarDe\Lox\View\Components\Button::TAG_LINK }}"
                     href="{{ $cancelUri }}"
                 >
                     Abbrechen

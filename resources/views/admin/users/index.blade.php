@@ -5,7 +5,7 @@
     <x-model-list
         :model="config('auth.providers.users.model')"
     >
-        @include(\BondarDe\LaravelToolbox\LaravelToolboxServiceProvider::NAMESPACE . '::admin.users._users_list', [
+        @include(\BondarDe\Lox\LoxServiceProvider::NAMESPACE . '::admin.users._users_list', [
             'users' => $component->items,
         ])
     </x-model-list>

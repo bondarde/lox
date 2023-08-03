@@ -1,6 +1,8 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\View\Components\Form;
+namespace BondarDe\Lox\View\Components\Form;
+
+use Illuminate\Contracts\View\View;
 
 class Input extends FormComponent
 {
@@ -85,8 +87,8 @@ class Input extends FormComponent
         return self::renderProps($props);
     }
 
-    public function render()
+    public function render(): View
     {
-        return view('laravel-toolbox::form.input');
+        return view('lox::form.input');
     }
 }

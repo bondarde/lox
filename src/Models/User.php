@@ -1,8 +1,8 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Models;
+namespace BondarDe\Lox\Models;
 
-use BondarDe\LaravelToolbox\Constants\ModelCastTypes;
+use BondarDe\Lox\Constants\ModelCastTypes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;

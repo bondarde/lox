@@ -1,6 +1,6 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Controllers\Admin\System\Data;
+namespace BondarDe\Lox\Http\Controllers\Admin\System\Data;
 
 class ModelMeta
 {

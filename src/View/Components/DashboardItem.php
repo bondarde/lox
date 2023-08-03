@@ -1,10 +1,10 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\View\Components;
+namespace BondarDe\Lox\View\Components;
 
-use BondarDe\LaravelToolbox\Constants\DashboardItemColors;
-use BondarDe\LaravelToolbox\Exceptions\IllegalStateException;
-use BondarDe\LaravelToolbox\Support\NumbersFormatter;
+use BondarDe\Lox\Constants\DashboardItemColors;
+use BondarDe\Lox\Exceptions\IllegalStateException;
+use BondarDe\Lox\Support\NumbersFormatter;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -39,6 +39,6 @@ class DashboardItem extends Component
 
     public function render(): View
     {
-        return view('laravel-toolbox::dashboard-item');
+        return view('lox::dashboard-item');
     }
 }

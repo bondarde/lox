@@ -1,6 +1,6 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Controllers\Web\Sso;
+namespace BondarDe\Lox\Http\Controllers\Web\Sso;
 
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;

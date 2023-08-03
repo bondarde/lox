@@ -1,8 +1,8 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Controllers\Admin\System;
+namespace BondarDe\Lox\Http\Controllers\Admin\System;
 
-use BondarDe\LaravelToolbox\LaravelToolboxServiceProvider;
+use BondarDe\Lox\LoxServiceProvider;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Console\AboutCommand;
 use Illuminate\Support\Facades\Artisan;
@@ -17,7 +17,7 @@ class AdminAboutController
         $output = Artisan::output();
         $systemStatus = json_decode($output);
 
-        return view(LaravelToolboxServiceProvider::NAMESPACE . '::admin.system.about', compact(
+        return view(LoxServiceProvider::NAMESPACE . '::admin.system.about', compact(
             'systemStatus',
         ));
     }

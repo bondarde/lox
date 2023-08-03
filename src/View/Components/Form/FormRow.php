@@ -1,8 +1,9 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\View\Components\Form;
+namespace BondarDe\Lox\View\Components\Form;
 
-use BondarDe\LaravelToolbox\Exceptions\IllegalStateException;
+use BondarDe\Lox\Exceptions\IllegalStateException;
+use Illuminate\Contracts\View\View;
 
 class FormRow extends FormComponent
 {
@@ -47,8 +48,8 @@ class FormRow extends FormComponent
         ]);
     }
 
-    public function render()
+    public function render(): View
     {
-        return view('laravel-toolbox::form.form-row');
+        return view('lox::form.form-row');
     }
 }

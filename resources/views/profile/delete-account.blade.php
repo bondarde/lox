@@ -11,12 +11,12 @@
 
         <input
             type="hidden"
-            name="{{ \BondarDe\LaravelToolbox\Http\Requests\User\Profile\AccountDeleteRequest::INPUT_CONFIRMATION_HASH }}"
+            name="{{ \BondarDe\Lox\Http\Requests\User\Profile\AccountDeleteRequest::INPUT_CONFIRMATION_HASH }}"
             value="{{ $confirmationHash }}"
         >
 
         <x-form.form-row
-            :for="\BondarDe\LaravelToolbox\Http\Requests\User\Profile\AccountDeleteRequest::INPUT_CONFIRMATION_STRING"
+            :for="\BondarDe\Lox\Http\Requests\User\Profile\AccountDeleteRequest::INPUT_CONFIRMATION_STRING"
             :label="__('Confirmation')"
         >
             <p>{{ __('Please enter the following symbols to confirm you want to delete your account:') }}</p>
@@ -27,7 +27,7 @@
 
             <x-form.input
                 containerClass="max-w-sm"
-                :name="\BondarDe\LaravelToolbox\Http\Requests\User\Profile\AccountDeleteRequest::INPUT_CONFIRMATION_STRING"
+                :name="\BondarDe\Lox\Http\Requests\User\Profile\AccountDeleteRequest::INPUT_CONFIRMATION_STRING"
                 :placeholder="__('Confirmation')"
                 value=""
                 required

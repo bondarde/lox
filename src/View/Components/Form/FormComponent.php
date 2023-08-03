@@ -1,9 +1,9 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\View\Components\Form;
+namespace BondarDe\Lox\View\Components\Form;
 
-use BondarDe\LaravelToolbox\Exceptions\IllegalStateException;
-use BondarDe\LaravelToolbox\Surveys\SurveyItemValues;
+use BondarDe\Lox\Exceptions\IllegalStateException;
+use BondarDe\Lox\Surveys\SurveyItemValues;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\MessageBag;

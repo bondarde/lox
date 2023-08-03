@@ -1,6 +1,6 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Services;
+namespace BondarDe\Lox\Services;
 
 use App\Models\User;
 use Illuminate\Support\Carbon;

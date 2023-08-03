@@ -1,9 +1,9 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Data\Aws;
+namespace BondarDe\Lox\Data\Aws;
 
 use Aws\Result;
-use BondarDe\LaravelToolbox\Exceptions\IllegalStateException;
+use BondarDe\Lox\Exceptions\IllegalStateException;
 use Carbon\Carbon;
 
 class StsCredentials

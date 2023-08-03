@@ -1,21 +1,21 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\View\Components;
+namespace BondarDe\Lox\View\Components;
 
-use BondarDe\LaravelToolbox\Exceptions\IllegalStateException;
-use BondarDe\LaravelToolbox\LaravelToolboxServiceProvider;
-use BondarDe\LaravelToolbox\ModelList\ModelFilter;
-use BondarDe\LaravelToolbox\ModelList\ModelFilters;
-use BondarDe\LaravelToolbox\ModelList\ModelListFilterable;
-use BondarDe\LaravelToolbox\ModelList\ModelListQueryable;
-use BondarDe\LaravelToolbox\ModelList\ModelListSearchable;
-use BondarDe\LaravelToolbox\ModelList\ModelListSortable;
-use BondarDe\LaravelToolbox\ModelList\ModelSort;
-use BondarDe\LaravelToolbox\ModelList\ModelSorts;
-use BondarDe\LaravelToolbox\ModelListData;
-use BondarDe\LaravelToolbox\Support\ModelList\ModelListFilterStatsUtil;
-use BondarDe\LaravelToolbox\Support\ModelList\ModelListUrlQueryUtil;
-use BondarDe\LaravelToolbox\Support\NumbersFormatter;
+use BondarDe\Lox\Exceptions\IllegalStateException;
+use BondarDe\Lox\LoxServiceProvider;
+use BondarDe\Lox\ModelList\ModelFilter;
+use BondarDe\Lox\ModelList\ModelFilters;
+use BondarDe\Lox\ModelList\ModelListFilterable;
+use BondarDe\Lox\ModelList\ModelListQueryable;
+use BondarDe\Lox\ModelList\ModelListSearchable;
+use BondarDe\Lox\ModelList\ModelListSortable;
+use BondarDe\Lox\ModelList\ModelSort;
+use BondarDe\Lox\ModelList\ModelSorts;
+use BondarDe\Lox\ModelListData;
+use BondarDe\Lox\Support\ModelList\ModelListFilterStatsUtil;
+use BondarDe\Lox\Support\ModelList\ModelListUrlQueryUtil;
+use BondarDe\Lox\Support\NumbersFormatter;
 use Closure;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\View\View;
@@ -91,7 +91,7 @@ class ModelList extends Component
             self::URL_PARAM_FILTERS => ModelListUrlQueryUtil::toQueryString($this->activeFilters),
             self::URL_PARAM_SORTS => ModelListUrlQueryUtil::toQueryString($this->activeSorts),
             self::URL_PARAM_SEARCH_QUERY => $this->searchQuery,
-        ])->links(LaravelToolboxServiceProvider::NAMESPACE . '::pagination');
+        ])->links(LoxServiceProvider::NAMESPACE . '::pagination');
         $this->pageTitle = self::toPageTitle($pageTitle, $this->items->total());
 
         $this->showFilters = is_subclass_of($model, ModelListFilterable::class);
@@ -373,6 +373,6 @@ class ModelList extends Component
 
     public function render(): View
     {
-        return view('laravel-toolbox::model-list');
+        return view('lox::model-list');
     }
 }

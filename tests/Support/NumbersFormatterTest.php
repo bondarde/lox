@@ -2,7 +2,7 @@
 
 namespace Tests\Support;
 
-use BondarDe\LaravelToolbox\Support\NumbersFormatter;
+use BondarDe\Lox\Support\NumbersFormatter;
 use Tests\TestCase;
 
 class NumbersFormatterTest extends TestCase

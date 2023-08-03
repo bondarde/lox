@@ -1,10 +1,11 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\View\Components;
+namespace BondarDe\Lox\View\Components;
 
-use BondarDe\LaravelToolbox\Exceptions\IllegalStateException;
-use BondarDe\LaravelToolbox\ModelSummary\ModelSummarizable;
-use BondarDe\LaravelToolbox\ModelSummary\ModelSummaryFiltered;
+use BondarDe\Lox\Exceptions\IllegalStateException;
+use BondarDe\Lox\ModelSummary\ModelSummarizable;
+use BondarDe\Lox\ModelSummary\ModelSummaryFiltered;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Illuminate\View\Component;
@@ -92,8 +93,8 @@ class ModelSummary extends Component
         return $allAttributeNames;
     }
 
-    public function render()
+    public function render(): View
     {
-        return view('laravel-toolbox::model-summary');
+        return view('lox::model-summary');
     }
 }

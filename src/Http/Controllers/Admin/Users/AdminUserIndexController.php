@@ -1,13 +1,13 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Controllers\Admin\Users;
+namespace BondarDe\Lox\Http\Controllers\Admin\Users;
 
-use BondarDe\LaravelToolbox\LaravelToolboxServiceProvider;
+use BondarDe\Lox\LoxServiceProvider;
 
 class AdminUserIndexController
 {
     public function __invoke()
     {
-        return view(LaravelToolboxServiceProvider::NAMESPACE . '::admin.users.index');
+        return view(LoxServiceProvider::NAMESPACE . '::admin.users.index');
     }
 }

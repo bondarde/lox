@@ -2,9 +2,9 @@
 
 /** @noinspection PhpUnhandledExceptionInspection */
 
-use BondarDe\LaravelToolbox\Data\Aws\AwsSecretsLoadConfig;
-use BondarDe\LaravelToolbox\Support\AwsSecretsLoader;
-use BondarDe\LaravelToolbox\Support\ViteManifestParser;
+use BondarDe\Lox\Data\Aws\AwsSecretsLoadConfig;
+use BondarDe\Lox\Support\AwsSecretsLoader;
+use BondarDe\Lox\Support\ViteManifestParser;
 use Illuminate\Support\Str;
 use function Deployer\after;
 use function Deployer\artisan;

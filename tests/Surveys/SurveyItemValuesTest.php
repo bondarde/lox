@@ -2,11 +2,11 @@
 
 namespace Tests\Surveys;
 
-use BondarDe\LaravelToolbox\Surveys\ItemValues\Common\StatesAT;
-use BondarDe\LaravelToolbox\Surveys\ItemValues\Common\StatesCH;
-use BondarDe\LaravelToolbox\Surveys\ItemValues\Common\StatesDACH;
-use BondarDe\LaravelToolbox\Surveys\ItemValues\Common\StatesDE;
-use BondarDe\LaravelToolbox\Surveys\SurveyItemValues;
+use BondarDe\Lox\Surveys\ItemValues\Common\StatesAT;
+use BondarDe\Lox\Surveys\ItemValues\Common\StatesCH;
+use BondarDe\Lox\Surveys\ItemValues\Common\StatesDACH;
+use BondarDe\Lox\Surveys\ItemValues\Common\StatesDE;
+use BondarDe\Lox\Surveys\SurveyItemValues;
 use PHPUnit\Framework\TestCase;
 
 class SurveyItemValuesTest extends TestCase

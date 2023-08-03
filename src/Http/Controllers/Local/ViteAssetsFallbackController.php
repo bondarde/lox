@@ -1,6 +1,6 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Controllers\Local;
+namespace BondarDe\Lox\Http\Controllers\Local;
 
 use Illuminate\Support\Facades\File;
 

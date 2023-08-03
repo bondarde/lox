@@ -19,7 +19,7 @@
         @class([
             $containerClass,
             'cursor-pointer mr-6 py-1 flex gap-2 max-w-lg',
-            ($display === \BondarDe\LaravelToolbox\View\Components\Form\Choice::DISPLAY_INLINE ? 'inline-flex' : 'flex'),
+            ($display === \BondarDe\Lox\View\Components\Form\Choice::DISPLAY_INLINE ? 'inline-flex' : 'flex'),
         ])
     >
         <div>

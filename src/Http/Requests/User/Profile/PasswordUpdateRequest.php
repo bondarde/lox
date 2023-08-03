@@ -1,8 +1,8 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Requests\User\Profile;
+namespace BondarDe\Lox\Http\Requests\User\Profile;
 
-use BondarDe\LaravelToolbox\Constants\ValidationRules;
+use BondarDe\Lox\Constants\ValidationRules;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;

@@ -1,8 +1,8 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Controllers\User\Profile;
+namespace BondarDe\Lox\Http\Controllers\User\Profile;
 
-use BondarDe\LaravelToolbox\Http\Controllers\BaseController;
+use BondarDe\Lox\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 
 class UserProfileEditController extends BaseController

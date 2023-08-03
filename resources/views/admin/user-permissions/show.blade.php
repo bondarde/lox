@@ -13,10 +13,10 @@
     </x-content>
 
     <h2>{{ __('Roles') }}</h2>
-    @include(\BondarDe\LaravelToolbox\LaravelToolboxServiceProvider::NAMESPACE.'::admin.users._assigned_roles', ['roles' => $permission->roles])
+    @include(\BondarDe\Lox\LoxServiceProvider::NAMESPACE.'::admin.users._assigned_roles', ['roles' => $permission->roles])
 
     <h2>{{ __('Users') }}</h2>
-    @include(\BondarDe\LaravelToolbox\LaravelToolboxServiceProvider::NAMESPACE.'::admin.users._assigned_users', ['users' => $permission->users])
+    @include(\BondarDe\Lox\LoxServiceProvider::NAMESPACE.'::admin.users._assigned_users', ['users' => $permission->users])
 
 
 </x-admin-page>

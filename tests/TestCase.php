@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use BondarDe\LaravelToolbox\LaravelToolboxServiceProvider;
+use BondarDe\Lox\LoxServiceProvider;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
@@ -19,7 +19,7 @@ abstract class TestCase extends BaseTestCase
     protected function getPackageProviders($app): array
     {
         return [
-            LaravelToolboxServiceProvider::class,
+            LoxServiceProvider::class,
         ];
     }
 }

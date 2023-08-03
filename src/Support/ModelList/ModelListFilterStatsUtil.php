@@ -1,8 +1,8 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Support\ModelList;
+namespace BondarDe\Lox\Support\ModelList;
 
-use BondarDe\LaravelToolbox\ModelList\ModelFilter;
+use BondarDe\Lox\ModelList\ModelFilter;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;

@@ -37,7 +37,7 @@
     </x-model-list>
 
     <x-button-green
-        :tag="\BondarDe\LaravelToolbox\View\Components\Buttons\Button::TAG_LINK"
+        :tag="\BondarDe\Lox\View\Components\Button::TAG_LINK"
         :href="route('admin.user-roles.create')"
     >
         {{ __('Create New Role') }}

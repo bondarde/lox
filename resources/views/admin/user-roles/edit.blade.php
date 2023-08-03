@@ -10,7 +10,7 @@
         @csrf
         @method('PATCH')
 
-        @include(\BondarDe\LaravelToolbox\LaravelToolboxServiceProvider::NAMESPACE . '::admin.user-roles._user_role_edit_form', ['model' => $role])
+        @include(\BondarDe\Lox\LoxServiceProvider::NAMESPACE . '::admin.user-roles._user_role_edit_form', ['model' => $role])
 
         <x-form.form-actions>
             <x-button>

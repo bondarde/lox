@@ -1,12 +1,12 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Console\Commands\Acl;
+namespace BondarDe\Lox\Console\Commands\Acl;
 
-use BondarDe\LaravelToolbox\Contracts\Acl\IsAclConfig;
-use BondarDe\LaravelToolbox\Data\Acl\AclSetupData;
-use BondarDe\LaravelToolbox\Data\Acl\AclSetupPermission;
-use BondarDe\LaravelToolbox\Data\Acl\AclSetupRole;
-use BondarDe\LaravelToolbox\Services\AclService;
+use BondarDe\Lox\Contracts\Acl\IsAclConfig;
+use BondarDe\Lox\Data\Acl\AclSetupData;
+use BondarDe\Lox\Data\Acl\AclSetupPermission;
+use BondarDe\Lox\Data\Acl\AclSetupRole;
+use BondarDe\Lox\Services\AclService;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
@@ -46,9 +46,9 @@ class AclUpdateRolesAndPermissionsCommand extends Command
     /**
      * @throws Exception
      */
-    private function extendRolesAndPermissionsList()
+    private function extendRolesAndPermissionsList(): void
     {
-        $config = config('laravel-toolbox.acl_config');
+        $config = config('lox.acl_config');
 
         if (is_null($config)) {
             return;
@@ -84,7 +84,7 @@ class AclUpdateRolesAndPermissionsCommand extends Command
         };
     }
 
-    private function setupRoles(Collection $roles)
+    private function setupRoles(Collection $roles): void
     {
         $roles->each(function (AclSetupRole $roleSetup) {
             $this->line('Creating/updating role "' . $roleSetup->name . '"…');
@@ -99,7 +99,7 @@ class AclUpdateRolesAndPermissionsCommand extends Command
         });
     }
 
-    private function setupRolePermissions(Collection $permissions)
+    private function setupRolePermissions(Collection $permissions): void
     {
         $permissions->each(function (AclSetupPermission $permissionSetup) {
             $this->line('Creating/updating permission "' . $permissionSetup->name . '"…');

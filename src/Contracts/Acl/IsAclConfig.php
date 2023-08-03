@@ -1,6 +1,6 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Contracts\Acl;
+namespace BondarDe\Lox\Contracts\Acl;
 
 use Illuminate\Support\Collection;
 

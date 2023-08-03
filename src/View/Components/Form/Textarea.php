@@ -1,6 +1,8 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\View\Components\Form;
+namespace BondarDe\Lox\View\Components\Form;
+
+use Illuminate\Contracts\View\View;
 
 class Textarea extends FormComponent
 {
@@ -18,9 +20,9 @@ class Textarea extends FormComponent
         string $label = '',
         string $containerClass = '',
         string $inputClass = '',
-        $model = null,
-        $value = null,
-        bool $showErrors = false
+               $model = null,
+               $value = null,
+        bool   $showErrors = false
     )
     {
         $this->name = $name;
@@ -40,8 +42,8 @@ class Textarea extends FormComponent
         $this->showErrors = $showErrors;
     }
 
-    public function render()
+    public function render(): View
     {
-        return view('laravel-toolbox::form.textarea');
+        return view('lox::form.textarea');
     }
 }

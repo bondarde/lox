@@ -1,8 +1,8 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Controllers\Admin\System\Database;
+namespace BondarDe\Lox\Http\Controllers\Admin\System\Database;
 
-use BondarDe\LaravelToolbox\LaravelToolboxServiceProvider;
+use BondarDe\Lox\LoxServiceProvider;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Console\ShowCommand;
 use Illuminate\Support\Facades\Artisan;
@@ -21,7 +21,7 @@ class AdminDatabaseStatusIndexController
         $tableSizeSum = collect($databaseStatus->tables)->sum('size');
         $views = $databaseStatus->views;
 
-        return view(LaravelToolboxServiceProvider::NAMESPACE . '::admin.system.database.index', compact(
+        return view(LoxServiceProvider::NAMESPACE . '::admin.system.database.index', compact(
             'databaseStatus',
             'tableSizeSum',
             'views',

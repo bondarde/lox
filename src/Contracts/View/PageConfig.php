@@ -1,6 +1,6 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Contracts\View;
+namespace BondarDe\Lox\Contracts\View;
 
 interface PageConfig
 {

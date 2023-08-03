@@ -1,6 +1,6 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Database;
+namespace BondarDe\Lox\Database;
 
 use Closure;
 use Illuminate\Database\Eloquent\Builder;

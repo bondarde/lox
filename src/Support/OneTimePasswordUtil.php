@@ -1,6 +1,6 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Support;
+namespace BondarDe\Lox\Support;
 
 use BaconQrCode\Renderer\Image\SvgImageBackEnd;
 use BaconQrCode\Renderer\ImageRenderer;

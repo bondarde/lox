@@ -1,6 +1,6 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Controllers\Web\Sso;
+namespace BondarDe\Lox\Http\Controllers\Web\Sso;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -37,6 +37,6 @@ abstract class SsoController
 
     private static function toKey(Request $request): string
     {
-        return 'laravel-toolbox:sso:blocked-' . implode(',', $request->getClientIps());
+        return 'lox:sso:blocked-' . implode(',', $request->getClientIps());
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Controllers\Admin\System;
+namespace BondarDe\Lox\Http\Controllers\Admin\System;
 
-use BondarDe\LaravelToolbox\Http\Controllers\Admin\System\Data\CacheItem;
-use BondarDe\LaravelToolbox\LaravelToolboxServiceProvider;
+use BondarDe\Lox\Http\Controllers\Admin\System\Data\CacheItem;
+use BondarDe\Lox\LoxServiceProvider;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
@@ -40,7 +40,7 @@ class AdminCacheController
             }
         }
 
-        return view(LaravelToolboxServiceProvider::NAMESPACE . '::admin.system.cache', compact(
+        return view(LoxServiceProvider::NAMESPACE . '::admin.system.cache', compact(
             'values',
         ));
     }

@@ -1,9 +1,9 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Controllers\User\Profile;
+namespace BondarDe\Lox\Http\Controllers\User\Profile;
 
 use App\Models\User;
-use BondarDe\LaravelToolbox\Http\Requests\User\Profile\SecondFactorEnableRequest;
+use BondarDe\Lox\Http\Requests\User\Profile\SecondFactorEnableRequest;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;

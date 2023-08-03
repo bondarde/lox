@@ -1,9 +1,9 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Controllers\Admin\System\Models;
+namespace BondarDe\Lox\Http\Controllers\Admin\System\Models;
 
-use BondarDe\LaravelToolbox\Http\Controllers\Admin\System\Data\ModelMeta;
-use BondarDe\LaravelToolbox\LaravelToolboxServiceProvider;
+use BondarDe\Lox\Http\Controllers\Admin\System\Data\ModelMeta;
+use BondarDe\Lox\LoxServiceProvider;
 use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -16,7 +16,7 @@ class AdminModelsIndexController
     {
         $models = $this->getModels();
 
-        return view(LaravelToolboxServiceProvider::NAMESPACE . '::admin.system.models.index', compact(
+        return view(LoxServiceProvider::NAMESPACE . '::admin.system.models.index', compact(
             'models',
         ));
     }

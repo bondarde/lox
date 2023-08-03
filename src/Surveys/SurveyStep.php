@@ -1,6 +1,6 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Surveys;
+namespace BondarDe\Lox\Surveys;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;

@@ -1,6 +1,6 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Exceptions;
+namespace BondarDe\Lox\Exceptions;
 
 use Exception;
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Controllers\Admin\System\Database;
+namespace BondarDe\Lox\Http\Controllers\Admin\System\Database;
 
-use BondarDe\LaravelToolbox\LaravelToolboxServiceProvider;
+use BondarDe\Lox\LoxServiceProvider;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Console\TableCommand;
 use Illuminate\Support\Facades\Artisan;
@@ -22,7 +22,7 @@ class AdminDatabaseStatusTableController
             abort(404);
         }
 
-        return view(LaravelToolboxServiceProvider::NAMESPACE . '::admin.system.database.table', compact(
+        return view(LoxServiceProvider::NAMESPACE . '::admin.system.database.table', compact(
             'table',
         ), [
             'size' => $tableStatus->table->size,

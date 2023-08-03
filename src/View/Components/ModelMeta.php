@@ -1,6 +1,6 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\View\Components;
+namespace BondarDe\Lox\View\Components;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\View\Component;
@@ -22,6 +22,6 @@ class ModelMeta extends Component
             return '<div class="opacity-50 italic mb-8">null</div>';
         }
 
-        return view('laravel-toolbox::model-meta');
+        return view('lox::model-meta');
     }
 }

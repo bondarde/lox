@@ -1,13 +1,13 @@
 <?php
 
-namespace BondarDe\LaravelToolbox\Http\Controllers\Admin\UserRoles;
+namespace BondarDe\Lox\Http\Controllers\Admin\UserRoles;
 
-use BondarDe\LaravelToolbox\LaravelToolboxServiceProvider;
+use BondarDe\Lox\LoxServiceProvider;
 
 class AdminUserRoleIndexController
 {
     public function __invoke()
     {
-        return view(LaravelToolboxServiceProvider::NAMESPACE . '::admin.user-roles.index');
+        return view(LoxServiceProvider::NAMESPACE . '::admin.user-roles.index');
     }
 }
