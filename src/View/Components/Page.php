@@ -28,7 +28,6 @@ class Page extends Component
         ?string                       $metaRobots = null,
         ?string                       $title = null,
         readonly public ?string       $h1 = null,
-        readonly public bool          $livewire = false,
         public                        $breadcrumbAttr = null,
         readonly public ?string       $shareImage = null,
     )

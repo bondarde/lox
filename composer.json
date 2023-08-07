@@ -25,7 +25,8 @@
         "tweeb/tinymce-i18n": "^2.0",
         "aws/aws-sdk-php": "^3.233",
         "laravel/socialite": "^5.5",
-        "firebase/php-jwt": "^6.3"
+        "firebase/php-jwt": "^6.3",
+        "livewire/livewire": "^3.0@beta"
     },
     "require-dev": {
         "orchestra/testbench": "^8.0",

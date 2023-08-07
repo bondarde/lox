@@ -19,9 +19,6 @@
             <link rel="stylesheet" href="{{ $file }}">
         @endif
     @endforeach
-    @if($livewire)
-        @livewireStyles
-    @endif
 
     <x-html-header
         :title="$title"
@@ -51,10 +48,6 @@
 <x-page-footer
     :breadcrumbAttr="$breadcrumbAttr"
 />
-
-@if($livewire)
-    @livewireScripts
-@endif
 
 @foreach($jsFiles as $file)
     @if(\Illuminate\Support\Facades\App::environment(\BondarDe\Lox\Constants\Environment::LOCAL))
