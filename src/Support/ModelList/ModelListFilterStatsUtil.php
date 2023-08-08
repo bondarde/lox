@@ -56,6 +56,28 @@ class ModelListFilterStatsUtil
         return $res;
     }
 
+    public static function toCountWithActiveFilters(
+        $model,
+        string $filterName,
+        array $activeFilters,
+        array $allFilters,
+    ): int
+    {
+        $query = $model::query();
+        $flattenedFilters = array_merge([], ...$allFilters);
+        $tmp = [];
+        self::addActiveFilters(
+            $tmp,
+            $query,
+            $filterName,
+            $activeFilters,
+            $flattenedFilters,
+        );
+        $key = array_key_first($tmp);
+
+        return $tmp[$key]['count'];
+    }
+
     private static function addActiveFilters(
         array   &$res,
         Builder $query,

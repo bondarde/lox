@@ -46,6 +46,8 @@ class LiveModelList extends Component
     public bool $showSorts;
     public bool $showSearchQuery;
 
+    public bool $isFilterPanelVisible = false;
+
     private array $activeFilters;
     private array $activeSorts;
     private array $filterStats;
@@ -68,7 +70,6 @@ class LiveModelList extends Component
 
         $this->routeName = Route::current()->getName();
         $this->routeParams = Route::current()->parameters();
-
 
         $this->showFilters = is_subclass_of($this->model, ModelListFilterable::class);
         $this->showSorts = is_subclass_of($this->model, ModelListSortable::class);
@@ -298,59 +299,6 @@ class LiveModelList extends Component
         return new class extends ModelSorts {
         };
     }
-
-    public function isFilterActive(string $filter): bool
-    {
-        $idx = ModelListUrlQueryUtil::toFilterIndex($this->activeFilters, $filter);
-
-        return $idx >= 0;
-    }
-
-    public function isSortActive(string $sort): bool
-    {
-        $idx = ModelListUrlQueryUtil::toFilterIndex($this->activeSorts, $sort);
-
-        return $idx >= 0;
-    }
-
-    public function toFilterCount(string $filter): ?int
-    {
-        if ($filter === ModelFilters::ALL) {
-            $key = ModelFilters::ALL;
-        } else {
-            $filters = $this->activeFilters;
-            $filters[] = $filter;
-            $filters = array_unique($filters);
-            sort($filters);
-
-            $key = ModelListUrlQueryUtil::toQueryString($filters);
-        }
-
-        return $this->filterStats[$key]['count'] ?? null;
-    }
-
-    public function toFiltersQueryString(?string $filter = null): string
-    {
-        if (!$filter) {
-            $filters = $this->activeFilters;
-        } else if ($filter === ModelFilters::ALL) {
-            return ModelFilters::ALL;
-        } else {
-            $idx = ModelListUrlQueryUtil::toFilterIndex($this->activeFilters, $filter);
-
-            $filters = $idx === -1
-                ? ModelListUrlQueryUtil::merge($this->activeFilters, [$filter])
-                : ModelListUrlQueryUtil::removeByIdx($this->activeFilters, $idx);
-        }
-
-        return ModelListUrlQueryUtil::toQueryString($filters);
-    }
-
-    public function toSortsQueryString(?string $sort = null): string
-    {
-        return $sort ?: '';
-    }
-
 
     public function render(): ?View
     {

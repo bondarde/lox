@@ -9,6 +9,7 @@ use BondarDe\Lox\Contracts\View\PageConfig;
 use BondarDe\Lox\Livewire\LiveModelList;
 use BondarDe\Lox\Livewire\ModelList\Content as ModelListContent;
 use BondarDe\Lox\Livewire\ModelList\Filter;
+use BondarDe\Lox\Livewire\ModelList\FilterItemCount;
 use BondarDe\Lox\Livewire\ModelList\Search;
 use BondarDe\Lox\View\Components\Button;
 use BondarDe\Lox\View\Components\Content;
@@ -166,5 +167,6 @@ class LoxServiceProvider extends ServiceProvider
         Livewire::component('model-list.search', Search::class);
         Livewire::component('model-list.filter', Filter::class);
         Livewire::component('model-list.content', ModelListContent::class);
+        Livewire::component('model-list.filter-item-count', FilterItemCount::class);
     }
 }
