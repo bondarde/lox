@@ -6,6 +6,10 @@ use BondarDe\Lox\Console\Commands\Acl\AclMakeSuperAdminCommand;
 use BondarDe\Lox\Console\Commands\Acl\AclUpdateRolesAndPermissionsCommand;
 use BondarDe\Lox\Constants\Environment;
 use BondarDe\Lox\Contracts\View\PageConfig;
+use BondarDe\Lox\Livewire\LiveModelList;
+use BondarDe\Lox\Livewire\ModelList\Content as ModelListContent;
+use BondarDe\Lox\Livewire\ModelList\Filter;
+use BondarDe\Lox\Livewire\ModelList\Search;
 use BondarDe\Lox\View\Components\Button;
 use BondarDe\Lox\View\Components\Content;
 use BondarDe\Lox\View\Components\DashboardItem;
@@ -29,6 +33,7 @@ use BondarDe\Lox\View\Components\Number;
 use BondarDe\Lox\View\Components\Page;
 use BondarDe\Lox\View\Components\RelativeTimestamp;
 use BondarDe\Lox\View\Components\RenderingStats;
+use BondarDe\Lox\View\Components\SearchHighlightedText;
 use BondarDe\Lox\View\Components\Survey;
 use BondarDe\Lox\View\Components\SurveyView;
 use BondarDe\Lox\View\Components\UserMessages;
@@ -36,6 +41,7 @@ use BondarDe\Lox\View\Components\ValidationErrors;
 use BondarDe\Lox\View\DefaultPageConfig;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
+use Livewire\Livewire;
 
 class LoxServiceProvider extends ServiceProvider
 {
@@ -74,6 +80,7 @@ class LoxServiceProvider extends ServiceProvider
         'rendering-stats' => RenderingStats::class,
         'dashboard-item' => DashboardItem::class,
         'nav-item' => NavItem::class,
+        'search-highlighted-text' => SearchHighlightedText::class,
     ];
 
     public function register(): void
@@ -98,6 +105,7 @@ class LoxServiceProvider extends ServiceProvider
         $this->configureCommands();
 
         $this->configureConfig();
+        $this->configureLivewire();
     }
 
     private function configureRoutes(): void
@@ -150,5 +158,13 @@ class LoxServiceProvider extends ServiceProvider
     private function configureConfig(): void
     {
         $this->app->bind(PageConfig::class, DefaultPageConfig::class);
+    }
+
+    private function configureLivewire(): void
+    {
+        Livewire::component('live-model-list', LiveModelList::class);
+        Livewire::component('model-list.search', Search::class);
+        Livewire::component('model-list.filter', Filter::class);
+        Livewire::component('model-list.content', ModelListContent::class);
     }
 }

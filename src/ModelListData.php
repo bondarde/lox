@@ -19,7 +19,7 @@ class ModelListData
         array   $activeFilters,
         array   $allSorts,
         array   $activeSorts,
-        ?string $searchQuery
+        ?string $searchQuery = null,
     )
     {
         $this->model = $model;

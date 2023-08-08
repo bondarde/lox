@@ -1,6 +1,6 @@
 <?php
 
-namespace BondarDe\Lox\View\Components;
+namespace BondarDe\Lox\Livewire;
 
 use BondarDe\Lox\Exceptions\IllegalStateException;
 use BondarDe\Lox\LoxServiceProvider;
@@ -13,20 +13,20 @@ use BondarDe\Lox\ModelList\ModelListSortable;
 use BondarDe\Lox\ModelList\ModelSort;
 use BondarDe\Lox\ModelList\ModelSorts;
 use BondarDe\Lox\ModelListData;
-use BondarDe\Lox\Support\ModelList\ModelListFilterStatsUtil;
 use BondarDe\Lox\Support\ModelList\ModelListUrlQueryUtil;
 use BondarDe\Lox\Support\NumbersFormatter;
 use Closure;
-use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Route;
-use Illuminate\View\Component;
+use Livewire\Attributes\On;
+use Livewire\Attributes\Url;
+use Livewire\Component;
 
-class ModelList extends Component
+class LiveModelList extends Component
 {
     public const URL_PARAM_FILTERS = 'filters';
     public const URL_PARAM_SORTS = 'sort';
@@ -34,12 +34,13 @@ class ModelList extends Component
     public const URL_PARAM_PAGE = 'page';
     public const URL_PARAM_SEPARATOR = ',';
 
-    public LengthAwarePaginator $items;
-    public string $pageTitle;
-    public Htmlable $links;
+    public string $model;
 
-    public array $allFilters;
-    public array $allSorts;
+    #[Url(as: self::URL_PARAM_SEARCH_QUERY)]
+    public string $searchQuery = '';
+
+    private array $allFilters;
+    private array $allSorts;
 
     public bool $showFilters;
     public bool $showSorts;
@@ -48,55 +49,36 @@ class ModelList extends Component
     private array $activeFilters;
     private array $activeSorts;
     private array $filterStats;
-    public ?string $searchQuery;
 
-    public readonly string $routeName;
-    public readonly array $routeParams;
+
+    private readonly string $routeName;
+    private readonly array $routeParams;
+
+    private bool $withTrashed = false;
+    private bool $withArchived = false;
+    private int $hideCountsOver = 1_000_000;
+    private string $pageTitle = '{0} No entries|{1} One entry|[2,*] :count entries';
 
     /**
      * @throws IllegalStateException
      */
-    public function __construct(
-        Request       $request,
-        public string $model,
-        bool          $withTrashed = false,
-        bool          $withArchived = false,
-        int           $hideCountsOver = 1_000_000,
-        string        $pageTitle = '{0} No entries|{1} One entry|[2,*] :count entries',
-    )
+    public function mount(): void
     {
-        self::assertIsSubclassOf($model, Model::class);
+        self::assertIsSubclassOf($this->model, Model::class);
 
         $this->routeName = Route::current()->getName();
         $this->routeParams = Route::current()->parameters();
 
-        $modelListData = self::toModelListData($model, $request);
 
-        $this->allFilters = $modelListData->allFilters;
-        $this->allSorts = $modelListData->allSorts;
-        $this->activeFilters = $modelListData->activeFilters;
-        $this->activeSorts = $modelListData->activeSorts;
-        $this->searchQuery = $modelListData->searchQuery;
+        $this->showFilters = is_subclass_of($this->model, ModelListFilterable::class);
+        $this->showSorts = is_subclass_of($this->model, ModelListSortable::class);
+        $this->showSearchQuery = is_subclass_of($this->model, ModelListSearchable::class);
+    }
 
-        $query = self::toUnpaginatedQuery($modelListData, $withTrashed, $withArchived);
-        $this->items = self::toItems($model, $query, $modelListData->activePage);
-        $this->filterStats = ModelListFilterStatsUtil::toFilterStats(
-            $model,
-            $this->allFilters,
-            $this->activeFilters,
-            $hideCountsOver,
-        );
-
-        $this->links = $this->items->appends([
-            self::URL_PARAM_FILTERS => ModelListUrlQueryUtil::toQueryString($this->activeFilters),
-            self::URL_PARAM_SORTS => ModelListUrlQueryUtil::toQueryString($this->activeSorts),
-            self::URL_PARAM_SEARCH_QUERY => $this->searchQuery,
-        ])->links(LoxServiceProvider::NAMESPACE . '::pagination');
-        $this->pageTitle = self::toPageTitle($pageTitle, $this->items->total());
-
-        $this->showFilters = is_subclass_of($model, ModelListFilterable::class);
-        $this->showSorts = is_subclass_of($model, ModelListSortable::class);
-        $this->showSearchQuery = is_subclass_of($model, ModelListSearchable::class);
+    #[On('live-model-list:search-query-changed')]
+    public function onSearchValueChange(string $newValue): void
+    {
+        $this->searchQuery = $newValue;
     }
 
     public static function toModelListData(
@@ -112,7 +94,6 @@ class ModelList extends Component
         $allSorts = $sorts::all();
         $activeFilters = explode(self::URL_PARAM_SEPARATOR, $request->get(self::URL_PARAM_FILTERS) ?? $filters::DEFAULT_FILTER);
         $activeSorts = explode(self::URL_PARAM_SEPARATOR, $request->get(self::URL_PARAM_SORTS) ?? $sorts::DEFAULT_SORT);
-        $searchQuery = $request->get(self::URL_PARAM_SEARCH_QUERY);
 
         return new ModelListData(
             $model,
@@ -121,7 +102,6 @@ class ModelList extends Component
             $activeFilters,
             $allSorts,
             $activeSorts,
-            $searchQuery,
         );
     }
 
@@ -371,8 +351,39 @@ class ModelList extends Component
         return $sort ?: '';
     }
 
-    public function render(): View
+
+    public function render(): ?View
     {
-        return view('lox::model-list');
+        $request = request();
+
+        $modelListData = self::toModelListData(
+            $this->model,
+            $request,
+        );
+        // TODO: improve:
+        $modelListData->searchQuery = $this->searchQuery;
+
+        $this->allFilters = $modelListData->allFilters;
+        $this->allSorts = $modelListData->allSorts;
+        $this->activeFilters = $modelListData->activeFilters;
+        $this->activeSorts = $modelListData->activeSorts;
+
+        $query = self::toUnpaginatedQuery($modelListData, $this->withTrashed, $this->withArchived);
+        $itemsPaginator = self::toItems($this->model, $query, $modelListData->activePage);
+
+        $links = $itemsPaginator->appends([
+            self::URL_PARAM_FILTERS => ModelListUrlQueryUtil::toQueryString($this->activeFilters),
+            self::URL_PARAM_SORTS => ModelListUrlQueryUtil::toQueryString($this->activeSorts),
+            self::URL_PARAM_SEARCH_QUERY => $this->searchQuery,
+        ])->links(LoxServiceProvider::NAMESPACE . '::pagination');
+        $pageTitle = self::toPageTitle($this->pageTitle, $itemsPaginator->total());
+
+        $items = collect($itemsPaginator->items());
+
+        return view('lox::livewire.model-list.index')->with(compact(
+            'items',
+            'links',
+            'pageTitle'
+        ));
     }
 }
