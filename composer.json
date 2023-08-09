@@ -16,7 +16,7 @@
         "deployer/deployer": "^7.0",
         "jenssegers/agent": "^2.6",
         "laravel/fortify": "^1.10",
-        "laravel/framework": "^9.24|^10.0",
+        "laravel/framework": "^10.0",
         "tinymce/tinymce": "^5.10",
         "laravel/sanctum": "^3.0",
         "nunomaduro/collision": "^7.0",
