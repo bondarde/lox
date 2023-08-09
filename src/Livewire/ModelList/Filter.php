@@ -2,7 +2,7 @@
 
 namespace BondarDe\Lox\Livewire\ModelList;
 
-use BondarDe\Lox\Livewire\LiveModelList;
+use BondarDe\Lox\Livewire\ModelList\Support\ModelListUtil;
 use BondarDe\Lox\ModelList\ModelFilters;
 use BondarDe\Lox\Support\ModelList\ModelListUrlQueryUtil;
 use Illuminate\Contracts\View\View;
@@ -12,13 +12,14 @@ use Livewire\Component;
 class Filter extends Component
 {
     public string $model;
+    public string $routeName;
 
-    public bool $showFilters = true;
-    public bool $showSorts = true;
+    public bool $supportsFilters;
+    public bool $supportsSorts;
+
     public string $searchQuery;
-
-    private array $activeFilters;
-    private array $activeSorts;
+    public array $activeFilters;
+    public array $activeSorts = [];
 
     public function isFilterActive(string $filter): bool
     {
@@ -32,22 +33,6 @@ class Filter extends Component
         $idx = ModelListUrlQueryUtil::toFilterIndex($this->activeSorts, $sort);
 
         return $idx >= 0;
-    }
-
-    public function toFilterCount(string $filter): ?int
-    {
-        if ($filter === ModelFilters::ALL) {
-            $key = ModelFilters::ALL;
-        } else {
-            $filters = $this->activeFilters;
-            $filters[] = $filter;
-            $filters = array_unique($filters);
-            sort($filters);
-
-            $key = ModelListUrlQueryUtil::toQueryString($filters);
-        }
-
-        return $this->filterStats[$key]['count'] ?? null;
     }
 
     public function toFiltersQueryString(?string $filter = null): string
@@ -74,16 +59,13 @@ class Filter extends Component
 
     public function render(): ?View
     {
-        $modelListData = LiveModelList::toModelListData($this->model, request());
-        $this->activeFilters = $modelListData->activeFilters;
-        $this->activeSorts = $modelListData->activeSorts;
+        $allFilters = ModelListUtil::allFilters($this->model);
+        $allSorts = ModelListUtil::allSorts($this->model);
 
         return view('lox::livewire.model-list.filter', [
-            'allFilters' => $modelListData->allFilters,
-            'allSorts' => $modelListData->allSorts,
-            'routeName' => Route::current()->getName(),
+            'allFilters' => $allFilters,
+            'allSorts' => $allSorts,
             'routeParams' => Route::current()->parameters(),
-            'activeFilters' => $this->activeFilters,
         ]);
     }
 }

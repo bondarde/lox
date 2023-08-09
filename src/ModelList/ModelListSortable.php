@@ -4,5 +4,5 @@ namespace BondarDe\Lox\ModelList;
 
 interface ModelListSortable
 {
-    public static function getModelListSorts(): string;
+    public static function getModelListSorts(): ?string;
 }

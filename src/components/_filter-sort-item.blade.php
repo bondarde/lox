@@ -1,4 +1,4 @@
-<li @if(isset($title)) title="{{ $title }}" @endif>
+<li title="{{ $title ?? $label }}">
     @if($isActive)
         <span class="p-1 shadow rounded bg-yellow-50 dark:bg-yellow-50/30">
             {{ $label }}

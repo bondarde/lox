@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Builder;
 
 interface ModelListQueryable
 {
-    public static function getModelListQuery(): Builder;
+    public static function getModelListQuery(): ?Builder;
 }

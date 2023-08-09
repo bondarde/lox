@@ -4,5 +4,5 @@ namespace BondarDe\Lox\ModelList;
 
 interface ModelListSearchable
 {
-    public static function getModelListSearchFields(): array;
+    public static function getModelListSearchFields(): ?array;
 }

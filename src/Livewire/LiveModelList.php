@@ -3,31 +3,27 @@
 namespace BondarDe\Lox\Livewire;
 
 use BondarDe\Lox\Exceptions\IllegalStateException;
-use BondarDe\Lox\LoxServiceProvider;
-use BondarDe\Lox\ModelList\ModelFilter;
+use BondarDe\Lox\Livewire\ModelList\Support\ModelListUtil;
 use BondarDe\Lox\ModelList\ModelFilters;
 use BondarDe\Lox\ModelList\ModelListFilterable;
-use BondarDe\Lox\ModelList\ModelListQueryable;
 use BondarDe\Lox\ModelList\ModelListSearchable;
 use BondarDe\Lox\ModelList\ModelListSortable;
-use BondarDe\Lox\ModelList\ModelSort;
-use BondarDe\Lox\ModelList\ModelSorts;
-use BondarDe\Lox\ModelListData;
 use BondarDe\Lox\Support\ModelList\ModelListUrlQueryUtil;
 use BondarDe\Lox\Support\NumbersFormatter;
-use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Route;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class LiveModelList extends Component
 {
+    use WithPagination;
+
     public const URL_PARAM_FILTERS = 'filters';
     public const URL_PARAM_SORTS = 'sort';
     public const URL_PARAM_SEARCH_QUERY = 'q';
@@ -36,25 +32,31 @@ class LiveModelList extends Component
 
     public string $model;
 
+    #[Url(as: self::URL_PARAM_PAGE)]
+    public string $currentPage = '';
+
     #[Url(as: self::URL_PARAM_SEARCH_QUERY)]
     public string $searchQuery = '';
 
-    private array $allFilters;
-    private array $allSorts;
+    #[Url(as: self::URL_PARAM_FILTERS)]
+    public ?string $filters = null;
 
-    public bool $showFilters;
-    public bool $showSorts;
-    public bool $showSearchQuery;
+    #[Url(as: self::URL_PARAM_SORTS)]
+    public ?string $sorts = null;
+
+    public bool $supportsFilters;
+    public bool $supportsSorts;
+    public bool $supportsTextSearch;
 
     public bool $isFilterPanelVisible = false;
+    public int $filterBadgeCount = 0;
 
-    private array $activeFilters;
-    private array $activeSorts;
-    private array $filterStats;
+    public array $activeFilters;
+    public array $activeSorts;
 
-
-    private readonly string $routeName;
-    private readonly array $routeParams;
+    public string $currentPath;
+    public string $routeName;
+    public array $routeParams;
 
     private bool $withTrashed = false;
     private bool $withArchived = false;
@@ -70,10 +72,23 @@ class LiveModelList extends Component
 
         $this->routeName = Route::current()->getName();
         $this->routeParams = Route::current()->parameters();
+        $this->currentPath = '/' . request()->path();
 
-        $this->showFilters = is_subclass_of($this->model, ModelListFilterable::class);
-        $this->showSorts = is_subclass_of($this->model, ModelListSortable::class);
-        $this->showSearchQuery = is_subclass_of($this->model, ModelListSearchable::class);
+        $this->supportsFilters = is_subclass_of($this->model, ModelListFilterable::class) && $this->model::getModelListFilters() !== null;
+        $this->supportsSorts = is_subclass_of($this->model, ModelListSortable::class) && $this->model::getModelListSorts() !== null;
+        $this->supportsTextSearch = is_subclass_of($this->model, ModelListSearchable::class) && $this->model::getModelListSearchFields() !== null;
+
+        $this->activeFilters = explode(',', $this->filters ?? ModelFilters::ALL);
+        $this->activeSorts = explode(',', $this->sorts ?? ModelListUtil::toDefaultSort($this->model));
+
+        $this->updateFilterBadgeCount();
+    }
+
+    private function updateFilterBadgeCount(): void
+    {
+        $this->filterBadgeCount = collect($this->activeFilters)
+            ->filter(fn(string $s) => $s !== ModelFilters::ALL)
+            ->count();
     }
 
     #[On('live-model-list:search-query-changed')]
@@ -82,113 +97,63 @@ class LiveModelList extends Component
         $this->searchQuery = $newValue;
     }
 
-    public static function toModelListData(
-        string  $model,
-        Request $request,
-    ): ModelListData
+    public function toggleFilter(string $filterName): void
     {
-        $filters = self::toModelFilters($model);
-        $sorts = self::toModelSorts($model);
+        if ($filterName === ModelFilters::ALL) {
+            if (!in_array(ModelFilters::ALL, $this->activeFilters)) {
+                // remove all other filters, set active to "all"
+                $this->activeFilters = [ModelFilters::ALL];
+                $this->filters = '';
+            }
 
-        $activePage = $request->get(self::URL_PARAM_PAGE, 1);
-        $allFilters = self::toArrayOfFiltersArray($filters::all());
-        $allSorts = $sorts::all();
-        $activeFilters = explode(self::URL_PARAM_SEPARATOR, $request->get(self::URL_PARAM_FILTERS) ?? $filters::DEFAULT_FILTER);
-        $activeSorts = explode(self::URL_PARAM_SEPARATOR, $request->get(self::URL_PARAM_SORTS) ?? $sorts::DEFAULT_SORT);
+            $this->updateFilterBadgeCount();
 
-        return new ModelListData(
-            $model,
-            $activePage,
-            $allFilters,
-            $activeFilters,
-            $allSorts,
-            $activeSorts,
-        );
+            return;
+        }
+
+        // always remove "all"
+        $this->removeActiveFilter(ModelFilters::ALL);
+
+        $providedFilterRemoved = $this->removeActiveFilter($filterName);
+        if (!$providedFilterRemoved) {
+            // add filter
+            $this->activeFilters[] = $filterName;
+        }
+
+        $this->filters = implode(',', $this->activeFilters);
+
+        if (!count($this->activeFilters)) {
+            $this->activeFilters[] = ModelFilters::ALL;
+        }
+
+        $this->updateFilterBadgeCount();
+    }
+
+    private function removeActiveFilter(string $filterName): bool
+    {
+        $idx = array_search($filterName, $this->activeFilters);
+        if ($idx !== false) {
+            array_splice($this->activeFilters, $idx, 1);
+
+            return true;
+        }
+
+        return false;
     }
 
     /**
      * @throws IllegalStateException
      */
-    public static function toUnpaginatedQuery(
-        ModelListData $modelListData,
-        bool          $withTrashed = false,
-        bool          $withArchived = false,
-    ): Builder
+    private function toUnpaginatedQuery(): Builder
     {
-        $query = self::toQueryBuilder($modelListData->model);
-
-        if ($withTrashed) {
-            $query->withTrashed();
-        }
-
-        if ($withArchived) {
-            $query->withArchived();
-        }
-
-        $activeFilters = $modelListData->activeFilters;
-        $allFilters = $modelListData->allFilters;
-        $activeSorts = $modelListData->activeSorts;
-        $allSorts = $modelListData->allSorts;
-
-        foreach ($activeFilters as $filterKey) {
-            $filter = self::findFilterByKey($allFilters, $filterKey);
-            $sql = $filter->query;
-
-            if ($sql instanceof Closure) {
-                $sql($query);
-                continue;
-            }
-
-            if ($sql === 'TRUE') {
-                continue;
-            }
-
-            $sql = '(' . $sql . ')';
-            $query->whereRaw($sql);
-        }
-        foreach ($activeSorts as $sortKey) {
-            $sort = self::findSortByKey($allSorts, $sortKey);
-            $query->orderByRaw($sort->sql);
-        }
-        if ($modelListData->searchQuery && is_subclass_of($modelListData->model, ModelListSearchable::class)) {
-            $modelInstance = new $modelListData->model;
-
-            $values = explode(' ', trim($modelListData->searchQuery));
-
-            $query->where(function (Builder $q) use ($modelInstance, $modelListData, $values) {
-                foreach ($values as $value) {
-                    foreach ($modelInstance::getModelListSearchFields() as $columnOrQueryModifier) {
-                        if ($columnOrQueryModifier instanceof Closure) {
-                            $columnOrQueryModifier($q, $value);
-                        } else if (is_string($columnOrQueryModifier)) {
-                            $column = $columnOrQueryModifier;
-                            $searchValue = '%' . $value . '%';
-
-                            $q->orWhere($column, 'LIKE', $searchValue);
-                        } else {
-                            throw new IllegalStateException('Unsupported column config type: "' . gettype($columnOrQueryModifier) . '"');
-                        }
-                    }
-                }
-            });
-        }
-
-        return $query;
-    }
-
-    private static function toItems(
-        string  $model,
-        Builder $query,
-        int     $page
-    ): LengthAwarePaginator
-    {
-        return $query
-            ->paginate(
-                (new $model)->getPerPage(),
-                ['*'],
-                'page',
-                $page
-            );
+        return ModelListUtil::toUnpaginatedQuery(
+            $this->model,
+            $this->withTrashed,
+            $this->withArchived,
+            $this->activeFilters,
+            $this->activeSorts,
+            $this->supportsTextSearch ? $this->searchQuery : null,
+        );
     }
 
     private static function toPageTitle(
@@ -201,21 +166,6 @@ class LiveModelList extends Component
         ]);
     }
 
-    private static function format($num, $decimals = 0, $suffix = '', $zero = '<span class="text-muted">—</span>')
-    {
-        if ($num == 0) {
-            return $zero;
-        }
-
-        $prefix = $num < 0 ? '–' : '';
-
-        if ($suffix) {
-            $suffix = '<small class="text-muted">&thinsp;' . $suffix . '</small>';
-        }
-
-        return $prefix . number_format(abs($num), $decimals, ',', '.') . $suffix;
-    }
-
     /**
      * @throws IllegalStateException
      */
@@ -226,109 +176,37 @@ class LiveModelList extends Component
         }
     }
 
-    /**
-     * @throws IllegalStateException
-     */
-    private static function findFilterByKey(array $allFilters, $filterKey): ModelFilter
+    private function getItemsPaginator(): LengthAwarePaginator
     {
-        foreach ($allFilters as $filters) {
-            if (isset($filters[$filterKey])) {
-                return $filters[$filterKey];
-            }
-        }
+        $query = $this->toUnpaginatedQuery();
 
-        throw new IllegalStateException('Unknown filter: ' . $filterKey);
-    }
+        $paginator = $query
+            ->paginate(
+                (new $this->model)->getPerPage(),
+                ['*'],
+                'page',
+                $this->currentPage ?: null,
+            );
+        $paginator
+            ->setPath($this->currentPath)
+            ->appends([
+                self::URL_PARAM_FILTERS => ModelListUrlQueryUtil::toQueryString($this->activeFilters),
+                self::URL_PARAM_SORTS => ModelListUrlQueryUtil::toQueryString($this->activeSorts),
+                self::URL_PARAM_SEARCH_QUERY => $this->searchQuery,
+            ]);
 
-    /**
-     * @throws IllegalStateException
-     */
-    private static function findSortByKey(array $allSorts, $sortKey): ModelSort
-    {
-        if (!isset($allSorts[$sortKey])) {
-            // ignore unknown sort
-            throw new IllegalStateException('Unknown sort: ' . $sortKey);
-        }
-
-        return $allSorts[$sortKey];
-    }
-
-    private static function toArrayOfFiltersArray(array $allFilters): array
-    {
-        $firstKey = array_key_first($allFilters);
-        $firstElement = $allFilters[$firstKey];
-
-        if (!is_array($firstElement)) {
-            $allFilters = [$allFilters];
-        }
-
-        return $allFilters;
-    }
-
-    private static function toQueryBuilder(string $model): Builder
-    {
-        /** @var Model $model */
-
-        if (is_subclass_of($model, ModelListQueryable::class)) {
-            return $model::getModelListQuery();
-        }
-
-        return $model::query();
-    }
-
-    private static function toModelFilters(string $model): ModelFilters
-    {
-        if (is_subclass_of($model, ModelListFilterable::class)) {
-            $filters = (new $model)::getModelListFilters();
-
-            return new $filters;
-        }
-
-        return new class extends ModelFilters {
-        };
-    }
-
-    private static function toModelSorts(string $model): ModelSorts
-    {
-        if (is_subclass_of($model, ModelListSortable::class)) {
-            $sorts = (new $model)::getModelListSorts();
-
-            return new $sorts;
-        }
-
-        return new class extends ModelSorts {
-        };
+        return $paginator;
     }
 
     public function render(): ?View
     {
-        $request = request();
-
-        $modelListData = self::toModelListData(
-            $this->model,
-            $request,
-        );
-        // TODO: improve:
-        $modelListData->searchQuery = $this->searchQuery;
-
-        $this->allFilters = $modelListData->allFilters;
-        $this->allSorts = $modelListData->allSorts;
-        $this->activeFilters = $modelListData->activeFilters;
-        $this->activeSorts = $modelListData->activeSorts;
-
-        $query = self::toUnpaginatedQuery($modelListData, $this->withTrashed, $this->withArchived);
-        $itemsPaginator = self::toItems($this->model, $query, $modelListData->activePage);
-
-        $links = $itemsPaginator->appends([
-            self::URL_PARAM_FILTERS => ModelListUrlQueryUtil::toQueryString($this->activeFilters),
-            self::URL_PARAM_SORTS => ModelListUrlQueryUtil::toQueryString($this->activeSorts),
-            self::URL_PARAM_SEARCH_QUERY => $this->searchQuery,
-        ])->links(LoxServiceProvider::NAMESPACE . '::pagination');
-        $pageTitle = self::toPageTitle($this->pageTitle, $itemsPaginator->total());
+        $itemsPaginator = $this->getItemsPaginator();
 
         $items = collect($itemsPaginator->items());
+        $links = $itemsPaginator->links('lox::pagination');
+        $pageTitle = self::toPageTitle($this->pageTitle, $itemsPaginator->total());
 
-        return view('lox::livewire.model-list.index')->with(compact(
+        return view('lox::livewire.model-list.index', compact(
             'items',
             'links',
             'pageTitle'

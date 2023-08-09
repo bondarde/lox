@@ -4,12 +4,12 @@ namespace BondarDe\Lox\ModelList;
 
 use Closure;
 
-class ModelFilter
+readonly class ModelFilter
 {
     public function __construct(
-        public readonly string         $label,
-        public readonly string|Closure $query,
-        public readonly ?string        $title = null,
+        public string         $label,
+        public Closure|string $query,
+        public ?string        $title = null,
     )
     {
     }

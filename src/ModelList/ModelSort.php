@@ -4,14 +4,12 @@ namespace BondarDe\Lox\ModelList;
 
 class ModelSort
 {
-    public string $label;
-    public string $title;
-    public string $sql;
-
-    public function __construct(string $label, string $sql, ?string $title = null)
+    public function __construct(
+        public readonly string $label,
+        public readonly string $sql,
+        public ?string         $title = null,
+    )
     {
-        $this->label = $label;
-        $this->sql = $sql;
         $this->title = $title ?? $label;
     }
 }

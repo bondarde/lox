@@ -2,7 +2,7 @@
 
 namespace BondarDe\Lox\Livewire\ModelList;
 
-use BondarDe\Lox\Livewire\LiveModelList;
+use BondarDe\Lox\Livewire\ModelList\Support\ModelListUtil;
 use BondarDe\Lox\Support\ModelList\ModelListFilterStatsUtil;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
@@ -11,24 +11,26 @@ class FilterItemCount extends Component
 {
     public string $model;
     public string $filterName;
+    public array $activeFilters;
 
     public function placeholder(): string
     {
         return '
-        <div class="inline-block h-[10px] w-[20px] flex-auto cursor-wait bg-current align-middle opacity-50 rounded-sm"></div>
+        <div'
+            . ' class="inline-block cursor-wait bg-current align-middle opacity-25 rounded-sm"'
+            . ' style="height: 10px; width: ' . mt_rand(6, 12) . 'px"'
+            . '></div>
         ';
     }
 
     public function render(): View
     {
-        $modelListData = LiveModelList::toModelListData($this->model, request());
-        $activeFilters = $modelListData->activeFilters;
-        $allFilters = $modelListData->allFilters;
+        $allFilters = ModelListUtil::allFilters($this->model);
 
         $count = ModelListFilterStatsUtil::toCountWithActiveFilters(
             $this->model,
             $this->filterName,
-            $activeFilters,
+            $this->activeFilters,
             $allFilters,
         );
 

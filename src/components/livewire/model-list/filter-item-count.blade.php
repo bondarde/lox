@@ -1,3 +1,3 @@
 <div @class([
-    'inline-block',
+    'inline-block text-sm opacity-75',
 ])>{{ $count }}</div>

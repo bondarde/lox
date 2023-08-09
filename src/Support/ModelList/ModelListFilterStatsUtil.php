@@ -3,6 +3,7 @@
 namespace BondarDe\Lox\Support\ModelList;
 
 use BondarDe\Lox\ModelList\ModelFilter;
+use BondarDe\Lox\ModelList\ModelFilters;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -66,6 +67,11 @@ class ModelListFilterStatsUtil
         $query = $model::query();
         $flattenedFilters = array_merge([], ...$allFilters);
         $tmp = [];
+
+        if ($filterName === ModelFilters::ALL) {
+            $activeFilters = [ModelFilters::ALL];
+        }
+
         self::addActiveFilters(
             $tmp,
             $query,
