@@ -11,7 +11,9 @@ class Button extends Component
     public function __construct(
         public readonly string   $tag = 'button',
         public ?string           $icon = null,
+        public readonly ?string  $badge = null,
 
+        private readonly string  $position = 'relative',
         private readonly string  $base = 'inline-flex gap-2 items-center justify-center focus:outline-none focus:ring',
         private readonly string  $width = 'w-full md:w-auto',
         private readonly string  $animation = 'transition ease-in-out duration-150',
@@ -102,6 +104,7 @@ class Button extends Component
             'class' => collect([
                 $this->width,
                 $this->base,
+                $this->position,
                 $this->animation,
                 $this->padding,
                 $this->borders,
