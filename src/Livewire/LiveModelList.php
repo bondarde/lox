@@ -14,6 +14,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
@@ -79,7 +80,9 @@ class LiveModelList extends Component
         $this->supportsTextSearch = is_subclass_of($this->model, ModelListSearchable::class) && $this->model::getModelListSearchFields() !== null;
 
         $this->activeFilters = explode(',', $this->filters ?? ModelFilters::ALL);
-        $this->activeSorts = explode(',', $this->sorts ?? ModelListUtil::toDefaultSort($this->model));
+        $this->activeSorts = $this->sorts
+            ? explode(',', $this->sorts)
+            : ModelListUtil::toDefaultSort($this->model);
 
         $this->updateFilterBadgeCount();
     }
@@ -142,6 +145,28 @@ class LiveModelList extends Component
         }
 
         return false;
+    }
+
+    public function toggleSort(string $sortName): void
+    {
+        $idx = ModelListUrlQueryUtil::toSortIndex($this->activeSorts, $sortName);
+
+        if ($idx > -1) {
+            $foundSortName = $this->activeSorts[$idx];
+            if (str_ends_with($foundSortName, '-')) {
+                // DESC sort => remove sort
+                array_splice($this->activeSorts, $idx, 1);
+            } else {
+                // replace ASC sort by DESC
+                $descSortName = $sortName . '-';
+                array_splice($this->activeSorts, $idx, 1, $descSortName);
+            }
+        } else {
+            // add ASC sort
+            $this->activeSorts[] = $sortName;
+        }
+
+        $this->sorts = implode(',', $this->activeSorts);
     }
 
     /**

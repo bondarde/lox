@@ -42,9 +42,8 @@
                 <div class="p-4 border-t">
                     <livewire:model-list.filter
                         :$model
-                        :$routeName
                         :$activeFilters
-                        :$searchQuery
+                        :$activeSorts
                         :$supportsFilters
                         :$supportsSorts
                         key="{{ $searchQuery . ':' . $filters.':' . $sorts }}"

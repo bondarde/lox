@@ -17,7 +17,7 @@ class ModelListUrlQueryUtil
         return implode(',', $filters);
     }
 
-    public static function toFilterIndex(array $filters, string $filter)
+    public static function toFilterIndex(array $filters, string $filter): int
     {
         $res = array_search($filter, $filters, true);
 
@@ -26,6 +26,22 @@ class ModelListUrlQueryUtil
         }
 
         return $res;
+    }
+
+    public static function toSortIndex(array $sorts, string $sortName): int
+    {
+        $idx = array_search($sortName, $sorts);
+        if ($idx !== false) {
+            return $idx;
+        }
+
+        $descSortName = $sortName . '-';
+        $idx = array_search($descSortName, $sorts);
+        if ($idx !== false) {
+            return $idx;
+        }
+
+        return -1;
     }
 
     public static function merge(array $arr1, array $arr2): array

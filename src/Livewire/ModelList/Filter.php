@@ -6,20 +6,17 @@ use BondarDe\Lox\Livewire\ModelList\Support\ModelListUtil;
 use BondarDe\Lox\ModelList\ModelFilters;
 use BondarDe\Lox\Support\ModelList\ModelListUrlQueryUtil;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Route;
 use Livewire\Component;
 
 class Filter extends Component
 {
     public string $model;
-    public string $routeName;
 
     public bool $supportsFilters;
     public bool $supportsSorts;
 
-    public string $searchQuery;
     public array $activeFilters;
-    public array $activeSorts = [];
+    public array $activeSorts;
 
     public function isFilterActive(string $filter): bool
     {
@@ -28,11 +25,27 @@ class Filter extends Component
         return $idx >= 0;
     }
 
-    public function isSortActive(string $sort): bool
+    public function isSortActive(string $sortName): bool
     {
-        $idx = ModelListUrlQueryUtil::toFilterIndex($this->activeSorts, $sort);
+        $idx = ModelListUrlQueryUtil::toSortIndex($this->activeSorts, $sortName);
 
         return $idx >= 0;
+    }
+
+    public function renderSortDirection(string $key): ?string
+    {
+        if (!$this->isSortActive($key)) {
+            return null;
+        }
+
+        $idx = ModelListUrlQueryUtil::toSortIndex($this->activeSorts, $key);
+        $sortName = $this->activeSorts[$idx];
+
+        if (str_ends_with($sortName, '-')) {
+            return '▼';
+        }
+
+        return '▲';
     }
 
     public function toFiltersQueryString(?string $filter = null): string
@@ -65,7 +78,6 @@ class Filter extends Component
         return view('lox::livewire.model-list.filter', [
             'allFilters' => $allFilters,
             'allSorts' => $allSorts,
-            'routeParams' => Route::current()->parameters(),
         ]);
     }
 }

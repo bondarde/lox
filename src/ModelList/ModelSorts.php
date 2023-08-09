@@ -2,15 +2,24 @@
 
 namespace BondarDe\Lox\ModelList;
 
+use Illuminate\Database\Eloquent\Builder;
+
 abstract class ModelSorts
 {
-    const ID = 'id';
-    const DEFAULT_SORT = self::ID;
-
     public static function all(): array
     {
         return [
-            self::ID => new ModelSort('ID', 'id DESC'),
+            'id' => new ModelSort(
+                'ID',
+                fn(Builder $q, string $direction = 'desc') => $q->orderBy('id', $direction),
+            ),
+        ];
+    }
+
+    public static function default(): array
+    {
+        return [
+            'id-',
         ];
     }
 }

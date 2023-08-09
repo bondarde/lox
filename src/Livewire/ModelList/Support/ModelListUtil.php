@@ -30,11 +30,11 @@ class ModelListUtil
         return $sorts::all();
     }
 
-    public static function toDefaultSort(string $model): string
+    public static function toDefaultSort(string $model): array
     {
         $sorts = self::toModelSorts($model);
 
-        return $sorts::DEFAULT_SORT;
+        return $sorts::default();
     }
 
     /**
@@ -74,8 +74,15 @@ class ModelListUtil
         }
 
         foreach ($activeSorts as $sortKey) {
+            $direction = 'asc';
+            if (str_ends_with($sortKey, '-')) {
+                $sortKey = mb_substr($sortKey, 0, -1);
+                $direction = 'desc';
+            }
+
             $sort = self::findSortByKey($allSorts, $sortKey);
-            $query->orderByRaw($sort->sql);
+            $sql = $sort->sql;
+            $sql($query, $direction);
         }
 
         if ($searchQuery) {
@@ -166,7 +173,7 @@ class ModelListUtil
             }
         }
 
-        throw new IllegalStateException('Unknown filter: ' . $filterKey);
+        throw new IllegalStateException('Unknown filter: "' . $filterKey . '"');
     }
 
     /**
@@ -176,7 +183,7 @@ class ModelListUtil
     {
         if (!isset($allSorts[$sortKey])) {
             // ignore unknown sort
-            throw new IllegalStateException('Unknown sort: ' . $sortKey);
+            throw new IllegalStateException('Unknown sort: "' . $sortKey . '"');
         }
 
         return $allSorts[$sortKey];
