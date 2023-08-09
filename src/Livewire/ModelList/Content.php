@@ -7,18 +7,12 @@ use BondarDe\Lox\Livewire\ModelList\Data\ColumnConfiguration;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use Livewire\Attributes\Reactive;
 use Livewire\Component;
 
 class Content extends Component
 {
-    #[Reactive]
     public Collection $items;
-
-    #[Reactive]
-    public string $pagination;
-
-    #[Reactive]
+    public ?string $pagination;
     public string $searchQuery;
 
     public array $modelAttributes = [];
@@ -28,6 +22,7 @@ class Content extends Component
     {
         if ($columnConfigs) {
             return collect($columnConfigs)
+                ->filter()
                 ->mapWithKeys(fn(ColumnConfiguration|string $config, $key) => [
                     $key => match (is_string($config)) {
                         true => $config,
@@ -56,6 +51,10 @@ class Content extends Component
 
         /** @var ColumnConfiguration $config */
         $renderer = $config->render;
+
+        if (!$renderer) {
+            return null;
+        }
 
         return $renderer($item, $this->searchQuery);
     }

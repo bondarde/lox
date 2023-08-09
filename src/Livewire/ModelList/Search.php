@@ -11,7 +11,7 @@ class Search extends Component
     #[Url(as: 'q')]
     public string $value = '';
 
-    function updateSearchQuery(): void
+    function updatedValue(): void
     {
         $this->dispatch('live-model-list:search-query-changed', $this->value);
     }

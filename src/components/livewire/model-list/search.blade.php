@@ -1,15 +1,7 @@
-<?php
-
-use BondarDe\Lox\Livewire\LiveModelList;
-
-?>
-<form
-        wire:submit="updateSearchQuery"
->
+<form>
     <x-form.input
-            wire:model="value"
-            wire:change.debounce="updateSearchQuery"
-            :name="LiveModelList::URL_PARAM_SEARCH_QUERY"
-            placeholder="Search"
+        wire:model.live.debounce="value"
+        :name="BondarDe\Lox\Livewire\LiveModelList::URL_PARAM_SEARCH_QUERY"
+        placeholder="Search"
     />
 </form>

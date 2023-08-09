@@ -1,6 +1,6 @@
 <div>
     <table
-            class="table w-full"
+        class="table w-full"
     >
         <thead class="bg-gray-100 dark:bg-gray-800">
         <tr>
@@ -30,8 +30,8 @@
             <tfoot class="border-t-2">
             <tr>
                 <td
-                        class="pl-4 pr-4 pt-0 pb-0"
-                        colspan="{{ count($modelAttributes) }}"
+                    class="pl-4 pr-4 pt-0 pb-0"
+                    colspan="{{ count($modelAttributes) }}"
                 >
                     {!! $pagination !!}
                 </td>

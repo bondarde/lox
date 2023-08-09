@@ -1,14 +1,13 @@
 <div>
     @if($supportsFilters)
-        <div>
-            <div class="font-semibold">{{ __('Filter') }}</div>
+        <div class="flex flex-col gap-3">
             @foreach($allFilters as $filters)
-                <div class="flex flex-wrap mb-3 -mx-1 gap-x-4 gap-y-1">
+                <div class="flex flex-wrap gap-x-4 gap-y-1">
                     @foreach($filters as $key => $filter)
                         <button
                             @class([
-                                'cursor-pointer px-2 py-1',
-                                'px-4_py-2 rounded-md transition-colors duration-200 hover:bg-indigo-600 hover:text-white hover:shadow dark:hover:bg-indigo-500 dark:hover:text-gray-200 font-semibold shadow bg-indigo-600 text-white dark:bg-indigo-500 dark:text-gray-200' => $this->isFilterActive($key),
+                                'cursor-pointer px-2 py-1 gap-1',
+                                'rounded-md transition-colors duration-200 hover:bg-indigo-600 hover:text-white hover:shadow dark:hover:bg-indigo-500 dark:hover:text-gray-200 shadow bg-indigo-600 text-white dark:bg-indigo-500 dark:text-gray-200' => $this->isFilterActive($key),
                             ])
                             wire:click="$parent.toggleFilter('{{ $key }}')"
                         >
@@ -29,7 +28,6 @@
 
     @if($supportsSorts)
         <div>
-            <div class="font-semibold">{{ __('Sorting') }}</div>
             <ul class="flex flex-wrap mb-2 gap-x-4 gap-y-1">
                 @foreach($allSorts as $key => $sort)
                     @include('lox::_filter-sort-item', [

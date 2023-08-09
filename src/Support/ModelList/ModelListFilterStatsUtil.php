@@ -2,6 +2,7 @@
 
 namespace BondarDe\Lox\Support\ModelList;
 
+use BondarDe\Lox\Livewire\ModelList\Support\ModelListUtil;
 use BondarDe\Lox\ModelList\ModelFilter;
 use BondarDe\Lox\ModelList\ModelFilters;
 use Closure;
@@ -64,7 +65,7 @@ class ModelListFilterStatsUtil
         array $allFilters,
     ): int
     {
-        $query = $model::query();
+        $query = ModelListUtil::toQueryBuilder($model);
         $flattenedFilters = array_merge([], ...$allFilters);
         $tmp = [];
 

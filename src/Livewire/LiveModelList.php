@@ -33,7 +33,7 @@ class LiveModelList extends Component
     public string $model;
 
     #[Url(as: self::URL_PARAM_PAGE)]
-    public string $currentPage = '';
+    public ?string $currentPage = null;
 
     #[Url(as: self::URL_PARAM_SEARCH_QUERY)]
     public string $searchQuery = '';
@@ -95,10 +95,13 @@ class LiveModelList extends Component
     public function onSearchValueChange(string $newValue): void
     {
         $this->searchQuery = $newValue;
+        $this->currentPage = null;
     }
 
     public function toggleFilter(string $filterName): void
     {
+        $this->currentPage = null;
+
         if ($filterName === ModelFilters::ALL) {
             if (!in_array(ModelFilters::ALL, $this->activeFilters)) {
                 // remove all other filters, set active to "all"
@@ -185,7 +188,7 @@ class LiveModelList extends Component
                 (new $this->model)->getPerPage(),
                 ['*'],
                 'page',
-                $this->currentPage ?: null,
+                $this->currentPage ?: '',
             );
         $paginator
             ->setPath($this->currentPath)
@@ -203,7 +206,9 @@ class LiveModelList extends Component
         $itemsPaginator = $this->getItemsPaginator();
 
         $items = collect($itemsPaginator->items());
-        $links = $itemsPaginator->links('lox::pagination');
+        $links = $itemsPaginator->hasPages()
+            ? $itemsPaginator->links('lox::pagination')
+            : null;
         $pageTitle = self::toPageTitle($this->pageTitle, $itemsPaginator->total());
 
         return view('lox::livewire.model-list.index', compact(

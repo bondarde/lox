@@ -141,11 +141,14 @@ class ModelListUtil
     }
 
 
-    private static function toQueryBuilder(string $model): Builder
+    public static function toQueryBuilder(string $model): Builder
     {
         /** @var Model $model */
 
-        if (is_subclass_of($model, ModelListQueryable::class)) {
+        if (
+            is_subclass_of($model, ModelListQueryable::class)
+            && $model::getModelListQuery() !== null
+        ) {
             return $model::getModelListQuery();
         }
 
