@@ -2,6 +2,7 @@
 
 namespace BondarDe\Lox\Livewire\ModelList;
 
+use BondarDe\Lox\Livewire\ModelList\Columns\ColumnConfigurations;
 use BondarDe\Lox\Livewire\ModelList\Concerns\WithConfigurableColumns;
 use BondarDe\Lox\Livewire\ModelList\Data\ColumnConfiguration;
 use Illuminate\Contracts\View\View;
@@ -18,7 +19,7 @@ class Content extends Component
     public array $modelAttributes = [];
     private ?array $columnConfigs = null;
 
-    private static function toModelAttributes(?array $columnConfigs, Model $firstItem)
+    private static function toModelAttributes(?array $columnConfigs, Model $firstItem): array
     {
         if ($columnConfigs) {
             return collect($columnConfigs)
@@ -40,13 +41,13 @@ class Content extends Component
             ->toArray();
     }
 
-    private function renderItem(Model $item, string $key): View|string|null
+    private function renderItem(Model $item, string $key, ?string $searchQuery): View|string|null
     {
         $config = $this->columnConfigs[$key];
 
         if (is_string($config)) {
             // only column title is configured
-            return $item->{$key};
+            return ColumnConfigurations::render($item, $key, $searchQuery);
         }
 
         /** @var ColumnConfiguration $config */
@@ -70,14 +71,20 @@ class Content extends Component
 
         $hasConfigurableColumns = is_subclass_of($firstItem, WithConfigurableColumns::class);
 
-        if ($hasConfigurableColumns) {
-            /** @var WithConfigurableColumns $firstItem */
-            $this->columnConfigs = $firstItem->getModelListColumnConfigurations();
-        }
+        /** @var Model&WithConfigurableColumns $firstItem */
+        $this->columnConfigs = match ($hasConfigurableColumns) {
+            true => $firstItem->getModelListColumnConfigurations(),
+            default => collect($firstItem->getAttributes())
+                ->keys()
+                ->mapWithKeys(fn(string $key) => [
+                    $key => ucfirst($key),
+                ])
+                ->toArray(),
+        };
 
         $this->modelAttributes = self::toModelAttributes($this->columnConfigs, $firstItem);
 
-        $renderItem = fn(Model $item, string $key) => $this->renderItem($item, $key);
+        $renderItem = fn(Model $item, string $key) => $this->renderItem($item, $key, $this->searchQuery);
 
         return view('lox::livewire.model-list.content', compact(
             'renderItem',
