@@ -1,5 +1,5 @@
 <x-content
-    class="md:flex md:border-l-4 text-gray-800 dark:text-gray-100 focus-within:text-black dark:focus-within:text-white focus-within:border-gray-700 dark:border-gray-800 focus-within:dark:border-gray-700 focus-within:shadow-xl"
+    class="md:flex gap-8 md:border-l-4 text-gray-800 dark:text-gray-100 focus-within:text-black dark:focus-within:text-white focus-within:border-gray-700 dark:border-gray-800 focus-within:dark:border-gray-700 focus-within:shadow-xl"
 >
     <div class="mb-4 md:w-1/4">
         <label
