@@ -3,6 +3,7 @@
 namespace BondarDe\Lox\ModelList;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 
 abstract class ModelFilters
 {
@@ -24,8 +25,8 @@ abstract class ModelFilters
         $lastYear ??= Carbon::now()->year;
         $makeModelFilter ??= function (int $y) use ($fieldName): ModelFilter {
             return new ModelFilter(
-                $y,
-                'YEAR(' . $fieldName . ') = ' . $y,
+                label: $y,
+                query: fn(Builder $q) => $q->whereYear($fieldName, $y),
             );
         };
         $makeFilterKey ??= function (int $y): string {
@@ -48,8 +49,8 @@ abstract class ModelFilters
             $date->month($m);
 
             return new ModelFilter(
-                $date->isoFormat('MMM'),
-                'MONTH(' . $fieldName . ') = ' . $m,
+                label: $date->isoFormat('MMM'),
+                query: fn(Builder $q) => $q->whereMonth($fieldName, $m),
             );
         };
         $makeFilterKey ??= function (int $y): string {
