@@ -3,15 +3,15 @@
 namespace BondarDe\Lox\Models;
 
 use BondarDe\Lox\Constants\ModelCastTypes;
+use BondarDe\Lox\Livewire\ModelList\Concerns\WithConfigurableColumns;
+use BondarDe\Lox\Models\Columns\UserColumns;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable implements WithConfigurableColumns
 {
     use HasFactory;
     use Notifiable;
@@ -44,4 +44,9 @@ class User extends Authenticatable
     protected $casts = [
         self::FIELD_EMAIL_VERIFIED_AT => ModelCastTypes::DATETIME,
     ];
+
+    public static function getModelListColumnConfigurations(): ?string
+    {
+        return UserColumns::class;
+    }
 }
