@@ -2,12 +2,12 @@
 
 namespace BondarDe\Lox\Livewire\ModelList\Concerns;
 
-use BondarDe\Lox\Livewire\ModelList\Data\ColumnConfiguration;
+use BondarDe\Lox\Livewire\ModelList\Columns\ColumnConfigurations;
 
 interface WithConfigurableColumns
 {
     /**
-     * @return array<string, ColumnConfiguration>
+     * @return ?string class returning {@link ColumnConfigurations}
      */
-    public static function getModelListColumnConfigurations(): array;
+    public static function getModelListColumnConfigurations(): ?string;
 }

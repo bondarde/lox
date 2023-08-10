@@ -73,7 +73,7 @@ class Content extends Component
 
         /** @var Model&WithConfigurableColumns $firstItem */
         $this->columnConfigs = match ($hasConfigurableColumns) {
-            true => $firstItem->getModelListColumnConfigurations(),
+            true => $firstItem->getModelListColumnConfigurations()::all(),
             default => collect($firstItem->getAttributes())
                 ->keys()
                 ->mapWithKeys(fn(string $key) => [
