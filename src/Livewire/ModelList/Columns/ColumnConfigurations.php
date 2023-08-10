@@ -29,11 +29,20 @@ abstract class ColumnConfigurations
             render: function (Model $model, ?string $q) use ($column): string {
                 $content = $model->{$column};
 
-                return Blade::render('<x-search-highlighted-text :q="$q">{{ $content }}</x-search-highlighted-text>', compact(
-                    'content',
-                    'q',
-                ));
+                return self::highlightSearchQuery($content, $q);
             }
         );
+    }
+
+    protected static function highlightSearchQuery(?string $content, ?string $q): string
+    {
+        if (!$content) {
+            return '';
+        }
+
+        return Blade::render('<x-search-highlighted-text :q="$q">{{ $content }}</x-search-highlighted-text>', compact(
+            'content',
+            'q',
+        ));
     }
 }
