@@ -6,6 +6,7 @@
                     @foreach($filters as $key => $filter)
                         <button
                             @class([
+                                'opacity-50' => ($countsByFilter[$key] ?? null) === 0,
                                 'cursor-pointer px-2 py-1 gap-1',
                                 'rounded-md transition-colors duration-200 hover:bg-indigo-600 hover:text-white hover:shadow dark:hover:bg-indigo-500 dark:hover:text-gray-200 shadow bg-indigo-600 text-white dark:bg-indigo-500 dark:text-gray-200' => $this->isFilterActive($key),
                             ])
@@ -13,7 +14,7 @@
                         >
                             {{ $filter->label }}
                             <livewire:model-list.filter-item-count
-                                key="{{ Str::random() }}"
+                                :$key
                                 :$model
                                 :$activeFilters
                                 :filter-name="$key"

@@ -6,6 +6,7 @@ use BondarDe\Lox\Livewire\ModelList\Support\ModelListUtil;
 use BondarDe\Lox\ModelList\ModelFilters;
 use BondarDe\Lox\Support\ModelList\ModelListUrlQueryUtil;
 use Illuminate\Contracts\View\View;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Filter extends Component
@@ -17,6 +18,14 @@ class Filter extends Component
 
     public array $activeFilters;
     public array $activeSorts;
+
+    public array $countsByFilter = [];
+
+    #[On('filter-count:updated')]
+    public function onFilterCountUpdated($filterName, $count): void
+    {
+        $this->countsByFilter[$filterName] = $count;
+    }
 
     public function isFilterActive(string $filter): bool
     {
