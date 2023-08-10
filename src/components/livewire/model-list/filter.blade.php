@@ -4,11 +4,15 @@
             @foreach($allFilters as $filters)
                 <div class="flex flex-wrap gap-x-4 gap-y-1">
                     @foreach($filters as $key => $filter)
+                        @php
+                            $isActive = $this->isFilterActive($key);
+                        @endphp
                         <button
                             @class([
+                                'cursor-pointer px-2 py-1 gap-1 rounded-md transition-colors duration-200',
+                                'hover:bg-indigo-700 hover:text-white hover:shadow dark:hover:bg-indigo-600 dark:hover:text-gray-200',
+                                'shadow bg-indigo-600 text-white dark:bg-indigo-700 dark:text-gray-200' => $isActive,
                                 'opacity-50' => ($countsByFilter[$key] ?? null) === 0,
-                                'cursor-pointer px-2 py-1 gap-1',
-                                'rounded-md transition-colors duration-200 hover:bg-indigo-600 hover:text-white hover:shadow dark:hover:bg-indigo-500 dark:hover:text-gray-200 shadow bg-indigo-600 text-white dark:bg-indigo-500 dark:text-gray-200' => $this->isFilterActive($key),
                             ])
                             wire:click="$parent.toggleFilter('{{ $key }}')"
                         >
