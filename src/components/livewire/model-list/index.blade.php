@@ -4,10 +4,10 @@
     <x-content
         padding=""
     >
-        @if($supportsFilters || $supportsSorts || $supportsTextSearch)
+        @if($supportsFilters || $supportsSorts || $supportsSearch)
             <div class="flex gap-4 p-4">
                 <div class="grow">
-                    @if($supportsTextSearch)
+                    @if($supportsSearch)
                         <livewire:model-list.search
                             :value="$searchQuery"
                         />

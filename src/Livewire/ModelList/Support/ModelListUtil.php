@@ -86,24 +86,11 @@ class ModelListUtil
         }
 
         if ($searchQuery) {
-            $values = explode(' ', trim($searchQuery));
+            $ids = $model::search($searchQuery)
+                ->get()
+                ->pluck('id');
 
-            $query->where(function (Builder $q) use ($model, $values) {
-                foreach ($values as $value) {
-                    foreach ($model::getModelListSearchFields() as $columnOrQueryModifier) {
-                        if ($columnOrQueryModifier instanceof Closure) {
-                            $columnOrQueryModifier($q, $value);
-                        } else if (is_string($columnOrQueryModifier)) {
-                            $column = $columnOrQueryModifier;
-                            $searchValue = '%' . $value . '%';
-
-                            $q->orWhere($column, 'LIKE', $searchValue);
-                        } else {
-                            throw new IllegalStateException('Unsupported column config type: "' . gettype($columnOrQueryModifier) . '"');
-                        }
-                    }
-                }
-            });
+            $query->whereIn('id', $ids);
         }
 
         return $query;

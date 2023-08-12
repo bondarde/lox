@@ -6,8 +6,8 @@ use BondarDe\Lox\Exceptions\IllegalStateException;
 use BondarDe\Lox\Livewire\ModelList\Support\ModelListUtil;
 use BondarDe\Lox\ModelList\ModelFilters;
 use BondarDe\Lox\ModelList\ModelListFilterable;
-use BondarDe\Lox\ModelList\ModelListSearchable;
 use BondarDe\Lox\ModelList\ModelListSortable;
+use BondarDe\Lox\Support\ClassUtil;
 use BondarDe\Lox\Support\ModelList\ModelListUrlQueryUtil;
 use BondarDe\Lox\Support\NumbersFormatter;
 use Illuminate\Contracts\View\View;
@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Route;
+use Laravel\Scout\Searchable;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -46,7 +47,7 @@ class LiveModelList extends Component
 
     public bool $supportsFilters;
     public bool $supportsSorts;
-    public bool $supportsTextSearch;
+    public bool $supportsSearch;
 
     public bool $isFilterPanelVisible = false;
     public int $filterBadgeCount = 0;
@@ -76,7 +77,7 @@ class LiveModelList extends Component
 
         $this->supportsFilters = is_subclass_of($this->model, ModelListFilterable::class) && $this->model::getModelListFilters() !== null;
         $this->supportsSorts = is_subclass_of($this->model, ModelListSortable::class) && $this->model::getModelListSorts() !== null;
-        $this->supportsTextSearch = is_subclass_of($this->model, ModelListSearchable::class) && $this->model::getModelListSearchFields() !== null;
+        $this->supportsSearch = self::hasSearchableTrait($this->model);
 
         $this->activeFilters = explode(',', $this->filters ?? ModelFilters::ALL);
         $this->activeSorts = $this->sorts
@@ -179,7 +180,7 @@ class LiveModelList extends Component
             $this->withArchived,
             $this->activeFilters,
             $this->activeSorts,
-            $this->supportsTextSearch ? $this->searchQuery : null,
+            $this->supportsSearch ? $this->searchQuery : null,
         );
     }
 
@@ -201,6 +202,11 @@ class LiveModelList extends Component
         if (!is_subclass_of($className, $parentClassName)) {
             throw new IllegalStateException($className . ' must be a subclass of ' . $parentClassName);
         }
+    }
+
+    private static function hasSearchableTrait(string $className): bool
+    {
+        return ClassUtil::hasTrait($className, Searchable::class);
     }
 
     private function getItemsPaginator(): LengthAwarePaginator

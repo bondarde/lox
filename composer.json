@@ -26,7 +26,9 @@
         "aws/aws-sdk-php": "^3.233",
         "laravel/socialite": "^5.5",
         "firebase/php-jwt": "^6.3",
-        "livewire/livewire": "^3.0@beta"
+        "livewire/livewire": "^3.0@beta",
+        "laravel/scout": "^10.2",
+        "teamtnt/laravel-scout-tntsearch-driver": "^13.2"
     },
     "require-dev": {
         "orchestra/testbench": "^8.0",

@@ -27,6 +27,11 @@ class AdminSystemStatusIndexController
                 route('admin.system.database.index'),
             ),
             new SystemCategory(
+                'Search Status',
+                'Scout TNT Search status',
+                route('admin.system.search-status'),
+            ),
+            new SystemCategory(
                 'Schedule',
                 'Scheduled tasks with previous/last runs & details',
                 route('admin.system.schedule'),

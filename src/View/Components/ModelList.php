@@ -25,7 +25,9 @@ use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\Component;
+use JetBrains\PhpStorm\Deprecated;
 
+#[Deprecated]
 class ModelList extends Component
 {
     public const URL_PARAM_FILTERS = 'filters';

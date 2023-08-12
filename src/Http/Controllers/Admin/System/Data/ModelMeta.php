@@ -37,4 +37,9 @@ class ModelMeta
             . $this->className
             . '</span>';
     }
+
+    public function __toString(): string
+    {
+        return $this->htmlLabel();
+    }
 }
