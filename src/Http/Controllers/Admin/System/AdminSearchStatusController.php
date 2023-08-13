@@ -59,7 +59,7 @@ class AdminSearchStatusController
         }
 
         $rowsTotal = $model->count();
-        $recordsDifference = $rowsTotal - $rowsIndexed;
+        $recordsDifference = abs($rowsTotal - $rowsIndexed);
 
         $indexedColumns = $rowsTotal
             ? array_keys($model->first()->toSearchableArray())
