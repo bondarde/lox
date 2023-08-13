@@ -378,8 +378,7 @@ task('artisan:scout:import', function () {
     $importedCount = 0;
 
     foreach ($models as $model) {
-        $res = artisan("scout:import \"$model\"");
-        writeln($res);
+        artisan("scout:import \"$model\"");
         $importedCount++;
     }
 
