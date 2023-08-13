@@ -376,15 +376,15 @@ task('artisan:scout:import', function () {
     };
 
     $models = get('scout_models', $modelsLoader());
-    $modelsCount = count($models);
-
-    writeln("Importing $modelsCount scout models…");
     $importedCount = 0;
 
     foreach ($models as $model) {
-        artisan("scout:import \"$model\"", [
+        writeln("Importing \"$model\"…");
+        $task = artisan("scout:import \"$model\"", [
             'showOutput',
         ]);
+        $task();
+
         $importedCount++;
     }
 
