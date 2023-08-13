@@ -357,6 +357,10 @@ task('deploy:update_code', function () {
 });
 
 
+task('artisan:acl-update', artisan('acl:update-roles-and-permission'))
+    ->desc('Update ACL setup');
+
+
 task('artisan:scout:import', function () {
     $modelsLoader = function () {
         $rootDir = get('root_dir');
@@ -384,9 +388,10 @@ task('artisan:scout:import', function () {
     ->desc('Import models into Laravel Scout after migrations applied');
 
 
-after('artisan:migrate', artisan('acl:update-roles-and-permission'))
-    ->desc('ACL setup');
-after('artisan:migrate', 'artisan:scout:import');
+after('artisan:migrate', [
+    'artisan:acl-update',
+    'artisan:scout:import',
+]);
 
 
 task('deploy:assign_releases_dir_to_server_user', function () {
