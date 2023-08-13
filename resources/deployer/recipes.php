@@ -4,7 +4,9 @@
 
 use BondarDe\Lox\Data\Aws\AwsSecretsLoadConfig;
 use BondarDe\Lox\Support\AwsSecretsLoader;
+use BondarDe\Lox\Support\Search\DiscoveryUtil;
 use BondarDe\Lox\Support\ViteManifestParser;
+use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Support\Str;
 use function Deployer\after;
 use function Deployer\artisan;
@@ -354,8 +356,37 @@ task('deploy:update_code', function () {
     upload('{{build_path}}/', '{{release_path}}/');
 });
 
+
+task('artisan:scout:import', function () {
+    $modelsLoader = function () {
+        $rootDir = get('root_dir');
+        require $rootDir . '/vendor/autoload.php';
+        $app = require $rootDir . '/bootstrap/app.php';
+        $app->make(Kernel::class)->bootstrap();
+
+        return DiscoveryUtil::getModels();
+    };
+
+    $models = get('scout_models', $modelsLoader());
+    $modelsCount = count($models);
+
+    writeln("Importing $modelsCount scout models…");
+    $importedCount = 0;
+
+    foreach ($models as $model) {
+        $res = artisan("scout:import \"$model\"");
+        writeln($res);
+        $importedCount++;
+    }
+
+    info("$importedCount models imported.");
+})
+    ->desc('Import models into Laravel Scout after migrations applied');
+
+
 after('artisan:migrate', artisan('acl:update-roles-and-permission'))
     ->desc('ACL setup');
+after('artisan:migrate', 'artisan:scout:import');
 
 
 task('deploy:assign_releases_dir_to_server_user', function () {

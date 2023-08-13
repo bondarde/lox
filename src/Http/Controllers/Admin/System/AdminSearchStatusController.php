@@ -3,6 +3,7 @@
 namespace BondarDe\Lox\Http\Controllers\Admin\System;
 
 use BondarDe\Lox\Http\Controllers\Admin\System\Data\SearchIndexStatus;
+use BondarDe\Lox\Support\Search\DiscoveryUtil;
 use ReflectionMethod;
 use TeamTNT\Scout\Console\StatusCommand;
 use TeamTNT\TNTSearch\Exceptions\IndexNotFoundException;
@@ -23,13 +24,10 @@ class AdminSearchStatusController
         $rows = [];
         $cmd = new StatusCommand();
 
-        $reflectionMethod = new ReflectionMethod($cmd, 'getSearchableModelsFromClasses');
-        $reflectionMethod->setAccessible(true);
-
         $loadTNTEngine = new ReflectionMethod($cmd, 'loadTNTEngine');
         $loadTNTEngine->setAccessible(true);
 
-        $searchableModels = $reflectionMethod->invoke($cmd);
+        $searchableModels = DiscoveryUtil::getModels();
 
         foreach ($searchableModels as $className) {
             $rows[] = self::toSearchIndexStatus(
