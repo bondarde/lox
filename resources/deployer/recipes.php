@@ -388,10 +388,11 @@ task('artisan:scout:import', function () {
     ->desc('Import models into Laravel Scout after migrations applied');
 
 
-after('artisan:migrate', function () {
-    run('artisan:acl-update');
-    run('artisan:scout:import');
-});
+task('deploy:data-update', [
+    'artisan:acl-update',
+    'artisan:scout:import',
+]);
+after('artisan:migrate', 'deploy:data-update');
 
 
 task('deploy:assign_releases_dir_to_server_user', function () {
