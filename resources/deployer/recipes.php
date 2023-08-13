@@ -8,6 +8,7 @@ use BondarDe\Lox\Support\Search\DiscoveryUtil;
 use BondarDe\Lox\Support\ViteManifestParser;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Support\Str;
+use function Deployer\add;
 use function Deployer\after;
 use function Deployer\artisan;
 use function Deployer\ask;
@@ -42,6 +43,9 @@ set('opcache_reset_mode', 'local');
 set('server_user', 'www-data');
 set('chown_use_sudo', true);
 set('shared_files', []);
+add('writable_dirs', [
+    'storage/tntsearch',
+]);
 
 set('stage', function () {
     return get('labels')['stage'];
