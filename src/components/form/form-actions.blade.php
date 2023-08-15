@@ -1,4 +1,4 @@
-<div {{ $attributes->merge(['class' => 'p-4 flex flex-col md:flex-row-reverse']) }}>
+<div {{ $attributes->merge(['class' => 'p-4 flex gap-8 flex-col md:flex-row-reverse']) }}>
     <div class="mb-4 md:w-3/4">
         {{ $slot }}
     </div>
