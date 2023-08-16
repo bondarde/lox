@@ -9,7 +9,7 @@
 <div class="md:flex p-4 mb-8 gap-8">
     <div class="mb-4 md:w-1/4">
     </div>
-    <div class="md:w-2/4">
+    <div class="md:w-3/4">
         {{ $cancel ?? '' }}
     </div>
 </div>
