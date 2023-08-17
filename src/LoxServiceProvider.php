@@ -6,6 +6,7 @@ use BondarDe\Lox\Console\Commands\Acl\AclMakeSuperAdminCommand;
 use BondarDe\Lox\Console\Commands\Acl\AclUpdateRolesAndPermissionsCommand;
 use BondarDe\Lox\Constants\Environment;
 use BondarDe\Lox\Contracts\View\PageConfig;
+use BondarDe\Lox\Livewire\FileUpload;
 use BondarDe\Lox\Livewire\LiveModelList;
 use BondarDe\Lox\Livewire\ModelList\Content as ModelListContent;
 use BondarDe\Lox\Livewire\ModelList\Filter;
@@ -163,6 +164,8 @@ class LoxServiceProvider extends ServiceProvider
 
     private function configureLivewire(): void
     {
+        Livewire::component('file-upload', FileUpload::class);
+
         Livewire::component('live-model-list', LiveModelList::class);
         Livewire::component('model-list.search', Search::class);
         Livewire::component('model-list.filter', Filter::class);

@@ -1,4 +1,9 @@
 {
+    "{1} Maximum one file!|[2,*] Maximum :count files!": "{1} Höchstens eine Datei!|[2,*] Höchstens :count Dateien!",
+    "Upload of “:file” failed!": "„:file“ konnte nicht hochgeladen werden!",
+    "Uploading": "Wird hochgeladen",
+    "Add file": "Datei hinzufügen",
+    "Remove": "Entfernen",
     "all": "alle",
     "Results": "Ergebnisse",
     "Edit": "Bearbeiten",
