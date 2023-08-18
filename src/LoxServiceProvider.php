@@ -4,6 +4,7 @@ namespace BondarDe\Lox;
 
 use BondarDe\Lox\Console\Commands\Acl\AclMakeSuperAdminCommand;
 use BondarDe\Lox\Console\Commands\Acl\AclUpdateRolesAndPermissionsCommand;
+use BondarDe\Lox\Console\Commands\Search\ScoutRefreshCommand;
 use BondarDe\Lox\Constants\Environment;
 use BondarDe\Lox\Contracts\View\PageConfig;
 use BondarDe\Lox\Livewire\FileUpload;
@@ -154,6 +155,7 @@ class LoxServiceProvider extends ServiceProvider
         $this->commands([
             AclMakeSuperAdminCommand::class,
             AclUpdateRolesAndPermissionsCommand::class,
+            ScoutRefreshCommand::class,
         ]);
     }
 

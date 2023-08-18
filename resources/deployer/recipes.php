@@ -365,7 +365,7 @@ task('artisan:acl-update', artisan('acl:update-roles-and-permission'))
     ->desc('Update ACL setup');
 
 
-task('artisan:scout:import', function () {
+task('artisan:scout:refresh', function () {
     $modelsLoader = function () {
         $rootDir = get('root_dir');
         require $rootDir . '/vendor/autoload.php';
@@ -380,7 +380,7 @@ task('artisan:scout:import', function () {
 
     foreach ($models as $model) {
         writeln("Importing \"$model\"…");
-        $task = artisan("scout:import \"$model\"", [
+        $task = artisan("scout:refresh \"$model\"", [
             'showOutput',
         ]);
         $task();
@@ -395,7 +395,7 @@ task('artisan:scout:import', function () {
 
 task('deploy:data-update', [
     'artisan:acl-update',
-    'artisan:scout:import',
+    'artisan:scout:refresh',
 ]);
 after('artisan:migrate', 'deploy:data-update');
 
