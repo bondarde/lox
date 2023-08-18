@@ -1,3 +1,8 @@
+<?php
+
+use Illuminate\Support\Str;
+
+?>
 <div>
     <h2>{{ $pageTitle }}</h2>
 
