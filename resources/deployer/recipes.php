@@ -438,7 +438,7 @@ task('deploy:assign_search_indexes_to_server_user', function () {
     writeln("Assign search indexes to server user ($serverUser)…");
 
     cd('{{ release_or_current_path }}/storage/tntsearch');
-    run("$sudo chown -R $serverUser ./*.index*");
+    run("$sudo chown $serverUser ./*.index*");
 });
 after('artisan:scout:refresh', 'deploy:assign_search_indexes_to_server_user');
 
