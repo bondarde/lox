@@ -101,6 +101,7 @@ after('deploy:symlink', 'deploy:clear_opcache');
 after('deploy:writable', 'deploy:assign_upload_to_server_user');
 after('deploy:writable', 'deploy:assign_releases_dir_to_server_user');
 after('deploy:writable', 'deploy:assign_writable_dirs_to_server_user');
+after('artisan:scout:refresh', 'deploy:assign_search_indexes_to_server_user');
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -429,6 +430,16 @@ task('deploy:assign_upload_to_server_user', function () {
 
     cd('{{ release_or_current_path }}');
     run("$sudo chown -R $serverUser ./*");
+});
+
+task('deploy:assign_search_indexes_to_server_user', function () {
+    $sudo = get('chown_use_sudo') ? 'sudo' : '';
+    $serverUser = get('server_user');
+
+    writeln("Assign search indexes to server user ($serverUser)…");
+
+    cd('{{ release_or_current_path }}/storage/tntsearch');
+    run("$sudo chown -R $serverUser ./*.index*");
 });
 
 before('artisan:storage:link', function () {
