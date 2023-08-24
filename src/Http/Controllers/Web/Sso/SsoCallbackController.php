@@ -9,6 +9,7 @@ use BondarDe\Lox\Services\AppleToken;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 use Throwable;
 
@@ -44,10 +45,7 @@ class SsoCallbackController extends SsoController
 
         $id = $user->id;
         $email = $user->email;
-        $name = trim(match ($provider) {
-            'apple' => $user?->name?->firstName . ' ' . $user?->name?->lastName,
-            default => $user?->name,
-        }) ?: (ucfirst($provider) . ' User ' . $id);
+        $name = self::toName($user, $provider);
 
         if (!$email) {
             // generate unique email if none received from login provider
@@ -79,6 +77,21 @@ class SsoCallbackController extends SsoController
         };
 
         return $driver->user();
+    }
+
+    private static function toName($user, string $provider): string
+    {
+        if ($user?->name) {
+            if (is_string($user->name)) {
+                return $user->name;
+            }
+
+            if ($user->name?->firstName && $user->name?->lastName) {
+                return $user->name?->firstName . ' ' . $user->name?->lastName;
+            }
+        }
+
+        return ucfirst($provider) . ' User ' . Str::random(6);
     }
 
     private static function toRedirect(string $provider)
