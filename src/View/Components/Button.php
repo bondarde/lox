@@ -19,7 +19,7 @@ class Button extends Component
         private readonly string  $animation = 'transition ease-in-out duration-150',
         private string           $padding = 'px-4 py-2',
         private readonly string  $borders = 'border border-transparent rounded-md',
-        private string           $background = 'bg-gray-800 dark:bg-gray-200',
+        private string           $bg = 'bg-gray-800 dark:bg-gray-200',
         private string           $text = 'text-white dark:text-gray-900',
         private string           $hover = 'hover:bg-gray-700 dark:hover:bg-gray-100',
         private string           $active = 'active:bg-gray-900',
@@ -34,7 +34,7 @@ class Button extends Component
         switch ($this->color) {
             case 'info':
             case 'blue':
-                $this->background = 'bg-blue-800';
+                $this->bg = 'bg-blue-800';
                 $this->text = 'text-blue-100';
                 $this->hover = 'hover:bg-blue-600 text-blue-50';
                 $this->active = 'active:bg-blue-800';
@@ -42,7 +42,7 @@ class Button extends Component
                 break;
             case 'success':
             case 'green':
-                $this->background = 'bg-green-700';
+                $this->bg = 'bg-green-700';
                 $this->text = 'text-green-50';
                 $this->hover = 'hover:bg-green-600 hover:text-white';
                 $this->active = 'active:bg-green-800';
@@ -50,21 +50,21 @@ class Button extends Component
                 break;
             case 'warning':
             case 'yellow':
-                $this->background = 'bg-yellow-600';
+                $this->bg = 'bg-yellow-600';
                 $this->hover = 'hover:bg-yellow-500';
                 $this->active = 'active:bg-yellow-800';
                 $this->focus = 'focus:ring-yellow-100 focus:border-yellow-900';
                 break;
             case 'danger':
             case 'red':
-                $this->background = 'bg-red-800';
+                $this->bg = 'bg-red-800';
                 $this->text = 'text-red-50';
                 $this->hover = 'hover:bg-red-700 hover:text-white';
                 $this->active = 'active:bg-red-700';
                 $this->focus = 'focus:ring-red-200 focus:border-red-900';
                 break;
             case 'light':
-                $this->background = 'bg-gray-200 dark:bg-gray-800';
+                $this->bg = 'bg-gray-200 dark:bg-gray-800';
                 $this->text = 'text-gray-900 dark:text-gray-100';
                 $this->hover = 'hover:bg-gray-300 dark:hover:bg-gray-700';
                 $this->active = 'active:bg-gray-400';
@@ -108,7 +108,7 @@ class Button extends Component
                 $this->animation,
                 $this->padding,
                 $this->borders,
-                $this->background,
+                $this->bg,
                 $this->text,
                 $this->hover,
                 $this->active,
