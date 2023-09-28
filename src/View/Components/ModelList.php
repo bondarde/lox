@@ -44,7 +44,7 @@ class ModelList extends Component
     public array $allSorts;
 
     public bool $showFilters;
-    public bool $showSorts;
+    public bool $showSorts = false;
     public bool $showSearchQuery;
 
     private array $activeFilters;
@@ -97,7 +97,6 @@ class ModelList extends Component
         $this->pageTitle = self::toPageTitle($pageTitle, $this->items->total());
 
         $this->showFilters = is_subclass_of($model, ModelListFilterable::class);
-        $this->showSorts = is_subclass_of($model, ModelListSortable::class);
         $this->showSearchQuery = is_subclass_of($model, ModelListSearchable::class);
     }
 
@@ -148,8 +147,6 @@ class ModelList extends Component
 
         $activeFilters = $modelListData->activeFilters;
         $allFilters = $modelListData->allFilters;
-        $activeSorts = $modelListData->activeSorts;
-        $allSorts = $modelListData->allSorts;
 
         foreach ($activeFilters as $filterKey) {
             $filter = self::findFilterByKey($allFilters, $filterKey);
@@ -166,10 +163,6 @@ class ModelList extends Component
 
             $sql = '(' . $sql . ')';
             $query->whereRaw($sql);
-        }
-        foreach ($activeSorts as $sortKey) {
-            $sort = self::findSortByKey($allSorts, $sortKey);
-            $query->orderByRaw($sort->sql);
         }
         if ($modelListData->searchQuery && is_subclass_of($modelListData->model, ModelListSearchable::class)) {
             $modelInstance = new $modelListData->model;

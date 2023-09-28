@@ -28,27 +28,6 @@
         </div>
     @endif
 
-    @if($showSorts)
-        <div>
-            <h4 class="font-semibold">{{ __('Sorting') }}</h4>
-            <ul class="flex flex-wrap mb-2 gap-x-4 gap-y-1">
-                @foreach($allSorts as $key => $sort)
-                    @include('lox::_filter-sort-item', [
-                        'routeName' => $routeName,
-                        'routeParams' => $routeParams,
-                        'isActive' => $isSortActive($key),
-                        'label' => $sort->label,
-                        'title' => $sort->title,
-                        'filtersQuery' => $toFiltersQueryString(),
-                        'sortsQuery' => $toSortsQueryString($key),
-                        'searchQuery' => $searchQuery,
-                    ])
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-
     @if($showSearchQuery)
         <form
             method="get"
