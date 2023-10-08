@@ -28,14 +28,14 @@
         "firebase/php-jwt": "^6.3",
         "livewire/livewire": "^3.0",
         "laravel/scout": "^10.2",
-        "teamtnt/laravel-scout-tntsearch-driver": "^13.2"
+        "teamtnt/laravel-scout-tntsearch-driver": "^13.2",
+        "doctrine/dbal": "^3.7"
     },
     "require-dev": {
         "orchestra/testbench": "^8.0",
         "phpunit/phpunit": "^10.0"
     },
     "suggest": {
-        "doctrine/dbal": "Needed for DB stats"
     },
     "autoload": {
         "psr-4": {
