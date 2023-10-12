@@ -2,6 +2,7 @@
 
 namespace BondarDe\Lox;
 
+use BondarDe\Lox\Console\AboutCommandIntegration;
 use BondarDe\Lox\Console\Commands\Acl\AclMakeSuperAdminCommand;
 use BondarDe\Lox\Console\Commands\Acl\AclUpdateRolesAndPermissionsCommand;
 use BondarDe\Lox\Console\Commands\Search\ScoutRefreshCommand;
@@ -43,6 +44,7 @@ use BondarDe\Lox\View\Components\SurveyView;
 use BondarDe\Lox\View\Components\UserMessages;
 use BondarDe\Lox\View\Components\ValidationErrors;
 use BondarDe\Lox\View\DefaultPageConfig;
+use Illuminate\Foundation\Console\AboutCommand;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
@@ -110,6 +112,7 @@ class LoxServiceProvider extends ServiceProvider
 
         $this->configureConfig();
         $this->configureLivewire();
+        $this->configureAboutCommand();
     }
 
     private function configureRoutes(): void
@@ -175,5 +178,10 @@ class LoxServiceProvider extends ServiceProvider
         Livewire::component('model-list.content', ModelListContent::class);
         Livewire::component('model-list.filter-item-count', FilterItemCount::class);
         Livewire::component('model-list.actions', ModelListActions::class);
+    }
+
+    private function configureAboutCommand(): void
+    {
+        AboutCommand::add('Lox', AboutCommandIntegration::class);
     }
 }
