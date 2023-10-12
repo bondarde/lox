@@ -5,9 +5,11 @@ namespace BondarDe\Lox\Livewire\ModelList;
 use BondarDe\Lox\Livewire\ModelList\Columns\ColumnConfigurations;
 use BondarDe\Lox\Livewire\ModelList\Concerns\WithConfigurableColumns;
 use BondarDe\Lox\Livewire\ModelList\Data\ColumnConfiguration;
+use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Livewire\Attributes\Reactive;
 use Livewire\Component;
 
 class Content extends Component
@@ -15,6 +17,10 @@ class Content extends Component
     public Collection $items;
     public ?string $pagination;
     public string $searchQuery;
+    public bool $isActionPanelVisible;
+
+    #[Reactive]
+    public array $bulkActionPrimaryKeys;
 
     public array $modelAttributes = [];
     private ?array $columnConfigs = null;

@@ -3,12 +3,24 @@
 namespace BondarDe\Lox\Livewire\ModelList\Columns;
 
 use BondarDe\Lox\Livewire\ModelList\Data\ColumnConfiguration;
+use BondarDe\Lox\Livewire\ModelList\Data\ModelBulkAction;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Blade;
 
 abstract class ColumnConfigurations
 {
+    /**
+     * @return array<string, ColumnConfiguration>
+     */
     public static function all(): array
+    {
+        return [];
+    }
+
+    /**
+     * @return array<ModelBulkAction>
+     */
+    public static function actions(): array
     {
         return [];
     }

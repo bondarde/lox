@@ -3,6 +3,7 @@
 namespace BondarDe\Lox\Livewire;
 
 use BondarDe\Lox\Exceptions\IllegalStateException;
+use BondarDe\Lox\Livewire\ModelList\Concerns\WithConfigurableColumns;
 use BondarDe\Lox\Livewire\ModelList\Support\ModelListUtil;
 use BondarDe\Lox\ModelList\ModelFilters;
 use BondarDe\Lox\ModelList\ModelListFilterable;
@@ -48,12 +49,15 @@ class LiveModelList extends Component
     public bool $supportsFilters;
     public bool $supportsSorts;
     public bool $supportsSearch;
+    public bool $supportsActions;
 
     public bool $isFilterPanelVisible = false;
     public int $filterBadgeCount = 0;
+    public bool $isActionPanelVisible = false;
 
     public array $activeFilters;
     public array $activeSorts;
+    public array $bulkActionPrimaryKeys = [];
 
     public string $currentPath;
     public string $routeName;
@@ -78,6 +82,9 @@ class LiveModelList extends Component
         $this->supportsFilters = is_subclass_of($this->model, ModelListFilterable::class) && $this->model::getModelListFilters() !== null;
         $this->supportsSorts = is_subclass_of($this->model, ModelListSortable::class) && $this->model::getModelListSorts() !== null;
         $this->supportsSearch = self::hasSearchableTrait($this->model);
+        $this->supportsActions = is_subclass_of($this->model, WithConfigurableColumns::class)
+            && $this->model::getModelListColumnConfigurations() !== null
+            && count($this->model::getModelListColumnConfigurations()::actions()) > 0;
 
         $this->activeFilters = explode(',', $this->filters ?? ModelFilters::ALL);
         $this->activeSorts = $this->sorts
@@ -229,6 +236,19 @@ class LiveModelList extends Component
             ]);
 
         return $paginator;
+    }
+
+    public function toggleBulkActionForId(int|string $primaryKey): void
+    {
+        $idx = array_search($primaryKey, $this->bulkActionPrimaryKeys, true);
+
+        if ($idx !== false) {
+            // remove
+            unset($this->bulkActionPrimaryKeys[$idx]);
+        } else {
+            // add
+            $this->bulkActionPrimaryKeys[] = $primaryKey;
+        }
     }
 
     public function render(): ?View

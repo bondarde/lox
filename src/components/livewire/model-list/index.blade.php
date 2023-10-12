@@ -18,8 +18,8 @@ use Illuminate\Support\Str;
                         />
                     @endif
                 </div>
-                <div>
-                    @if($supportsFilters || $supportsSorts)
+                @if($supportsFilters || $supportsSorts)
+                    <div>
                         <x-button
                             type="button"
                             class="h-full"
@@ -41,8 +41,20 @@ use Illuminate\Support\Str;
                                 ></path>
                             </svg>
                         </x-button>
-                    @endif
-                </div>
+                    </div>
+                @endif
+                @if($supportsActions)
+                    <div>
+                        <x-button
+                            type="button"
+                            class="h-full"
+                            color="light"
+                            wire:click="$toggle('isActionPanelVisible')"
+                        >
+                            ⋯
+                        </x-button>
+                    </div>
+                @endif
             </div>
             @if($isFilterPanelVisible)
                 <div class="p-4 border-t">
@@ -52,17 +64,26 @@ use Illuminate\Support\Str;
                         :$activeSorts
                         :$supportsFilters
                         :$supportsSorts
-                        key="{{ $searchQuery . ':' . $filters.':' . $sorts }}"
+                        key="{{ $searchQuery . ':' . $filters . ':' . $sorts }}"
                     />
                 </div>
+            @endif
+            @if($isActionPanelVisible)
+                <livewire:model-list.actions
+                    :$model
+                    :selectedPrimaryKeys="$bulkActionPrimaryKeys"
+                    :key="($isActionPanelVisible ? '1' : '0') . count($bulkActionPrimaryKeys)"
+                />
             @endif
         @endif
 
         <livewire:model-list.content
             :$searchQuery
             :$items
+            :$isActionPanelVisible
+            :$bulkActionPrimaryKeys
             :pagination="$links"
-            key="{{ Str::random() }}"
+            :key="($isActionPanelVisible ? '1' : '0') . '-' . $items->pluck('id')->join('-')"
         />
     </x-content>
 </div>

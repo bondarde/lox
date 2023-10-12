@@ -9,6 +9,7 @@ use BondarDe\Lox\Constants\Environment;
 use BondarDe\Lox\Contracts\View\PageConfig;
 use BondarDe\Lox\Livewire\FileUpload;
 use BondarDe\Lox\Livewire\LiveModelList;
+use BondarDe\Lox\Livewire\ModelList\Actions as ModelListActions;
 use BondarDe\Lox\Livewire\ModelList\Content as ModelListContent;
 use BondarDe\Lox\Livewire\ModelList\Filter;
 use BondarDe\Lox\Livewire\ModelList\FilterItemCount;
@@ -173,5 +174,6 @@ class LoxServiceProvider extends ServiceProvider
         Livewire::component('model-list.filter', Filter::class);
         Livewire::component('model-list.content', ModelListContent::class);
         Livewire::component('model-list.filter-item-count', FilterItemCount::class);
+        Livewire::component('model-list.actions', ModelListActions::class);
     }
 }
