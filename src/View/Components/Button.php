@@ -12,6 +12,7 @@ class Button extends Component
         public readonly string   $tag = 'button',
         public ?string           $icon = null,
         public readonly ?string  $badge = null,
+        public readonly bool     $enabled = true,
 
         private readonly string  $position = 'relative',
         private readonly string  $base = 'inline-flex gap-2 items-center justify-center focus:outline-none focus:ring',
@@ -130,6 +131,10 @@ class Button extends Component
                 $attributes['type'] = $this->type;
             } else {
                 $attributes['type'] = 'submit';
+            }
+
+            if (!$this->enabled) {
+                $attributes['disabled'] = 'disabled';
             }
         }
 
