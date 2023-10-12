@@ -21,6 +21,7 @@ use Illuminate\Support\Str;
                 <div>
                     @if($supportsFilters || $supportsSorts)
                         <x-button
+                            type="button"
                             class="h-full"
                             color="light"
                             wire:click="$toggle('isFilterPanelVisible')"

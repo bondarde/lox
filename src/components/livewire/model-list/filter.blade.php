@@ -8,6 +8,7 @@
                             $isActive = $this->isFilterActive($key);
                         @endphp
                         <button
+                            type="button"
                             @class([
                                 'cursor-pointer px-2 py-1 gap-1 rounded-md transition-colors duration-200',
                                 'hover:bg-indigo-700 hover:text-white hover:shadow dark:hover:bg-indigo-600 dark:hover:text-gray-200',
