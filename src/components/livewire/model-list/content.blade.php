@@ -60,14 +60,13 @@
         @if($pagination)
             <tfoot class="border-t-2">
             <tr>
-                <td
-                    class="pl-4 pr-4 pt-0 pb-0"
-                    colspan="{{ count($modelAttributes) }}"
-                >
-                    {!! $pagination !!}
-                </td>
             </tr>
             </tfoot>
         @endif
     </table>
+    @if($pagination)
+        <div class="px-4">
+            {!! $pagination !!}
+        </div>
+    @endif
 </div>
