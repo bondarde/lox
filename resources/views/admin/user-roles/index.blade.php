@@ -26,10 +26,10 @@
                         {{ $role->guard_name }}
                     </td>
                     <td>
-                        @include(\BondarDe\LaravelToolbox\LaravelToolboxServiceProvider::NAMESPACE . '::admin.users._assigned_permissions', ['permissions' => $role->permissions, 'emptyText' => '—'])
+                        @include(\BondarDe\Lox\LoxServiceProvider::NAMESPACE . '::admin.users._assigned_permissions', ['permissions' => $role->permissions, 'emptyText' => '—'])
                     </td>
                     <td>
-                        @include(\BondarDe\LaravelToolbox\LaravelToolboxServiceProvider::NAMESPACE . '::admin.users._assigned_users', ['users' => $role->users, 'emptyText' => '—'])
+                        @include(\BondarDe\Lox\LoxServiceProvider::NAMESPACE . '::admin.users._assigned_users', ['users' => $role->users, 'emptyText' => '—'])
                     </td>
                 </tr>
             @endforeach
