@@ -1,10 +1,10 @@
 {
-    "$schema": "http://laravel-ide.com/schema/laravel-ide-v1.json",
+    "$schema": "https://laravel-ide.com/schema/laravel-ide-v2.json",
     "blade": {
         "components": {
             "viewPaths": [
                 {
-                    "path": "src/components"
+                    "path": "resources/views/components"
                 }
             ]
         }
