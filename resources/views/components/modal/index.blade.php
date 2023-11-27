@@ -12,15 +12,18 @@
     >
         <div
             @click="open = false"
-            class="fixed inset-0 bg-black/50"
+            class="fixed inset-0 bg-black/50 dark:bg-black/75"
         ></div>
 
 
         <div class="relative min-h-screen flex items-center justify-center p-4">
             <div
                 class="
-                    relative w-full max-w-2xl     max-h-screen overflow-y-scroll
-                    bg-white dark:bg-black rounded-xl shadow-lg p-8
+                    relative rounded-xl shadow-lg p-8 border
+                    w-full max-w-2xl
+                    max-h-screen overflow-y-scroll
+                    bg-gray-50 border-white
+                    dark:bg-gray-950 dark:border-gray-900
                 "
             >
                 <div class="flex gap-8 justify-between mb-4">
@@ -28,7 +31,7 @@
                     <button
                         @click="open = false"
                         type="button"
-                        class="p-2 opacity-75 -mt-4 -mr-2"
+                        class="p-2 opacity-50 hover:opacity-100 -mt-4 -mr-2"
                     >
                         ×
                         <span class="sr-only">

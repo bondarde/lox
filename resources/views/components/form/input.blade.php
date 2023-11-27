@@ -18,7 +18,7 @@
     class="flex overflow-hidden rounded-md shadow-sm border ring ring-transparent dark:border-gray-700 {{ $containerClass }}"
 >
     @if($prefix)
-        <span class="flex items-center text-sm px-2 text-gray-600 bg-gray-50 border-r">{{ $prefix }}</span>
+        <span class="flex items-center text-sm px-2 text-gray-600 dark:text-gray-200 bg-gray-50 dark:bg-gray-950 border-r">{{ $prefix }}</span>
     @endif
     <input
         {{ $attributes->merge([
@@ -32,6 +32,6 @@
         ]) }}
         {!! $props !!}/>
     @if($suffix)
-        <span class="flex items-center text-sm px-2 text-gray-600 bg-gray-50 border-l">{{ $suffix }}</span>
+        <span class="flex items-center text-sm px-2 text-gray-600 dark:text-gray-200 bg-gray-50 dark:bg-gray-950 border-l">{{ $suffix }}</span>
     @endif
 </label>
