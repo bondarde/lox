@@ -100,11 +100,11 @@ class LoxServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        $this->loadViewsFrom(__DIR__ . '/components', self::NAMESPACE);
+        $this->loadViewsFrom(__DIR__ . '/../resources/views/components', self::NAMESPACE);
         $this->loadViewsFrom(__DIR__ . '/../resources/views', self::NAMESPACE);
         $this->loadViewComponentsAs('', self::COMPONENTS);
-        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', self::NAMESPACE);
-        $this->loadJsonTranslationsFrom(__DIR__ . '/../resources/lang');
+        $this->loadTranslationsFrom(__DIR__ . '/../lang', self::NAMESPACE);
+        $this->loadJsonTranslationsFrom(__DIR__ . '/../lang');
 
         $this->configureRoutes();
         $this->configurePublishing();
