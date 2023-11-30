@@ -61,9 +61,9 @@ abstract class Choice extends FormComponent
         $old = $this->old;
 
         if ($this->isList) {
-            $isChecked = $old !== null && in_array($value, $old);
+            $isChecked = $old !== null && in_array($value, $old, true);
         } else {
-            $isChecked = $old !== null && $value == $old;
+            $isChecked = $old !== null && $value === $old;
         }
 
         if (!$isChecked) {
