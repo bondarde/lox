@@ -9,13 +9,19 @@
             <table class="table">
                 @foreach($status as $key => $value)
                     <tr @class([
-                        'border-t' => !$loop->first
+                        'border-t' => !$loop->first,
                     ])>
                         <td>
                             {{ $key }}
                         </td>
                         <td>
-                            {{ $value }}
+                            @switch(gettype($value))
+                                @case('string')
+                                    {{ $value }}
+                                    @break
+                                @default
+                                    <pre>{{ json_encode($value, JSON_PRETTY_PRINT) }}</pre>
+                            @endswitch
                         </td>
                     </tr>
                 @endforeach
