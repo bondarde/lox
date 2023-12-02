@@ -18,6 +18,7 @@ class User extends Authenticatable implements WithConfigurableColumns
     use TwoFactorAuthenticatable;
     use HasRoles;
 
+    const FIELD_ID = 'id';
     const FIELD_NAME = 'name';
     const FIELD_EMAIL = 'email';
     const FIELD_PASSWORD = 'password';

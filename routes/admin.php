@@ -1,6 +1,7 @@
 <?php
 
 use BondarDe\Lox\Data\Acl\AclSetupData;
+use BondarDe\Lox\Http\Controllers\Admin\Cms\AdminCmsPagesController;
 use BondarDe\Lox\Http\Controllers\Admin\System\AdminAboutController;
 use BondarDe\Lox\Http\Controllers\Admin\System\AdminCacheController;
 use BondarDe\Lox\Http\Controllers\Admin\System\AdminEventsController;
@@ -65,6 +66,13 @@ Route::group([
         Route::post('user-roles', AdminUserRoleStoreController::class)->name('user-roles.store');
         Route::get('user-roles/{role}/edit', AdminUserRoleEditController::class)->name('user-roles.edit');
         Route::patch('user-roles/{role}', AdminUserRoleUpdateController::class)->name('user-roles.update');
+    });
+    Route::group([
+        'middleware' => [
+            'can:' . AclSetupData::PERMISSION_EDIT_CMS_PAGES,
+        ],
+    ], function () {
+        Route::resource('cms-pages', AdminCmsPagesController::class);
     });
 
     Route::group([

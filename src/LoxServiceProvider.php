@@ -8,6 +8,7 @@ use BondarDe\Lox\Console\Commands\Acl\AclUpdateRolesAndPermissionsCommand;
 use BondarDe\Lox\Console\Commands\Search\ScoutRefreshCommand;
 use BondarDe\Lox\Constants\Environment;
 use BondarDe\Lox\Contracts\View\PageConfig;
+use BondarDe\Lox\Http\Controllers\Web\CmsContentController;
 use BondarDe\Lox\Livewire\FileUpload;
 use BondarDe\Lox\Livewire\LiveModelList;
 use BondarDe\Lox\Livewire\ModelList\Actions as ModelListActions;
@@ -44,8 +45,11 @@ use BondarDe\Lox\View\Components\SurveyView;
 use BondarDe\Lox\View\Components\UserMessages;
 use BondarDe\Lox\View\Components\ValidationErrors;
 use BondarDe\Lox\View\DefaultPageConfig;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Console\AboutCommand;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 
@@ -121,6 +125,10 @@ class LoxServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__ . '/../routes/user.php');
         $this->loadRoutesFrom(__DIR__ . '/../routes/admin.php');
 
+        if (config('lox.cms.fallback_route_enabled')) {
+            Route::fallback(CmsContentController::class);
+        }
+
         if (App::environment(Environment::LOCAL)) {
             $this->loadRoutesFrom(__DIR__ . '/../routes/local.php');
         }
@@ -148,6 +156,11 @@ class LoxServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../resources/views' => resource_path('views/vendor/bondarde/lox'),
         ], 'views');
+
+        $this->publishes([
+            __DIR__ . '/../database/migrations/create_cms_pages_table.php' => $this->getMigrationFileName('create_cms_pages_table.php'),
+            __DIR__ . '/../database/migrations/create_cms_redirects_table.php' => $this->getMigrationFileName('create_cms_redirects_table.php'),
+        ], 'lox-migrations');
     }
 
     private function configureCommands(): void
@@ -183,5 +196,17 @@ class LoxServiceProvider extends ServiceProvider
     private function configureAboutCommand(): void
     {
         AboutCommand::add('Lox', AboutCommandIntegration::class);
+    }
+
+    private function getMigrationFileName(string $migrationFileName)
+    {
+        $timestamp = date('Y_m_d_His');
+
+        $filesystem = $this->app->make(Filesystem::class);
+
+        return Collection::make([$this->app->databasePath() . DIRECTORY_SEPARATOR . 'migrations' . DIRECTORY_SEPARATOR])
+            ->flatMap(fn(string $path) => $filesystem->glob($path . '*_' . $migrationFileName))
+            ->push($this->app->databasePath() . "/migrations/{$timestamp}_$migrationFileName")
+            ->first();
     }
 }

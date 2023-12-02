@@ -29,7 +29,8 @@
         "livewire/livewire": "^3.0",
         "laravel/scout": "^10.2",
         "teamtnt/laravel-scout-tntsearch-driver": "^13.2",
-        "doctrine/dbal": "^3.7"
+        "doctrine/dbal": "^3.7",
+        "spatie/laravel-translatable": "^6.5"
     },
     "require-dev": {
         "orchestra/testbench": "^8.0",

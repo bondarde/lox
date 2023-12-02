@@ -37,4 +37,7 @@ return [
         'column_prefix' => env('LOX_SSO_COLUMN_PREFIX', 'sso'),
     ],
 
+    'cms' => [
+        'fallback_route_enabled' => env('LOX_CMS_FALLBACK_ROUTE_ENABLED', true),
+    ],
 ];
