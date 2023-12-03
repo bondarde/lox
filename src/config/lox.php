@@ -39,5 +39,9 @@ return [
 
     'cms' => [
         'fallback_route_enabled' => env('LOX_CMS_FALLBACK_ROUTE_ENABLED', true),
+        'assistant' => [
+            'model' => env('LOX_CMS_ASSISTANT_MODEL', 'gpt-4'),
+            'default_task' => env('LOX_CMS_ASSISTANT_DEFAULT_TASK'),
+        ],
     ],
 ];

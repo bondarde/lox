@@ -5,6 +5,7 @@ namespace BondarDe\Lox;
 use BondarDe\Lox\Console\AboutCommandIntegration;
 use BondarDe\Lox\Console\Commands\Acl\AclMakeSuperAdminCommand;
 use BondarDe\Lox\Console\Commands\Acl\AclUpdateRolesAndPermissionsCommand;
+use BondarDe\Lox\Console\Commands\Cms\ExecuteCmsTasksCommand;
 use BondarDe\Lox\Console\Commands\Search\ScoutRefreshCommand;
 use BondarDe\Lox\Constants\Environment;
 use BondarDe\Lox\Contracts\View\PageConfig;
@@ -160,6 +161,7 @@ class LoxServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../database/migrations/create_cms_pages_table.php' => $this->getMigrationFileName('create_cms_pages_table.php'),
             __DIR__ . '/../database/migrations/create_cms_redirects_table.php' => $this->getMigrationFileName('create_cms_redirects_table.php'),
+            __DIR__ . '/../database/migrations/create_cms_assistant_tasks_table.php' => $this->getMigrationFileName('create_cms_assistant_tasks_table.php'),
         ], 'lox-migrations');
     }
 
@@ -173,6 +175,7 @@ class LoxServiceProvider extends ServiceProvider
             AclMakeSuperAdminCommand::class,
             AclUpdateRolesAndPermissionsCommand::class,
             ScoutRefreshCommand::class,
+            ExecuteCmsTasksCommand::class,
         ]);
     }
 
