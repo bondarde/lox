@@ -73,4 +73,34 @@ class CmsPageTest extends TestCase
         self::assertEquals('first-page', $redirect1->{CmsRedirect::FIELD_TARGET});
         self::assertEquals('first-page/test-subpage', $redirect2->{CmsRedirect::FIELD_TARGET});
     }
+
+    public function testParentChange()
+    {
+        $page1 = CmsPage::query()->create([
+            CmsPage::FIELD_PAGE_TITLE => 'Page 1',
+            CmsPage::FIELD_IS_PUBLIC => true,
+            CmsPage::FIELD_IS_INDEX => true,
+            CmsPage::FIELD_IS_FOLLOW => true,
+        ]);
+        $page2 = CmsPage::query()->create([
+            CmsPage::FIELD_PAGE_TITLE => 'Page 2',
+            CmsPage::FIELD_IS_PUBLIC => true,
+            CmsPage::FIELD_IS_INDEX => true,
+            CmsPage::FIELD_IS_FOLLOW => true,
+        ]);
+
+        self::assertEquals('page-2', $page2->{CmsPage::FIELD_PATH});
+
+        $page2->update([
+            CmsPage::FIELD_PARENT_ID => $page1->{CmsPage::FIELD_ID},
+        ]);
+
+        self::assertEquals('page-1/page-2', $page2->{CmsPage::FIELD_PATH});
+
+        $page2->update([
+            CmsPage::FIELD_PARENT_ID => null,
+        ]);
+
+        self::assertEquals('page-2', $page2->{CmsPage::FIELD_PATH});
+    }
 }

@@ -83,7 +83,7 @@ class CmsPage extends Model implements WithConfigurableColumns
     {
         parent::boot();
 
-        static::creating(function (CmsPage $cmsPage) {
+        $updateSlug = function (CmsPage $cmsPage) {
             $dirtyFields = $cmsPage->getDirty();
 
             if (
@@ -107,6 +107,15 @@ class CmsPage extends Model implements WithConfigurableColumns
             $path = $parentPrefix . $cmsPage->{self::FIELD_SLUG};
 
             $cmsPage->{self::FIELD_PATH} = $path;
+        };
+
+        static::creating($updateSlug);
+        static::updating(function (CmsPage $cmsPage) use ($updateSlug) {
+            if ($cmsPage->{self::FIELD_SLUG}) {
+                return;
+            }
+
+            $updateSlug($cmsPage);
         });
 
         static::updated(function (CmsPage $cmsPage) {
@@ -115,6 +124,8 @@ class CmsPage extends Model implements WithConfigurableColumns
                 !isset($dirtyFields[self::FIELD_SLUG])
                 &&
                 !isset($dirtyFields[self::FIELD_PATH])
+                &&
+                !array_key_exists(self::FIELD_PARENT_ID, $dirtyFields)
             ) {
                 return;
             }
@@ -126,7 +137,9 @@ class CmsPage extends Model implements WithConfigurableColumns
             $cmsRedirectRepository = app(CmsRedirectRepository::class);
 
             /** @var ?self $parent */
-            $parent = $cmsPage->{self::PROPERTY_PARENT};
+            $parent = isset($dirtyFields[self::FIELD_PARENT_ID])
+                ? $cmsPageRepository->find($dirtyFields[self::FIELD_PARENT_ID])
+                : $cmsPage->{self::PROPERTY_PARENT};
             $parentPrefix = match ($parent) {
                 null => '',
                 default => $parent->{self::FIELD_PATH} . '/',
