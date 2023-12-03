@@ -148,9 +148,17 @@ class CmsPage extends Model implements WithConfigurableColumns
             $oldPath = $cmsPage->getOriginal(self::FIELD_PATH);
 
             $cmsPage->{self::FIELD_PATH} = $path;
-            $cmsPage->saveQuietly();
 
-            $cmsRedirectRepository->createOrUpdate($oldPath, $path);
+            // add redirect for published pages
+            if (
+                $cmsPage->getOriginal(self::FIELD_IS_PUBLIC)
+                &&
+                $cmsPage->{self::FIELD_IS_PUBLIC}
+            ) {
+                $cmsRedirectRepository->createOrUpdate($oldPath, $path);
+            }
+
+            $cmsPage->saveQuietly();
 
             /** @var Collection $children */
             $children = $cmsPage->{self::PROPERTY_CHILDREN};
