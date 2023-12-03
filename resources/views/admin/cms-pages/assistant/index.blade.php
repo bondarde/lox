@@ -63,4 +63,12 @@ use BondarDe\Lox\Models\CmsAssistantTask;
         </x-form.form-actions>
     </form>
 
+
+    <h2>
+        {{ __('Tasks') }}
+    </h2>
+    <livewire:live-model-list
+        :model="\BondarDe\Lox\Models\CmsAssistantTask::class"
+    />
+
 </x-admin-page>

@@ -2,6 +2,7 @@
 
 use BondarDe\Lox\Data\Acl\AclSetupData;
 use BondarDe\Lox\Http\Controllers\Admin\Cms\AdminCmsPagesController;
+use BondarDe\Lox\Http\Controllers\Admin\Cms\AdminCmsRedirectsController;
 use BondarDe\Lox\Http\Controllers\Admin\Cms\Assistant\AdminCmsAssistantIndexController;
 use BondarDe\Lox\Http\Controllers\Admin\Cms\Assistant\AdminCmsAssistantStoreController;
 use BondarDe\Lox\Http\Controllers\Admin\System\AdminAboutController;
@@ -76,6 +77,8 @@ Route::group([
     ], function () {
         Route::resource('cms-pages', AdminCmsPagesController::class)
             ->whereNumber('cms_page');
+        Route::resource('cms-redirects', AdminCmsRedirectsController::class);
+
         Route::get('cms-pages/assistant', AdminCmsAssistantIndexController::class)->name('cms-pages.assistant.index');
         Route::put('cms-pages/assistant', AdminCmsAssistantStoreController::class)->name('cms-pages.assistant.store');
     });
