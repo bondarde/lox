@@ -12,6 +12,10 @@
 
     <meta name="robots" content="{{ $metaRobots }}">
 
+    @if($canonical)
+        <link rel="canonical" href="{{ $canonical }}"/>
+    @endif
+
     @foreach($cssFiles as $file)
         @if(\Illuminate\Support\Facades\App::environment(\BondarDe\Lox\Constants\Environment::LOCAL))
             @vite([$file], '../.build/.vite')

@@ -31,11 +31,19 @@ class CmsContentController
         $h1 = $cmsPage->{CmsPage::FIELD_H1_TITLE} ?: $pageTitle;
         $content = $cmsPage->{CmsPage::FIELD_CONTENT};
         $metaDescription = $cmsPage->{CmsPage::FIELD_META_DESCRIPTION} ?? $pageTitle;
+        $metaRobots = implode(', ', [
+            $cmsPage->{CmsPage::FIELD_IS_INDEX} ? 'index' : 'noindex',
+            $cmsPage->{CmsPage::FIELD_IS_FOLLOW} ? 'follow' : 'nofollow',
+        ]);
+        $canonical = $cmsPage->{CmsPage::FIELD_CANONICAL}
+            ?: url($cmsPage->{CmsPage::FIELD_PATH});
 
         return view('lox::web.cms-page', compact(
             'pageTitle',
             'h1',
             'metaDescription',
+            'metaRobots',
+            'canonical',
             'content',
             'cmsPage',
         ));

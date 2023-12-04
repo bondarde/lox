@@ -30,6 +30,7 @@ class Page extends Component
         readonly public ?string       $h1 = null,
         public                        $breadcrumbAttr = null,
         readonly public ?string       $shareImage = null,
+        readonly public ?string       $canonical = null,
     )
     {
         $this->env = config('app.env');
