@@ -10,6 +10,6 @@ class CmsPagePolicy
 {
     public function update(?User $user, CmsPage $cmsPage): bool
     {
-        return $user?->hasPermissionTo(AclSetupData::PERMISSION_EDIT_CMS_PAGES);
+        return $user?->hasPermissionTo(AclSetupData::PERMISSION_EDIT_CMS_PAGES) ?: false;
     }
 }
