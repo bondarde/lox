@@ -17,6 +17,8 @@ use BondarDe\Lox\Livewire\ModelList\Content as ModelListContent;
 use BondarDe\Lox\Livewire\ModelList\Filter;
 use BondarDe\Lox\Livewire\ModelList\FilterItemCount;
 use BondarDe\Lox\Livewire\ModelList\Search;
+use BondarDe\Lox\Models\CmsPage;
+use BondarDe\Lox\Policies\CmsPagePolicy;
 use BondarDe\Lox\View\Components\Button;
 use BondarDe\Lox\View\Components\Content;
 use BondarDe\Lox\View\Components\DashboardItem;
@@ -50,6 +52,7 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Console\AboutCommand;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
@@ -118,6 +121,7 @@ class LoxServiceProvider extends ServiceProvider
         $this->configureConfig();
         $this->configureLivewire();
         $this->configureAboutCommand();
+        $this->registerPolicies();
     }
 
     private function configureRoutes(): void
@@ -211,5 +215,10 @@ class LoxServiceProvider extends ServiceProvider
             ->flatMap(fn(string $path) => $filesystem->glob($path . '*_' . $migrationFileName))
             ->push($this->app->databasePath() . "/migrations/{$timestamp}_$migrationFileName")
             ->first();
+    }
+
+    private function registerPolicies(): void
+    {
+        Gate::policy(CmsPage::class, CmsPagePolicy::class);
     }
 }

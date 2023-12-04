@@ -11,4 +11,14 @@
         {!! $content !!}
     </x-content>
 
+    @can('update', $cmsPage)
+        <x-button
+            tag="a"
+            :href="route('admin.cms-pages.edit', $cmsPage)"
+            icon="📝"
+        >
+            {{ __('Edit page')}}
+        </x-button>
+    @endcan
+
 </x-page>
