@@ -131,7 +131,11 @@ class LoxServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__ . '/../routes/admin.php');
 
         if (config('lox.cms.fallback_route_enabled')) {
-            Route::fallback(CmsContentController::class);
+            Route::group([
+                'middleware' => 'web',
+            ], function () {
+                Route::fallback(CmsContentController::class);
+            });
         }
 
         if (App::environment(Environment::LOCAL)) {
