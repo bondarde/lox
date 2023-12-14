@@ -3,6 +3,7 @@
 namespace BondarDe\Lox\View\Components\Form;
 
 use BondarDe\Lox\Exceptions\IllegalStateException;
+use BondarDe\Lox\Exceptions\MixedKeyTypesException;
 use BondarDe\Lox\Surveys\SurveyItemValues;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Session;
@@ -56,6 +57,15 @@ abstract class FormComponent extends Component
 
         switch ($type) {
             case 'array':
+                $keys = array_keys($options);
+                $keyTypes = array_map(fn($key) => gettype($key), $keys);
+                $uniqueKeyTypes = array_unique($keyTypes);
+
+                if (count($uniqueKeyTypes) !== 1) {
+                    // avoid unexpected behaviour as in https://github.com/php/php-src/issues/9029
+                    throw new MixedKeyTypesException('Mixing key types of values is not supported.');
+                }
+
                 return $options;
             case 'string':
                 if (is_subclass_of($options, SurveyItemValues::class)) {
