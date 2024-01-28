@@ -61,7 +61,7 @@ abstract class FormComponent extends Component
                 $keyTypes = array_map(fn($key) => gettype($key), $keys);
                 $uniqueKeyTypes = array_unique($keyTypes);
 
-                if (count($uniqueKeyTypes) !== 1) {
+                if (count($uniqueKeyTypes) > 1) {
                     // avoid unexpected behaviour as in https://github.com/php/php-src/issues/9029
                     throw new MixedKeyTypesException('Mixing key types of values is not supported.');
                 }

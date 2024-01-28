@@ -9,7 +9,7 @@
     >
         @csrf
 
-        @include('lox::admin.cms-pages._cms-page-edit-form', ['model' => null])
+        @include('lox::admin.cms.pages._cms-page-edit-form', ['model' => null])
 
         <x-form.form-actions>
             <x-button

@@ -1,6 +1,13 @@
 <x-admin-page
     :title="__('CMS Pages')"
 >
+    {{--
+    CMS-Navigation:
+    - Redirects
+    - Assistent
+    - Templates
+    - Sitemap
+    --}}
 
     <x-slot:header>
         <div class="flex flex-wrap gap-4">
@@ -19,6 +26,14 @@
             </div>
         </div>
     </x-slot:header>
+
+    {{--
+    <x-content class="inline-block">
+        @include('admin.cms._children', [
+            'children' => $cmsPagesWithoutParent,
+        ])
+    </x-content>
+    --}}
 
     <livewire:live-model-list
         :model="\BondarDe\Lox\Models\CmsPage::class"

@@ -16,6 +16,11 @@ class CmsPageEditRequest extends FormRequest
                 ValidationRules::OPTIONAL,
                 ValidationRules::TYPE_STRING,
             ],
+            CmsPage::FIELD_CMS_TEMPLATE_ID => [
+                ValidationRules::REQUIRED,
+                ValidationRules::TYPE_INTEGER,
+                ValidationRules::min(0),
+            ],
 
             CmsPage::FIELD_PAGE_TITLE => [
                 ValidationRules::OPTIONAL,

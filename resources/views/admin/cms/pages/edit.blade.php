@@ -10,7 +10,7 @@
         @csrf
         @method('patch')
 
-        @include('lox::admin.cms-pages._cms-page-edit-form', ['model' => $cmsPage])
+        @include('lox::admin.cms.pages._cms-page-edit-form', ['model' => $cmsPage])
 
         <x-form.form-actions>
             <x-button>

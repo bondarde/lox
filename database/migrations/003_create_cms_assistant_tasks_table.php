@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
+        if (Schema::hasTable('cms_assistant_tasks')) {
+            return;
+        }
+
         Schema::create('cms_assistant_tasks', function (Blueprint $table) {
             $table->id();
             $table->timestamps();

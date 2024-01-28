@@ -10,6 +10,7 @@ use BondarDe\Lox\Console\Commands\Search\ScoutRefreshCommand;
 use BondarDe\Lox\Constants\Environment;
 use BondarDe\Lox\Contracts\View\PageConfig;
 use BondarDe\Lox\Http\Controllers\Web\CmsContentController;
+use BondarDe\Lox\Livewire\Cms\TemplateVariablesEditor;
 use BondarDe\Lox\Livewire\FileUpload;
 use BondarDe\Lox\Livewire\LiveModelList;
 use BondarDe\Lox\Livewire\ModelList\Actions as ModelListActions;
@@ -167,9 +168,13 @@ class LoxServiceProvider extends ServiceProvider
         ], 'views');
 
         $this->publishes([
-            __DIR__ . '/../database/migrations/create_cms_pages_table.php' => $this->getMigrationFileName('create_cms_pages_table.php'),
-            __DIR__ . '/../database/migrations/create_cms_redirects_table.php' => $this->getMigrationFileName('create_cms_redirects_table.php'),
-            __DIR__ . '/../database/migrations/create_cms_assistant_tasks_table.php' => $this->getMigrationFileName('create_cms_assistant_tasks_table.php'),
+            __DIR__ . '/../database/migrations/001_create_cms_pages_table.php' => $this->getMigrationFileName('001_create_cms_pages_table.php'),
+            __DIR__ . '/../database/migrations/002_create_cms_redirects_table.php' => $this->getMigrationFileName('002_create_cms_redirects_table.php'),
+            __DIR__ . '/../database/migrations/003_create_cms_assistant_tasks_table.php' => $this->getMigrationFileName('003_create_cms_assistant_tasks_table.php'),
+            __DIR__ . '/../database/migrations/004_create_cms_templates_table.php' => $this->getMigrationFileName('004_create_cms_templates_table.php'),
+            __DIR__ . '/../database/migrations/005_create_cms_template_variables_table.php' => $this->getMigrationFileName('005_create_cms_template_variables_table.php'),
+            __DIR__ . '/../database/migrations/006_create_cms_template_variable_values_table.php' => $this->getMigrationFileName('006_create_cms_template_variable_values_table.php'),
+            __DIR__ . '/../database/migrations/007_add_template_id_to_cms_pages.php' => $this->getMigrationFileName('007_add_template_id_to_cms_pages.php'),
         ], 'lox-migrations');
     }
 
@@ -202,6 +207,8 @@ class LoxServiceProvider extends ServiceProvider
         Livewire::component('model-list.content', ModelListContent::class);
         Livewire::component('model-list.filter-item-count', FilterItemCount::class);
         Livewire::component('model-list.actions', ModelListActions::class);
+
+        Livewire::component('cms.template-variables-editor', TemplateVariablesEditor::class);
     }
 
     private function configureAboutCommand(): void

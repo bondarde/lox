@@ -8,6 +8,7 @@ use BondarDe\Lox\Livewire\ModelList\Concerns\WithConfigurableColumns;
 use BondarDe\Lox\Models\Columns\CmsPageColumns;
 use BondarDe\Lox\Repositories\CmsPageRepository;
 use BondarDe\Lox\Repositories\CmsRedirectRepository;
+use BondarDe\Lox\Repositories\CmsTemplateVariableValueRepository;
 use BondarDe\Lox\Traits\CreatedUpdatedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -45,8 +46,11 @@ class CmsPage extends Model implements WithConfigurableColumns
     const FIELD_IS_INDEX = 'is_index';
     const FIELD_IS_FOLLOW = 'is_follow';
 
+    const FIELD_CMS_TEMPLATE_ID = 'cms_template_id';
+
     const PROPERTY_PARENT = 'parent';
     const PROPERTY_CHILDREN = 'children';
+    const PROPERTY_TEMPLATE = 'template';
 
     protected $perPage = 100;
 
@@ -63,6 +67,7 @@ class CmsPage extends Model implements WithConfigurableColumns
         self::FIELD_IS_PUBLIC,
         self::FIELD_IS_INDEX,
         self::FIELD_IS_FOLLOW,
+        self::FIELD_CMS_TEMPLATE_ID,
     ];
     protected $casts = [
         self::FIELD_PARENT_ID => ModelCastTypes::INTEGER,
@@ -193,5 +198,20 @@ class CmsPage extends Model implements WithConfigurableColumns
     public static function getModelListColumnConfigurations(): ?string
     {
         return CmsPageColumns::class;
+    }
+
+    public function template(): BelongsTo
+    {
+        return $this->belongsTo(CmsTemplate::class, self::FIELD_CMS_TEMPLATE_ID);
+    }
+
+    public function cmsTemplateVariableValue(CmsTemplateVariable $cmsTemplateVariable): ?string
+    {
+        /** @var CmsTemplateVariableValueRepository $cmsTemplateVariableValueRepository */
+        $cmsTemplateVariableValueRepository = app(CmsTemplateVariableValueRepository::class);
+
+        $cmsTemplateVariableValue = $cmsTemplateVariableValueRepository->findByCmsPageAndCmsTemplateVariableId($this, $cmsTemplateVariable);
+
+        return $cmsTemplateVariableValue?->{CmsTemplateVariableValue::FIELD_CONTENT};
     }
 }

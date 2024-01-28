@@ -6,6 +6,6 @@ class AdminCmsAssistantIndexController
 {
     public function __invoke()
     {
-        return view('lox::admin.cms-pages.assistant.index');
+        return view('lox::admin.cms.assistant.index');
     }
 }

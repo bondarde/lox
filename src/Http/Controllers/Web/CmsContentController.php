@@ -38,14 +38,20 @@ class CmsContentController
         $canonical = $cmsPage->{CmsPage::FIELD_CANONICAL}
             ?: url($cmsPage->{CmsPage::FIELD_PATH});
 
-        return view('lox::web.cms-page', compact(
-            'pageTitle',
-            'h1',
-            'metaDescription',
-            'metaRobots',
-            'canonical',
-            'content',
-            'cmsPage',
-        ));
+        $templateVariables = [];
+
+        return view(
+            'lox::web.cms-page',
+            compact(
+                'pageTitle',
+                'h1',
+                'metaDescription',
+                'metaRobots',
+                'canonical',
+                'content',
+                'cmsPage',
+            ),
+            $templateVariables,
+        );
     }
 }

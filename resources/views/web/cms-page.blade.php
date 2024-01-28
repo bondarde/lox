@@ -1,3 +1,9 @@
+<?php
+
+use BondarDe\Lox\Models\CmsPage;
+use BondarDe\Lox\Support\CmsRenderer;
+
+?>
 <x-page
     :title="$pageTitle"
     :h1="$h1"
@@ -7,9 +13,7 @@
     :canonical="$canonical"
 >
 
-    <x-content class="prose">
-        {!! $content !!}
-    </x-content>
+    {!! CmsRenderer::renderCmsPageContent($cmsPage) !!}
 
     @can('update', $cmsPage)
         <x-button

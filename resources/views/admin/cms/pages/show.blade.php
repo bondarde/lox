@@ -1,6 +1,8 @@
 <?php
 
 use BondarDe\Lox\Models\CmsPage;
+use BondarDe\Lox\Models\CmsTemplate;
+use BondarDe\Lox\Models\CmsTemplateVariable;
 
 ?>
 <x-admin-page
@@ -35,8 +37,18 @@ use BondarDe\Lox\Models\CmsPage;
 
 
     <div class="flex flex-col md:flex-row gap-8">
-        <x-content class="prose md:w-2/3">
-            {!! $cmsPage->{CmsPage::FIELD_CONTENT} !!}
+        <x-content class="md:w-2/3">
+            @foreach($cmsPage->{CmsPage::PROPERTY_TEMPLATE}?->{CmsTemplate::PROPERTY_TEMPLATE_VARIABLES} ?? [] as $tv)
+                <h3 class="opacity-75">
+                    {{ $tv->{CmsTemplateVariable::FIELD_LABEL} }}
+                </h3>
+
+                {!! $cmsPage->cmsTemplateVariableValue($tv) ?: '<p class="opacity-50">n/a</p>' !!}
+            @endforeach
+            <h3 class="opacity-75">Content</h3>
+            <div class="prose md:w-2/3">
+                {!! $cmsPage->{CmsPage::FIELD_CONTENT} !!}
+            </div>
         </x-content>
 
         <div class="md:w-1/3">
