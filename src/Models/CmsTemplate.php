@@ -13,6 +13,7 @@ class CmsTemplate extends Model
     const FIELD_CONTENT = 'content';
 
     const PROPERTY_TEMPLATE_VARIABLES = 'template_variables';
+    const PROPERTY_PAGES = 'cms_pages';
 
     protected $fillable = [
         self::FIELD_LABEL,
@@ -22,5 +23,10 @@ class CmsTemplate extends Model
     public function template_variables(): HasMany
     {
         return $this->hasMany(CmsTemplateVariable::class);
+    }
+
+    public function cms_pages(): HasMany
+    {
+        return $this->hasMany(CmsPage::class);
     }
 }

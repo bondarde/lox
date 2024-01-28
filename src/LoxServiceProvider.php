@@ -138,7 +138,7 @@ class LoxServiceProvider extends ServiceProvider
             Route::group([
                 'middleware' => 'web',
             ], function () {
-                Route::fallback(CmsContentController::class);
+                Route::fallback(CmsContentController::class)->name('cms-fallback');
             });
         }
 

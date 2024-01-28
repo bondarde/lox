@@ -50,7 +50,7 @@
 @stack('modals')
 
 <x-page-footer
-    :breadcrumbAttr="$breadcrumbAttr"
+    :breadcrumb-attr="$breadcrumbAttr"
 />
 
 @foreach($jsFiles as $file)

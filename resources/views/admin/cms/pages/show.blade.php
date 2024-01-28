@@ -38,6 +38,22 @@ use BondarDe\Lox\Models\CmsTemplateVariable;
 
     <div class="flex flex-col md:flex-row gap-8">
         <x-content class="md:w-2/3">
+            <h3>Template</h3>
+            @if($cmsPage->{CmsPage::PROPERTY_TEMPLATE})
+                <p>
+                    <a
+                        class="underline hover:no-underline"
+                        href="{{ route('admin.cms-templates.show', $cmsPage->{CmsPage::PROPERTY_TEMPLATE}) }}"
+                    >
+                        {{ $cmsPage->{CmsPage::PROPERTY_TEMPLATE}->{CmsTemplate::FIELD_LABEL} }}
+                    </a>
+                </p>
+            @else
+                <p class="opacity-65">
+                    No template assigned
+                </p>
+            @endif
+
             @foreach($cmsPage->{CmsPage::PROPERTY_TEMPLATE}?->{CmsTemplate::PROPERTY_TEMPLATE_VARIABLES} ?? [] as $tv)
                 <h3 class="opacity-75">
                     {{ $tv->{CmsTemplateVariable::FIELD_LABEL} }}
@@ -97,7 +113,7 @@ use BondarDe\Lox\Models\CmsTemplateVariable;
                         Parent:
                     </div>
                     <a
-                        class="link"
+                        class="underline hover:no-underline"
                         href="{{ route('admin.cms-pages.show', $cmsPage->{CmsPage::PROPERTY_PARENT}) }}"
                     >
                         {{ $cmsPage->{CmsPage::PROPERTY_PARENT}->{CmsPage::FIELD_PAGE_TITLE} }}
@@ -113,7 +129,7 @@ use BondarDe\Lox\Models\CmsTemplateVariable;
                         @foreach($cmsPage->{CmsPage::PROPERTY_CHILDREN} as $childPage)
                             <li>
                                 <a
-                                    class="link"
+                                    class="underline hover:no-underline"
                                     href="{{ route('admin.cms-pages.show', $childPage) }}"
                                 >
                                     {{ $childPage->{CmsPage::FIELD_PAGE_TITLE} }}

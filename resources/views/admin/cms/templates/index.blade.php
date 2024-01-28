@@ -24,17 +24,31 @@ use BondarDe\Lox\Models\CmsTemplate;
 
     @if($cmsTemplates->isNotEmpty())
         <x-content>
-            <ul>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Template</th>
+                    <th>Pages</th>
+                </tr>
+                </thead>
                 @foreach($cmsTemplates as $cmsTemplate)
-                    <li>
-                        <a
-                            href="{{ route('admin.cms-templates.show', $cmsTemplate) }}"
-                        >
-                            {{ $cmsTemplate->{CmsTemplate::FIELD_LABEL} }}
-                        </a>
-                    </li>
+                    <tr class="border-t">
+                        <td>
+                            <a
+                                class="underline hover:no-underline"
+                                href="{{ route('admin.cms-templates.show', $cmsTemplate) }}"
+                            >
+                                {{ $cmsTemplate->{CmsTemplate::FIELD_LABEL} }}
+                            </a>
+                        </td>
+                        <td class="text-right">
+                            <x-number
+                                :number="$cmsTemplate->{CmsTemplate::PROPERTY_PAGES}->count()"
+                            />
+                        </td>
+                    </tr>
                 @endforeach
-            </ul>
+            </table>
         </x-content>
     @else
         <p>
