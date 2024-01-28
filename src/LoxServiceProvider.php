@@ -21,6 +21,7 @@ use BondarDe\Lox\Livewire\ModelList\Search;
 use BondarDe\Lox\Models\CmsPage;
 use BondarDe\Lox\Policies\CmsPagePolicy;
 use BondarDe\Lox\View\Components\Button;
+use BondarDe\Lox\View\Components\Cms\AdminNavigation;
 use BondarDe\Lox\View\Components\Content;
 use BondarDe\Lox\View\Components\DashboardItem;
 use BondarDe\Lox\View\Components\FileSize;
@@ -84,6 +85,8 @@ class LoxServiceProvider extends ServiceProvider
         'button' => Button::class,
 
         'relative-timestamp' => RelativeTimestamp::class,
+
+        'cms.admin-navigation' => AdminNavigation::class,
 
         'model-list' => ModelList::class,
         'model-summary' => ModelSummary::class,
