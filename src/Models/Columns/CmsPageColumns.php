@@ -24,7 +24,7 @@ class CmsPageColumns extends ColumnConfigurations
                     $urlHighlighted = self::highlightSearchQuery($url, $q);
 
                     $title = DOM::div([
-                        'class' => 'link group-hover:no-underline',
+                        'class' => 'underline group-hover:no-underline',
                     ], $pageTitleHighlighted);
                     $slug = DOM::div($slugHighlighted);
 
