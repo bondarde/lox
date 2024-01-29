@@ -84,7 +84,9 @@ class AdminCmsPagesController
         CmsTemplateVariableValueRepository $cmsTemplateVariableValueRepository,
     )
     {
-        foreach ($cmsPage->{CmsPage::PROPERTY_TEMPLATE}?->{CmsTemplate::PROPERTY_TEMPLATE_VARIABLES} as $tv) {
+        $templateVariables = $cmsPage->{CmsPage::PROPERTY_TEMPLATE}?->{CmsTemplate::PROPERTY_TEMPLATE_VARIABLES} ?? [];
+
+        foreach ($templateVariables as $tv) {
             $requestFieldName = 'tv-' . $tv->{CmsTemplateVariable::FIELD_ID};
 
             $value = $request->string($requestFieldName);
