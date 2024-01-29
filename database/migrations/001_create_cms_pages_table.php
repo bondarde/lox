@@ -39,8 +39,6 @@ return new class extends Migration {
             $table->json(CmsPage::FIELD_H1_TITLE)->nullable();
             $table->json(CmsPage::FIELD_META_DESCRIPTION)->nullable();
             $table->string(CmsPage::FIELD_CANONICAL)->nullable();
-            // TODO: image -> spatie media:
-            //            $table->string(CmsPage::FIELD_META_IMAGE)->nullable();
 
             $table->boolean(CmsPage::FIELD_IS_PUBLIC)->nullable(false);
             $table->boolean(CmsPage::FIELD_IS_INDEX)->nullable(false);
