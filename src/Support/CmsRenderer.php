@@ -4,6 +4,8 @@ namespace BondarDe\Lox\Support;
 
 use BondarDe\Lox\Models\CmsPage;
 use BondarDe\Lox\Models\CmsTemplate;
+use BondarDe\Lox\Models\CmsTemplateVariable;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Blade;
 
 class CmsRenderer
@@ -21,9 +23,16 @@ class CmsRenderer
     {
         $cmsTemplate = $cmsPage->{CmsPage::PROPERTY_TEMPLATE};
 
+        /** @var Collection $tvs */
+        $tvs = $cmsTemplate->{CmsTemplate::PROPERTY_TEMPLATE_VARIABLES};
+        $tvsContent = $tvs->mapWithKeys(fn(CmsTemplateVariable $tv) => [
+            $tv->{CmsTemplateVariable::FIELD_LABEL} => $cmsPage->cmsTemplateVariableValue($tv),
+        ]);
+
         $template = $cmsTemplate->{CmsTemplate::FIELD_CONTENT};
         $data = [
             'content' => $cmsPage->{CmsPage::FIELD_CONTENT},
+            ...$tvsContent,
         ];
 
         return Blade::render($template, $data);
