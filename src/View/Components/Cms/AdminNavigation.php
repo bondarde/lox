@@ -10,7 +10,7 @@ class AdminNavigation extends Component
 {
     public function render(): ?View
     {
-        if (!Route::is('admin.cms-*.*')) {
+        if (!Route::is('admin.cms*.*')) {
             return null;
         }
 

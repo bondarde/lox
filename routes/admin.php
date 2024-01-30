@@ -1,6 +1,7 @@
 <?php
 
 use BondarDe\Lox\Data\Acl\AclSetupData;
+use BondarDe\Lox\Http\Controllers\Admin\Cms\AdminCmsOverviewController;
 use BondarDe\Lox\Http\Controllers\Admin\Cms\AdminCmsPagesController;
 use BondarDe\Lox\Http\Controllers\Admin\Cms\AdminCmsRedirectsController;
 use BondarDe\Lox\Http\Controllers\Admin\Cms\AdminCmsTemplatesController;
@@ -76,6 +77,7 @@ Route::group([
             'can:' . AclSetupData::PERMISSION_EDIT_CMS_PAGES,
         ],
     ], function () {
+        Route::get('cms', AdminCmsOverviewController::class)->name('cms.overview');
         Route::resource('cms-pages', AdminCmsPagesController::class)
             ->whereNumber('cms_page');
         Route::resource('cms-redirects', AdminCmsRedirectsController::class);

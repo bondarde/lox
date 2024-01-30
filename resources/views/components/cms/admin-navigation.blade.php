@@ -3,6 +3,20 @@
 ]) }}>
 
     <x-nav-item
+        :href="route('admin.cms.overview')"
+        active-route="admin.cms.*"
+    >
+        Overview
+    </x-nav-item>
+
+    <x-nav-item
+        :href="route('admin.cms-pages.index')"
+        active-route="admin.cms-pages.*"
+    >
+        Pages
+    </x-nav-item>
+
+    <x-nav-item
         :href="route('admin.cms-redirects.index')"
         active-route="admin.cms-redirects.*"
     >
