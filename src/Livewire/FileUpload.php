@@ -3,6 +3,7 @@
 namespace BondarDe\Lox\Livewire;
 
 use BondarDe\Lox\Exceptions\IllegalStateException;
+use BondarDe\Lox\View\DefaultUploadRenderer;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\File;
@@ -20,6 +21,10 @@ class FileUpload extends Component
 
     public array $files = [];
     public string $label = 'Datei hinzufügen&thinsp;…';
+    public bool $removable = true;
+    public bool $showSize = true;
+    public string $renderer = DefaultUploadRenderer::class;
+    public ?string $handler = null;
 
     public array $oldFiles;
 
@@ -93,6 +98,16 @@ class FileUpload extends Component
         }
 
         unset($this->oldFiles[$fileId]);
+    }
+
+    public function updatedFiles(): void
+    {
+        if (!$this->handler) {
+            return;
+        }
+
+        $lastFile = last($this->files);
+        (new $this->handler)($lastFile);
     }
 
     public function render(): View

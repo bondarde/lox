@@ -41,23 +41,26 @@
                         name="{{ $name }}[]"
                         value="{{ $this->toFileId($file) }}"
                     >
-                    {{ $file->getClientOriginalName() }}
-                    <span
-                        class="text-sm opacity-75"
-                    ><x-file-size
-                            :bytes="$file->getSize()"
-                        /></span>
-
-                    <x-button
-                        class="md:ml-2"
-                        type="button"
-                        size="sm"
-                        color="red"
-                        wire:click="removeOldFile('{{ $fileId }}')"
-                        icon="×"
-                    >
-                        {{ __('Remove') }}
-                    </x-button>
+                    {{ (new $renderer)($file) }}
+                    @if($showSize)
+                        <span
+                            class="text-sm opacity-75"
+                        ><x-file-size
+                                :bytes="$file->getSize()"
+                            /></span>
+                    @endif
+                    @if($removable)
+                        <x-button
+                            class="md:ml-2"
+                            type="button"
+                            size="sm"
+                            color="red"
+                            wire:click="removeOldFile('{{ $fileId }}')"
+                            icon="×"
+                        >
+                            {{ __('Remove') }}
+                        </x-button>
+                    @endif
                 </li>
             @endforeach
             @foreach($files as $file)
@@ -69,22 +72,26 @@
                         name="{{ $name }}[]"
                         value="{{ $this->toFileId($file) }}"
                     >
-                    {{ $file->getClientOriginalName() }}
-                    <span
-                        class="text-sm opacity-75"
-                    ><x-file-size
-                            :bytes="$file->getSize()"
-                        /></span>
-                    <x-button
-                        class="md:ml-2"
-                        type="button"
-                        size="sm"
-                        color="red"
-                        wire:click="removeFile('{{ $this->toFileId($file) }}')"
-                        icon="×"
-                    >
-                        {{ __('Remove') }}
-                    </x-button>
+                    {{ (new $renderer)($file) }}
+                    @if($showSize)
+                        <span
+                            class="text-sm opacity-75"
+                        ><x-file-size
+                                :bytes="$file->getSize()"
+                            /></span>
+                    @endif
+                    @if($removable)
+                        <x-button
+                            class="md:ml-2"
+                            type="button"
+                            size="sm"
+                            color="red"
+                            wire:click="removeFile('{{ $this->toFileId($file) }}')"
+                            icon="×"
+                        >
+                            {{ __('Remove') }}
+                        </x-button>
+                    @endif
                 </li>
             @endforeach
         </ul>
