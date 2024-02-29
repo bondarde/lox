@@ -66,7 +66,7 @@ class ScheduleEvent
         return [
             'PHP',
             self::cleanPhpCall($event->command),
-            $event->description,
+            $description,
         ];
     }
 
