@@ -38,7 +38,11 @@
         @if($h1)
             <h1>{{ $h1 }}</h1>
         @endif
-        {!! $header ?? '' !!}
+        @if(isset($header))
+            <div {{ $header->attributes }}>
+                {!! $header !!}
+            </div>
+        @endif
         <x-user-messages/>
     </div>
 
