@@ -12,30 +12,36 @@
     "require": {
         "php": "^8.2",
         "ext-json": "*",
+        "aws/aws-sdk-php": "^3.233",
         "bondarde/php-utils": "^0.5.0",
         "deployer/deployer": "^7.0",
+        "diglactic/laravel-breadcrumbs": "^9.0",
+        "doctrine/dbal": "^3.7",
+        "firebase/php-jwt": "^6.3",
         "jenssegers/agent": "^2.6",
         "laravel/fortify": "^1.10",
-        "laravel/framework": "^10.0",
-        "tinymce/tinymce": "^5.10",
+        "laravel/framework": "^10|^11",
         "laravel/sanctum": "^3.0",
-        "nunomaduro/collision": "^7.0",
-        "spatie/laravel-ignition": "^2.0",
-        "spatie/laravel-permission": "^5.5",
-        "tweeb/tinymce-i18n": "^2.0",
-        "aws/aws-sdk-php": "^3.233",
-        "laravel/socialite": "^5.5",
-        "firebase/php-jwt": "^6.3",
-        "livewire/livewire": "^3.0",
         "laravel/scout": "^10.2",
-        "teamtnt/laravel-scout-tntsearch-driver": "^13.2",
-        "doctrine/dbal": "^3.7",
+        "laravel/socialite": "^5.5",
+        "livewire/livewire": "^3.0",
+        "openai-php/laravel": "^0.8.0",
+        "spatie/laravel-permission": "^5.5",
         "spatie/laravel-translatable": "^6.5",
-        "openai-php/laravel": "^0.8.0"
+        "teamtnt/laravel-scout-tntsearch-driver": "^13.2",
+        "tinymce/tinymce": "^5.10",
+        "tweeb/tinymce-i18n": "^2.0"
     },
     "require-dev": {
+        "fakerphp/faker": "^1.23",
+        "laravel/pint": "^1.14",
+        "laravel/sail": "^1.29",
+        "mockery/mockery": "^1.6",
+        "nunomaduro/collision": "^7.0",
         "orchestra/testbench": "^8.0",
-        "phpunit/phpunit": "^10.0"
+        "phpunit/phpunit": "^10.0",
+        "spatie/laravel-ignition": "^2.4",
+        "spatie/laravel-ray": "^1.35"
     },
     "suggest": {
     },
@@ -60,6 +66,11 @@
             "providers": [
                 "BondarDe\\Lox\\LoxServiceProvider"
             ]
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
         }
     }
 }
