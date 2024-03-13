@@ -18,11 +18,11 @@
                     </td>
                     <td>
                         <ul>
-                        @foreach($listeners as $listener)
-                            <li>
-                                {{ $listener }}
-                            </li>
-                        @endforeach
+                            @foreach($listeners as $listener)
+                                <li>
+                                    {{ $listener }}
+                                </li>
+                            @endforeach
                         </ul>
                     </td>
                 </tr>

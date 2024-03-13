@@ -3,5 +3,5 @@
     'class' => "$padding $margin $background $shadow $rounded",
 ]) }}
 >
-    {{ $slot }}
+{{ $slot }}
 </{{$tag}}>
