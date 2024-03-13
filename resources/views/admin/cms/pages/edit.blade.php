@@ -5,7 +5,7 @@
 
     <form
         method="post"
-        action="{{ route('admin.cms-pages.update', $cmsPage) }}"
+        action="{{ route('admin.cms.pages.update', $cmsPage) }}"
     >
         @csrf
         @method('patch')
@@ -21,7 +21,7 @@
                 <x-button
                     color="light"
                     tag="a"
-                    :href="route('admin.cms-pages.show', $cmsPage)"
+                    :href="route('admin.cms.pages.show', $cmsPage)"
                 >
                     {{ __('Cancel') }}
                 </x-button>

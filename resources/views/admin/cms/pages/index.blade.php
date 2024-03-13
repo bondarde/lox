@@ -11,7 +11,7 @@
                 <x-button
                     color="green"
                     tag="a"
-                    :href="route('admin.cms-pages.create')"
+                    :href="route('admin.cms.pages.create')"
                     icon="+"
                 >
                     {{ __ ('Create page') }}

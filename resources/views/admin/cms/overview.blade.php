@@ -14,7 +14,7 @@
 
         <x-dashboard-item
             label="Pages"
-            :href="route('admin.cms-pages.index')"
+            :href="route('admin.cms.pages.index')"
             :as-integer="true"
         >
             {{ $cmsPagesCount }}

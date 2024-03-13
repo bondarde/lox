@@ -11,7 +11,7 @@ use BondarDe\Lox\Models\CmsPage;
             ])>
                 <a
                     class="hover:underline"
-                    href="{{ route('admin.cms-pages.show', $child) }}"
+                    href="{{ route('admin.cms.pages.show', $child) }}"
                 >
                     {{ $child->{CmsPage::FIELD_PAGE_TITLE} }}
                 </a>

@@ -5,7 +5,7 @@
 
     <form
         method="post"
-        action="{{ route('admin.cms-pages.store') }}"
+        action="{{ route('admin.cms.pages.store') }}"
     >
         @csrf
 

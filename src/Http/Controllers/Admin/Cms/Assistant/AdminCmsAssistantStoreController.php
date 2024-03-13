@@ -32,7 +32,7 @@ class AdminCmsAssistantStoreController
 
         $cmsAssistantTaskRepository->create($attributes);
 
-        return to_route('admin.cms-pages.assistant.index')
+        return to_route('admin.cms.pages.assistant.index')
             ->with('success-message', __('Task has been created.'));
     }
 }

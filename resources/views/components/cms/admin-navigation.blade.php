@@ -10,7 +10,7 @@
     </x-nav-item>
 
     <x-nav-item
-        :href="route('admin.cms-pages.index')"
+        :href="route('admin.cms.pages.index')"
         active-route="admin.cms-pages.*"
     >
         Pages
@@ -31,7 +31,7 @@
     </x-nav-item>
 
     <x-nav-item
-        :href="route('admin.cms-pages.assistant.index')"
+        :href="route('admin.cms.pages.assistant.index')"
         active-route="admin.cms-pages.assistant.*"
     >
         Assistent

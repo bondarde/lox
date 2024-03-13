@@ -26,7 +26,7 @@ use BondarDe\Lox\Models\CmsTemplateVariable;
             <div>
                 <x-button
                     tag="a"
-                    :href="route('admin.cms-pages.edit', $cmsPage)"
+                    :href="route('admin.cms.pages.edit', $cmsPage)"
                     icon="📝"
                 >
                     {{ __('Edit page') }}
@@ -114,7 +114,7 @@ use BondarDe\Lox\Models\CmsTemplateVariable;
                     </div>
                     <a
                         class="underline hover:no-underline"
-                        href="{{ route('admin.cms-pages.show', $cmsPage->{CmsPage::PROPERTY_PARENT}) }}"
+                        href="{{ route('admin.cms.pages.show', $cmsPage->{CmsPage::PROPERTY_PARENT}) }}"
                     >
                         {{ $cmsPage->{CmsPage::PROPERTY_PARENT}->{CmsPage::FIELD_PAGE_TITLE} }}
                     </a>
@@ -130,7 +130,7 @@ use BondarDe\Lox\Models\CmsTemplateVariable;
                             <li>
                                 <a
                                     class="underline hover:no-underline"
-                                    href="{{ route('admin.cms-pages.show', $childPage) }}"
+                                    href="{{ route('admin.cms.pages.show', $childPage) }}"
                                 >
                                     {{ $childPage->{CmsPage::FIELD_PAGE_TITLE} }}
                                 </a>

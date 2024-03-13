@@ -40,7 +40,7 @@ class AdminCmsPagesController
 
         $cmsPage = $cmsPageRepository->create($attributes);
 
-        return redirect(route('admin.cms-pages.show', $cmsPage))
+        return redirect(route('admin.cms.pages.show', $cmsPage))
             ->with('success-message', 'Seite erstellt');
     }
 
@@ -74,7 +74,7 @@ class AdminCmsPagesController
 
         $this->updateTemplateVariables($cmsPage, $request, $cmsTemplateVariableValueRepository);
 
-        return redirect(route('admin.cms-pages.show', $cmsPage))
+        return redirect(route('admin.cms.pages.show', $cmsPage))
             ->with('success-message', 'Seite wurde aktualisiert');
     }
 

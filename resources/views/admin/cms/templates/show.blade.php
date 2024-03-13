@@ -54,7 +54,7 @@ use BondarDe\Lox\Models\CmsTemplate;
                         <td>
                             <a
                                 class="underline hover:no-underline"
-                                href="{{ route('admin.cms-pages.show', $cmsPage) }}"
+                                href="{{ route('admin.cms.pages.show', $cmsPage) }}"
                             >
                                 {{ $cmsPage->{CmsPage::FIELD_PAGE_TITLE} }}
                             </a>

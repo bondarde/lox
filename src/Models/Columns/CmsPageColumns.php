@@ -30,7 +30,7 @@ class CmsPageColumns extends ColumnConfigurations
 
                     $link = DOM::a([
                         'class' => 'group',
-                        'href' => route('admin.cms-pages.show', $cmsPage),
+                        'href' => route('admin.cms.pages.show', $cmsPage),
                     ], $title . $slug);
 
                     $publicLink = DOM::a([
@@ -79,7 +79,7 @@ class CmsPageColumns extends ColumnConfigurations
                     }
 
                     return DOM::a([
-                        'href' => route('admin.cms-pages.show', $cmsPage->{CmsPage::PROPERTY_PARENT}),
+                        'href' => route('admin.cms.pages.show', $cmsPage->{CmsPage::PROPERTY_PARENT}),
                         'class' => 'link',
                     ], $cmsPage->{CmsPage::PROPERTY_PARENT}->{CmsPage::FIELD_PAGE_TITLE});
                 },
