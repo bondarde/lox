@@ -3,13 +3,17 @@
         {{ $slot }}
     </div>
     <div class="mb-4 md:w-1/4">
-        {{ $back ?? '' }}
+        @if(isset($back))
+            {{ $back }}
+        @endif
     </div>
 </div>
-<div class="md:flex p-4 mb-8 gap-8">
-    <div class="mb-4 md:w-1/4">
+@if(isset($cancel))
+    <div class="md:flex p-4 mb-8 gap-8">
+        <div class="mb-4 md:w-1/4">
+        </div>
+        <div class="md:w-3/4">
+            {{ $cancel }}
+        </div>
     </div>
-    <div class="md:w-3/4">
-        {{ $cancel ?? '' }}
-    </div>
-</div>
+@endif
