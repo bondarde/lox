@@ -21,12 +21,12 @@ class UserUpdateRequest extends FormRequest
                 ValidationRules::TYPE_STRING,
             ],
 
-            User::ATTRIBUTE_ROLES => [
+            User::REL_ROLES => [
                 ValidationRules::OPTIONAL,
                 ValidationRules::TYPE_ARRAY,
             ],
 
-            User::ATTRIBUTE_PERMISSIONS => [
+            User::REL_PERMISSIONS => [
                 ValidationRules::OPTIONAL,
                 ValidationRules::TYPE_ARRAY,
             ],

@@ -16,7 +16,7 @@ use BondarDe\Lox\Models\CmsTemplateVariable;
         </tr>
         </thead>
 
-        @foreach($cmsTemplate->{CmsTemplate::PROPERTY_TEMPLATE_VARIABLES} as $tv)
+        @foreach($cmsTemplate->{CmsTemplate::REL_TEMPLATE_VARIABLES} as $tv)
             <tr class="border-t">
                 <td>
                     ${{ $tv->{CmsTemplateVariable::FIELD_LABEL} }}

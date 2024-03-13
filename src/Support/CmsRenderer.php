@@ -21,10 +21,10 @@ class CmsRenderer
 
     public static function renderCmsPageWithTemplate(CmsPage $cmsPage): string
     {
-        $cmsTemplate = $cmsPage->{CmsPage::PROPERTY_TEMPLATE};
+        $cmsTemplate = $cmsPage->{CmsPage::REL_TEMPLATE};
 
         /** @var Collection $tvs */
-        $tvs = $cmsTemplate->{CmsTemplate::PROPERTY_TEMPLATE_VARIABLES};
+        $tvs = $cmsTemplate->{CmsTemplate::REL_TEMPLATE_VARIABLES};
         $tvsContent = $tvs->mapWithKeys(fn(CmsTemplateVariable $tv) => [
             $tv->{CmsTemplateVariable::FIELD_LABEL} => $cmsPage->cmsTemplateVariableValue($tv),
         ]);

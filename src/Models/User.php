@@ -27,8 +27,8 @@ class User extends Authenticatable implements WithConfigurableColumns
     const FIELD_TWO_FACTOR_RECOVERY_CODES = 'two_factor_recovery_codes';
     const FIELD_EMAIL_VERIFIED_AT = 'email_verified_at';
 
-    const ATTRIBUTE_ROLES = 'roles';
-    const ATTRIBUTE_PERMISSIONS = 'permissions';
+    const REL_ROLES = 'roles';
+    const REL_PERMISSIONS = 'permissions';
 
 
     protected $perPage = 100;

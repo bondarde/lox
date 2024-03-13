@@ -74,14 +74,14 @@ class CmsPageColumns extends ColumnConfigurations
             CmsPage::FIELD_PARENT_ID => new ColumnConfiguration(
                 label: 'Parent',
                 render: function (CmsPage $cmsPage, ?string $q): string {
-                    if (!$cmsPage->{CmsPage::PROPERTY_PARENT}) {
+                    if (!$cmsPage->{CmsPage::REL_PARENT}) {
                         return '—';
                     }
 
                     return DOM::a([
-                        'href' => route('admin.cms.pages.show', $cmsPage->{CmsPage::PROPERTY_PARENT}),
+                        'href' => route('admin.cms.pages.show', $cmsPage->{CmsPage::REL_PARENT}),
                         'class' => 'link',
-                    ], $cmsPage->{CmsPage::PROPERTY_PARENT}->{CmsPage::FIELD_PAGE_TITLE});
+                    ], $cmsPage->{CmsPage::REL_PARENT}->{CmsPage::FIELD_PAGE_TITLE});
                 },
             ),
 

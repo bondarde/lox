@@ -48,9 +48,9 @@ class CmsPage extends Model implements WithConfigurableColumns
 
     const FIELD_CMS_TEMPLATE_ID = 'cms_template_id';
 
-    const PROPERTY_PARENT = 'parent';
-    const PROPERTY_CHILDREN = 'children';
-    const PROPERTY_TEMPLATE = 'template';
+    const REL_PARENT = 'parent';
+    const REL_CHILDREN = 'children';
+    const REL_TEMPLATE = 'template';
 
     protected $perPage = 100;
 
@@ -104,7 +104,7 @@ class CmsPage extends Model implements WithConfigurableColumns
                 $cmsPage->{self::FIELD_SLUG} = Str::slug($title);
             }
 
-            $parent = $cmsPage->{self::PROPERTY_PARENT};
+            $parent = $cmsPage->{self::REL_PARENT};
             $parentPrefix = match ($parent) {
                 null => '',
                 default => $parent->{self::FIELD_PATH} . '/',
@@ -144,7 +144,7 @@ class CmsPage extends Model implements WithConfigurableColumns
             /** @var ?self $parent */
             $parent = isset($dirtyFields[self::FIELD_PARENT_ID])
                 ? $cmsPageRepository->find($dirtyFields[self::FIELD_PARENT_ID])
-                : $cmsPage->{self::PROPERTY_PARENT};
+                : $cmsPage->{self::REL_PARENT};
             $parentPrefix = match ($parent) {
                 null => '',
                 default => $parent->{self::FIELD_PATH} . '/',
@@ -166,7 +166,7 @@ class CmsPage extends Model implements WithConfigurableColumns
             $cmsPage->saveQuietly();
 
             /** @var Collection $children */
-            $children = $cmsPage->{self::PROPERTY_CHILDREN};
+            $children = $cmsPage->{self::REL_CHILDREN};
 
             $children->each(function (CmsPage $child) use ($cmsPageRepository, $path) {
                 $cmsPageRepository->update($child, [

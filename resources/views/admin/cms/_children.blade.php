@@ -17,10 +17,10 @@ use BondarDe\Lox\Models\CmsPage;
                 </a>
             </li>
 
-            @if($child->{CmsPage::PROPERTY_CHILDREN}->isNotEmpty())
+            @if($child->{CmsPage::REL_CHILDREN}->isNotEmpty())
                 <li class="pl-8 mb-2">
                     @include('lox::admin.cms._children', [
-                        'children' => $child->{CmsPage::PROPERTY_CHILDREN},
+                        'children' => $child->{CmsPage::REL_CHILDREN},
                     ])
                 </li>
             @endif

@@ -42,7 +42,7 @@ $templates = $cmsTemplateRepository->formOptions();
         </x-form.form-row>
 
 
-        @foreach($cmsPage->{CmsPage::PROPERTY_TEMPLATE}?->{CmsTemplate::PROPERTY_TEMPLATE_VARIABLES} ?? [] as $tv)
+        @foreach($cmsPage->{CmsPage::REL_TEMPLATE}?->{CmsTemplate::REL_TEMPLATE_VARIABLES} ?? [] as $tv)
             <x-form.form-row
                 :for="CmsPage::FIELD_CONTENT"
                 :label="$tv->{CmsTemplateVariable::FIELD_LABEL}"

@@ -39,13 +39,13 @@ use BondarDe\Lox\Models\CmsTemplateVariable;
     <div class="flex flex-col md:flex-row gap-8">
         <x-content class="md:w-2/3">
             <h3>Template</h3>
-            @if($cmsPage->{CmsPage::PROPERTY_TEMPLATE})
+            @if($cmsPage->{CmsPage::REL_TEMPLATE})
                 <p>
                     <a
                         class="underline hover:no-underline"
-                        href="{{ route('admin.cms-templates.show', $cmsPage->{CmsPage::PROPERTY_TEMPLATE}) }}"
+                        href="{{ route('admin.cms-templates.show', $cmsPage->{CmsPage::REL_TEMPLATE}) }}"
                     >
-                        {{ $cmsPage->{CmsPage::PROPERTY_TEMPLATE}->{CmsTemplate::FIELD_LABEL} }}
+                        {{ $cmsPage->{CmsPage::REL_TEMPLATE}->{CmsTemplate::FIELD_LABEL} }}
                     </a>
                 </p>
             @else
@@ -54,7 +54,7 @@ use BondarDe\Lox\Models\CmsTemplateVariable;
                 </p>
             @endif
 
-            @foreach($cmsPage->{CmsPage::PROPERTY_TEMPLATE}?->{CmsTemplate::PROPERTY_TEMPLATE_VARIABLES} ?? [] as $tv)
+            @foreach($cmsPage->{CmsPage::REL_TEMPLATE}?->{CmsTemplate::REL_TEMPLATE_VARIABLES} ?? [] as $tv)
                 <h3 class="opacity-75">
                     {{ $tv->{CmsTemplateVariable::FIELD_LABEL} }}
                 </h3>
@@ -107,26 +107,26 @@ use BondarDe\Lox\Models\CmsTemplateVariable;
                 </table>
             </x-content>
 
-            @if($cmsPage->{CmsPage::PROPERTY_PARENT})
+            @if($cmsPage->{CmsPage::REL_PARENT})
                 <x-content class="mb-4">
                     <div>
                         Parent:
                     </div>
                     <a
                         class="underline hover:no-underline"
-                        href="{{ route('admin.cms.pages.show', $cmsPage->{CmsPage::PROPERTY_PARENT}) }}"
+                        href="{{ route('admin.cms.pages.show', $cmsPage->{CmsPage::REL_PARENT}) }}"
                     >
-                        {{ $cmsPage->{CmsPage::PROPERTY_PARENT}->{CmsPage::FIELD_PAGE_TITLE} }}
+                        {{ $cmsPage->{CmsPage::REL_PARENT}->{CmsPage::FIELD_PAGE_TITLE} }}
                     </a>
                 </x-content>
             @endif
-            @if($cmsPage->{CmsPage::PROPERTY_CHILDREN}->count())
+            @if($cmsPage->{CmsPage::REL_CHILDREN}->count())
                 <x-content class="mb-4">
                     <div>
                         Children:
                     </div>
                     <ul class="flex flex-col gap-2">
-                        @foreach($cmsPage->{CmsPage::PROPERTY_CHILDREN} as $childPage)
+                        @foreach($cmsPage->{CmsPage::REL_CHILDREN} as $childPage)
                             <li>
                                 <a
                                     class="underline hover:no-underline"

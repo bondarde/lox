@@ -43,7 +43,7 @@ use BondarDe\Lox\Models\CmsTemplate;
                         </td>
                         <td class="text-right">
                             <x-number
-                                :number="$cmsTemplate->{CmsTemplate::PROPERTY_PAGES}->count()"
+                                :number="$cmsTemplate->{CmsTemplate::REL_PAGES}->count()"
                             />
                         </td>
                     </tr>

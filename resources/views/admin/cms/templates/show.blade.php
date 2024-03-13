@@ -36,7 +36,7 @@ use BondarDe\Lox\Models\CmsTemplate;
         Pages
     </h2>
 
-    @if($cmsTemplate->{CmsTemplate::PROPERTY_PAGES}->isNotEmpty())
+    @if($cmsTemplate->{CmsTemplate::REL_PAGES}->isNotEmpty())
         <p class="opacity-65">
             Pages using this template
         </p>
@@ -49,7 +49,7 @@ use BondarDe\Lox\Models\CmsTemplate;
                     <th>Path</th>
                 </tr>
                 </thead>
-                @foreach($cmsTemplate->{CmsTemplate::PROPERTY_PAGES} as $cmsPage)
+                @foreach($cmsTemplate->{CmsTemplate::REL_PAGES} as $cmsPage)
                     <tr class="border-t">
                         <td>
                             <a

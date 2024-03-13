@@ -12,8 +12,8 @@ class CmsTemplate extends Model
     const FIELD_LABEL = 'label';
     const FIELD_CONTENT = 'content';
 
-    const PROPERTY_TEMPLATE_VARIABLES = 'template_variables';
-    const PROPERTY_PAGES = 'cms_pages';
+    const REL_TEMPLATE_VARIABLES = 'template_variables';
+    const REL_PAGES = 'cms_pages';
 
     protected $fillable = [
         self::FIELD_LABEL,
