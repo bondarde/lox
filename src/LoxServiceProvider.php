@@ -20,6 +20,7 @@ use BondarDe\Lox\Livewire\ModelList\FilterItemCount;
 use BondarDe\Lox\Livewire\ModelList\Search;
 use BondarDe\Lox\Models\CmsPage;
 use BondarDe\Lox\Policies\CmsPagePolicy;
+use BondarDe\Lox\View\Components\AdminPage;
 use BondarDe\Lox\View\Components\Button;
 use BondarDe\Lox\View\Components\Cms\AdminNavigation;
 use BondarDe\Lox\View\Components\Content;
@@ -36,12 +37,15 @@ use BondarDe\Lox\View\Components\Form\Radio;
 use BondarDe\Lox\View\Components\Form\Select;
 use BondarDe\Lox\View\Components\Form\Textarea;
 use BondarDe\Lox\View\Components\Form\TinyMce;
+use BondarDe\Lox\View\Components\HtmlHeader;
 use BondarDe\Lox\View\Components\ModelList;
 use BondarDe\Lox\View\Components\ModelMeta;
 use BondarDe\Lox\View\Components\ModelSummary;
 use BondarDe\Lox\View\Components\NavItem;
 use BondarDe\Lox\View\Components\Number;
 use BondarDe\Lox\View\Components\Page;
+use BondarDe\Lox\View\Components\PageFooter;
+use BondarDe\Lox\View\Components\PageHeader;
 use BondarDe\Lox\View\Components\RelativeTimestamp;
 use BondarDe\Lox\View\Components\RenderingStats;
 use BondarDe\Lox\View\Components\SearchHighlightedText;
@@ -65,6 +69,11 @@ class LoxServiceProvider extends ServiceProvider
 
     const COMPONENTS = [
         'page' => Page::class,
+        'admin-page' => AdminPage::class,
+        'html-header' => HtmlHeader::class,
+        'page-header' => PageHeader::class,
+        'page-footer' => PageFooter::class,
+
         'content' => Content::class,
         'form.form-row' => FormRow::class,
         'form.form-actions' => FormActions::class,
