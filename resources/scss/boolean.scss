@@ -3,7 +3,7 @@
         -moz-appearance: initial;
         margin-top: 4px;
 
-        @apply relative w-10 mr-1 cursor-pointer align-top;
+        @apply relative w-10 mr-1 cursor-pointer align-top shrink-0 grow-0;
 
         // hide browser-styled checkbox
         left: -2000px;

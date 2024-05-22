@@ -5,5 +5,5 @@
         name="{{ $name }}"
         {!! $checked !!}
     >
-    <span class="align-middle select-none">{{ $slot ?? $label }}</span>
+    <span class="align-middle select-none grow">{{ $slot ?? $label }}</span>
 </label>
