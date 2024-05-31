@@ -32,7 +32,7 @@ class AdminCmsTemplatesController
         $attributes = $request->validated();
         $cmsTemplate = $cmsTemplateRepository->create($attributes);
 
-        return redirect(route('admin.cms-templates.show', $cmsTemplate))
+        return redirect(route('admin.cms.templates.show', $cmsTemplate))
             ->with('success-message', 'Template created.');
     }
 
@@ -60,7 +60,7 @@ class AdminCmsTemplatesController
 
         $cmsTemplateRepository->update($cmsTemplate, $attributes);
 
-        return redirect(route('admin.cms-templates.show', $cmsTemplate))
+        return redirect(route('admin.cms.templates.show', $cmsTemplate))
             ->with('success-message', 'Template updated.');
     }
 }

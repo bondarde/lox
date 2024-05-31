@@ -43,7 +43,7 @@ use BondarDe\Lox\Models\CmsTemplateVariable;
                 <p>
                     <a
                         class="underline hover:no-underline"
-                        href="{{ route('admin.cms-templates.show', $cmsPage->{CmsPage::REL_TEMPLATE}) }}"
+                        href="{{ route('admin.cms.templates.show', $cmsPage->{CmsPage::REL_TEMPLATE}) }}"
                     >
                         {{ $cmsPage->{CmsPage::REL_TEMPLATE}->{CmsTemplate::FIELD_LABEL} }}
                     </a>

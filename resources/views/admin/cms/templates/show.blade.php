@@ -18,7 +18,7 @@ use BondarDe\Lox\Models\CmsTemplate;
         <div>
             <x-button
                 tag="a"
-                :href="route('admin.cms-templates.edit', $cmsTemplate)"
+                :href="route('admin.cms.templates.edit', $cmsTemplate)"
                 icon="📝"
             >
                 Edit template

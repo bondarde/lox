@@ -12,7 +12,7 @@ use BondarDe\Lox\Models\CmsTemplate;
         <div>
             <x-button
                 tag="a"
-                :href="route('admin.cms-templates.create')"
+                :href="route('admin.cms.templates.create')"
                 icon="+"
                 color="green"
             >
@@ -36,7 +36,7 @@ use BondarDe\Lox\Models\CmsTemplate;
                         <td>
                             <a
                                 class="underline hover:no-underline"
-                                href="{{ route('admin.cms-templates.show', $cmsTemplate) }}"
+                                href="{{ route('admin.cms.templates.show', $cmsTemplate) }}"
                             >
                                 {{ $cmsTemplate->{CmsTemplate::FIELD_LABEL} }}
                             </a>

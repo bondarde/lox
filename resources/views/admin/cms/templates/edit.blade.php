@@ -5,7 +5,7 @@
 
     <form
         method="post"
-        action="{{ route('admin.cms-templates.update', $cmsTemplate) }}"
+        action="{{ route('admin.cms.templates.update', $cmsTemplate) }}"
     >
         @csrf
         @method('PATCH')
@@ -20,7 +20,7 @@
             <x-slot:cancel>
                 <x-button
                     tag="a"
-                    :href="route('admin.cms-templates.show', $cmsTemplate)"
+                    :href="route('admin.cms.templates.show', $cmsTemplate)"
                     color="light"
                 >
                     Cancel
