@@ -87,12 +87,14 @@ Route::group([
                 ->parameter('pages', 'cms_page')
                 ->whereNumber('cms_page');
 
-            Route::resource('redirects', AdminCmsRedirectsController::class);
+            Route::resource('redirects', AdminCmsRedirectsController::class)
+                ->parameter('redirects', 'cms_redirect');
 
             Route::get('assistant', AdminCmsAssistantIndexController::class)->name('assistant.index');
             Route::put('assistant', AdminCmsAssistantStoreController::class)->name('assistant.store');
 
-            Route::resource('templates', AdminCmsTemplatesController::class);
+            Route::resource('templates', AdminCmsTemplatesController::class)
+                ->parameter('templates', 'cms_template');
         });
     });
 
