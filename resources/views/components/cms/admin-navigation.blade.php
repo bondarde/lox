@@ -4,7 +4,7 @@
 
     <x-nav-item
         :href="route('admin.cms.overview')"
-        active-route="admin.cms.*"
+        active-route="admin.cms.overview"
     >
         Overview
     </x-nav-item>
