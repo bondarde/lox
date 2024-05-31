@@ -102,8 +102,7 @@
                 <thead>
                 <tr>
                     <th>Foreign Key</th>
-                    <th>Local Table</th>
-                    <th>Local Columns</th>
+                    <th>Columns</th>
                     <th>Foreign Table</th>
                     <th>Foreign Columns</th>
                     <th>On Update</th>
@@ -116,10 +115,7 @@
                             {{ $foreignKey->name }}
                         </td>
                         <td>
-                            {{ $foreignKey->local_table }}
-                        </td>
-                        <td>
-                            @foreach($foreignKey->local_columns as $column)
+                            @foreach($foreignKey->columns as $column)
                                 {{ $column }}
                             @endforeach
                         </td>
