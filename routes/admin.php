@@ -77,15 +77,23 @@ Route::group([
             'can:' . AclSetupData::PERMISSION_EDIT_CMS_PAGES,
         ],
     ], function () {
-        Route::get('cms', AdminCmsOverviewController::class)->name('cms.overview');
-        Route::resource('cms-pages', AdminCmsPagesController::class)
-            ->whereNumber('cms_page');
-        Route::resource('cms-redirects', AdminCmsRedirectsController::class);
+        Route::group([
+            'prefix' => 'cms/',
+            'as' => 'cms.',
+        ], function () {
+            Route::get('/', AdminCmsOverviewController::class)->name('overview');
 
-        Route::get('cms-pages/assistant', AdminCmsAssistantIndexController::class)->name('cms-pages.assistant.index');
-        Route::put('cms-pages/assistant', AdminCmsAssistantStoreController::class)->name('cms-pages.assistant.store');
+            Route::resource('pages', AdminCmsPagesController::class)
+                ->parameter('pages', 'cms_page')
+                ->whereNumber('cms_page');
 
-        Route::resource('cms-templates', AdminCmsTemplatesController::class);
+            Route::resource('redirects', AdminCmsRedirectsController::class);
+
+            Route::get('assistant', AdminCmsAssistantIndexController::class)->name('assistant.index');
+            Route::put('assistant', AdminCmsAssistantStoreController::class)->name('assistant.store');
+
+            Route::resource('templates', AdminCmsTemplatesController::class);
+        });
     });
 
     Route::group([

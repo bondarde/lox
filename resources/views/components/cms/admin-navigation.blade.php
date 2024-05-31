@@ -11,28 +11,28 @@
 
     <x-nav-item
         :href="route('admin.cms.pages.index')"
-        active-route="admin.cms-pages.*"
+        active-route="admin.cms.pages.*"
     >
         Pages
     </x-nav-item>
 
     <x-nav-item
-        :href="route('admin.cms-redirects.index')"
-        active-route="admin.cms-redirects.*"
+        :href="route('admin.cms.redirects.index')"
+        active-route="admin.cms.redirects.*"
     >
         Redirects
     </x-nav-item>
 
     <x-nav-item
-        :href="route('admin.cms-templates.index')"
-        active-route="admin.cms-templates.*"
+        :href="route('admin.cms.templates.index')"
+        active-route="admin.cms.templates.*"
     >
         Templates
     </x-nav-item>
 
     <x-nav-item
-        :href="route('admin.cms.pages.assistant.index')"
-        active-route="admin.cms-pages.assistant.*"
+        :href="route('admin.cms.assistant.index')"
+        active-route="admin.cms.assistant.*"
     >
         Assistent
     </x-nav-item>

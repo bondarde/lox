@@ -15,7 +15,7 @@ use BondarDe\Lox\Models\CmsAssistantTask;
 
     <form
         method="post"
-        action="{{ route('admin.cms.pages.assistant.store') }}"
+        action="{{ route('admin.cms.assistant.store') }}"
     >
         @csrf
         @method('PUT')

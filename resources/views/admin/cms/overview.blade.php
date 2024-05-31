@@ -22,7 +22,7 @@
 
         <x-dashboard-item
             label="Templates"
-            :href="route('admin.cms-templates.index')"
+            :href="route('admin.cms.templates.index')"
             :as-integer="true"
         >
             {{ $templatesCount }}
@@ -30,7 +30,7 @@
 
         <x-dashboard-item
             label="Redirects"
-            :href="route('admin.cms-redirects.index')"
+            :href="route('admin.cms.redirects.index')"
             :as-integer="true"
         >
             {{ $redirectsCount }}
