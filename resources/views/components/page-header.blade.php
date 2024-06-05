@@ -6,6 +6,7 @@
 use BondarDe\Lox\Constants\Environment;
 use BondarDe\Lox\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 ?>
 @if(!App::environment(Environment::PROD))
@@ -79,12 +80,14 @@ use Illuminate\Support\Facades\Auth;
                 >
                     {{ __('Login') }}
                 </x-nav-item>
-                <x-nav-item
-                    :href="route('register')"
-                    active-route="register"
-                >
-                    {{ __('Register') }}
-                </x-nav-item>
+                @if(Route::has('register'))
+                    <x-nav-item
+                        :href="route('register')"
+                        active-route="register"
+                    >
+                        {{ __('Register') }}
+                    </x-nav-item>
+                @endif
             @endguest
         </ul>
     </div>
