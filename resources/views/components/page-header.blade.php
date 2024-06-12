@@ -96,7 +96,7 @@ use Illuminate\Support\Facades\Route;
 @if(isset($showAdminNavigation) && $showAdminNavigation)
     @can('view backend')
         <div class="container mb-8">
-            @includeIf('nav.amdin')
+            @includeIf('nav.admin')
         </div>
     @endcan
 @endif
