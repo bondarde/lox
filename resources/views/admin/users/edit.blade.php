@@ -36,12 +36,12 @@
 
         <x-form.form-row
             :label="__('Roles')"
-            :for="\App\Models\User::ATTRIBUTE_ROLES"
+            :for="\App\Models\User::REL_ROLES"
         >
             @if(count($roles))
                 <x-form.checkbox
                     :isList="true"
-                    :name="\App\Models\User::ATTRIBUTE_ROLES"
+                    :name="\App\Models\User::REL_ROLES"
                     :options="$roles"
                     :value="$activeRoles"
                 />

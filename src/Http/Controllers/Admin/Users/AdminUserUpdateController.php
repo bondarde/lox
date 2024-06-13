@@ -17,8 +17,8 @@ class AdminUserUpdateController
         $userService->update(
             $user,
             $request->validated(),
-            $request->get(User::ATTRIBUTE_ROLES, []),
-            $request->get(User::ATTRIBUTE_PERMISSIONS, []),
+            $request->get(User::REL_ROLES, []),
+            $request->get(User::REL_PERMISSIONS, []),
         );
 
         return redirect(route('admin.users.show', $user))
