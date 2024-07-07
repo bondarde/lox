@@ -2,8 +2,6 @@
 
 /** @noinspection PhpUnhandledExceptionInspection */
 
-use BondarDe\Lox\Data\Aws\AwsSecretsLoadConfig;
-use BondarDe\Lox\Support\AwsSecretsLoader;
 use BondarDe\Lox\Support\Search\DiscoveryUtil;
 use BondarDe\Lox\Support\ViteManifestParser;
 use Illuminate\Contracts\Console\Kernel;
@@ -11,7 +9,6 @@ use Illuminate\Support\Str;
 use function Deployer\add;
 use function Deployer\after;
 use function Deployer\artisan;
-use function Deployer\ask;
 use function Deployer\before;
 use function Deployer\cd;
 use function Deployer\error;
@@ -252,50 +249,6 @@ task('build', [
     'build:htaccess_minified_redirects',
     'build:opcache_reset',
 ])->desc('Main build script');
-
-
-task('build:update_env_from_aws_secrets', function () {
-    $rootDir = get('root_dir');
-    require $rootDir . '/vendor/autoload.php';
-
-    $region = get('aws_secrets_region');
-    $deviceSerialNumber = get('aws_secrets_device_serial_number');
-    $secretId = get('aws_secrets_secret_id');
-    $projectPrefix = get('aws_secrets_project_prefix');
-    $useCache = get('aws_secrets_use_cache', true);
-    $cacheFile = get('aws_secrets_cache_file', '{{root_dir}}/.build/.aws-sts-credentials');
-
-    if (
-        !$region
-        || !$deviceSerialNumber
-        || !$secretId
-        || !$projectPrefix
-    ) {
-        throw error('AWS secrets setup is incomplete.');
-    }
-
-
-    $config = new AwsSecretsLoadConfig(
-        $region,
-        $deviceSerialNumber,
-        $secretId,
-        $projectPrefix,
-        $useCache,
-        $cacheFile,
-        fn() => ask('AWS MFA Code:'),
-    );
-
-    writeln('Loading AWS secrets…');
-    $secrets = AwsSecretsLoader::getSecrets(
-        $config,
-    );
-    writeln('Got <fg=red>' . count($secrets) . ' secrets</>, writing out to <fg=blue>{{ env_file_path }}</>…');
-
-    // append secrets to env file
-    foreach ($secrets as $key => $value) {
-        runLocally('echo "' . $key . '=\"' . $value . '\"" >> {{ env_file_path }}');
-    }
-})->once();
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

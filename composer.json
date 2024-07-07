@@ -12,7 +12,6 @@
     "require": {
         "php": "^8.2",
         "ext-json": "*",
-        "aws/aws-sdk-php": "^3.233",
         "bondarde/php-utils": "^0.5.0",
         "deployer/deployer": "^7.0",
         "diglactic/laravel-breadcrumbs": "^9.0",
