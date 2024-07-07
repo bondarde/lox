@@ -37,7 +37,7 @@ use Illuminate\Support\Facades\Route;
 Route::group([
     'middleware' => [
         'web',
-        'auth:sanctum',
+        'auth:web',
         'verified',
     ],
     'prefix' => 'admin/',

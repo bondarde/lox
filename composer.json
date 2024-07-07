@@ -20,7 +20,6 @@
         "jenssegers/agent": "^2.6",
         "laravel/fortify": "^1.10",
         "laravel/framework": "^11",
-        "laravel/sanctum": "^4.0",
         "laravel/scout": "^10.2",
         "laravel/socialite": "^5.5",
         "livewire/livewire": "^3.0",

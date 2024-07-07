@@ -33,7 +33,7 @@ Route::group([
 Route::group([
     'middleware' => [
         'web',
-        'auth:sanctum',
+        'auth:web',
         'verified',
     ],
 ], function () {
