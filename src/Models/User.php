@@ -18,17 +18,17 @@ class User extends Authenticatable implements WithConfigurableColumns
     use TwoFactorAuthenticatable;
     use HasRoles;
 
-    const FIELD_ID = 'id';
-    const FIELD_NAME = 'name';
-    const FIELD_EMAIL = 'email';
-    const FIELD_PASSWORD = 'password';
-    const FIELD_REMEMBER_TOKEN = 'remember_token';
-    const FIELD_TWO_FACTOR_SECRET = 'two_factor_secret';
-    const FIELD_TWO_FACTOR_RECOVERY_CODES = 'two_factor_recovery_codes';
-    const FIELD_EMAIL_VERIFIED_AT = 'email_verified_at';
+    const string FIELD_ID = 'id';
+    const string FIELD_NAME = 'name';
+    const string FIELD_EMAIL = 'email';
+    const string FIELD_PASSWORD = 'password';
+    const string FIELD_REMEMBER_TOKEN = 'remember_token';
+    const string FIELD_TWO_FACTOR_SECRET = 'two_factor_secret';
+    const string FIELD_TWO_FACTOR_RECOVERY_CODES = 'two_factor_recovery_codes';
+    const string FIELD_EMAIL_VERIFIED_AT = 'email_verified_at';
 
-    const REL_ROLES = 'roles';
-    const REL_PERMISSIONS = 'permissions';
+    const string REL_ROLES = 'roles';
+    const string REL_PERMISSIONS = 'permissions';
 
 
     protected $perPage = 100;

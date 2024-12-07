@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class CmsTemplate extends Model
 {
-    const FIELD_ID = 'id';
+    const string FIELD_ID = 'id';
 
-    const FIELD_LABEL = 'label';
-    const FIELD_CONTENT = 'content';
+    const string FIELD_LABEL = 'label';
+    const string FIELD_CONTENT = 'content';
 
-    const REL_TEMPLATE_VARIABLES = 'template_variables';
-    const REL_PAGES = 'cms_pages';
+    const string REL_TEMPLATE_VARIABLES = 'template_variables';
+    const string REL_PAGES = 'cms_pages';
 
     protected $fillable = [
         self::FIELD_LABEL,

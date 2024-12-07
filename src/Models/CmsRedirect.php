@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class CmsRedirect extends Model
 {
-    const FIELD_ID = 'id';
-    const FIELD_PATH = 'path';
-    const FIELD_TARGET = 'target';
+    const string FIELD_ID = 'id';
+    const string FIELD_PATH = 'path';
+    const string FIELD_TARGET = 'target';
 
     protected $fillable = [
         self::FIELD_PATH,
