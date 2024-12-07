@@ -55,7 +55,7 @@
 
         <x-form.form-row
             :label="__('Permissions')"
-            :for="\App\Models\User::ATTRIBUTE_PERMISSIONS"
+            :for="\App\Models\User::REL_PERMISSIONS"
         >
             @if(count($permissions))
                 <x-form.checkbox
