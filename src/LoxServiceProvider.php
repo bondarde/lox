@@ -115,7 +115,8 @@ class LoxServiceProvider extends ServiceProvider
         parent::register();
 
         $this->mergeConfigFrom(
-            __DIR__ . '/config/lox.php', 'lox'
+            __DIR__ . '/../config/lox.php',
+            'lox',
         );
     }
 
@@ -168,7 +169,7 @@ class LoxServiceProvider extends ServiceProvider
         ], 'tailwind');
 
         $this->publishes([
-            __DIR__ . '/config/lox.php' => config_path('lox.php'),
+            __DIR__ . '/../config/lox.php' => config_path('lox.php'),
             __DIR__ . '/../package.json' => base_path('package.json'),
             __DIR__ . '/../tailwind.config.js' => base_path('tailwind.config.js'),
             __DIR__ . '/../vite.config.js' => base_path('vite.config.js'),
