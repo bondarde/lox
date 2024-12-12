@@ -3,7 +3,6 @@
 namespace BondarDe\Lox\Models;
 
 use BondarDe\Lox\Constants\ModelCastTypes;
-use BondarDe\Lox\Exceptions\IllegalStateException;
 use BondarDe\Lox\Livewire\ModelList\Concerns\WithConfigurableColumns;
 use BondarDe\Lox\Models\Columns\CmsPageColumns;
 use BondarDe\Lox\Repositories\CmsPageRepository;
@@ -15,16 +14,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 use Laravel\Scout\Searchable;
 use Spatie\Translatable\HasTranslations;
 
 class CmsPage extends Model implements WithConfigurableColumns
 {
-    use SoftDeletes;
-    use Searchable;
-    use HasTranslations;
     use CreatedUpdatedBy;
+    use HasTranslations;
+    use Searchable;
+    use SoftDeletes;
 
     const string FIELD_ID = 'id';
     const string FIELD_CREATED_AT = self::CREATED_AT;
@@ -88,22 +86,7 @@ class CmsPage extends Model implements WithConfigurableColumns
     {
         parent::boot();
 
-        $updateSlug = function (CmsPage $cmsPage) {
-            $dirtyFields = $cmsPage->getDirty();
-
-            if (
-                !isset($dirtyFields[CmsPage::FIELD_SLUG])
-                &&
-                !isset($dirtyFields[CmsPage::FIELD_PAGE_TITLE])
-            ) {
-                throw new IllegalStateException('Page title or slug is required');
-            }
-
-            if (!isset($dirtyFields[CmsPage::FIELD_SLUG])) {
-                $title = $cmsPage->{CmsPage::FIELD_PAGE_TITLE};
-                $cmsPage->{self::FIELD_SLUG} = Str::slug($title);
-            }
-
+        $savingCallback = function (CmsPage $cmsPage) {
             $parent = $cmsPage->{self::REL_PARENT};
             $parentPrefix = match ($parent) {
                 null => '',
@@ -114,23 +97,17 @@ class CmsPage extends Model implements WithConfigurableColumns
             $cmsPage->{self::FIELD_PATH} = $path;
         };
 
-        static::creating($updateSlug);
-        static::updating(function (CmsPage $cmsPage) use ($updateSlug) {
-            if ($cmsPage->{self::FIELD_SLUG}) {
-                return;
-            }
+        static::saving($savingCallback);
 
-            $updateSlug($cmsPage);
-        });
 
-        static::updated(function (CmsPage $cmsPage) {
+        static::saved(function (CmsPage $cmsPage) {
             $dirtyFields = $cmsPage->getDirty();
             if (
-                !isset($dirtyFields[self::FIELD_SLUG])
+                ! isset($dirtyFields[self::FIELD_SLUG])
                 &&
-                !isset($dirtyFields[self::FIELD_PATH])
+                ! isset($dirtyFields[self::FIELD_PATH])
                 &&
-                !array_key_exists(self::FIELD_PARENT_ID, $dirtyFields)
+                ! array_key_exists(self::FIELD_PARENT_ID, $dirtyFields)
             ) {
                 return;
             }

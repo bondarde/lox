@@ -18,7 +18,7 @@ use BondarDe\Lox\Support\CmsRenderer;
     @can('update', $cmsPage)
         <x-button
             tag="a"
-            :href="route('admin.cms.pages.edit', $cmsPage)"
+            :href="route('filament.admin.resources.cms-pages.edit', $cmsPage)"
             icon="📝"
         >
             {{ __('Edit page')}}

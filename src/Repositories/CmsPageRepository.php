@@ -3,6 +3,7 @@
 namespace BondarDe\Lox\Repositories;
 
 use BondarDe\Lox\Database\ModelRepository;
+use BondarDe\Lox\Filament\AdminPanel\Resources\CmsPageResource;
 use BondarDe\Lox\Models\CmsPage;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
@@ -27,23 +28,21 @@ class CmsPageRepository extends ModelRepository
             ->get();
     }
 
-    public function parentsListForEditor(): array
+    public function parentFormOptions(?int $excludedId): array
     {
-        $res = [
-            0 => __('No parent'),
-        ];
-
-        $pages = $this->query()
+        $q = $this->query()
             ->orderBy(CmsPage::FIELD_PARENT_ID)
-            ->orderBy(CmsPage::FIELD_ID)
-            ->get()
-            ->keyBy(CmsPage::FIELD_ID)
-            ->map(fn(CmsPage $cmsPage) => $cmsPage->{CmsPage::FIELD_PAGE_TITLE} . ' [' . $cmsPage->{CmsPage::FIELD_ID} . ']')
-            ->toArray();
-        foreach ($pages as $id => $label) {
-            $res[$id] = $label;
+            ->orderBy(CmsPage::FIELD_ID);
+
+        if ($excludedId) {
+            $q->whereNot(CmsPage::FIELD_ID, $excludedId);
         }
 
-        return $res;
+        return $q
+            ->get()
+            ->keyBy(CmsPage::FIELD_ID)
+            ->map(fn (CmsPage $cmsPage) => $cmsPage->{CmsPage::FIELD_PAGE_TITLE} . ' [' . $cmsPage->{CmsPage::FIELD_ID} . ']')
+            ->prepend(__('No parent'), CmsPageResource::$defaultNoParentValue)
+            ->toArray();
     }
 }

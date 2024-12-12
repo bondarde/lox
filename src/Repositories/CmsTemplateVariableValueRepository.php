@@ -15,10 +15,9 @@ class CmsTemplateVariableValueRepository extends ModelRepository
     }
 
     public function findByCmsPageAndCmsTemplateVariableId(
-        CmsPage             $cmsPage,
+        CmsPage $cmsPage,
         CmsTemplateVariable $cmsTemplateVariable,
-    ): ?CmsTemplateVariableValue
-    {
+    ): ?CmsTemplateVariableValue {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->query()
             ->where(CmsTemplateVariableValue::FIELD_CMS_PAGE_ID, $cmsPage->{CmsPage::FIELD_ID})
@@ -27,11 +26,10 @@ class CmsTemplateVariableValueRepository extends ModelRepository
     }
 
     public function setValue(
-        CmsPage             $cmsPage,
+        CmsPage $cmsPage,
         CmsTemplateVariable $cmsTemplateVariable,
-        ?string             $value,
-    ): void
-    {
+        ?string $value,
+    ): void {
         $this->query()
             ->updateOrCreate([
                 CmsTemplateVariableValue::FIELD_CMS_PAGE_ID => $cmsPage->{CmsPage::FIELD_ID},

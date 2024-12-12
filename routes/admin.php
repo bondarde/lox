@@ -1,12 +1,6 @@
 <?php
 
 use BondarDe\Lox\Data\Acl\AclSetupData;
-use BondarDe\Lox\Http\Controllers\Admin\Cms\AdminCmsOverviewController;
-use BondarDe\Lox\Http\Controllers\Admin\Cms\AdminCmsPagesController;
-use BondarDe\Lox\Http\Controllers\Admin\Cms\AdminCmsRedirectsController;
-use BondarDe\Lox\Http\Controllers\Admin\Cms\AdminCmsTemplatesController;
-use BondarDe\Lox\Http\Controllers\Admin\Cms\Assistant\AdminCmsAssistantIndexController;
-use BondarDe\Lox\Http\Controllers\Admin\Cms\Assistant\AdminCmsAssistantStoreController;
 use BondarDe\Lox\Http\Controllers\Admin\System\AdminAboutController;
 use BondarDe\Lox\Http\Controllers\Admin\System\AdminCacheController;
 use BondarDe\Lox\Http\Controllers\Admin\System\AdminEventsController;
@@ -31,32 +25,6 @@ Route::group([
     'prefix' => 'admin/',
     'as' => 'admin.',
 ], function () {
-    Route::group([
-        'middleware' => [
-            'can:' . AclSetupData::PERMISSION_EDIT_CMS_PAGES,
-        ],
-    ], function () {
-        Route::group([
-            'prefix' => 'cms/',
-            'as' => 'cms.',
-        ], function () {
-            Route::get('/', AdminCmsOverviewController::class)->name('overview');
-
-            Route::resource('pages', AdminCmsPagesController::class)
-                ->parameter('pages', 'cms_page')
-                ->whereNumber('cms_page');
-
-            Route::resource('redirects', AdminCmsRedirectsController::class)
-                ->parameter('redirects', 'cms_redirect');
-
-            Route::get('assistant', AdminCmsAssistantIndexController::class)->name('assistant.index');
-            Route::put('assistant', AdminCmsAssistantStoreController::class)->name('assistant.store');
-
-            Route::resource('templates', AdminCmsTemplatesController::class)
-                ->parameter('templates', 'cms_template');
-        });
-    });
-
     Route::group([
         'prefix' => 'system/',
         'as' => 'system.',
