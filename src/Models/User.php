@@ -3,15 +3,15 @@
 namespace BondarDe\Lox\Models;
 
 use BondarDe\Lox\Constants\ModelCastTypes;
-use BondarDe\Lox\Livewire\ModelList\Concerns\WithConfigurableColumns;
 use BondarDe\Lox\Models\Columns\UserColumns;
+use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements WithConfigurableColumns
+class User extends Authenticatable implements FilamentUser
 {
     use HasFactory;
     use Notifiable;

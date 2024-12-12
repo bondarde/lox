@@ -59,15 +59,15 @@ use Illuminate\Support\Facades\Route;
 
                 @can('view backend')
                     <x-nav-item
-                        :href="route('admin.dashboard')"
-                        active-route="admin.*"
+                        :href="route('filament.admin.pages.dashboard')"
+                        active-route="filament.admin.*"
                     >
                         Admin
                     </x-nav-item>
                 @endcan
 
                 <x-nav-item
-                    :href="route('user.index')"
+                    :href="route('filament.me.pages.profile')"
                     active-route="user.*"
                 >
                     {{ Auth::user()->{User::FIELD_NAME} }}

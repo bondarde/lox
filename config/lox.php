@@ -44,4 +44,13 @@ return [
             'default_task' => env('LOX_CMS_ASSISTANT_DEFAULT_TASK'),
         ],
     ],
+
+    'filament' => [
+        'panels' => [
+            'with_user_menu' => env('LOX_FILAMENT_WITH_USER_MENU', true),
+            'with_js' => env('LOX_FILAMENT_WITH_JS', true),
+            'with_css' => env('LOX_FILAMENT_WITH_CSS', true),
+        ],
+        'locales' => explode(',', env('LOX_FILAMENT_LOCALES', config('app.locale') . ',' . config('app.fallback_locale'))),
+    ],
 ];

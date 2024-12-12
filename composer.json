@@ -12,9 +12,13 @@
     "require": {
         "php": "^8.3",
         "ext-json": "*",
+        "bezhansalleh/filament-shield": "^3.2",
+        "bondarde/filament-local-avatar": "^1.0",
+        "bondarde/filament-route-list": "^1.0",
         "bondarde/php-utils": "^0.5.0",
         "deployer/deployer": "^7.0",
         "diglactic/laravel-breadcrumbs": "^9.0",
+        "filament/filament": "^3.2",
         "firebase/php-jwt": "^6.3",
         "jenssegers/agent": "^2.6",
         "laravel/fortify": "^1.10",
@@ -23,11 +27,14 @@
         "laravel/socialite": "^5.5",
         "livewire/livewire": "^3.0",
         "openai-php/laravel": "^0.10",
+        "saade/filament-laravel-log": "^3.2",
         "spatie/laravel-permission": "^6.0",
         "spatie/laravel-translatable": "^6.5",
+        "stechstudio/filament-impersonate": "^3.12",
         "teamtnt/laravel-scout-tntsearch-driver": "^14.0",
         "tinymce/tinymce": "^7.0",
-        "tweeb/tinymce-i18n": "^2.0"
+        "tweeb/tinymce-i18n": "^2.0",
+        "filament/spatie-laravel-translatable-plugin": "^3.2"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

@@ -20,11 +20,8 @@ use BondarDe\Lox\Livewire\ModelList\FilterItemCount;
 use BondarDe\Lox\Livewire\ModelList\Search;
 use BondarDe\Lox\Models\CmsPage;
 use BondarDe\Lox\Policies\CmsPagePolicy;
-use BondarDe\Lox\View\Components\AdminPage;
 use BondarDe\Lox\View\Components\Button;
-use BondarDe\Lox\View\Components\Cms\AdminNavigation;
 use BondarDe\Lox\View\Components\Content;
-use BondarDe\Lox\View\Components\DashboardItem;
 use BondarDe\Lox\View\Components\FileSize;
 use BondarDe\Lox\View\Components\Form\Boolean;
 use BondarDe\Lox\View\Components\Form\Checkbox;
@@ -38,9 +35,6 @@ use BondarDe\Lox\View\Components\Form\Select;
 use BondarDe\Lox\View\Components\Form\Textarea;
 use BondarDe\Lox\View\Components\Form\TinyMce;
 use BondarDe\Lox\View\Components\HtmlHeader;
-use BondarDe\Lox\View\Components\ModelList;
-use BondarDe\Lox\View\Components\ModelMeta;
-use BondarDe\Lox\View\Components\ModelSummary;
 use BondarDe\Lox\View\Components\NavItem;
 use BondarDe\Lox\View\Components\Number;
 use BondarDe\Lox\View\Components\Page;
@@ -54,6 +48,7 @@ use BondarDe\Lox\View\Components\SurveyView;
 use BondarDe\Lox\View\Components\UserMessages;
 use BondarDe\Lox\View\Components\ValidationErrors;
 use BondarDe\Lox\View\DefaultPageConfig;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Console\AboutCommand;
 use Illuminate\Support\Collection;
@@ -65,11 +60,10 @@ use Livewire\Livewire;
 
 class LoxServiceProvider extends ServiceProvider
 {
-    const NAMESPACE = 'lox';
+    const string NAMESPACE = 'lox';
 
-    const COMPONENTS = [
+    const array COMPONENTS = [
         'page' => Page::class,
-        'admin-page' => AdminPage::class,
         'html-header' => HtmlHeader::class,
         'page-header' => PageHeader::class,
         'page-footer' => PageFooter::class,
@@ -95,17 +89,10 @@ class LoxServiceProvider extends ServiceProvider
 
         'relative-timestamp' => RelativeTimestamp::class,
 
-        'cms.admin-navigation' => AdminNavigation::class,
-
-        'model-list' => ModelList::class,
-        'model-summary' => ModelSummary::class,
-        'model-meta' => ModelMeta::class,
-
         'number' => Number::class,
         'file-size' => FileSize::class,
 
         'rendering-stats' => RenderingStats::class,
-        'dashboard-item' => DashboardItem::class,
         'nav-item' => NavItem::class,
         'search-highlighted-text' => SearchHighlightedText::class,
     ];
@@ -193,7 +180,7 @@ class LoxServiceProvider extends ServiceProvider
 
     private function configureCommands(): void
     {
-        if (!$this->app->runningInConsole()) {
+        if (! $this->app->runningInConsole()) {
             return;
         }
 
@@ -229,6 +216,9 @@ class LoxServiceProvider extends ServiceProvider
         AboutCommand::add('Lox', AboutCommandIntegration::class);
     }
 
+    /**
+     * @throws BindingResolutionException
+     */
     private function getMigrationFileName(string $migrationFileName)
     {
         $timestamp = date('Y_m_d_His');
@@ -236,7 +226,7 @@ class LoxServiceProvider extends ServiceProvider
         $filesystem = $this->app->make(Filesystem::class);
 
         return Collection::make([$this->app->databasePath() . DIRECTORY_SEPARATOR . 'migrations' . DIRECTORY_SEPARATOR])
-            ->flatMap(fn(string $path) => $filesystem->glob($path . '*_' . $migrationFileName))
+            ->flatMap(fn (string $path) => $filesystem->glob($path . '*_' . $migrationFileName))
             ->push($this->app->databasePath() . "/migrations/{$timestamp}_$migrationFileName")
             ->first();
     }
