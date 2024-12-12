@@ -8,7 +8,7 @@ class DefaultPageConfig implements PageConfig
 {
     public function bodyClasses(): string
     {
-        return 'antialiased overflow-x-hidden bg-gray-50 dark:bg-black text-gray-800 dark:text-gray-100';
+        return 'antialiased font-sans overflow-x-hidden bg-gray-50 dark:bg-black text-gray-800 dark:text-gray-100';
     }
 
     public function contentWrapClasses(): string
