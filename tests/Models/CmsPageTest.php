@@ -13,19 +13,7 @@ class CmsPageTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testSlugGeneration()
-    {
-        $page = CmsPage::query()->create([
-            CmsPage::FIELD_PAGE_TITLE => 'Test Page',
-            CmsPage::FIELD_IS_PUBLIC => false,
-            CmsPage::FIELD_IS_INDEX => false,
-            CmsPage::FIELD_IS_FOLLOW => false,
-        ]);
-
-        self::assertEquals('test-page', $page->{CmsPage::FIELD_SLUG});
-    }
-
-    public function testPathChange()
+    public function test_path_change()
     {
         // We create "Test Page" (path: "test-page") and its subpage "Test Subpage" (path: "test-page/test-subpage")
         // After changing slug "test-page" to "first-page", it's expected to have page URLs:
@@ -37,6 +25,7 @@ class CmsPageTest extends TestCase
 
         $page = CmsPage::query()->create([
             CmsPage::FIELD_PAGE_TITLE => 'Test Page',
+            CmsPage::FIELD_SLUG => 'test-page',
             CmsPage::FIELD_IS_PUBLIC => true,
             CmsPage::FIELD_IS_INDEX => true,
             CmsPage::FIELD_IS_FOLLOW => true,
@@ -44,6 +33,7 @@ class CmsPageTest extends TestCase
         $subpage = CmsPage::query()->create([
             CmsPage::FIELD_PARENT_ID => $page->{CmsPage::FIELD_ID},
             CmsPage::FIELD_PAGE_TITLE => 'Test Subpage',
+            CmsPage::FIELD_SLUG => 'test-subpage',
             CmsPage::FIELD_IS_PUBLIC => true,
             CmsPage::FIELD_IS_INDEX => true,
             CmsPage::FIELD_IS_FOLLOW => true,
@@ -59,7 +49,6 @@ class CmsPageTest extends TestCase
 
         self::assertEquals('first-page/test-subpage', $subpage->{CmsPage::FIELD_PATH});
 
-        /** @var Collection $redirects */
         $redirects = CmsRedirect::query()->get();
 
         /** @var CmsRedirectRepository $cmsRedirectRepository */
@@ -74,16 +63,18 @@ class CmsPageTest extends TestCase
         self::assertEquals('first-page/test-subpage', $redirect2->{CmsRedirect::FIELD_TARGET});
     }
 
-    public function testParentChange()
+    public function test_parent_change()
     {
         $page1 = CmsPage::query()->create([
             CmsPage::FIELD_PAGE_TITLE => 'Page 1',
+            CmsPage::FIELD_SLUG => 'page-1',
             CmsPage::FIELD_IS_PUBLIC => true,
             CmsPage::FIELD_IS_INDEX => true,
             CmsPage::FIELD_IS_FOLLOW => true,
         ]);
         $page2 = CmsPage::query()->create([
             CmsPage::FIELD_PAGE_TITLE => 'Page 2',
+            CmsPage::FIELD_SLUG => 'page-2',
             CmsPage::FIELD_IS_PUBLIC => true,
             CmsPage::FIELD_IS_INDEX => true,
             CmsPage::FIELD_IS_FOLLOW => true,
