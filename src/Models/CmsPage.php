@@ -3,8 +3,6 @@
 namespace BondarDe\Lox\Models;
 
 use BondarDe\Lox\Constants\ModelCastTypes;
-use BondarDe\Lox\Livewire\ModelList\Concerns\WithConfigurableColumns;
-use BondarDe\Lox\Models\Columns\CmsPageColumns;
 use BondarDe\Lox\Repositories\CmsPageRepository;
 use BondarDe\Lox\Repositories\CmsRedirectRepository;
 use BondarDe\Lox\Repositories\CmsTemplateVariableValueRepository;
@@ -17,7 +15,7 @@ use Illuminate\Support\Collection;
 use Laravel\Scout\Searchable;
 use Spatie\Translatable\HasTranslations;
 
-class CmsPage extends Model implements WithConfigurableColumns
+class CmsPage extends Model
 {
     use CreatedUpdatedBy;
     use HasTranslations;
@@ -99,7 +97,6 @@ class CmsPage extends Model implements WithConfigurableColumns
 
         static::saving($savingCallback);
 
-
         static::saved(function (CmsPage $cmsPage) {
             $dirtyFields = $cmsPage->getDirty();
             if (
@@ -170,11 +167,6 @@ class CmsPage extends Model implements WithConfigurableColumns
     public function children(): HasMany
     {
         return $this->hasMany(self::class, self::FIELD_PARENT_ID);
-    }
-
-    public static function getModelListColumnConfigurations(): ?string
-    {
-        return CmsPageColumns::class;
     }
 
     public function template(): BelongsTo
