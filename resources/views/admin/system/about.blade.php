@@ -62,7 +62,6 @@
                                         </x-filament::badge>
                                         @break
                                     @default
-                                        .:.:.[{{ gettype($value) }}]
                                         {!! $json !!}
                                 @endswitch
                             </td>
