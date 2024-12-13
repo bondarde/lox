@@ -4,7 +4,6 @@ use BondarDe\Lox\Data\Acl\AclSetupData;
 use BondarDe\Lox\Http\Controllers\Admin\System\AdminCacheController;
 use BondarDe\Lox\Http\Controllers\Admin\System\AdminEventsController;
 use BondarDe\Lox\Http\Controllers\Admin\System\AdminPhpInfoController;
-use BondarDe\Lox\Http\Controllers\Admin\System\AdminRoutesController;
 use BondarDe\Lox\Http\Controllers\Admin\System\AdminScheduleController;
 use BondarDe\Lox\Http\Controllers\Admin\System\AdminSearchStatusController;
 use BondarDe\Lox\Http\Controllers\Admin\System\AdminSystemStatusIndexController;
@@ -35,7 +34,6 @@ Route::group([
 
         Route::get('schedule', AdminScheduleController::class)->name('schedule');
         Route::get('events', AdminEventsController::class)->name('events');
-        Route::get('routes', AdminRoutesController::class)->name('routes');
         Route::get('cache', AdminCacheController::class)->name('cache');
         Route::get('php-info', AdminPhpInfoController::class)->name('php-info');
         Route::get('search-status', AdminSearchStatusController::class)->name('search-status');
