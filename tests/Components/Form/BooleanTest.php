@@ -10,13 +10,14 @@ class BooleanTest extends TestCase
     public function testBasicTemplateRendering()
     {
         $expected = <<<HTML
-<label class="block cursor-pointer">
+<label class="flex gap-2 cursor-pointer">
     <input
         class="form-boolean"
         type="checkbox"
         name="yes-no"
-        >
-    <span class="align-middle select-none">Please check</span>
+        
+    >
+    <span class="align-middle select-none grow">Please check</span>
 </label>
 
 HTML;
@@ -28,13 +29,14 @@ HTML;
     public function testWithModelChecked()
     {
         $expected = <<<HTML
-<label class="block cursor-pointer">
+<label class="flex gap-2 cursor-pointer">
     <input
         class="form-boolean"
         type="checkbox"
         name="is_active"
-        checked="checked">
-    <span class="align-middle select-none">Please check</span>
+        checked="checked"
+    >
+    <span class="align-middle select-none grow">Please check</span>
 </label>
 
 HTML;
