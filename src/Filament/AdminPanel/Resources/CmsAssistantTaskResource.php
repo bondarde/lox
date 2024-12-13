@@ -18,7 +18,7 @@ class CmsAssistantTaskResource extends Resource
     protected static ?string $model = CmsAssistantTask::class;
     protected static ?string $slug = 'cms-assistant-tasks';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-sparkles';
     protected static ?string $navigationGroup = 'CMS';
     protected static ?int $navigationSort = 130;
 
