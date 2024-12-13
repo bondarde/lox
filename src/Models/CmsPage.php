@@ -143,8 +143,9 @@ class CmsPage extends Model
             $children = $cmsPage->{self::REL_CHILDREN};
 
             $children->each(function (CmsPage $child) use ($cmsPageRepository, $path) {
+                $newPath = $path . '/' . $child->{self::FIELD_SLUG};
                 $cmsPageRepository->update($child, [
-                    self::FIELD_PATH => $path . '/' . $child->{self::FIELD_SLUG},
+                    self::FIELD_PATH => $newPath,
                 ]);
             });
         });

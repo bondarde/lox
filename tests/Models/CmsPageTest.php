@@ -6,7 +6,6 @@ use BondarDe\Lox\Models\CmsPage;
 use BondarDe\Lox\Models\CmsRedirect;
 use BondarDe\Lox\Repositories\CmsRedirectRepository;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Collection;
 use Tests\TestCase;
 
 class CmsPageTest extends TestCase
@@ -42,6 +41,7 @@ class CmsPageTest extends TestCase
         self::assertEquals('test-page', $page->{CmsPage::FIELD_PATH});
         self::assertEquals('test-page/test-subpage', $subpage->{CmsPage::FIELD_PATH});
 
+        $page->refresh();
         $page->update([
             CmsPage::FIELD_SLUG => 'first-page',
         ]);
