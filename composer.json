@@ -16,6 +16,7 @@
         "bondarde/filament-local-avatar": "^1.0",
         "bondarde/filament-route-list": "^1.0",
         "bondarde/php-utils": "^0.5.0",
+        "calebporzio/sushi": "^2.5",
         "deployer/deployer": "^7.0",
         "diglactic/laravel-breadcrumbs": "^9.0",
         "filament/filament": "^3.2",
