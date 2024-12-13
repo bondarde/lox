@@ -19,9 +19,8 @@ class ExecuteCmsTasksCommand extends Command
 
     public function __construct(
         private readonly CmsAssistantTaskRepository $cmsAssistantTaskRepository,
-        private readonly CmsPageRepository          $cmsPageRepository,
-    )
-    {
+        private readonly CmsPageRepository $cmsPageRepository,
+    ) {
         parent::__construct();
     }
 
@@ -30,7 +29,7 @@ class ExecuteCmsTasksCommand extends Command
         $tasks = $this->cmsAssistantTaskRepository->tasksWaitingForExecution();
 
         $tasks->each(
-            fn(CmsAssistantTask $cmsAssistantTask) => $this->executeTask($cmsAssistantTask)
+            fn (CmsAssistantTask $cmsAssistantTask) => $this->executeTask($cmsAssistantTask),
         );
 
         $this->output->success('Done.');
@@ -63,12 +62,13 @@ class ExecuteCmsTasksCommand extends Command
         $content = Str::of($res->choices[0]->message->content)
             ->explode("\n")
             ->filter()
-            ->map(fn(string $line) => DOM::p($line))
+            ->map(fn (string $line) => DOM::p($line))
             ->join('');
 
         /** @var CmsPage $cmsPage */
         $cmsPage = $this->cmsPageRepository->create([
             CmsPage::FIELD_PAGE_TITLE => $topic,
+            CmsPage::FIELD_SLUG => Str::slug($topic, language: $locale),
             CmsPage::FIELD_IS_PUBLIC => false,
             CmsPage::FIELD_IS_INDEX => false,
             CmsPage::FIELD_IS_FOLLOW => false,
