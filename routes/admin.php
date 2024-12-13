@@ -1,7 +1,6 @@
 <?php
 
 use BondarDe\Lox\Data\Acl\AclSetupData;
-use BondarDe\Lox\Http\Controllers\Admin\System\AdminAboutController;
 use BondarDe\Lox\Http\Controllers\Admin\System\AdminCacheController;
 use BondarDe\Lox\Http\Controllers\Admin\System\AdminEventsController;
 use BondarDe\Lox\Http\Controllers\Admin\System\AdminPhpInfoController;
@@ -34,7 +33,6 @@ Route::group([
     ], function () {
         Route::get('/', AdminSystemStatusIndexController::class)->name('index');
 
-        Route::get('about', AdminAboutController::class)->name('about');
         Route::get('schedule', AdminScheduleController::class)->name('schedule');
         Route::get('events', AdminEventsController::class)->name('events');
         Route::get('routes', AdminRoutesController::class)->name('routes');
