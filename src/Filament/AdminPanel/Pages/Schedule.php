@@ -32,16 +32,19 @@ class Schedule extends Page implements HasForms, HasTable
                 TextColumn::make('type')
                     ->badge(),
                 TextColumn::make('command')
-                    ->description(fn (ScheduledCommand $record) => $record->description),
-                TextColumn::make('expression')
-                    ->description(fn (ScheduledCommand $record) => $record->timezone),
-                TextColumn::make('previousRun')
-                    ->since()
-                    ->dateTimeTooltip(),
+                    ->description(fn (ScheduledCommand $record) => $record->description)
+                    ->copyable(),
                 TextColumn::make('nextRun')
                     ->since()
                     ->dateTimeTooltip(),
-                TextColumn::make('output'),
+                TextColumn::make('previousRun')
+                    ->since()
+                    ->dateTimeTooltip(),
+                TextColumn::make('expression')
+                    ->label('Schedule')
+                    ->description(fn (ScheduledCommand $record) => $record->timezone),
+                TextColumn::make('output')
+                    ->copyable(),
             ])
             ->defaultSort('nextRun')
             ->filters([
