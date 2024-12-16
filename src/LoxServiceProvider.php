@@ -8,7 +8,6 @@ use BondarDe\Lox\Console\Commands\Search\ScoutRefreshCommand;
 use BondarDe\Lox\Constants\Environment;
 use BondarDe\Lox\Contracts\View\PageConfig;
 use BondarDe\Lox\Http\Controllers\Web\CmsContentController;
-use BondarDe\Lox\Livewire\Cms\TemplateVariablesEditor;
 use BondarDe\Lox\Livewire\FileUpload;
 use BondarDe\Lox\Livewire\LiveModelList;
 use BondarDe\Lox\Livewire\ModelList\Actions as ModelListActions;
@@ -203,8 +202,6 @@ class LoxServiceProvider extends ServiceProvider
         Livewire::component('model-list.content', ModelListContent::class);
         Livewire::component('model-list.filter-item-count', FilterItemCount::class);
         Livewire::component('model-list.actions', ModelListActions::class);
-
-        Livewire::component('cms.template-variables-editor', TemplateVariablesEditor::class);
     }
 
     private function configureAboutCommand(): void
