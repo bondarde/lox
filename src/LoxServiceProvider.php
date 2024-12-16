@@ -3,8 +3,6 @@
 namespace BondarDe\Lox;
 
 use BondarDe\Lox\Console\AboutCommandIntegration;
-use BondarDe\Lox\Console\Commands\Acl\AclMakeSuperAdminCommand;
-use BondarDe\Lox\Console\Commands\Acl\AclUpdateRolesAndPermissionsCommand;
 use BondarDe\Lox\Console\Commands\Cms\ExecuteCmsTasksCommand;
 use BondarDe\Lox\Console\Commands\Search\ScoutRefreshCommand;
 use BondarDe\Lox\Constants\Environment;
@@ -185,8 +183,6 @@ class LoxServiceProvider extends ServiceProvider
         }
 
         $this->commands([
-            AclMakeSuperAdminCommand::class,
-            AclUpdateRolesAndPermissionsCommand::class,
             ScoutRefreshCommand::class,
             ExecuteCmsTasksCommand::class,
         ]);
