@@ -158,6 +158,12 @@ class CmsPageResource extends Resource
                 TextColumn::make(CmsPage::REL_PARENT . '.' . CmsPage::FIELD_PAGE_TITLE)
                     ->placeholder('n/a')
                     ->searchable(),
+
+                TextColumn::make('text_length')
+                    ->state(fn (CmsPage $cmsPage) => Str::wordCount(strip_tags($cmsPage->{CmsPage::FIELD_CONTENT})) . ' words')
+                    ->description(fn (CmsPage $cmsPage) => mb_strlen(strip_tags($cmsPage->{CmsPage::FIELD_CONTENT})) . ' chars')
+                    ->label('Length'),
+
                 TextColumn::make(CmsPage::REL_TEMPLATE . '.' . CmsTemplate::FIELD_LABEL)
                     ->placeholder('n/a')
                     ->searchable(),
