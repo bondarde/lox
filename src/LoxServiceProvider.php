@@ -126,7 +126,6 @@ class LoxServiceProvider extends ServiceProvider
     {
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
         $this->loadRoutesFrom(__DIR__ . '/../routes/user.php');
-        $this->loadRoutesFrom(__DIR__ . '/../routes/admin.php');
 
         if (config('lox.cms.fallback_route_enabled')) {
             Route::group([

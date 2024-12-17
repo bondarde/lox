@@ -53,4 +53,11 @@ return [
         ],
         'locales' => explode(',', env('LOX_FILAMENT_LOCALES', config('app.locale') . ',' . config('app.fallback_locale'))),
     ],
+
+    'admin' => [
+        'eloquent_models' => explode(
+            ',',
+            env('LOX_ADMIN_USER_MODELS', Illuminate\Database\Eloquent\Model::class . ',' . BondarDe\Lox\Models\User::class),
+        ),
+    ],
 ];
