@@ -1,7 +1,4 @@
-<x-admin-page
-    title="Cache"
-    h1="Cache"
->
+<x-filament-panels::page>
 
     <x-content class="inline-block">
         <table class="table">
@@ -30,4 +27,4 @@
         </table>
     </x-content>
 
-</x-admin-page>
+</x-filament-panels::page>
