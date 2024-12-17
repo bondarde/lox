@@ -1,19 +1,4 @@
-<x-admin-page
-    title="Database Status, Table {{ $table }}"
-    h1="Database Status, Table {{ $table }}"
->
-
-    <h2>Table</h2>
-    <x-content class="overflow-x-auto">
-        Name:
-        {{ $table }}
-        <br>
-        Size:
-        <x-file-size
-            :bytes="$size"
-        />
-    </x-content>
-
+<div>
 
     <h2
         class="mt-8"
@@ -73,14 +58,22 @@
                             {{ $index->name }}
                         </td>
                         <td>
-                            @foreach($index->columns as $column)
-                                {{ $column }}
-                            @endforeach
+                            <ul>
+                                @foreach($index->columns as $column)
+                                    <li>
+                                        {{ $column }}
+                                    </li>
+                                @endforeach
+                            </ul>
                         </td>
                         <td>
-                            @foreach($index->attributes as $attribute)
-                                {{ $attribute }}
-                            @endforeach
+                            <ul>
+                                @foreach($index->attributes as $attribute)
+                                    <li>
+                                        {{ $attribute }}
+                                    </li>
+                                @endforeach
+                            </ul>
                         </td>
                     </tr>
                 @endforeach
@@ -115,14 +108,18 @@
                             {{ $foreignKey->name }}
                         </td>
                         <td>
-                            @foreach($foreignKey->columns as $column)
-                                {{ $column }}
-                            @endforeach
+                            <ul>
+                                @foreach($foreignKey->columns as $column)
+                                    <li>
+                                        {{ $column }}
+                                    </li>
+                                @endforeach
+                            </ul>
                         </td>
                         <td>
                             <a
-                                class="hover:underline"
-                                href="{{ route('admin.system.database.table', $foreignKey->foreign_table) }}"
+                                class="underline hover:no-underline"
+                                href="{{ route('filament.admin.resources.database.view', 'table:'.$foreignKey->foreign_table) }}"
                             >
                                 {{ $foreignKey->foreign_table }}
                             </a>
@@ -148,4 +145,4 @@
         </p>
     @endif
 
-</x-admin-page>
+</div>

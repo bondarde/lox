@@ -2,8 +2,6 @@
 
 use BondarDe\Lox\Data\Acl\AclSetupData;
 use BondarDe\Lox\Http\Controllers\Admin\System\AdminSystemStatusIndexController;
-use BondarDe\Lox\Http\Controllers\Admin\System\Database\AdminDatabaseStatusIndexController;
-use BondarDe\Lox\Http\Controllers\Admin\System\Database\AdminDatabaseStatusTableController;
 use BondarDe\Lox\Http\Controllers\Admin\System\Models\AdminModelsDetailsController;
 use BondarDe\Lox\Http\Controllers\Admin\System\Models\AdminModelsIndexController;
 use BondarDe\Lox\Http\Controllers\Admin\System\Models\AdminModelsListController;
@@ -26,9 +24,6 @@ Route::group([
         ],
     ], function () {
         Route::get('/', AdminSystemStatusIndexController::class)->name('index');
-
-        Route::get('database', AdminDatabaseStatusIndexController::class)->name('database.index');
-        Route::get('database/table:{table}', AdminDatabaseStatusTableController::class)->name('database.table');
 
         Route::get('models', AdminModelsIndexController::class)->name('models.index');
         Route::get('models/{model}', AdminModelsListController::class)->name('models.list');
