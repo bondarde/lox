@@ -2,8 +2,8 @@
 
 namespace BondarDe\Lox\Http\Controllers\Admin\System\Data;
 
-use Exception;
 use Illuminate\Database\Eloquent\Model;
+use Throwable;
 
 readonly class ModelMeta
 {
@@ -13,8 +13,8 @@ readonly class ModelMeta
         public string $fullyQualifiedClassName,
         public string $namespace,
         public string $className,
-        public string $dbTableName,
-        public int $dbEntriesCount,
+        public ?string $dbTableName,
+        public ?int $dbEntriesCount,
     ) {
         //
     }
@@ -26,13 +26,15 @@ readonly class ModelMeta
         $className = array_splice($parts, -1)[0];
         $namespace = implode(self::SEPARATOR, $parts);
 
-        /** @var Model $model */
-        $model = new $fullyQualifiedClassName();
-        $dbTableName = $model->getTable();
         try {
+            /** @var Model $model */
+            $model = new $fullyQualifiedClassName();
+
+            $dbTableName = $model?->getTable();
             $dbEntriesCount = $model::count();
-        } catch (Exception) {
-            $dbEntriesCount = 0;
+        } catch (Throwable) {
+            $dbTableName = null;
+            $dbEntriesCount = null;
         }
 
         return new self(
