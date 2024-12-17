@@ -2,7 +2,6 @@
 
 use BondarDe\Lox\Data\Acl\AclSetupData;
 use BondarDe\Lox\Http\Controllers\Admin\System\AdminCacheController;
-use BondarDe\Lox\Http\Controllers\Admin\System\AdminSearchStatusController;
 use BondarDe\Lox\Http\Controllers\Admin\System\AdminSystemStatusIndexController;
 use BondarDe\Lox\Http\Controllers\Admin\System\Database\AdminDatabaseStatusIndexController;
 use BondarDe\Lox\Http\Controllers\Admin\System\Database\AdminDatabaseStatusTableController;
@@ -30,7 +29,6 @@ Route::group([
         Route::get('/', AdminSystemStatusIndexController::class)->name('index');
 
         Route::get('cache', AdminCacheController::class)->name('cache');
-        Route::get('search-status', AdminSearchStatusController::class)->name('search-status');
 
         Route::get('database', AdminDatabaseStatusIndexController::class)->name('database.index');
         Route::get('database/table:{table}', AdminDatabaseStatusTableController::class)->name('database.table');

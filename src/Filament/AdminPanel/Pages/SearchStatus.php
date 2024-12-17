@@ -1,25 +1,36 @@
 <?php
 
-namespace BondarDe\Lox\Http\Controllers\Admin\System;
+namespace BondarDe\Lox\Filament\AdminPanel\Pages;
 
 use BondarDe\Lox\Http\Controllers\Admin\System\Data\SearchIndexStatus;
 use BondarDe\Lox\Support\Search\DiscoveryUtil;
+use Filament\Pages\Page;
 use ReflectionMethod;
 use TeamTNT\Scout\Console\StatusCommand;
 use TeamTNT\TNTSearch\Exceptions\IndexNotFoundException;
 
-class AdminSearchStatusController
+class SearchStatus extends Page
 {
-    public function __invoke()
+    protected ?string $heading = 'Search Status';
+    protected ?string $subheading = 'Scout TNT Search status';
+
+    protected static string $view = 'lox::admin.system.search-status';
+
+    protected static ?string $navigationLabel = 'Search Status';
+
+    protected static ?string $navigationIcon = 'heroicon-o-magnifying-glass';
+    protected static ?string $navigationGroup = 'System';
+
+    protected static ?int $navigationSort = 900;
+
+    protected function getViewData(): array
     {
         $statusRows = self::status();
 
-        return view('lox::admin.system.search-status', compact(
-            'statusRows',
-        ));
+        return compact('statusRows');
     }
 
-    private static function status()
+    private static function status(): array
     {
         $rows = [];
         $cmd = new StatusCommand();
@@ -41,11 +52,10 @@ class AdminSearchStatusController
     }
 
     protected static function toSearchIndexStatus(
-        string           $className,
+        string $className,
         ReflectionMethod $loadTNTEngine,
-        StatusCommand    $cmd,
-    ): SearchIndexStatus
-    {
+        StatusCommand $cmd,
+    ): SearchIndexStatus {
         $model = new $className();
 
         $tnt = $loadTNTEngine->invoke($cmd, $model);

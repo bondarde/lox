@@ -4,10 +4,7 @@ use BondarDe\Lox\Http\Controllers\Admin\System\Data\SearchIndexStatus;
 use BondarDe\Lox\Http\Controllers\Admin\System\Data\ModelMeta;
 
 ?>
-<x-admin-page
-    title="Search Status"
-    h1="Search Status"
->
+<x-filament-panels::page>
 
     <x-content class="overflow-x-auto">
         <table class="table">
@@ -67,4 +64,4 @@ use BondarDe\Lox\Http\Controllers\Admin\System\Data\ModelMeta;
         </table>
     </x-content>
 
-</x-admin-page>
+</x-filament-panels::page>
