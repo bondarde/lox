@@ -4,6 +4,7 @@ namespace BondarDe\Lox\Models\Sushi;
 
 use BondarDe\Lox\Http\Controllers\Admin\System\Data\ModelMeta;
 use Composer\Autoload\ClassLoader;
+use Exception;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
@@ -43,10 +44,14 @@ class ApplicationModel extends EloquentModel
         $userModels = config('lox.admin.eloquent_models');
 
         return (new Collection($classMap))
-            ->filter(function ($filepath, $className) use ($userModels) {
-                $file = File::get($filepath);
+            ->filter(function ($filepath) use ($userModels) {
+                try {
+                    $fileContent = File::get($filepath);
+                } catch (Exception) {
+                    return false;
+                }
 
-                return Str::contains($file, $userModels);
+                return Str::contains($fileContent, $userModels);
             })
             ->keys()
             ->filter(function (string $className) {
