@@ -5,7 +5,6 @@ namespace BondarDe\Lox\Filament\AdminPanel\Resources;
 use BondarDe\Lox\Filament\AdminPanel\Resources\DatabaseRelationResource\Pages\ListDatabaseRelations;
 use BondarDe\Lox\Filament\AdminPanel\Resources\DatabaseRelationResource\Pages\ViewDatabaseRelation;
 use BondarDe\Lox\Models\Sushi\DatabaseRelation;
-use Filament\Forms\Form;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Components\View;
 use Filament\Infolists\Infolist;
@@ -92,8 +91,10 @@ class DatabaseRelationResource extends Resource
                 TextColumn::make('rows')
                     ->sortable()
                     ->alignEnd(),
-                TextColumn::make('engine'),
-                TextColumn::make('collation'),
+                TextColumn::make('engine')
+                    ->placeholder('n/a'),
+                TextColumn::make('collation')
+                    ->placeholder('n/a'),
                 TextColumn::make('comment')
                     ->placeholder('n/a'),
             ])
@@ -103,11 +104,13 @@ class DatabaseRelationResource extends Resource
                     ->options(
                         DatabaseRelation::query()
                             ->distinct('engine')
+                            ->whereNotNull('engine')
                             ->pluck('engine', 'engine'),
                     ),
                 SelectFilter::make('collation')
                     ->options(
                         DatabaseRelation::query()
+                            ->whereNotNull('collation')
                             ->distinct('collation')
                             ->pluck('collation', 'collation'),
                     ),
