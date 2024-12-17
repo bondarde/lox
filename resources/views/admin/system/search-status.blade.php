@@ -25,11 +25,9 @@ use BondarDe\Lox\Http\Controllers\Admin\System\Data\ModelMeta;
                 <tr class="border-t">
                     <td>
                         <a
-                            class="hover:underline"
-                            href="{{ route('admin.system.models.list', $row->className) }}"
-                        >
-                            {!! ModelMeta::fromFullyQualifiedClassName($row->className) !!}
-                        </a>
+                            class="underline hover:no-underline"
+                            href="{{ route('filament.admin.resources.models.view', $row->className) }}"
+                        >{!! ModelMeta::fromFullyQualifiedClassName($row->className) !!}</a>
                     </td>
                     <td>
                         {{ $row->indexName }}
