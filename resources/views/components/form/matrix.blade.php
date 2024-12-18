@@ -21,7 +21,7 @@
                     <td class="block md:table-cell px-2 py-1 font-bold border-b md:border-b-none md:border-r">
                         <div class="max-w-xs">
                             @if($showErrors)
-                                <x-form.input-error
+                                <x-lox::form.input-error
                                     for="{{ $propKey }}"
                                 />
                             @endif

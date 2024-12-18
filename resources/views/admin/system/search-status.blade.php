@@ -6,7 +6,7 @@ use BondarDe\Lox\Http\Controllers\Admin\System\Data\ModelMeta;
 ?>
 <x-filament-panels::page>
 
-    <x-content class="overflow-x-auto">
+    <x-lox::content class="overflow-x-auto">
         <table class="table">
             <thead>
             <tr>
@@ -40,12 +40,12 @@ use BondarDe\Lox\Http\Controllers\Admin\System\Data\ModelMeta;
                         </ul>
                     </td>
                     <td class="text-right">
-                        <x-number
+                        <x-lox::number
                             :number="$row->dbRowsCount"
                         />
                     </td>
                     <td class="text-right">
-                        <x-number
+                        <x-lox::number
                             :number="$row->indexedRowsCount"
                         />
                     </td>
@@ -53,13 +53,13 @@ use BondarDe\Lox\Http\Controllers\Admin\System\Data\ModelMeta;
                         'text-right pr-2',
                         'text-red-600 bg-red-50' => $row->delta,
                     ])>
-                        <x-number
+                        <x-lox::number
                             :number="$row->delta"
                         />
                     </td>
                 </tr>
             @endforeach
         </table>
-    </x-content>
+    </x-lox::content>
 
 </x-filament-panels::page>

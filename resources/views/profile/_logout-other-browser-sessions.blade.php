@@ -5,7 +5,7 @@
     {{ __('Manage and log out your active sessions on other browsers and devices.') }}
 </small>
 
-<x-content>
+<x-lox::content>
     <p>
         {{ __('If necessary, you may log out of all of your other browser sessions across all of your devices. Some of your recent sessions are listed below; however, this list may not be exhaustive. If you feel your account has been compromised, you should also update your password.') }}
     </p>
@@ -63,9 +63,9 @@
             action="{{ route('user.profile.logout-other-browser-sessions') }}"
         >
             @csrf
-            <x-button>
+            <x-lox::button>
                 {{ __('Log Out Other Browser Sessions') }}
-            </x-button>
+            </x-lox::button>
         </form>
 
         <form
@@ -74,12 +74,12 @@
             action="{{ route('logout') }}"
         >
             @csrf
-            <x-button
+            <x-lox::button
                 color="red"
             >
                 {{ __('Logout') }}
-            </x-button>
+            </x-lox::button>
         </form>
     </div>
 
-</x-content>
+</x-lox::content>

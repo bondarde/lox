@@ -7,7 +7,7 @@
     </div>
     <div>
         Rendering time:
-        <x-number
+        <x-lox::number
             :number="$renderingTimeMs"
             suffix="ms"
         />
@@ -15,7 +15,7 @@
     @if($dbQueriesTimeMs > -1)
         <div>
             DB time:
-            <x-number
+            <x-lox::number
                 :number="$dbQueriesTimeMs"
                 suffix="ms"
             />
@@ -24,14 +24,14 @@
     @if($dbQueriesCount > -1)
         <div>
             DB queries:
-            <x-number
+            <x-lox::number
                 :number="$dbQueriesCount"
             />
         </div>
     @endif
     <div>
         Max memory:
-        <x-file-size
+        <x-lox::file-size
             :bytes="$memoryPeakUsageBytes"
         />
     </div>

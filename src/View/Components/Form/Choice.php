@@ -75,6 +75,6 @@ abstract class Choice extends FormComponent
 
     public function render(): View
     {
-        return view('lox::form.choice');
+        return view('lox::components.form.choice');
     }
 }

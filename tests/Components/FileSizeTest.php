@@ -14,7 +14,7 @@ class FileSizeTest extends TestCase
 B
 
 HTML;
-        $actual = Blade::render('<x-file-size bytes="100" />');
+        $actual = Blade::render('<x-lox::file-size bytes="100" />');
 
         self::assertEquals($expected, $actual);
     }
@@ -25,7 +25,7 @@ HTML;
 KiB
 
 HTML;
-        $actual = Blade::render('<x-file-size bytes="1024" />');
+        $actual = Blade::render('<x-lox::file-size bytes="1024" />');
 
         self::assertEquals($expected, $actual);
     }
@@ -37,7 +37,7 @@ HTML;
 GiB
 
 HTML;
-        $actual = Blade::render('<x-file-size bytes="1082949632" :decimals="2" />');
+        $actual = Blade::render('<x-lox::file-size bytes="1082949632" :decimals="2" />');
 
         self::assertEquals($expected, $actual);
     }
@@ -49,7 +49,7 @@ HTML;
 KB
 
 HTML;
-        $actual = Blade::render('<x-file-size bytes="1024" :binary="false" :decimals="2" />');
+        $actual = Blade::render('<x-lox::file-size bytes="1024" :binary="false" :decimals="2" />');
 
         self::assertEquals($expected, $actual);
     }
@@ -61,7 +61,7 @@ HTML;
 KiB
 
 HTML;
-        $actual = Blade::render('<x-file-size bytes="1024" class="text-sm" />');
+        $actual = Blade::render('<x-lox::file-size bytes="1024" class="text-sm" />');
 
         self::assertEquals($expected, $actual);
     }

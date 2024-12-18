@@ -72,6 +72,6 @@ class Matrix extends FormComponent
 
     public function render(): View
     {
-        return view('lox::form.matrix');
+        return view('lox::components.form.matrix');
     }
 }

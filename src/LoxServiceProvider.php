@@ -50,6 +50,7 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Console\AboutCommand;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -57,9 +58,9 @@ use Livewire\Livewire;
 
 class LoxServiceProvider extends ServiceProvider
 {
-    const string NAMESPACE = 'lox';
+    public static string $namespace = 'lox';
 
-    const array COMPONENTS = [
+    public static array $components = [
         'page' => Page::class,
         'html-header' => HtmlHeader::class,
         'page-header' => PageHeader::class,
@@ -106,12 +107,8 @@ class LoxServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        $this->loadViewsFrom(__DIR__ . '/../resources/views/components', self::NAMESPACE);
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', self::NAMESPACE);
-        $this->loadViewComponentsAs('', self::COMPONENTS);
-        $this->loadTranslationsFrom(__DIR__ . '/../lang', self::NAMESPACE);
-        $this->loadJsonTranslationsFrom(__DIR__ . '/../lang');
-
+        $this->configureViews();
+        $this->configureTranslations();
         $this->configureRoutes();
         $this->configurePublishing();
         $this->configureCommands();
@@ -120,6 +117,21 @@ class LoxServiceProvider extends ServiceProvider
         $this->configureLivewire();
         $this->configureAboutCommand();
         $this->registerPolicies();
+    }
+
+    private function configureViews(): void
+    {
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', self::$namespace);
+
+        foreach (self::$components as $alias => $component) {
+            Blade::component(self::$namespace . '::' . $alias, $component);
+        }
+    }
+
+    private function configureTranslations(): void
+    {
+        $this->loadTranslationsFrom(__DIR__ . '/../lang', self::$namespace);
+        $this->loadJsonTranslationsFrom(__DIR__ . '/../lang');
     }
 
     private function configureRoutes(): void

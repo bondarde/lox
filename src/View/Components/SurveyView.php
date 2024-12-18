@@ -51,6 +51,6 @@ class SurveyView extends Component
 
     public function render(): View
     {
-        return view('lox::survey.survey-view');
+        return view('lox::components.survey.survey-view');
     }
 }

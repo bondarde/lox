@@ -20,6 +20,6 @@ class Content extends Component
 
     public function render(): View
     {
-        return view('lox::content');
+        return view('lox::components.content');
     }
 }

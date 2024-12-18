@@ -3,7 +3,7 @@
     <h2
         class="mt-8"
     >Columns</h2>
-    <x-content class="overflow-x-auto">
+    <x-lox::content class="overflow-x-auto">
         <table class="table">
             <thead>
             <tr>
@@ -36,14 +36,14 @@
                 </tr>
             @endforeach
         </table>
-    </x-content>
+    </x-lox::content>
 
 
     <h2
         class="mt-8"
     >Indexes</h2>
     @if($indexes)
-        <x-content class="overflow-x-auto">
+        <x-lox::content class="overflow-x-auto">
             <table class="table">
                 <thead>
                 <tr>
@@ -78,7 +78,7 @@
                     </tr>
                 @endforeach
             </table>
-        </x-content>
+        </x-lox::content>
     @else
         <p class="opacity-50">
             No indexes found.
@@ -90,7 +90,7 @@
         class="mt-8"
     >Foreign Keys</h2>
     @if($foreignKeys)
-        <x-content class="overflow-x-auto">
+        <x-lox::content class="overflow-x-auto">
             <table class="table">
                 <thead>
                 <tr>
@@ -138,7 +138,7 @@
                     </tr>
                 @endforeach
             </table>
-        </x-content>
+        </x-lox::content>
     @else
         <p class="opacity-50">
             No foreign keys found.

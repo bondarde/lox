@@ -1,9 +1,9 @@
-<x-page
+<x-lox::page
     :title="__('Profile Information')"
     :h1="__('Profile Information')"
 >
 
-    <x-validation-errors
+    <x-lox::validation-errors
         class="mb-8"
     />
 
@@ -13,38 +13,38 @@
     >
         @csrf
 
-        <x-form.form-row
+        <x-lox::form.form-row
             :for="\App\Models\User::FIELD_NAME"
             :label="__('Name')"
         >
-            <x-form.input
+            <x-lox::form.input
                 :name="\App\Models\User::FIELD_NAME"
                 :model="$user"
                 :placeholder="__('Name')"
                 required
                 autofocus
             />
-        </x-form.form-row>
+        </x-lox::form.form-row>
 
 
-        <x-form.form-row
+        <x-lox::form.form-row
             :for="\App\Models\User::FIELD_EMAIL"
             :label="__('Email')"
         >
-            <x-form.input
+            <x-lox::form.input
                 :name="\App\Models\User::FIELD_EMAIL"
                 :model="$user"
                 :placeholder="__('Email')"
                 required
             />
-        </x-form.form-row>
+        </x-lox::form.form-row>
 
 
-        <x-form.form-actions>
-            <x-button>
+        <x-lox::form.form-actions>
+            <x-lox::button>
                 {{ __('Update') }}
-            </x-button>
-        </x-form.form-actions>
+            </x-lox::button>
+        </x-lox::form.form-actions>
 
     </form>
-</x-page>
+</x-lox::page>

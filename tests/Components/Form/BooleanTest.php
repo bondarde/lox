@@ -21,7 +21,7 @@ class BooleanTest extends TestCase
 </label>
 
 HTML;
-        $actual = Blade::render('<x-form.boolean name="yes-no">Please check</x-form.boolean>');
+        $actual = Blade::render('<x-lox::form.boolean name="yes-no">Please check</x-lox::form.boolean>');
 
         self::assertEquals($expected, $actual);
     }
@@ -46,7 +46,7 @@ HTML;
         ];
         $model = json_decode(json_encode($model));
 
-        $actual = Blade::render('<x-form.boolean name="is_active" :model="$model">Please check</x-form.boolean>', compact('model'));
+        $actual = Blade::render('<x-lox::form.boolean name="is_active" :model="$model">Please check</x-lox::form.boolean>', compact('model'));
 
         self::assertEquals($expected, $actual);
     }

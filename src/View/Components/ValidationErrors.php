@@ -18,6 +18,6 @@ class ValidationErrors extends Component
 
     public function render(): View
     {
-        return view('lox::validation-errors');
+        return view('lox::components.validation-errors');
     }
 }

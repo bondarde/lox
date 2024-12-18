@@ -1,6 +1,6 @@
 <x-filament-panels::page>
 
-    <x-content class="inline-block">
+    <x-lox::content class="inline-block">
         <table class="table">
             <thead>
             <tr>
@@ -25,6 +25,6 @@
                 </tr>
             @endforeach
         </table>
-    </x-content>
+    </x-lox::content>
 
 </x-filament-panels::page>

@@ -24,7 +24,7 @@
         @endif
     @endforeach
 
-    <x-html-header
+    <x-lox::html-header
         :title="$title"
         :metaDescription="$metaDescription"
         :shareImage="$shareImage"
@@ -32,7 +32,7 @@
 </head>
 <body class="{{ $bodyClasses }}">
 <div class="{{ $contentWrapClasses }}">
-    <x-page-header/>
+    <x-lox::page-header/>
 
     <div class="{{ $wrapContent ? $pageContentWrapperClasses : '' }}">
         @if($h1)
@@ -43,7 +43,7 @@
                 {!! $header !!}
             </div>
         @endif
-        <x-user-messages/>
+        <x-lox::user-messages/>
     </div>
 
     <div class="{{ $attributes->get('contentCssClasses', '') }} {{ $wrapContent ? $pageContentWrapperClasses : '' }}">
@@ -53,7 +53,7 @@
 
 @stack('modals')
 
-<x-page-footer
+<x-lox::page-footer
     :breadcrumb-attr="$breadcrumbAttr"
 />
 

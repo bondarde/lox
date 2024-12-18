@@ -42,6 +42,6 @@ class NavItem extends Component
 
     public function render(): View
     {
-        return view('lox::nav-item');
+        return view('lox::components.nav-item');
     }
 }

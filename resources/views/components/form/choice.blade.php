@@ -1,5 +1,5 @@
 @if($showErrors)
-    <x-form.input-error
+    <x-lox::form.input-error
         for="{{ $name }}"
         class="mb-2"
     />

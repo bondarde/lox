@@ -1,9 +1,9 @@
-<x-page
+<x-lox::page
     :title="__('Forgot your password?')"
     :h1="__('Forgot your password?')"
     metaRobots="noindex, nofollow"
 >
-    <x-content class="max-w-xl">
+    <x-lox::content class="max-w-xl">
 
         <div class="mb-4 text-sm text-gray-600">
             {{ __('You forgot your password? No problem. Just let us know your e-mail address and we will email you a password reset link that will allow you to choose a new one.') }}
@@ -15,7 +15,7 @@
             </div>
         @endif
 
-        <x-validation-errors class="mb-4"/>
+        <x-lox::validation-errors class="mb-4"/>
 
         <form
             method="post"
@@ -24,7 +24,7 @@
             @csrf
 
             <div>
-                <x-form.input
+                <x-lox::form.input
                     :label="__('E-mail address')"
                     :placeholder="__('mail@example.com')"
                     type="email"
@@ -37,12 +37,12 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <x-button>
+                <x-lox::button>
                     {{ __('Email password reset link') }}
-                </x-button>
+                </x-lox::button>
             </div>
         </form>
-    </x-content>
+    </x-lox::content>
 
     <a
         class="underline opacity-75 hover:no-underline hover:opacity-100"
@@ -50,4 +50,4 @@
     >
         {{ __('Did you recognize your password?') }}
     </a>
-</x-page>
+</x-lox::page>

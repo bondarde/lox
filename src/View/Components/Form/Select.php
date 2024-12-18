@@ -58,6 +58,6 @@ class Select extends FormComponent
 
     public function render(): View
     {
-        return view('lox::form.select');
+        return view('lox::components.form.select');
     }
 }

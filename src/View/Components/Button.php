@@ -148,7 +148,7 @@ class Button extends Component
     {
         $buttonAttributes = $this->makeAttributes();
 
-        return view('lox::button', compact(
+        return view('lox::components.button', compact(
             'buttonAttributes',
         ));
     }

@@ -9,6 +9,6 @@ class PageFooter extends Component
 {
     public function render(): View
     {
-        return view('lox::page-footer');
+        return view('lox::components.page-footer');
     }
 }

@@ -1,4 +1,4 @@
-<x-page
+<x-lox::page
     :title="__('Delete Account')"
     :h1="__('Delete Account')"
 >
@@ -15,7 +15,7 @@
             value="{{ $confirmationHash }}"
         >
 
-        <x-form.form-row
+        <x-lox::form.form-row
             :for="\BondarDe\Lox\Http\Requests\User\Profile\AccountDeleteRequest::INPUT_CONFIRMATION_STRING"
             :label="__('Confirmation')"
         >
@@ -25,7 +25,7 @@
                 {{ $confirmationString }}
             </p>
 
-            <x-form.input
+            <x-lox::form.input
                 containerClass="max-w-sm"
                 :name="\BondarDe\Lox\Http\Requests\User\Profile\AccountDeleteRequest::INPUT_CONFIRMATION_STRING"
                 :placeholder="__('Confirmation')"
@@ -33,15 +33,15 @@
                 required
             />
 
-        </x-form.form-row>
+        </x-lox::form.form-row>
 
-        <x-form.form-actions>
-            <x-button
+        <x-lox::form.form-actions>
+            <x-lox::button
                 color="red"
             >
                 {{ __('Delete Account') }}
-            </x-button>
-        </x-form.form-actions>
+            </x-lox::button>
+        </x-lox::form.form-actions>
     </form>
 
-</x-page>
+</x-lox::page>

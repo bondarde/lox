@@ -10,7 +10,7 @@
     @case('array')
         <optgroup label="{{ $value }}">
             @foreach($label as $key => $val)
-                @include(\BondarDe\Lox\LoxServiceProvider::NAMESPACE.'::form._select-option', [
+                @include(\BondarDe\Lox\LoxServiceProvider::$namespace.'::form._select-option', [
                     'value' => $key,
                     'label' => $val,
                 ])

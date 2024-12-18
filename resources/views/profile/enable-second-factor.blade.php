@@ -1,4 +1,4 @@
-<x-page
+<x-lox::page
     :title="$pageTitle"
     :h1="$pageTitle"
 >
@@ -15,18 +15,18 @@
     </div>
 
     <div class="mb-8 max-w-md">
-        <x-content>
+        <x-lox::content>
             <div class="text-sm">{{ __('Recovery Codes') }}:</div>
             <ul>
                 @foreach($recoveryCodes as $code)
                     <li>{{ $code }}</li>
                 @endforeach
             </ul>
-        </x-content>
+        </x-lox::content>
     </div>
 
 
-    <x-validation-errors
+    <x-lox::validation-errors
         class="mb-8 max-w-lg"
     />
 
@@ -48,11 +48,11 @@
             value="{{ $recoveryCodesEncrypted }}"
         >
 
-        <x-form.form-row
+        <x-lox::form.form-row
             :for="\BondarDe\Lox\Http\Requests\User\Profile\SecondFactorEnableRequest::CONFIRMATION_CODE"
             :label="__('Confirmation Code')"
         >
-            <x-form.input
+            <x-lox::form.input
                 containerClass="max-w-xs"
                 :name="\BondarDe\Lox\Http\Requests\User\Profile\SecondFactorEnableRequest::CONFIRMATION_CODE"
                 :label="__('Confirmation Code')"
@@ -62,27 +62,27 @@
                 maxlength="6"
                 required
             />
-        </x-form.form-row>
+        </x-lox::form.form-row>
 
-        <x-form.form-row
+        <x-lox::form.form-row
             :for="\BondarDe\Lox\Http\Requests\User\Profile\SecondFactorEnableRequest::RECOVERY_CODES_STORED"
             :label="__('Recovery codes stored')"
         >
-            <x-form.boolean
+            <x-lox::form.boolean
                 :label="__('Recovery codes stored')"
                 :placeholder="__('Recovery codes stored')"
                 :name="\BondarDe\Lox\Http\Requests\User\Profile\SecondFactorEnableRequest::RECOVERY_CODES_STORED"
                 :checked="false"
             >
                 {{ __('I have stored the above recovery codes') }}
-            </x-form.boolean>
-        </x-form.form-row>
+            </x-lox::form.boolean>
+        </x-lox::form.form-row>
 
-        <x-form.form-actions>
-            <x-button>
+        <x-lox::form.form-actions>
+            <x-lox::button>
                 {{ __('Enable') }}
-            </x-button>
-        </x-form.form-actions>
+            </x-lox::button>
+        </x-lox::form.form-actions>
     </form>
 
-</x-page>
+</x-lox::page>

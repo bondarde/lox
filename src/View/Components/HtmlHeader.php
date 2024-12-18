@@ -17,6 +17,7 @@ class HtmlHeader extends Component
 
     public function render(): View
     {
-        return view('lox::html-header');
+        return view('lox::components.html-header', compact(
+        ));
     }
 }

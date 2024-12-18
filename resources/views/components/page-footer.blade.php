@@ -6,7 +6,7 @@
         >{{ config('app.name') }}</a>
 
         @can('view rendering stats')
-            <x-rendering-stats
+            <x-lox::rendering-stats
                 class="mt-8 text-sm opacity-50 hover:opacity-100"
             />
         @endcan

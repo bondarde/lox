@@ -50,6 +50,6 @@ class FormRow extends FormComponent
 
     public function render(): View
     {
-        return view('lox::form.form-row');
+        return view('lox::components.form.form-row');
     }
 }

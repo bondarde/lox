@@ -1,4 +1,4 @@
-<x-content
+<x-lox::content
     class="md:flex gap-8 md:border-l-4 text-gray-800 dark:text-gray-100 focus-within:text-black dark:focus-within:text-white focus-within:border-gray-700 dark:border-gray-800 focus-within:dark:border-gray-700 focus-within:shadow-xl"
 >
     <div class="mb-4 md:w-1/4">
@@ -16,7 +16,7 @@
     </div>
     <div class="md:w-3/4">
         @if($showErrors)
-            <x-form.input-error
+            <x-lox::form.input-error
                 for="{{ $for }}"
                 class="mb-2"
             />
@@ -30,4 +30,4 @@
             </div>
         @endif
     </div>
-</x-content>
+</x-lox::content>

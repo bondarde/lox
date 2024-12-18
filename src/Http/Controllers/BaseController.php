@@ -11,7 +11,7 @@ abstract class BaseController
     {
         $views = [
             $viewName,
-            LoxServiceProvider::NAMESPACE . '::' . $viewName,
+            LoxServiceProvider::$namespace . '::' . $viewName,
         ];
 
         return View::first($views, $data, $mergeData);

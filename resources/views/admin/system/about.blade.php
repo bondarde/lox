@@ -4,7 +4,7 @@
 
         @foreach($systemStatus as $categoryName => $status)
             <h2>{{ ucfirst($categoryName) }}</h2>
-            <x-content>
+            <x-lox::content>
                 <table class="table">
                     @foreach($status as $key => $value)
                         <tr @class([
@@ -68,7 +68,7 @@
                         </tr>
                     @endforeach
                 </table>
-            </x-content>
+            </x-lox::content>
         @endforeach
 
     </div>
