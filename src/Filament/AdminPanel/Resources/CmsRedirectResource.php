@@ -3,6 +3,7 @@
 namespace BondarDe\Lox\Filament\AdminPanel\Resources;
 
 use BondarDe\Lox\Filament\AdminPanel\Resources\CmsRedirectResource\Pages;
+use BondarDe\Lox\Filament\HasModelCountNavigationBadge;
 use BondarDe\Lox\Models\CmsRedirect;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -10,10 +11,11 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Support\Number;
 
 class CmsRedirectResource extends Resource
 {
+    use HasModelCountNavigationBadge;
+
     protected static ?string $model = CmsRedirect::class;
     protected static ?string $slug = 'cms-redirects';
 
@@ -85,10 +87,5 @@ class CmsRedirectResource extends Resource
             'view' => Pages\ViewCmsRedirect::route('/{record}'),
             'edit' => Pages\EditCmsRedirect::route('/{record}/edit'),
         ];
-    }
-
-    public static function getNavigationBadge(): ?string
-    {
-        return Number::format(static::getModel()::count());
     }
 }

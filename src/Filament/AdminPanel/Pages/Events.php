@@ -2,6 +2,7 @@
 
 namespace BondarDe\Lox\Filament\AdminPanel\Pages;
 
+use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use BondarDe\Lox\Http\Controllers\Admin\System\Data\ModelMeta;
 use BondarDe\Lox\Models\Sushi\ApplicationEvent;
 use Filament\Forms\Concerns\InteractsWithForms;
@@ -15,6 +16,8 @@ use Illuminate\Support\HtmlString;
 
 class Events extends Page implements HasForms, HasTable
 {
+    use HasPageShield;
+
     use InteractsWithForms;
     use InteractsWithTable;
 

@@ -2,9 +2,11 @@
 
 namespace BondarDe\Lox\Filament\Panels;
 
+use App\Models\User;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use BondarDe\FilamentRouteList\FilamentRouteListPlugin;
 use Exception;
+use Filament\Facades\Filament;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -35,9 +37,16 @@ class AdminPanelProvider extends BasePanelProvider
             ->discoverResources(in: __DIR__ . '/../AdminPanel/Resources', for: 'BondarDe\\Lox\\Filament\\AdminPanel\\Resources')
             ->pages([
             ])
-            ->plugin(FilamentLaravelLogPlugin::make())
-            ->plugin(FilamentRouteListPlugin::make())
-            ->plugin(FilamentShieldPlugin::make())
+            ->plugin(
+                FilamentLaravelLogPlugin::make()
+                    ->authorize(fn () => Filament::auth()->user()->can('page_ViewLog')),
+            )
+            ->plugin(
+                FilamentRouteListPlugin::make(),
+            )
+            ->plugin(
+                FilamentShieldPlugin::make(),
+            )
             ->plugin(
                 SpatieLaravelTranslatablePlugin::make()
                     ->defaultLocales(config('lox.filament.locales')),

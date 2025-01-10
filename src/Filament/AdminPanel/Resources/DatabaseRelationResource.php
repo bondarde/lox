@@ -4,6 +4,7 @@ namespace BondarDe\Lox\Filament\AdminPanel\Resources;
 
 use BondarDe\Lox\Filament\AdminPanel\Resources\DatabaseRelationResource\Pages\ListDatabaseRelations;
 use BondarDe\Lox\Filament\AdminPanel\Resources\DatabaseRelationResource\Pages\ViewDatabaseRelation;
+use BondarDe\Lox\Filament\HasModelCountNavigationBadge;
 use BondarDe\Lox\Models\Sushi\DatabaseRelation;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Components\View;
@@ -19,6 +20,8 @@ use Illuminate\Support\Number;
 
 class DatabaseRelationResource extends Resource
 {
+    use HasModelCountNavigationBadge;
+
     protected static ?string $model = DatabaseRelation::class;
     protected static ?string $slug = 'database';
 
@@ -123,10 +126,5 @@ class DatabaseRelationResource extends Resource
             'index' => ListDatabaseRelations::route('/'),
             'view' => ViewDatabaseRelation::route('/{record}'),
         ];
-    }
-
-    public static function getNavigationBadge(): ?string
-    {
-        return Number::format(static::getModel()::count());
     }
 }

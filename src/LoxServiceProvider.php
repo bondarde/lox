@@ -2,6 +2,9 @@
 
 namespace BondarDe\Lox;
 
+use BezhanSalleh\FilamentShield\Facades\FilamentShield;
+use BezhanSalleh\FilamentShield\Support\Utils as FilamentShieldUtils;
+use BondarDe\FilamentRouteList\Models\LaravelRoute;
 use BondarDe\Lox\Console\AboutCommandIntegration;
 use BondarDe\Lox\Console\Commands\Cms\ExecuteCmsTasksCommand;
 use BondarDe\Lox\Console\Commands\Search\ScoutRefreshCommand;
@@ -15,8 +18,20 @@ use BondarDe\Lox\Livewire\ModelList\Content as ModelListContent;
 use BondarDe\Lox\Livewire\ModelList\Filter;
 use BondarDe\Lox\Livewire\ModelList\FilterItemCount;
 use BondarDe\Lox\Livewire\ModelList\Search;
+use BondarDe\Lox\Models\CmsAssistantTask;
 use BondarDe\Lox\Models\CmsPage;
+use BondarDe\Lox\Models\CmsRedirect;
+use BondarDe\Lox\Models\CmsTemplate;
+use BondarDe\Lox\Models\Sushi\ApplicationModel;
+use BondarDe\Lox\Models\Sushi\DatabaseRelation;
+use BondarDe\Lox\Policies\AclPermissionPolicy;
+use BondarDe\Lox\Policies\ApplicationModelPolicy;
+use BondarDe\Lox\Policies\CmsAssistantTaskPolicy;
 use BondarDe\Lox\Policies\CmsPagePolicy;
+use BondarDe\Lox\Policies\CmsRedirectPolicy;
+use BondarDe\Lox\Policies\CmsTemplatePolicy;
+use BondarDe\Lox\Policies\DatabaseRelationPolicy;
+use BondarDe\Lox\Policies\LaravelRoutePolicy;
 use BondarDe\Lox\View\Components\Button;
 use BondarDe\Lox\View\Components\Content;
 use BondarDe\Lox\View\Components\FileSize;
@@ -54,6 +69,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 use Livewire\Livewire;
 
 class LoxServiceProvider extends ServiceProvider
@@ -116,6 +132,8 @@ class LoxServiceProvider extends ServiceProvider
         $this->configureConfig();
         $this->configureLivewire();
         $this->configureAboutCommand();
+
+        $this->configureFilamentShield();
         $this->registerPolicies();
     }
 
@@ -235,8 +253,27 @@ class LoxServiceProvider extends ServiceProvider
             ->first();
     }
 
+    private function configureFilamentShield(): void
+    {
+        FilamentShield::configurePermissionIdentifierUsing(
+            fn (string $resource) => Str::of($resource)
+                ->afterLast('Resources\\')
+                ->before('Resource')
+                ->replace('\\', '')
+                ->kebab(),
+        );
+    }
+
     private function registerPolicies(): void
     {
+        Gate::policy(LaravelRoute::class, LaravelRoutePolicy::class);
+        Gate::policy(DatabaseRelation::class, DatabaseRelationPolicy::class);
+        Gate::policy(ApplicationModel::class, ApplicationModelPolicy::class);
+        Gate::policy(FilamentShieldUtils::getPermissionModel(), AclPermissionPolicy::class);
+
         Gate::policy(CmsPage::class, CmsPagePolicy::class);
+        Gate::policy(CmsTemplate::class, CmsTemplatePolicy::class);
+        Gate::policy(CmsRedirect::class, CmsRedirectPolicy::class);
+        Gate::policy(CmsAssistantTask::class, CmsAssistantTaskPolicy::class);
     }
 }

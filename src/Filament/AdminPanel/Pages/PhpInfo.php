@@ -2,10 +2,13 @@
 
 namespace BondarDe\Lox\Filament\AdminPanel\Pages;
 
+use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Filament\Pages\Page;
 
 class PhpInfo extends Page
 {
+    use HasPageShield;
+
     protected ?string $heading = 'PHP Info';
     protected ?string $subheading = 'Information about PHP’s configuration';
 

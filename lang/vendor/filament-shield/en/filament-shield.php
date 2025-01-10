@@ -3,7 +3,7 @@
 return [
     'forbidden' => 'Access denied',
 
-    'nav.group' => 'System',
+    'nav.group' => 'Access Management',
 
     'resource_permission_prefixes_labels' => [
         'delete' => 'Delete/archive',

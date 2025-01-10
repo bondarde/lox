@@ -43,7 +43,7 @@ abstract class BasePanelProvider extends PanelProvider
 
                         return (new LocalAvatarProvider())->get($user);
                     })
-                    ->url(fn() => route('filament.me.pages.profile')),
+                    ->url(fn () => route('filament.me.pages.profile')),
                 'logout' => MenuItem::make()
                     ->label(__('Logout')),
             ]);
@@ -52,7 +52,7 @@ abstract class BasePanelProvider extends PanelProvider
         if (config('lox.filament.panels.with_js')) {
             $panel->renderHook(
                 PanelsRenderHook::BODY_END,
-                fn(): string => App::environment('local')
+                fn (): string => App::environment('local')
                     ? Blade::render("@vite('resources/js/app.js', '../.build/.vite')")
                     : new HtmlString('<script type="module" src="/=)/app.' . config('app.version') . '.js"></script>'),
             );

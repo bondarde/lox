@@ -2,7 +2,7 @@
 
 use BondarDe\Lox\LoxServiceProvider;
 
-$viewPrefix = LoxServiceProvider::NAMESPACE . '::';
+$viewPrefix = LoxServiceProvider::$namespace . '::';
 
 return [
     'page' => [

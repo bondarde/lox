@@ -3,7 +3,6 @@
 namespace BondarDe\Lox\Models;
 
 use BondarDe\Lox\Constants\ModelCastTypes;
-use BondarDe\Lox\Models\Columns\UserColumns;
 use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -30,7 +29,6 @@ class User extends Authenticatable implements FilamentUser
     const string REL_ROLES = 'roles';
     const string REL_PERMISSIONS = 'permissions';
 
-
     protected $perPage = 100;
 
     protected $fillable = [
@@ -45,9 +43,4 @@ class User extends Authenticatable implements FilamentUser
     protected $casts = [
         self::FIELD_EMAIL_VERIFIED_AT => ModelCastTypes::DATETIME,
     ];
-
-    public static function getModelListColumnConfigurations(): ?string
-    {
-        return UserColumns::class;
-    }
 }

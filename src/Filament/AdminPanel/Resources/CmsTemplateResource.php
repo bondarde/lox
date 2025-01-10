@@ -4,6 +4,7 @@ namespace BondarDe\Lox\Filament\AdminPanel\Resources;
 
 use BondarDe\Lox\Filament\AdminPanel\Resources\CmsTemplateResource\Pages;
 use BondarDe\Lox\Filament\AdminPanel\Resources\CmsTemplateResource\RelationManagers\TemplateVariablesRelationManager;
+use BondarDe\Lox\Filament\HasModelCountNavigationBadge;
 use BondarDe\Lox\Models\CmsTemplate;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -12,10 +13,11 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Support\Number;
 
 class CmsTemplateResource extends Resource
 {
+    use HasModelCountNavigationBadge;
+
     protected static ?string $model = CmsTemplate::class;
     protected static ?string $slug = 'cms-templates';
 
@@ -83,10 +85,5 @@ class CmsTemplateResource extends Resource
             'view' => Pages\ViewCmsTemplate::route('/{record}'),
             'edit' => Pages\EditCmsTemplate::route('/{record}/edit'),
         ];
-    }
-
-    public static function getNavigationBadge(): ?string
-    {
-        return Number::format(static::getModel()::count());
     }
 }

@@ -8,5 +8,7 @@ $config['super_admin']['name'] = Role::SuperAdmin->name;
 $config['super_admin']['define_via_gate'] = true;
 
 $config['shield_resource']['navigation_sort'] = 101;
+$config['exclude']['pages'] = [];
+$config['exclude']['widgets'] = [];
 
 return $config;

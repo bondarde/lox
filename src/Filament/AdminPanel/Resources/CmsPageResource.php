@@ -4,6 +4,7 @@ namespace BondarDe\Lox\Filament\AdminPanel\Resources;
 
 use BondarDe\Lox\Constants\Cms\CmsTemplateVariableType;
 use BondarDe\Lox\Filament\AdminPanel\Resources\CmsPageResource\Pages;
+use BondarDe\Lox\Filament\HasModelCountNavigationBadge;
 use BondarDe\Lox\Models\CmsPage;
 use BondarDe\Lox\Models\CmsTemplate;
 use BondarDe\Lox\Models\CmsTemplateVariable;
@@ -28,11 +29,11 @@ use Filament\Tables;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Support\Number;
 use Illuminate\Support\Str;
 
 class CmsPageResource extends Resource
 {
+    use HasModelCountNavigationBadge;
     use Translatable;
 
     public static string $defaultNoParentValue = 'none';
@@ -210,10 +211,5 @@ class CmsPageResource extends Resource
             'view' => Pages\ViewCmsPage::route('/{record}'),
             'edit' => Pages\EditCmsPage::route('/{record}/edit'),
         ];
-    }
-
-    public static function getNavigationBadge(): ?string
-    {
-        return Number::format(static::getModel()::count());
     }
 }

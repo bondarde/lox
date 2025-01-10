@@ -2,6 +2,7 @@
 
 namespace BondarDe\Lox\Filament\AdminPanel\Pages;
 
+use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use BondarDe\Lox\Http\Controllers\Admin\System\Data\SearchIndexStatus;
 use BondarDe\Lox\Support\Search\DiscoveryUtil;
 use Filament\Pages\Page;
@@ -11,6 +12,8 @@ use TeamTNT\TNTSearch\Exceptions\IndexNotFoundException;
 
 class SearchStatus extends Page
 {
+    use HasPageShield;
+
     protected ?string $heading = 'Search Status';
     protected ?string $subheading = 'Scout TNT Search status';
 

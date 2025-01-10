@@ -2,34 +2,72 @@
 
 namespace BondarDe\Lox\Filament\AdminPanel\Resources;
 
+use App\Models\User;
 use BondarDe\Lox\Filament\AdminPanel\Resources\UserResource\Pages;
-use BondarDe\Lox\Models\User;
+use BondarDe\Lox\Filament\HasModelCountNavigationBadge;
+use BondarDe\Lox\Models\User as LoxUser;
+use Filament\Forms\Components\CheckboxList;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Support\Number;
 use Illuminate\Support\Str;
 use STS\FilamentImpersonate\Tables\Actions\Impersonate;
 
 class UserResource extends Resource
 {
+    use HasModelCountNavigationBadge;
+
     protected static ?string $model = User::class;
     protected static ?string $slug = 'users';
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
-    protected static ?string $navigationGroup = 'System';
     protected static ?int $navigationSort = 100;
 
     protected static ?string $label = 'User';
     protected static ?string $pluralLabel = 'Users';
 
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                TextEntry::make(LoxUser::FIELD_NAME)
+                    ->copyable(),
+                TextEntry::make(LoxUser::FIELD_EMAIL)
+                    ->copyable(),
+                TextEntry::make(LoxUser::REL_ROLES . '.name')
+                    ->placeholder('n/a')
+                    ->badge()
+                    ->listWithLineBreaks(),
+                TextEntry::make(LoxUser::REL_PERMISSIONS . '.name')
+                    ->placeholder('n/a')
+                    ->badge()
+                    ->listWithLineBreaks(),
+            ]);
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                //
+                TextInput::make(LoxUser::FIELD_NAME)
+                    ->required(),
+                TextInput::make(LoxUser::FIELD_EMAIL)
+                    ->required(),
+
+                CheckboxList::make(LoxUser::REL_ROLES)
+                    ->relationship(LoxUser::REL_ROLES, 'name')
+                    ->searchable(),
+                Select::make(LoxUser::REL_PERMISSIONS)
+                    ->relationship(LoxUser::REL_PERMISSIONS, 'name')
+                    ->multiple()
+                    ->preload()
+                    ->searchable(),
             ]);
     }
 
@@ -37,16 +75,16 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make(User::FIELD_ID)
+                TextColumn::make(LoxUser::FIELD_ID)
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable()
                     ->sortable(),
-                TextColumn::make(User::FIELD_EMAIL)
-                    ->description(fn (User $record) => Str::limit($record->{User::FIELD_NAME}, 40))
+                TextColumn::make(LoxUser::FIELD_EMAIL)
+                    ->description(fn (User $record) => Str::limit($record->{LoxUser::FIELD_NAME}, 40))
                     ->label('User')
                     ->searchable([
-                        User::FIELD_EMAIL,
-                        User::FIELD_NAME,
+                        LoxUser::FIELD_EMAIL,
+                        LoxUser::FIELD_NAME,
                     ]),
 
                 TextColumn::make(User::CREATED_AT)
@@ -61,21 +99,21 @@ class UserResource extends Resource
                     ->since()
                     ->sortable(),
 
-                TextColumn::make(User::REL_ROLES . '.name')
+                TextColumn::make(LoxUser::REL_ROLES . '.name')
                     ->placeholder('n/a')
                     ->label('Roles')
                     ->listWithLineBreaks()
                     ->badge()
                     ->searchable(),
 
-                TextColumn::make(User::REL_PERMISSIONS . '.name')
+                TextColumn::make(LoxUser::REL_PERMISSIONS . '.name')
+                    ->placeholder('n/a')
                     ->label('Perm')
                     ->listWithLineBreaks()
                     ->badge()
-                    ->placeholder('n/a')
                     ->searchable(),
             ])
-            ->defaultSort(User::FIELD_ID, 'desc')
+            ->defaultSort(LoxUser::FIELD_ID, 'desc')
             ->filters([
                 //
             ])
@@ -111,8 +149,8 @@ class UserResource extends Resource
         ];
     }
 
-    public static function getNavigationBadge(): ?string
+    public static function getNavigationGroup(): ?string
     {
-        return Number::format(static::getModel()::count());
+        return __('filament-shield::filament-shield.nav.group');
     }
 }

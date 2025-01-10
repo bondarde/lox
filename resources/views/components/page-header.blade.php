@@ -57,7 +57,7 @@ use Illuminate\Support\Facades\Route;
             @auth()
                 @includeIf('nav.user')
 
-                @can('view backend')
+                @can('page_AdminDashboard')
                     <x-lox::nav-item
                         :href="route('filament.admin.pages.dashboard')"
                         active-route="filament.admin.*"

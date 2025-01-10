@@ -2,6 +2,7 @@
 
 namespace BondarDe\Lox\Filament\AdminPanel\Pages;
 
+use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use BondarDe\Lox\Http\Controllers\Admin\System\Data\CacheItem;
 use Carbon\Carbon;
 use Filament\Pages\Page;
@@ -12,6 +13,8 @@ use Illuminate\Support\Facades\File;
 
 class Cache extends Page
 {
+    use HasPageShield;
+
     protected ?string $heading = 'Cache';
     protected ?string $subheading = 'Cached values';
 

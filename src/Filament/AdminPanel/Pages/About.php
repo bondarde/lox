@@ -2,6 +2,7 @@
 
 namespace BondarDe\Lox\Filament\AdminPanel\Pages;
 
+use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Filament\Pages\Page;
 use Illuminate\Foundation\Console\AboutCommand;
 use Illuminate\Support\Facades\Artisan;
@@ -9,6 +10,8 @@ use Throwable;
 
 class About extends Page
 {
+    use HasPageShield;
+
     protected ?string $heading = 'About';
     protected ?string $subheading = 'System information';
 

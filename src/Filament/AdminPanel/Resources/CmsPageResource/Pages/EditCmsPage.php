@@ -9,6 +9,7 @@ use BondarDe\Lox\Models\CmsTemplateVariable;
 use BondarDe\Lox\Repositories\CmsTemplateVariableValueRepository;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\LocaleSwitcher;
+use Filament\Actions\ViewAction;
 use Filament\Resources\Pages\EditRecord;
 use Filament\Resources\Pages\EditRecord\Concerns\Translatable;
 
@@ -82,6 +83,7 @@ class EditCmsPage extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
+            ViewAction::make(),
             DeleteAction::make(),
             LocaleSwitcher::make(),
         ];

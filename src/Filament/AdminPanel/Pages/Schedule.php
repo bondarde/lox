@@ -2,6 +2,7 @@
 
 namespace BondarDe\Lox\Filament\AdminPanel\Pages;
 
+use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use BondarDe\Lox\Models\Sushi\ScheduledCommand;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
@@ -13,6 +14,8 @@ use Filament\Tables\Table;
 
 class Schedule extends Page implements HasForms, HasTable
 {
+    use HasPageShield;
+
     use InteractsWithForms;
     use InteractsWithTable;
 

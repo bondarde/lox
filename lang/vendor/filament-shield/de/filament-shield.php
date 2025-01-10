@@ -3,7 +3,7 @@
 return [
     'forbidden' => 'Zugriff verweigert',
 
-    'nav.group' => 'System',
+    'nav.group' => 'Zugriffsverwaltung',
 
     'resource_permission_prefixes_labels' => [
         'delete' => 'Löschen/archivieren',
