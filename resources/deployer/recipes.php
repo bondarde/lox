@@ -6,6 +6,7 @@ use BondarDe\Lox\Support\Search\DiscoveryUtil;
 use BondarDe\Lox\Support\ViteManifestParser;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Support\Str;
+
 use function Deployer\add;
 use function Deployer\after;
 use function Deployer\artisan;
@@ -83,7 +84,6 @@ set('opcache_filename', function () {
     return json_decode($json)->filename;
 });
 
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //// Callbacks /////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -98,7 +98,6 @@ after('deploy:symlink', 'deploy:clear_opcache');
 after('deploy:writable', 'deploy:assign_upload_to_server_user');
 after('deploy:writable', 'deploy:assign_releases_dir_to_server_user');
 after('deploy:writable', 'deploy:assign_writable_dirs_to_server_user');
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //// Build tasks ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -137,7 +136,6 @@ task('build:laravel', function () {
     runLocally('echo "SENTRY_RELEASE=\"' . $sentryPackageName . '@{{git_tag}}:{{git_revision}}\"" >> {{env_file_path}}');
 })->once();
 
-
 task('build:vite', function () {
     $rootDir = get('root_dir');
     require $rootDir . '/vendor/autoload.php';
@@ -168,7 +166,6 @@ task('build:vite', function () {
     runLocally('cat {{vite_build_path}}/{{vite_js_file}} > "{{build_path}}/public/=)/app.{{git_revision}}.js"');
 })->once();
 
-
 task('build:htaccess_minified_redirects', function () {
     $filename = parse('{{build_path}}/public/.htaccess');
     $gitRevision = get('git_revision');
@@ -192,7 +189,7 @@ task('build:htaccess_minified_redirects', function () {
 
     $message = $replacementsCount . ' CSS/JS replacements in .htaccess';
 
-    if (!$replacementsCount) {
+    if (! $replacementsCount) {
         throw new Exception($message);
     }
 
@@ -200,7 +197,6 @@ task('build:htaccess_minified_redirects', function () {
 
     file_put_contents($filename, implode('', $lines));
 })->once();
-
 
 task('build:generate_opcache_config', function () {
     $rootDir = get('root_dir');
@@ -214,7 +210,6 @@ task('build:generate_opcache_config', function () {
     runLocally('echo \'' . json_encode($config) . '\' > {{ opcache_config_filename }}');
 });
 
-
 task('build:opcache_reset', function () {
     if (get('opcache_reset_mode') !== 'remote') {
         writeln('NOOP');
@@ -227,7 +222,7 @@ task('build:opcache_reset', function () {
     $token = get('opcache_token');
     $target = parse('{{build_path}}/public/{{opcache_filename}}');
 
-    $lines = array_map(fn(string $line) => str_replace(
+    $lines = array_map(fn (string $line) => str_replace(
         '$token = die();',
         '$token = \'' . $token . '\';',
         $line,
@@ -237,7 +232,6 @@ task('build:opcache_reset', function () {
 })
     ->desc('Create file for OPCache reset')
     ->once();
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //// Build tasks ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -250,20 +244,18 @@ task('build', [
     'build:opcache_reset',
 ])->desc('Main build script');
 
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //// Deployment tasks //////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-$disabledFn = fn() => writeln('<fg=gray>Task disabled</>');
+$disabledFn = fn () => writeln('<fg=gray>Task disabled</>');
 task('deploy:vendors', $disabledFn);
-
 
 task('deploy:clear_opcache', function () {
     $mode = get('opcache_reset_mode');
     if ($mode === 'local') {
         invoke('deploy:clear_opcache_local');
-    } else if ($mode === 'remote') {
+    } elseif ($mode === 'remote') {
         invoke('deploy:clear_opcache_remote');
     } else {
         writeln('NOOP');
@@ -279,7 +271,7 @@ task('deploy:clear_opcache_local', function () {
         throw error('OPCache reset failed.');
     }
 
-    info("OPCache cleared.");
+    info('OPCache cleared.');
 });
 
 task('deploy:clear_opcache_remote', function () {
@@ -298,7 +290,7 @@ task('deploy:clear_opcache_remote', function () {
         $host = $authBasic . '@' . $host;
     }
 
-    $protocol = get('protocol', "https");
+    $protocol = get('protocol', 'https');
     $url = "$protocol://$host/$filename?hash=$hash";
     $cmd = "curl -L $url";
 
@@ -306,17 +298,14 @@ task('deploy:clear_opcache_remote', function () {
     writeln(runLocally($cmd));
 });
 
-
 task('deploy:update_code', function () {
     writeln('Uploading {{build_path}} → {{release_path}}');
 
     upload('{{build_path}}/', '{{release_path}}/');
 });
 
-
 task('artisan:acl-update', artisan('acl:update-roles-and-permission'))
     ->desc('Update ACL setup');
-
 
 task('artisan:scout:refresh', function () {
     $modelsLoader = function () {
@@ -345,13 +334,11 @@ task('artisan:scout:refresh', function () {
 })
     ->desc('Import models into Laravel Scout after migrations applied');
 
-
 task('deploy:data-update', [
     'artisan:acl-update',
     'artisan:scout:refresh',
 ]);
 after('artisan:migrate', 'deploy:data-update');
-
 
 task('deploy:assign_releases_dir_to_server_user', function () {
     $sudo = get('chown_use_sudo') ? 'sudo' : '';
@@ -368,7 +355,7 @@ task('deploy:assign_writable_dirs_to_server_user', function () {
 
     writeln("Assign writable directories to server user ($serverUser)…");
 
-    $dirs = join(' ', get('writable_dirs'));
+    $dirs = implode(' ', get('writable_dirs'));
 
     cd('{{ release_or_current_path }}');
     run("$sudo chown -R $serverUser $dirs");
@@ -395,10 +382,9 @@ task('deploy:assign_search_indexes_to_server_user', function () {
 });
 after('artisan:scout:refresh', 'deploy:assign_search_indexes_to_server_user');
 
-
 before('artisan:storage:link', function () {
     $sudo = get('chown_use_sudo') ? 'sudo' : '';
-    writeln("Make dirs writable for deployer user (group)…");
+    writeln('Make dirs writable for deployer user (group)…');
 
     cd('{{ release_or_current_path }}');
     run("$sudo chmod -R g+w ./*");
