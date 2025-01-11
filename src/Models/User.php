@@ -15,9 +15,9 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable implements FilamentUser
 {
     use HasFactory;
+    use HasRoles;
     use Notifiable;
     use TwoFactorAuthenticatable;
-    use HasRoles;
 
     const string FIELD_ID = 'id';
     const string FIELD_NAME = 'name';
@@ -50,5 +50,10 @@ class User extends Authenticatable implements FilamentUser
     public function sso_identifiers(): HasMany
     {
         return $this->hasMany(SsoIdentifier::class);
+    }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $this->hasPermissionTo('panel_' . $panel->getId());
     }
 }
