@@ -60,7 +60,6 @@ use Illuminate\Support\Facades\Route;
                 @can('page_AdminDashboard')
                     <x-lox::nav-item
                         :href="route('filament.admin.pages.dashboard')"
-                        active-route="filament.admin.*"
                     >
                         Admin
                     </x-lox::nav-item>
@@ -68,7 +67,6 @@ use Illuminate\Support\Facades\Route;
 
                 <x-lox::nav-item
                     :href="route('filament.me.pages.profile')"
-                    active-route="user.*"
                 >
                     {{ Auth::user()->{User::FIELD_NAME} }}
                 </x-lox::nav-item>
