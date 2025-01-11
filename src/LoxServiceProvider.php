@@ -7,6 +7,7 @@ use BezhanSalleh\FilamentShield\Support\Utils as FilamentShieldUtils;
 use BondarDe\FilamentRouteList\Models\LaravelRoute;
 use BondarDe\Lox\Console\AboutCommandIntegration;
 use BondarDe\Lox\Console\Commands\Cms\ExecuteCmsTasksCommand;
+use BondarDe\Lox\Console\Commands\MigrateSsoIdentifiersCommand;
 use BondarDe\Lox\Console\Commands\Search\ScoutRefreshCommand;
 use BondarDe\Lox\Constants\Environment;
 use BondarDe\Lox\Contracts\View\PageConfig;
@@ -201,6 +202,7 @@ class LoxServiceProvider extends ServiceProvider
             __DIR__ . '/../database/migrations/005_create_cms_template_variables_table.php' => $this->getMigrationFileName('005_create_cms_template_variables_table.php'),
             __DIR__ . '/../database/migrations/006_create_cms_template_variable_values_table.php' => $this->getMigrationFileName('006_create_cms_template_variable_values_table.php'),
             __DIR__ . '/../database/migrations/007_add_template_id_to_cms_pages.php' => $this->getMigrationFileName('007_add_template_id_to_cms_pages.php'),
+            __DIR__ . '/../database/migrations/008_create_sso_identifiers_table.php' => $this->getMigrationFileName('008_create_sso_identifiers_table.php'),
         ], 'lox-migrations');
     }
 
@@ -213,6 +215,7 @@ class LoxServiceProvider extends ServiceProvider
         $this->commands([
             ScoutRefreshCommand::class,
             ExecuteCmsTasksCommand::class,
+            MigrateSsoIdentifiersCommand::class,
         ]);
     }
 

@@ -4,6 +4,7 @@ namespace BondarDe\Lox\Repositories;
 
 use App\Models\User as ApplicationUser;
 use BondarDe\Lox\Database\ModelRepository;
+use BondarDe\Lox\Models\SsoIdentifier;
 use BondarDe\Lox\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -15,45 +16,52 @@ class UserRepository extends ModelRepository
         return ApplicationUser::class;
     }
 
-    public function findOrCreateUserForSsoProvider($provider, $id, $email, $name)
-    {
-        $ssoColumnPrefix = config('lox.sso.column_prefix');
-        $ssoIdColumnName = $ssoColumnPrefix . '_' . $provider . '_id';
-
-        // find a user for given SSO provider
+    public function findOrCreateUserForSsoProvider(
+        string $providerName,
+        string $providerId,
+        string $email,
+        ?string $name = null,
+    ) {
         $user = $this->query()
-            ->where($ssoIdColumnName, $id)
+            ->whereRelation(User::REL_SSO_IDENTIFIERS, SsoIdentifier::FIELD_PROVIDER_NAME, $providerName)
+            ->whereRelation(User::REL_SSO_IDENTIFIERS, SsoIdentifier::FIELD_PROVIDER_ID, $providerId)
             ->first();
 
-        return $user ?? $this->updateOrCreateSsoUser($id, $email, $name, $ssoIdColumnName);
+        return $user ?? $this->updateOrCreateSsoUser($providerName, $providerId, $email, $name);
     }
 
-    private function updateOrCreateSsoUser($id, $email, $name, string $ssoIdColumnName)
-    {
+    private function updateOrCreateSsoUser(
+        string $providerName,
+        string $providerId,
+        string $email,
+        ?string $name,
+    ) {
         // find user by e-mail
         $user = $this->query()
             ->where(User::FIELD_EMAIL, $email)
             ->first();
 
-        if ($user == null) {
-            // create & return new user
-            return $this->create([
+        if (! $user) {
+            // create new user
+            /** @var User $user */
+            $user = $this->create([
                 User::FIELD_EMAIL => $email,
                 User::FIELD_NAME => $name,
                 User::FIELD_PASSWORD => Hash::make(Str::random(60)),
-                $ssoIdColumnName => $id,
             ]);
+
+            $user->sso_identifiers()->create([
+                SsoIdentifier::FIELD_PROVIDER_NAME => $providerName,
+                SsoIdentifier::FIELD_PROVIDER_ID => $providerId,
+            ]);
+        } else {
+            // update name if not yet set
+            if ($name && ! $user->{User::FIELD_NAME}) {
+                $user->update([
+                    User::FIELD_NAME => $name,
+                ]);
+            }
         }
-
-
-        // update name if not yet set
-        if (!$user->{User::FIELD_NAME}) {
-            $user->{User::FIELD_NAME} = $name;
-        }
-        // save SSO ID
-        $user->$ssoIdColumnName = $id;
-
-        $user->save();
 
         return $user;
     }

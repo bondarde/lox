@@ -4,7 +4,9 @@ namespace BondarDe\Lox\Models;
 
 use BondarDe\Lox\Constants\ModelCastTypes;
 use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -28,6 +30,7 @@ class User extends Authenticatable implements FilamentUser
 
     const string REL_ROLES = 'roles';
     const string REL_PERMISSIONS = 'permissions';
+    const string REL_SSO_IDENTIFIERS = 'sso_identifiers';
 
     protected $perPage = 100;
 
@@ -43,4 +46,9 @@ class User extends Authenticatable implements FilamentUser
     protected $casts = [
         self::FIELD_EMAIL_VERIFIED_AT => ModelCastTypes::DATETIME,
     ];
+
+    public function sso_identifiers(): HasMany
+    {
+        return $this->hasMany(SsoIdentifier::class);
+    }
 }

@@ -5,11 +5,13 @@ namespace BondarDe\Lox\Filament\AdminPanel\Resources;
 use App\Models\User;
 use BondarDe\Lox\Filament\AdminPanel\Resources\UserResource\Pages;
 use BondarDe\Lox\Filament\HasModelCountNavigationBadge;
+use BondarDe\Lox\Models\SsoIdentifier;
 use BondarDe\Lox\Models\User as LoxUser;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\RepeatableEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
@@ -48,6 +50,16 @@ class UserResource extends Resource
                     ->placeholder('n/a')
                     ->badge()
                     ->listWithLineBreaks(),
+
+                RepeatableEntry::make(LoxUser::REL_SSO_IDENTIFIERS)
+                    ->label('SSO')
+                    ->schema([
+                        TextEntry::make(SsoIdentifier::FIELD_PROVIDER_NAME)
+                            ->formatStateUsing(fn (string $state): string => mb_ucfirst($state))
+                            ->helperText(fn (SsoIdentifier $ssoIdentifier): string => $ssoIdentifier->{SsoIdentifier::FIELD_PROVIDER_ID})
+                            ->hiddenLabel(),
+                    ])
+                    ->placeholder('n/a'),
             ]);
     }
 
@@ -91,13 +103,17 @@ class UserResource extends Resource
                     ->label('Created')
                     ->description(fn (User $record) => $record->{User::CREATED_AT}->format('d.m.Y'))
                     ->since()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
 
                 TextColumn::make(User::UPDATED_AT)
                     ->label('Updated')
                     ->description(fn (User $record) => $record->{User::UPDATED_AT}->format('d.m.Y H:i'))
                     ->since()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
 
                 TextColumn::make(LoxUser::REL_ROLES . '.name')
                     ->placeholder('n/a')
@@ -112,6 +128,12 @@ class UserResource extends Resource
                     ->listWithLineBreaks()
                     ->badge()
                     ->searchable(),
+
+                TextColumn::make(LoxUser::REL_SSO_IDENTIFIERS . '.' . SsoIdentifier::FIELD_PROVIDER_NAME)
+                    ->label('SSO')
+                    ->wrap()
+                    ->placeholder('n/a')
+                    ->badge(),
             ])
             ->defaultSort(LoxUser::FIELD_ID, 'desc')
             ->filters([
