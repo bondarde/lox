@@ -71,19 +71,17 @@ This command also publishes:
 
 ### Styles
 
-Publish:
+Add styles to your `resources/scss/app.scss`:
 
-    php artisan vendor:publish --provider="BondarDe\Lox\LoxServiceProvider" --tag=styles
-
-Add them to your `resources/scss/app.scss`:
+    @use "sass:meta";
 
     @tailwind base;
     @tailwind components;
     @tailwind utilities;
 
-    @import 'lox/base';
-    @import 'lox/tools';
-    @import 'lox/boolean';
+    @include meta.load-css('../../vendor/bondarde/lox/resources/scss/base');
+    @include meta.load-css('../../vendor/bondarde/lox/resources/scss/tools');
+    @include meta.load-css('../../vendor/bondarde/lox/resources/scss/boolean');
 
 
 Tailwind config:
