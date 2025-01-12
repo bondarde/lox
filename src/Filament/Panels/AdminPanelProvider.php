@@ -32,8 +32,8 @@ class AdminPanelProvider extends BasePanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            ->viteTheme('resources/scss/app.scss', '../.build/.vite')
             ->discoverPages(in: __DIR__ . '/../AdminPanel/Pages', for: 'BondarDe\\Lox\\Filament\\AdminPanel\\Pages')
+            ->discoverPages(in: app_path('Filament/AdminPanel/Pages'), for: 'App\\Filament\\AdminPanel\\Pages')
             ->discoverResources(in: __DIR__ . '/../AdminPanel/Resources', for: 'BondarDe\\Lox\\Filament\\AdminPanel\\Resources')
             ->discoverResources(in: app_path('Filament/AdminPanel/Resources'), for: 'App\\Filament\\AdminPanel\\Resources')
             ->pages([
