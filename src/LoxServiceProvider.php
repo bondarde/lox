@@ -3,7 +3,6 @@
 namespace BondarDe\Lox;
 
 use BezhanSalleh\FilamentShield\Facades\FilamentShield;
-use BezhanSalleh\FilamentShield\Support\Utils as FilamentShieldUtils;
 use BondarDe\FilamentRouteList\Models\LaravelRoute;
 use BondarDe\Lox\Console\AboutCommandIntegration;
 use BondarDe\Lox\Console\Commands\Cms\ExecuteCmsTasksCommand;
@@ -72,6 +71,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Livewire\Livewire;
+use Spatie\Permission\Models\Permission;
 
 class LoxServiceProvider extends ServiceProvider
 {
@@ -269,10 +269,11 @@ class LoxServiceProvider extends ServiceProvider
 
     private function registerPolicies(): void
     {
+        Gate::policy(Permission::class, AclPermissionPolicy::class);
+
         Gate::policy(LaravelRoute::class, LaravelRoutePolicy::class);
         Gate::policy(DatabaseRelation::class, DatabaseRelationPolicy::class);
         Gate::policy(ApplicationModel::class, ApplicationModelPolicy::class);
-        Gate::policy(FilamentShieldUtils::getPermissionModel(), AclPermissionPolicy::class);
 
         Gate::policy(CmsPage::class, CmsPagePolicy::class);
         Gate::policy(CmsTemplate::class, CmsTemplatePolicy::class);

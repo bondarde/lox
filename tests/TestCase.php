@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use BezhanSalleh\FilamentShield\FilamentShieldServiceProvider;
 use BondarDe\Lox\LoxServiceProvider;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
@@ -28,6 +29,7 @@ abstract class TestCase extends BaseTestCase
         return [
             LoxServiceProvider::class,
             LivewireServiceProvider::class,
+            FilamentShieldServiceProvider::class,
         ];
     }
 
