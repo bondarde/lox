@@ -52,6 +52,6 @@ class TinyMce extends Component
 
     public function render(): View
     {
-        return view('lox::form.tiny-mce');
+        return view('lox::components.form.tiny-mce');
     }
 }

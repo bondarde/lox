@@ -48,6 +48,6 @@ class FileSize extends Component
         $data['decimals'] ??= $decimals;
         $data['title'] = NumbersFormatter::format($this->bytes) . ' bytes';
 
-        return view('lox::file-size', $data);
+        return view('lox::components.file-size', $data);
     }
 }

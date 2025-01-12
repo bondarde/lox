@@ -45,12 +45,12 @@
                     @if($showSize)
                         <span
                             class="text-sm opacity-75"
-                        ><x-file-size
+                        ><x-lox::file-size
                                 :bytes="$file->getSize()"
                             /></span>
                     @endif
                     @if($removable)
-                        <x-button
+                        <x-lox::button
                             class="md:ml-2"
                             type="button"
                             size="sm"
@@ -59,7 +59,7 @@
                             icon="×"
                         >
                             {{ __('Remove') }}
-                        </x-button>
+                        </x-lox::button>
                     @endif
                 </li>
             @endforeach
@@ -76,12 +76,12 @@
                     @if($showSize)
                         <span
                             class="text-sm opacity-75"
-                        ><x-file-size
+                        ><x-lox::file-size
                                 :bytes="$file->getSize()"
                             /></span>
                     @endif
                     @if($removable)
-                        <x-button
+                        <x-lox::button
                             class="md:ml-2"
                             type="button"
                             size="sm"
@@ -90,7 +90,7 @@
                             icon="×"
                         >
                             {{ __('Remove') }}
-                        </x-button>
+                        </x-lox::button>
                     @endif
                 </li>
             @endforeach

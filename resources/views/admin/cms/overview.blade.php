@@ -3,11 +3,11 @@
     h1="CMS"
 >
 
-    <x-content class="inline-block">
+    <x-lox::content class="inline-block">
         @include('lox::admin.cms._children', [
             'children' => $cmsPagesWithoutParent,
         ])
-    </x-content>
+    </x-lox::content>
 
 
     <div class="flex flex-wrap gap-8">

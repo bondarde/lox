@@ -2,15 +2,16 @@
 
 namespace BondarDe\Lox;
 
+use BezhanSalleh\FilamentShield\Facades\FilamentShield;
+use BezhanSalleh\FilamentShield\Support\Utils as FilamentShieldUtils;
+use BondarDe\FilamentRouteList\Models\LaravelRoute;
 use BondarDe\Lox\Console\AboutCommandIntegration;
-use BondarDe\Lox\Console\Commands\Acl\AclMakeSuperAdminCommand;
-use BondarDe\Lox\Console\Commands\Acl\AclUpdateRolesAndPermissionsCommand;
 use BondarDe\Lox\Console\Commands\Cms\ExecuteCmsTasksCommand;
+use BondarDe\Lox\Console\Commands\MigrateSsoIdentifiersCommand;
 use BondarDe\Lox\Console\Commands\Search\ScoutRefreshCommand;
 use BondarDe\Lox\Constants\Environment;
 use BondarDe\Lox\Contracts\View\PageConfig;
 use BondarDe\Lox\Http\Controllers\Web\CmsContentController;
-use BondarDe\Lox\Livewire\Cms\TemplateVariablesEditor;
 use BondarDe\Lox\Livewire\FileUpload;
 use BondarDe\Lox\Livewire\LiveModelList;
 use BondarDe\Lox\Livewire\ModelList\Actions as ModelListActions;
@@ -18,13 +19,22 @@ use BondarDe\Lox\Livewire\ModelList\Content as ModelListContent;
 use BondarDe\Lox\Livewire\ModelList\Filter;
 use BondarDe\Lox\Livewire\ModelList\FilterItemCount;
 use BondarDe\Lox\Livewire\ModelList\Search;
+use BondarDe\Lox\Models\CmsAssistantTask;
 use BondarDe\Lox\Models\CmsPage;
+use BondarDe\Lox\Models\CmsRedirect;
+use BondarDe\Lox\Models\CmsTemplate;
+use BondarDe\Lox\Models\Sushi\ApplicationModel;
+use BondarDe\Lox\Models\Sushi\DatabaseRelation;
+use BondarDe\Lox\Policies\AclPermissionPolicy;
+use BondarDe\Lox\Policies\ApplicationModelPolicy;
+use BondarDe\Lox\Policies\CmsAssistantTaskPolicy;
 use BondarDe\Lox\Policies\CmsPagePolicy;
-use BondarDe\Lox\View\Components\AdminPage;
+use BondarDe\Lox\Policies\CmsRedirectPolicy;
+use BondarDe\Lox\Policies\CmsTemplatePolicy;
+use BondarDe\Lox\Policies\DatabaseRelationPolicy;
+use BondarDe\Lox\Policies\LaravelRoutePolicy;
 use BondarDe\Lox\View\Components\Button;
-use BondarDe\Lox\View\Components\Cms\AdminNavigation;
 use BondarDe\Lox\View\Components\Content;
-use BondarDe\Lox\View\Components\DashboardItem;
 use BondarDe\Lox\View\Components\FileSize;
 use BondarDe\Lox\View\Components\Form\Boolean;
 use BondarDe\Lox\View\Components\Form\Checkbox;
@@ -38,9 +48,6 @@ use BondarDe\Lox\View\Components\Form\Select;
 use BondarDe\Lox\View\Components\Form\Textarea;
 use BondarDe\Lox\View\Components\Form\TinyMce;
 use BondarDe\Lox\View\Components\HtmlHeader;
-use BondarDe\Lox\View\Components\ModelList;
-use BondarDe\Lox\View\Components\ModelMeta;
-use BondarDe\Lox\View\Components\ModelSummary;
 use BondarDe\Lox\View\Components\NavItem;
 use BondarDe\Lox\View\Components\Number;
 use BondarDe\Lox\View\Components\Page;
@@ -54,22 +61,24 @@ use BondarDe\Lox\View\Components\SurveyView;
 use BondarDe\Lox\View\Components\UserMessages;
 use BondarDe\Lox\View\Components\ValidationErrors;
 use BondarDe\Lox\View\DefaultPageConfig;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Console\AboutCommand;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 use Livewire\Livewire;
 
 class LoxServiceProvider extends ServiceProvider
 {
-    const NAMESPACE = 'lox';
+    public static string $namespace = 'lox';
 
-    const COMPONENTS = [
+    public static array $components = [
         'page' => Page::class,
-        'admin-page' => AdminPage::class,
         'html-header' => HtmlHeader::class,
         'page-header' => PageHeader::class,
         'page-footer' => PageFooter::class,
@@ -95,17 +104,10 @@ class LoxServiceProvider extends ServiceProvider
 
         'relative-timestamp' => RelativeTimestamp::class,
 
-        'cms.admin-navigation' => AdminNavigation::class,
-
-        'model-list' => ModelList::class,
-        'model-summary' => ModelSummary::class,
-        'model-meta' => ModelMeta::class,
-
         'number' => Number::class,
         'file-size' => FileSize::class,
 
         'rendering-stats' => RenderingStats::class,
-        'dashboard-item' => DashboardItem::class,
         'nav-item' => NavItem::class,
         'search-highlighted-text' => SearchHighlightedText::class,
     ];
@@ -115,18 +117,15 @@ class LoxServiceProvider extends ServiceProvider
         parent::register();
 
         $this->mergeConfigFrom(
-            __DIR__ . '/config/lox.php', 'lox'
+            __DIR__ . '/../config/lox.php',
+            'lox',
         );
     }
 
     public function boot(): void
     {
-        $this->loadViewsFrom(__DIR__ . '/../resources/views/components', self::NAMESPACE);
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', self::NAMESPACE);
-        $this->loadViewComponentsAs('', self::COMPONENTS);
-        $this->loadTranslationsFrom(__DIR__ . '/../lang', self::NAMESPACE);
-        $this->loadJsonTranslationsFrom(__DIR__ . '/../lang');
-
+        $this->configureViews();
+        $this->configureTranslations();
         $this->configureRoutes();
         $this->configurePublishing();
         $this->configureCommands();
@@ -134,14 +133,30 @@ class LoxServiceProvider extends ServiceProvider
         $this->configureConfig();
         $this->configureLivewire();
         $this->configureAboutCommand();
+
+        $this->configureFilamentShield();
         $this->registerPolicies();
+    }
+
+    private function configureViews(): void
+    {
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', self::$namespace);
+
+        foreach (self::$components as $alias => $component) {
+            Blade::component(self::$namespace . '::' . $alias, $component);
+        }
+    }
+
+    private function configureTranslations(): void
+    {
+        $this->loadTranslationsFrom(__DIR__ . '/../lang', self::$namespace);
+        $this->loadJsonTranslationsFrom(__DIR__ . '/../lang');
     }
 
     private function configureRoutes(): void
     {
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
         $this->loadRoutesFrom(__DIR__ . '/../routes/user.php');
-        $this->loadRoutesFrom(__DIR__ . '/../routes/admin.php');
 
         if (config('lox.cms.fallback_route_enabled')) {
             Route::group([
@@ -168,7 +183,7 @@ class LoxServiceProvider extends ServiceProvider
         ], 'tailwind');
 
         $this->publishes([
-            __DIR__ . '/config/lox.php' => config_path('lox.php'),
+            __DIR__ . '/../config/lox.php' => config_path('lox.php'),
             __DIR__ . '/../package.json' => base_path('package.json'),
             __DIR__ . '/../tailwind.config.js' => base_path('tailwind.config.js'),
             __DIR__ . '/../vite.config.js' => base_path('vite.config.js'),
@@ -187,20 +202,20 @@ class LoxServiceProvider extends ServiceProvider
             __DIR__ . '/../database/migrations/005_create_cms_template_variables_table.php' => $this->getMigrationFileName('005_create_cms_template_variables_table.php'),
             __DIR__ . '/../database/migrations/006_create_cms_template_variable_values_table.php' => $this->getMigrationFileName('006_create_cms_template_variable_values_table.php'),
             __DIR__ . '/../database/migrations/007_add_template_id_to_cms_pages.php' => $this->getMigrationFileName('007_add_template_id_to_cms_pages.php'),
+            __DIR__ . '/../database/migrations/008_create_sso_identifiers_table.php' => $this->getMigrationFileName('008_create_sso_identifiers_table.php'),
         ], 'lox-migrations');
     }
 
     private function configureCommands(): void
     {
-        if (!$this->app->runningInConsole()) {
+        if (! $this->app->runningInConsole()) {
             return;
         }
 
         $this->commands([
-            AclMakeSuperAdminCommand::class,
-            AclUpdateRolesAndPermissionsCommand::class,
             ScoutRefreshCommand::class,
             ExecuteCmsTasksCommand::class,
+            MigrateSsoIdentifiersCommand::class,
         ]);
     }
 
@@ -219,8 +234,6 @@ class LoxServiceProvider extends ServiceProvider
         Livewire::component('model-list.content', ModelListContent::class);
         Livewire::component('model-list.filter-item-count', FilterItemCount::class);
         Livewire::component('model-list.actions', ModelListActions::class);
-
-        Livewire::component('cms.template-variables-editor', TemplateVariablesEditor::class);
     }
 
     private function configureAboutCommand(): void
@@ -228,6 +241,9 @@ class LoxServiceProvider extends ServiceProvider
         AboutCommand::add('Lox', AboutCommandIntegration::class);
     }
 
+    /**
+     * @throws BindingResolutionException
+     */
     private function getMigrationFileName(string $migrationFileName)
     {
         $timestamp = date('Y_m_d_His');
@@ -235,13 +251,32 @@ class LoxServiceProvider extends ServiceProvider
         $filesystem = $this->app->make(Filesystem::class);
 
         return Collection::make([$this->app->databasePath() . DIRECTORY_SEPARATOR . 'migrations' . DIRECTORY_SEPARATOR])
-            ->flatMap(fn(string $path) => $filesystem->glob($path . '*_' . $migrationFileName))
+            ->flatMap(fn (string $path) => $filesystem->glob($path . '*_' . $migrationFileName))
             ->push($this->app->databasePath() . "/migrations/{$timestamp}_$migrationFileName")
             ->first();
     }
 
+    private function configureFilamentShield(): void
+    {
+        FilamentShield::configurePermissionIdentifierUsing(
+            fn (string $resource) => Str::of($resource)
+                ->afterLast('Resources\\')
+                ->before('Resource')
+                ->replace('\\', '')
+                ->kebab(),
+        );
+    }
+
     private function registerPolicies(): void
     {
+        Gate::policy(LaravelRoute::class, LaravelRoutePolicy::class);
+        Gate::policy(DatabaseRelation::class, DatabaseRelationPolicy::class);
+        Gate::policy(ApplicationModel::class, ApplicationModelPolicy::class);
+        Gate::policy(FilamentShieldUtils::getPermissionModel(), AclPermissionPolicy::class);
+
         Gate::policy(CmsPage::class, CmsPagePolicy::class);
+        Gate::policy(CmsTemplate::class, CmsTemplatePolicy::class);
+        Gate::policy(CmsRedirect::class, CmsRedirectPolicy::class);
+        Gate::policy(CmsAssistantTask::class, CmsAssistantTaskPolicy::class);
     }
 }

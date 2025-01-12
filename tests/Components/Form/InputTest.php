@@ -12,7 +12,7 @@ class InputTest extends TestCase
     {
         $this->expectException(ViewException::class);
 
-        Blade::render('<x-form.input />');
+        Blade::render('<x-lox::form.input />');
     }
 
     public function testBasicTemplateRendering()
@@ -27,7 +27,7 @@ class InputTest extends TestCase
     </label>
 
 HTML;
-        $actual = Blade::render('<x-form.input name="test-name" />');
+        $actual = Blade::render('<x-lox::form.input name="test-name" />');
 
         self::assertEquals($expected, $actual);
     }

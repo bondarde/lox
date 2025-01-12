@@ -7,14 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class CmsAssistantTask extends Model
 {
-    const FIELD_ID = 'id';
+    const string FIELD_ID = 'id';
 
-    const FIELD_TASK = 'task';
-    const FIELD_TOPIC = 'topic';
-    const FIELD_LOCALE = 'locale';
+    const string FIELD_TASK = 'task';
+    const string FIELD_TOPIC = 'topic';
+    const string FIELD_LOCALE = 'locale';
 
-    const FIELD_EXECUTION_STARTED_AT = 'execution_started_at';
-    const FIELD_EXECUTION_FINISHED_AT = 'execution_finished_at';
+    const string FIELD_EXECUTION_STARTED_AT = 'execution_started_at';
+    const string FIELD_EXECUTION_FINISHED_AT = 'execution_finished_at';
 
     protected $fillable = [
         self::FIELD_TASK,

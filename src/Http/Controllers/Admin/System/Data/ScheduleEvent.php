@@ -10,20 +10,19 @@ use Illuminate\Support\Carbon;
 use ReflectionClass;
 use ReflectionFunction;
 
-class ScheduleEvent
+readonly class ScheduleEvent
 {
     public function __construct(
-        public readonly string $type,
-        public readonly string $command,
-        public readonly string $description,
-        public readonly string $expression,
-        public readonly string $timezone,
-        public readonly Carbon $previousRun,
-        public readonly Carbon $nextRun,
-        public readonly string $output,
-        public readonly mixed  $event,
-    )
-    {
+        public string $type,
+        public string $command,
+        public string $description,
+        public string $expression,
+        public string $timezone,
+        public Carbon $previousRun,
+        public Carbon $nextRun,
+        public string $output,
+    ) {
+        //
     }
 
     public static function from($event): self
@@ -39,7 +38,6 @@ class ScheduleEvent
             previousRun: self::toPreviousRunDate($event->expression),
             nextRun: self::toNextRunDate($event->expression),
             output: $event->output,
-            event: $event,
         );
     }
 
@@ -96,7 +94,7 @@ class ScheduleEvent
             return sprintf(
                 '%s:%s',
                 $function->getFileName(),
-                $function->getStartLine()
+                $function->getStartLine(),
             );
         }
 

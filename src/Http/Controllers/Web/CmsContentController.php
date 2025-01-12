@@ -2,25 +2,34 @@
 
 namespace BondarDe\Lox\Http\Controllers\Web;
 
+use BondarDe\Lox\Constants\Acl\Permission;
 use BondarDe\Lox\Models\CmsPage;
 use BondarDe\Lox\Models\CmsRedirect;
 use BondarDe\Lox\Repositories\CmsPageRepository;
 use BondarDe\Lox\Repositories\CmsRedirectRepository;
+use Illuminate\Http\Request;
 
 class CmsContentController
 {
     public function __invoke(
-        string                $path,
-        CmsPageRepository     $cmsPageRepository,
+        string $path,
+        CmsPageRepository $cmsPageRepository,
         CmsRedirectRepository $cmsRedirectRepository,
-    )
-    {
-        $cmsPage = $cmsPageRepository
-            ->byPath($path)
-            ->where(CmsPage::FIELD_IS_PUBLIC, true)
+        Request $request,
+    ) {
+        $user = $request->user();
+
+        $q = $cmsPageRepository
+            ->byPath($path);
+
+        if (! $user?->can(Permission::ViewHiddenCmsPages)) {
+            $q->where(CmsPage::FIELD_IS_PUBLIC, true);
+        }
+
+        $cmsPage = $q
             ->first();
 
-        if (!$cmsPage) {
+        if (! $cmsPage) {
             $cmsRedirect = $cmsRedirectRepository->getByPath($path);
             $target = $cmsRedirect->{CmsRedirect::FIELD_TARGET};
 

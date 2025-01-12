@@ -18,7 +18,6 @@ use BondarDe\Lox\Http\Controllers\User\TwoFactorRecoveryController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 
-
 Route::group([
     'middleware' => config('fortify.middleware', ['web']),
 ], function () {

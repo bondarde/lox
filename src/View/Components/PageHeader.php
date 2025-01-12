@@ -9,6 +9,6 @@ class PageHeader extends Component
 {
     public function render(): View
     {
-        return view('lox::page-header');
+        return view('lox::components.page-header');
     }
 }

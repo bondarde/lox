@@ -1,7 +1,4 @@
-<x-admin-page
-    title="PHP Info"
-    h1="PHP Info"
->
+<x-filament-panels::page>
 
     <script>
         function onIframeLoad(iframe) {
@@ -11,10 +8,10 @@
     </script>
 
     <iframe
-        class="mb-16 shadow-lg rounded-lg"
+        class="mb-16 shadow-lg rounded"
         srcdoc="{{ $phpInfoContents }}"
         width="100%"
         onload="onIframeLoad(this)"
     ></iframe>
 
-</x-admin-page>
+</x-filament-panels::page>

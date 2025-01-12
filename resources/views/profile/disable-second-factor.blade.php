@@ -1,4 +1,4 @@
-<x-page
+<x-lox::page
     :title="$pageTitle"
     :h1="$pageTitle"
 >
@@ -9,11 +9,11 @@
     >
         @csrf
 
-        <x-form.form-row
+        <x-lox::form.form-row
             :for="\BondarDe\Lox\Http\Requests\User\Profile\SecondFactorDisableRequest::CONFIRMATION_CODE"
             label="Code"
         >
-            <x-form.input
+            <x-lox::form.input
                 containerClass="max-w-xs"
                 label="Code"
                 placeholder="Code"
@@ -23,12 +23,12 @@
                 required
                 maxlength="6"
             />
-        </x-form.form-row>
-        <x-form.form-actions>
-            <x-button>
+        </x-lox::form.form-row>
+        <x-lox::form.form-actions>
+            <x-lox::button>
                 {{ __('Disable') }}
-            </x-button>
-        </x-form.form-actions>
+            </x-lox::button>
+        </x-lox::form.form-actions>
     </form>
 
-</x-page>
+</x-lox::page>

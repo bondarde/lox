@@ -5,7 +5,7 @@
     {{ __('Add additional security to your account using two factor authentication.') }}
 </small>
 
-<x-content>
+<x-lox::content>
     <p class="opacity-75">
         {{ __('When two factor authentication is enabled, you will be prompted for a secure, random token during authentication. You may retrieve this token from your phone’s application, e.g. Authy or Google Authenticator.') }}
     </p>
@@ -23,29 +23,29 @@
 
         @if($user->{\App\Models\User::FIELD_TWO_FACTOR_SECRET})
             <div class="grow">
-                <x-button
+                <x-lox::button
                     tag="a"
                     :href="route('user.profile.reset-recovery-codes.start')"
                 >
                     {{ __('Regenerate Recovery Codes') }}
-                </x-button>
+                </x-lox::button>
             </div>
-            <x-button
+            <x-lox::button
                 color="red"
                 class="mt-4 sm:mt-0"
                 tag="a"
                 :href="route('user.profile.second-factor.disable.start')"
             >
                 {{ __('Disable') }}
-            </x-button>
+            </x-lox::button>
         @else
-            <x-button
+            <x-lox::button
                 tag="a"
                 :href="route('user.profile.second-factor.enable.start')"
             >
                 {{ __('Enable') }}
-            </x-button>
+            </x-lox::button>
         @endif
     </div>
 
-</x-content>
+</x-lox::content>

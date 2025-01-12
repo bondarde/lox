@@ -1,4 +1,4 @@
-<x-validation-errors
+<x-lox::validation-errors
     class="mb-4"
 />
 
@@ -47,14 +47,14 @@
         @include($stepFormTemplate)
     </div>
 
-    <x-form.form-actions>
-        <x-button
+    <x-lox::form.form-actions>
+        <x-lox::button
             color="green"
             width="w-full max-w-sm"
         >
             {{ $nextStepIndex > -1 ? 'Weiter' : 'Speichern' }}
             <span class="ml-4">➜</span>
-        </x-button>
+        </x-lox::button>
         @if($nextStepIndex > -1)
             <div class="text-sm opacity-75 mt-1">
                 Zu „{!! $steps[$nextStepIndex]->getLabelHtml() !!}“
@@ -64,14 +64,14 @@
 
         @if($previousStepIndex > -1)
             <x-slot name="back">
-                <x-button
+                <x-lox::button
                     color="light"
                     tag="a"
                     :href="$steps[$previousStepIndex]->getUri($model, $previousStepIndex + 1)"
                 >
                     ←
                     Zurück
-                </x-button>
+                </x-lox::button>
                 <div class="text-sm opacity-75 mt-1">
                     Zu „{!! $steps[$previousStepIndex]->getLabelHtml() !!}“
                 </div>
@@ -80,14 +80,14 @@
 
         @if($cancelUri)
             <x-slot name="cancel">
-                <x-button
+                <x-lox::button
                     color="danger"
                     class="opacity-75"
                     tag="a"
                     :href="$cancelUri"
                 >
                     Abbrechen
-                </x-button>
+                </x-lox::button>
                 @if($cancelInfo)
                     <div class="text-sm opacity-75 mt-1">
                         {{ $cancelInfo }}
@@ -96,6 +96,6 @@
             </x-slot>
         @endif
 
-    </x-form.form-actions>
+    </x-lox::form.form-actions>
 
 </form>

@@ -3,7 +3,7 @@
         <span class="p-1 shadow rounded bg-yellow-50 dark:bg-yellow-50/30">
             {{ $label }}
             @isset($filterCount)
-                <x-number
+                <x-lox::number
                     class="text-sm opacity-50"
                     :number="$filterCount"
                 />
@@ -37,7 +37,7 @@
                 class="group-hover:underline"
             >{{ $label }}</span>
             @isset($filterCount)
-                <x-number
+                <x-lox::number
                     class="text-sm opacity-50"
                     :number="$filterCount"
                     zero=""

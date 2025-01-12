@@ -120,6 +120,6 @@ class Survey extends Component
 
     public function render(): View
     {
-        return view('lox::survey.survey');
+        return view('lox::components.survey.survey');
     }
 }

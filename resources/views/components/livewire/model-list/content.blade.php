@@ -35,14 +35,14 @@
                                 onclick="return false"
                                 wire:click="$parent.toggleBulkActionForId({{ $item->id }})"
                             >
-                            <x-button
+                            <x-lox::button
                                 position="absolute"
                                 padding=""
                                 width="w-4 h-4"
                                 class="left-0 opacity-0"
                                 type="button"
                                 wire:click="$parent.toggleBulkActionForId({{ $item->id }})"
-                            ></x-button>
+                            ></x-lox::button>
                         </div>
                     </td>
                 @endif

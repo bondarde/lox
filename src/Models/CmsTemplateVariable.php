@@ -8,13 +8,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class CmsTemplateVariable extends Model
 {
-    const FIELD_ID = 'id';
-    const FIELD_CMS_TEMPLATE_ID = 'cms_template_id';
+    const string FIELD_ID = 'id';
+    const string FIELD_CMS_TEMPLATE_ID = 'cms_template_id';
 
-    const FIELD_LABEL = 'label';
-    const FIELD_CONTENT_TYPE = 'content_type';
+    const string FIELD_LABEL = 'label';
+    const string FIELD_CONTENT_TYPE = 'content_type';
 
-    const REL_TEMPLATE = 'template';
+    const string REL_TEMPLATE = 'template';
 
     protected $fillable = [
         self::FIELD_CMS_TEMPLATE_ID,

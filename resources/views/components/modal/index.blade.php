@@ -46,12 +46,12 @@
 
                 <div class="mt-8">
                     <div class="flex justify-end">
-                        <x-button
+                        <x-lox::button
                             color="light"
                             @click="open = false"
                         >
                             {{ __('Cancel') }}
-                        </x-button>
+                        </x-lox::button>
                     </div>
                 </div>
             </div>

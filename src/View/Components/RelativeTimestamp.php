@@ -31,6 +31,6 @@ class RelativeTimestamp extends Component
 
     public function render(): View
     {
-        return view('lox::relative-timestamp');
+        return view('lox::components.relative-timestamp');
     }
 }

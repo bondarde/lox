@@ -25,6 +25,6 @@ class RenderingStats extends Component
 
     public function render(): View
     {
-        return view('lox::rendering-stats');
+        return view('lox::components.rendering-stats');
     }
 }

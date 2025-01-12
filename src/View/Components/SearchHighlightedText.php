@@ -29,6 +29,6 @@ class SearchHighlightedText extends Component
 
     public function render(): View
     {
-        return view('lox::search-highlighted-text');
+        return view('lox::components.search-highlighted-text');
     }
 }

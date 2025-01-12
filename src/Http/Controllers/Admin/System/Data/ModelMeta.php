@@ -2,16 +2,21 @@
 
 namespace BondarDe\Lox\Http\Controllers\Admin\System\Data;
 
-class ModelMeta
+use Illuminate\Database\Eloquent\Model;
+use Throwable;
+
+readonly class ModelMeta
 {
-    private const SEPARATOR = '\\';
+    private const string SEPARATOR = '\\';
 
     public function __construct(
-        public readonly string $fullyQualifiedClassName,
-        public readonly string $namespace,
-        public readonly string $className,
-    )
-    {
+        public string $fullyQualifiedClassName,
+        public string $namespace,
+        public string $className,
+        public ?string $dbTableName,
+        public ?int $dbEntriesCount,
+    ) {
+        //
     }
 
     public static function fromFullyQualifiedClassName(string $fullyQualifiedClassName)
@@ -21,10 +26,23 @@ class ModelMeta
         $className = array_splice($parts, -1)[0];
         $namespace = implode(self::SEPARATOR, $parts);
 
+        try {
+            /** @var Model $model */
+            $model = new $fullyQualifiedClassName();
+
+            $dbTableName = $model?->getTable();
+            $dbEntriesCount = $model::count();
+        } catch (Throwable) {
+            $dbTableName = null;
+            $dbEntriesCount = null;
+        }
+
         return new self(
             $fullyQualifiedClassName,
             $namespace,
             $className,
+            $dbTableName,
+            $dbEntriesCount,
         );
     }
 

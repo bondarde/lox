@@ -2,9 +2,13 @@ name: PHP Test
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - main
+      - v3
   pull_request:
-    branches: [ master ]
+    branches:
+      - main
+      - v3
 
 jobs:
   test:
@@ -15,7 +19,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.1
+          php-version: 8.3
           tools: composer:v2
 
       - name: Checkout code
@@ -29,9 +33,9 @@ jobs:
         uses: actions/cache@v4
         with:
           path: vendor
-          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          key: ${{ runner.os }}-php-test-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
-            ${{ runner.os }}-php-
+            ${{ runner.os }}-php-test-
 
       - name: Install dependencies
         if: steps.composer-cache.outputs.cache-hit != 'true'

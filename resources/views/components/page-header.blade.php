@@ -22,14 +22,14 @@ use Illuminate\Support\Facades\Route;
 <div class="container pt-4 pb-8 lg:flex gap-4">
     <div class="flex justify-between">
         <ul>
-            <x-nav-item
+            <x-lox::nav-item
                 class="font-extrabold"
                 :href="route('home')"
                 active-route="home"
             >
                 @includeIf('nav.logo')
                 {{ config('app.name') }}
-            </x-nav-item>
+            </x-lox::nav-item>
         </ul>
 
         <div>
@@ -57,36 +57,34 @@ use Illuminate\Support\Facades\Route;
             @auth()
                 @includeIf('nav.user')
 
-                @can('view backend')
-                    <x-nav-item
-                        :href="route('admin.dashboard')"
-                        active-route="admin.*"
+                @can('page_AdminDashboard')
+                    <x-lox::nav-item
+                        :href="route('filament.admin.pages.dashboard')"
                     >
                         Admin
-                    </x-nav-item>
+                    </x-lox::nav-item>
                 @endcan
 
-                <x-nav-item
-                    :href="route('user.index')"
-                    active-route="user.*"
+                <x-lox::nav-item
+                    :href="route('filament.me.pages.profile')"
                 >
                     {{ Auth::user()->{User::FIELD_NAME} }}
-                </x-nav-item>
+                </x-lox::nav-item>
             @endauth
             @guest()
-                <x-nav-item
+                <x-lox::nav-item
                     :href="route('login')"
                     active-route="login"
                 >
                     {{ __('Login') }}
-                </x-nav-item>
+                </x-lox::nav-item>
                 @if(Route::has('register'))
-                    <x-nav-item
+                    <x-lox::nav-item
                         :href="route('register')"
                         active-route="register"
                     >
                         {{ __('Register') }}
-                    </x-nav-item>
+                    </x-lox::nav-item>
                 @endif
             @endguest
         </ul>

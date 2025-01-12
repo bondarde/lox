@@ -18,6 +18,6 @@ class InputError extends Component
 
     public function render(): View
     {
-        return view('lox::form.input-error');
+        return view('lox::components.form.input-error');
     }
 }

@@ -25,7 +25,7 @@ class CmsRenderer
 
         /** @var Collection $tvs */
         $tvs = $cmsTemplate->{CmsTemplate::REL_TEMPLATE_VARIABLES};
-        $tvsContent = $tvs->mapWithKeys(fn(CmsTemplateVariable $tv) => [
+        $tvsContent = $tvs->mapWithKeys(fn (CmsTemplateVariable $tv) => [
             $tv->{CmsTemplateVariable::FIELD_LABEL} => $cmsPage->cmsTemplateVariableValue($tv),
         ]);
 
@@ -41,9 +41,9 @@ class CmsRenderer
     public static function renderCmsPageWithoutTemplate(CmsPage $cmsPage): string
     {
         return Blade::render('
-            <x-content class="prose dark:prose-invert">
+            <x-lox::content class="prose dark:prose-invert">
                 {!! $content !!}
-            </x-content>
+            </x-lox::content>
         ', [
             'content' => $cmsPage->{CmsPage::FIELD_CONTENT},
         ]);

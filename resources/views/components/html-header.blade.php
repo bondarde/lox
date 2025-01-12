@@ -23,3 +23,5 @@
 @if($shareImage)
     <meta property="og:image" content="{{ $shareImage }}">
 @endif
+
+{!! $cssVariables !!}

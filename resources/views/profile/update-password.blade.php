@@ -1,4 +1,4 @@
-<x-page
+<x-lox::page
     :title="__('Change password')"
     :h1="__('Change password')"
 >
@@ -8,23 +8,23 @@
     >
         @csrf
 
-        <x-form.form-row
+        <x-lox::form.form-row
             for="current_password"
             :label="__('Current Password')"
         >
-            <x-form.input
+            <x-lox::form.input
                 type="password"
                 name="current_password"
                 :placeholder="__('Current Password')"
                 autocomplete="current-password"
             />
-        </x-form.form-row>
+        </x-lox::form.form-row>
 
-        <x-form.form-row
+        <x-lox::form.form-row
             for="new_password"
             :label="__('New Password')"
         >
-            <x-form.input
+            <x-lox::form.input
                 type="password"
                 name="new_password"
                 :placeholder="__('New Password')"
@@ -32,20 +32,20 @@
             />
 
 
-            <x-form.input
+            <x-lox::form.input
                 containerClass="mt-8"
                 type="password"
                 name="new_password_confirmation"
                 :placeholder="__('Confirm Password')"
                 autocomplete="new-password"
             />
-        </x-form.form-row>
+        </x-lox::form.form-row>
 
-        <x-form.form-actions>
-            <x-button>
+        <x-lox::form.form-actions>
+            <x-lox::button>
                 {{ __('Save') }}
-            </x-button>
-        </x-form.form-actions>
+            </x-lox::button>
+        </x-lox::form.form-actions>
 
     </form>
-</x-page>
+</x-lox::page>

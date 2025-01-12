@@ -6,6 +6,7 @@ use BondarDe\Lox\Constants\Environment;
 use BondarDe\Lox\Contracts\View\PageConfig;
 use BondarDe\Lox\Exceptions\IllegalStateException;
 use BondarDe\Lox\Support\ViteManifestParser;
+use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
 class Page extends Component
@@ -23,16 +24,15 @@ class Page extends Component
      */
     public function __construct(
         readonly protected PageConfig $config,
-        readonly public bool          $wrapContent = true,
-        readonly public string        $metaDescription = '',
-        ?string                       $metaRobots = null,
-        ?string                       $title = null,
-        readonly public ?string       $h1 = null,
-        public                        $breadcrumbAttr = null,
-        readonly public ?string       $shareImage = null,
-        readonly public ?string       $canonical = null,
-    )
-    {
+        readonly public bool $wrapContent = true,
+        readonly public string $metaDescription = '',
+        ?string $metaRobots = null,
+        ?string $title = null,
+        readonly public ?string $h1 = null,
+        public $breadcrumbAttr = null,
+        readonly public ?string $shareImage = null,
+        readonly public ?string $canonical = null,
+    ) {
         $this->env = config('app.env');
 
         $this->metaRobots = self::toMetaRobots($metaRobots, $this->env);
@@ -83,14 +83,14 @@ class Page extends Component
         return $metaRobots ?? 'index, follow';
     }
 
-    public function render()
+    public function render(): View
     {
         $bodyClasses = $this->config->bodyClasses();
         $contentWrapClasses = $this->config->contentWrapClasses();
         $pageHeaderWrapperClasses = $this->config->pageHeaderWrapperClasses();
         $pageContentWrapperClasses = $this->config->pageContentWrapperClasses();
 
-        return view('lox::page', compact(
+        return view('lox::components.page', compact(
             'bodyClasses',
             'contentWrapClasses',
             'pageHeaderWrapperClasses',

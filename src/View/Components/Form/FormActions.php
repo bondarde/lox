@@ -8,6 +8,6 @@ class FormActions extends FormComponent
 {
     public function render(): View
     {
-        return view('lox::form.form-actions');
+        return view('lox::components.form.form-actions');
     }
 }

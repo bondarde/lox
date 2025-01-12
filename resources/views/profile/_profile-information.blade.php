@@ -3,7 +3,7 @@
     {{ __('Update your account’s profile information and email address.') }}
 </small>
 
-<x-content>
+<x-lox::content>
     <div>
         <small>{{ __('Name') }}</small>
         <div class="font-semibold">{{ $user->{\App\Models\User::FIELD_NAME} }}</div>
@@ -16,12 +16,12 @@
 
     <div class="flex items-center mt-4">
         @if(Laravel\Fortify\Features::canUpdateProfileInformation())
-            <x-button
+            <x-lox::button
                 tag="a"
                 :href="route('user.profile.profile-information.edit')"
             >
                 {{ __('Edit') }}
-            </x-button>
+            </x-lox::button>
         @endif
     </div>
-</x-content>
+</x-lox::content>

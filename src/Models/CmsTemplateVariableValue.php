@@ -9,10 +9,10 @@ class CmsTemplateVariableValue extends Model
 {
     use HasTranslations;
 
-    const ID = 'id';
+    const string FIELD_ID = 'id';
 
-    const FIELD_CMS_PAGE_ID = 'cms_page_id';
-    const FIELD_CMS_TEMPLATE_VARIABLE_ID = 'cms_template_variable_id';
+    const string FIELD_CMS_PAGE_ID = 'cms_page_id';
+    const string FIELD_CMS_TEMPLATE_VARIABLE_ID = 'cms_template_variable_id';
 
     const FIELD_CONTENT = 'content';
 

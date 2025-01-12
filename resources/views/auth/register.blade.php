@@ -1,9 +1,9 @@
-<x-page
+<x-lox::page
     :title="__('Create new account')"
     :h1="__('Create New Account')"
     metaRobots="noindex, nofollow"
 >
-    <x-validation-errors
+    <x-lox::validation-errors
         class="mb-4"
     />
 
@@ -13,9 +13,9 @@
     >
         @csrf
 
-        <x-content class="max-w-xl">
+        <x-lox::content class="max-w-xl">
 
-            <x-form.input
+            <x-lox::form.input
                 label="{{ __('Name') }}"
                 type="text"
                 name="{{ \App\Models\User::FIELD_NAME }}"
@@ -29,7 +29,7 @@
 
 
             <div class="mt-4">
-                <x-form.input
+                <x-lox::form.input
                     label="{{ __('E-mail address') }}"
                     type="email"
                     name="{{ \App\Models\User::FIELD_EMAIL }}"
@@ -42,7 +42,7 @@
             </div>
 
             <div class="mt-4">
-                <x-form.input
+                <x-lox::form.input
                     label="{{ __('Password') }}"
                     type="password"
                     name="{{ \App\Models\User::FIELD_PASSWORD }}"
@@ -57,7 +57,7 @@
             </div>
 
             <div class="mt-4">
-                <x-form.input
+                <x-lox::form.input
                     label="{{ __('Confirm password') }}"
                     type="password"
                     name="password_confirmation"
@@ -79,14 +79,14 @@
                     {{ __('Already registered?') }}
                 </a>
 
-                <x-button
+                <x-lox::button
                     class="ml-4"
                     tabindex="10"
                 >
                     {{ __('Register') }}
-                </x-button>
+                </x-lox::button>
             </div>
-        </x-content>
+        </x-lox::content>
 
     </form>
-</x-page>
+</x-lox::page>

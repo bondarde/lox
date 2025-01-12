@@ -2,7 +2,6 @@
 
 namespace BondarDe\Lox\Http\Controllers\Web\Sso;
 
-use App\Models\User;
 use BondarDe\Lox\Exceptions\SocialLoginErrorException;
 use BondarDe\Lox\Repositories\UserRepository;
 use BondarDe\Lox\Services\AppleToken;
@@ -16,12 +15,11 @@ use Throwable;
 class SsoCallbackController extends SsoController
 {
     public function __invoke(
-        string         $provider,
-        Request        $request,
-        AppleToken     $appleToken,
+        string $provider,
+        Request $request,
+        AppleToken $appleToken,
         UserRepository $userRepository,
-    )
-    {
+    ) {
         $this->validateSsoProvider($provider, $request);
 
         if ($provider === 'apple') {
@@ -47,7 +45,7 @@ class SsoCallbackController extends SsoController
         $email = $user->email;
         $name = self::toName($user, $provider);
 
-        if (!$email) {
+        if (! $email) {
             // generate unique email if none received from login provider
             $email = $provider . '-login-' . $id . '@example.com';
         }
@@ -62,7 +60,7 @@ class SsoCallbackController extends SsoController
             ->with('success-message', $message);
     }
 
-    private static function logLoginError(string $message, Request $request, Throwable $previous = null)
+    private static function logLoginError(string $message, Request $request, ?Throwable $previous = null)
     {
         $socialLoginErrorException = new SocialLoginErrorException($message, 0, $previous);
 

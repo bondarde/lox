@@ -3,9 +3,6 @@
 namespace BondarDe\Lox\Models;
 
 use BondarDe\Lox\Constants\ModelCastTypes;
-use BondarDe\Lox\Exceptions\IllegalStateException;
-use BondarDe\Lox\Livewire\ModelList\Concerns\WithConfigurableColumns;
-use BondarDe\Lox\Models\Columns\CmsPageColumns;
 use BondarDe\Lox\Repositories\CmsPageRepository;
 use BondarDe\Lox\Repositories\CmsRedirectRepository;
 use BondarDe\Lox\Repositories\CmsTemplateVariableValueRepository;
@@ -15,42 +12,41 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 use Laravel\Scout\Searchable;
 use Spatie\Translatable\HasTranslations;
 
-class CmsPage extends Model implements WithConfigurableColumns
+class CmsPage extends Model
 {
-    use SoftDeletes;
-    use Searchable;
-    use HasTranslations;
     use CreatedUpdatedBy;
+    use HasTranslations;
+    use Searchable;
+    use SoftDeletes;
 
-    const FIELD_ID = 'id';
-    const FIELD_CREATED_AT = self::CREATED_AT;
-    const FIELD_UPDATED_AT = self::UPDATED_AT;
+    const string FIELD_ID = 'id';
+    const string FIELD_CREATED_AT = self::CREATED_AT;
+    const string FIELD_UPDATED_AT = self::UPDATED_AT;
 
-    const FIELD_PARENT_ID = 'parent_id';
-    const FIELD_PATH = 'path';
-    const FIELD_SLUG = 'slug';
+    const string FIELD_PARENT_ID = 'parent_id';
+    const string FIELD_PATH = 'path';
+    const string FIELD_SLUG = 'slug';
 
-    const FIELD_PAGE_TITLE = 'page_title';
-    const FIELD_MENU_TITLE = 'menu_title';
-    const FIELD_CONTENT = 'content';
+    const string FIELD_PAGE_TITLE = 'page_title';
+    const string FIELD_MENU_TITLE = 'menu_title';
+    const string FIELD_CONTENT = 'content';
 
-    const FIELD_H1_TITLE = 'h1_title';
-    const FIELD_META_DESCRIPTION = 'meta_description';
-    const FIELD_CANONICAL = 'canonical';
+    const string FIELD_H1_TITLE = 'h1_title';
+    const string FIELD_META_DESCRIPTION = 'meta_description';
+    const string FIELD_CANONICAL = 'canonical';
 
-    const FIELD_IS_PUBLIC = 'is_public';
-    const FIELD_IS_INDEX = 'is_index';
-    const FIELD_IS_FOLLOW = 'is_follow';
+    const string FIELD_IS_PUBLIC = 'is_public';
+    const string FIELD_IS_INDEX = 'is_index';
+    const string FIELD_IS_FOLLOW = 'is_follow';
 
-    const FIELD_CMS_TEMPLATE_ID = 'cms_template_id';
+    const string FIELD_CMS_TEMPLATE_ID = 'cms_template_id';
 
-    const REL_PARENT = 'parent';
-    const REL_CHILDREN = 'children';
-    const REL_TEMPLATE = 'template';
+    const string REL_PARENT = 'parent';
+    const string REL_CHILDREN = 'children';
+    const string REL_TEMPLATE = 'template';
 
     protected $perPage = 100;
 
@@ -88,22 +84,7 @@ class CmsPage extends Model implements WithConfigurableColumns
     {
         parent::boot();
 
-        $updateSlug = function (CmsPage $cmsPage) {
-            $dirtyFields = $cmsPage->getDirty();
-
-            if (
-                !isset($dirtyFields[CmsPage::FIELD_SLUG])
-                &&
-                !isset($dirtyFields[CmsPage::FIELD_PAGE_TITLE])
-            ) {
-                throw new IllegalStateException('Page title or slug is required');
-            }
-
-            if (!isset($dirtyFields[CmsPage::FIELD_SLUG])) {
-                $title = $cmsPage->{CmsPage::FIELD_PAGE_TITLE};
-                $cmsPage->{self::FIELD_SLUG} = Str::slug($title);
-            }
-
+        $savingCallback = function (CmsPage $cmsPage) {
             $parent = $cmsPage->{self::REL_PARENT};
             $parentPrefix = match ($parent) {
                 null => '',
@@ -114,23 +95,16 @@ class CmsPage extends Model implements WithConfigurableColumns
             $cmsPage->{self::FIELD_PATH} = $path;
         };
 
-        static::creating($updateSlug);
-        static::updating(function (CmsPage $cmsPage) use ($updateSlug) {
-            if ($cmsPage->{self::FIELD_SLUG}) {
-                return;
-            }
+        static::saving($savingCallback);
 
-            $updateSlug($cmsPage);
-        });
-
-        static::updated(function (CmsPage $cmsPage) {
+        static::saved(function (CmsPage $cmsPage) {
             $dirtyFields = $cmsPage->getDirty();
             if (
-                !isset($dirtyFields[self::FIELD_SLUG])
+                ! isset($dirtyFields[self::FIELD_SLUG])
                 &&
-                !isset($dirtyFields[self::FIELD_PATH])
+                ! isset($dirtyFields[self::FIELD_PATH])
                 &&
-                !array_key_exists(self::FIELD_PARENT_ID, $dirtyFields)
+                ! array_key_exists(self::FIELD_PARENT_ID, $dirtyFields)
             ) {
                 return;
             }
@@ -169,8 +143,9 @@ class CmsPage extends Model implements WithConfigurableColumns
             $children = $cmsPage->{self::REL_CHILDREN};
 
             $children->each(function (CmsPage $child) use ($cmsPageRepository, $path) {
+                $newPath = $path . '/' . $child->{self::FIELD_SLUG};
                 $cmsPageRepository->update($child, [
-                    self::FIELD_PATH => $path . '/' . $child->{self::FIELD_SLUG},
+                    self::FIELD_PATH => $newPath,
                 ]);
             });
         });
@@ -193,11 +168,6 @@ class CmsPage extends Model implements WithConfigurableColumns
     public function children(): HasMany
     {
         return $this->hasMany(self::class, self::FIELD_PARENT_ID);
-    }
-
-    public static function getModelListColumnConfigurations(): ?string
-    {
-        return CmsPageColumns::class;
     }
 
     public function template(): BelongsTo

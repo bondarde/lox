@@ -26,7 +26,7 @@ class Number extends Component
             $this->zero,
         );
 
-        return view('lox::number', compact(
+        return view('lox::components.number', compact(
             'formatted',
         ));
     }

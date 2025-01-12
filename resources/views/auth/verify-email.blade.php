@@ -1,9 +1,9 @@
-<x-page
+<x-lox::page
     title="E-Mail-Bestätigung"
     h1="E-Mail-Bestätigung"
     metaRobots="noindex, nofollow"
 >
-    <x-content class="max-w-xl">
+    <x-lox::content class="max-w-xl">
 
         <div class="mb-4 text-sm text-gray-600">
             {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
@@ -22,9 +22,9 @@
             >
                 @csrf
 
-                <x-button type="submit">
+                <x-lox::button type="submit">
                     {{ __('Resend Verification Email') }}
-                </x-button>
+                </x-lox::button>
             </form>
 
             <form
@@ -38,5 +38,5 @@
                 </button>
             </form>
         </div>
-    </x-content>
-</x-page>
+    </x-lox::content>
+</x-lox::page>

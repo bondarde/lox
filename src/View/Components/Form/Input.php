@@ -89,6 +89,6 @@ class Input extends FormComponent
 
     public function render(): View
     {
-        return view('lox::form.input');
+        return view('lox::components.form.input');
     }
 }

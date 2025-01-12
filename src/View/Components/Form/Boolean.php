@@ -40,6 +40,6 @@ class Boolean extends FormComponent
 
     public function render(): View
     {
-        return view('lox::form.boolean');
+        return view('lox::components.form.boolean');
     }
 }

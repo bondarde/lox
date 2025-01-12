@@ -14,4 +14,13 @@ enum CmsTemplateVariableType: int
             ->pluck('name', 'value')
             ->toArray();
     }
+
+    public function label(): string
+    {
+        return match ($this) {
+            self::Html => __('html'),
+            self::PlainText => __('text'),
+            self::Media => __('media'),
+        };
+    }
 }

@@ -12,16 +12,12 @@ require_once 'vendor/bondarde/lox/resources/deployer/recipes.php';
 date_default_timezone_set('Europe/Berlin');
 set('root_dir', __DIR__);
 
-
-################################################################################
-### Project Configuration ######################################################
-################################################################################
+// Project Configuration
 
 set('application', 'YOUR PROJECT NAME');
 set('domain_prod', 'example.com');
 set('domain_prod_www', 'www.example.com');
 set('domain_test', 'test.example.com');
-
 
 host(get('domain_prod'))
     ->set('labels', ['stage' => 'prod'])

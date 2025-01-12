@@ -4,12 +4,9 @@ use BondarDe\Lox\Http\Controllers\Admin\System\Data\SearchIndexStatus;
 use BondarDe\Lox\Http\Controllers\Admin\System\Data\ModelMeta;
 
 ?>
-<x-admin-page
-    title="Search Status"
-    h1="Search Status"
->
+<x-filament-panels::page>
 
-    <x-content class="overflow-x-auto">
+    <x-lox::content class="overflow-x-auto">
         <table class="table">
             <thead>
             <tr>
@@ -28,11 +25,9 @@ use BondarDe\Lox\Http\Controllers\Admin\System\Data\ModelMeta;
                 <tr class="border-t">
                     <td>
                         <a
-                            class="hover:underline"
-                            href="{{ route('admin.system.models.list', $row->className) }}"
-                        >
-                            {!! ModelMeta::fromFullyQualifiedClassName($row->className) !!}
-                        </a>
+                            class="underline hover:no-underline"
+                            href="{{ route('filament.admin.resources.models.view', $row->className) }}"
+                        >{!! ModelMeta::fromFullyQualifiedClassName($row->className) !!}</a>
                     </td>
                     <td>
                         {{ $row->indexName }}
@@ -45,12 +40,12 @@ use BondarDe\Lox\Http\Controllers\Admin\System\Data\ModelMeta;
                         </ul>
                     </td>
                     <td class="text-right">
-                        <x-number
+                        <x-lox::number
                             :number="$row->dbRowsCount"
                         />
                     </td>
                     <td class="text-right">
-                        <x-number
+                        <x-lox::number
                             :number="$row->indexedRowsCount"
                         />
                     </td>
@@ -58,13 +53,13 @@ use BondarDe\Lox\Http\Controllers\Admin\System\Data\ModelMeta;
                         'text-right pr-2',
                         'text-red-600 bg-red-50' => $row->delta,
                     ])>
-                        <x-number
+                        <x-lox::number
                             :number="$row->delta"
                         />
                     </td>
                 </tr>
             @endforeach
         </table>
-    </x-content>
+    </x-lox::content>
 
-</x-admin-page>
+</x-filament-panels::page>

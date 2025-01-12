@@ -44,6 +44,6 @@ class Textarea extends FormComponent
 
     public function render(): View
     {
-        return view('lox::form.textarea');
+        return view('lox::components.form.textarea');
     }
 }

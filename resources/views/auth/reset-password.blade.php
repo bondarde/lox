@@ -1,13 +1,13 @@
-<x-page
+<x-lox::page
     :title="__('Reset Password')"
     :h1="__('Reset Password')"
     metaRobots="noindex, nofollow"
 >
     <div class="container">
-        <x-validation-errors/>
+        <x-lox::validation-errors/>
     </div>
 
-    <x-content class="max-w-xl">
+    <x-lox::content class="max-w-xl">
         <form
             method="post"
             action="{{ route('password.update') }}"
@@ -17,7 +17,7 @@
             <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
             <div>
-                <x-form.input
+                <x-lox::form.input
                     :label="__('E-mail address')"
                     :placeholder="__('mail@example.com')"
                     type="email"
@@ -30,7 +30,7 @@
             </div>
 
             <div class="mt-4">
-                <x-form.input
+                <x-lox::form.input
                     type="password"
                     :label="__('Password')"
                     :placeholder="__('Password')"
@@ -41,7 +41,7 @@
             </div>
 
             <div class="mt-4">
-                <x-form.input
+                <x-lox::form.input
                     type="password"
                     :label="__('Confirm Password')"
                     :placeholder="__('Confirm Password')"
@@ -52,10 +52,10 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <x-button>
+                <x-lox::button>
                     {{ __('Reset Password') }}
-                </x-button>
+                </x-lox::button>
             </div>
         </form>
-    </x-content>
-</x-page>
+    </x-lox::content>
+</x-lox::page>

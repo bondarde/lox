@@ -2,18 +2,33 @@
 
 namespace BondarDe\Lox\Support\Search;
 
+use BondarDe\Lox\Models\CmsPage;
+use ReflectionException;
 use ReflectionMethod;
 use TeamTNT\Scout\Console\StatusCommand;
 
 class DiscoveryUtil
 {
+    /**
+     * @throws ReflectionException
+     */
     public static function getModels(): array
     {
-        $cmd = new StatusCommand();
+        $command = new StatusCommand();
 
-        $reflectionMethod = new ReflectionMethod($cmd, 'getSearchableModelsFromClasses');
+        $reflectionMethod = new ReflectionMethod($command, 'getSearchableModelsFromClasses');
+        /** @noinspection PhpExpressionResultUnusedInspection */
         $reflectionMethod->setAccessible(true);
 
-        return $reflectionMethod->invoke($cmd);
+        $projectModels = $reflectionMethod->invoke($command);
+
+        $loxModels = [
+            CmsPage::class,
+        ];
+
+        return [
+            ...$loxModels,
+            ...$projectModels,
+        ];
     }
 }

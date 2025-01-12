@@ -9,6 +9,6 @@ class UserMessages extends Component
 {
     public function render(): View
     {
-        return view('lox::user-messages');
+        return view('lox::components.user-messages');
     }
 }

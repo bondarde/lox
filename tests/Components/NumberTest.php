@@ -13,7 +13,7 @@ class NumberTest extends TestCase
 <span class="whitespace-nowrap">1,024</span>
 
 HTML;
-        $actual = Blade::render('<x-number number="1024" />');
+        $actual = Blade::render('<x-lox::number number="1024" />');
 
         self::assertEquals($expected, $actual);
     }
@@ -24,7 +24,7 @@ HTML;
 <span class="whitespace-nowrap">–123,456</span>
 
 HTML;
-        $actual = Blade::render('<x-number number="-123456" />');
+        $actual = Blade::render('<x-lox::number number="-123456" />');
 
         self::assertEquals($expected, $actual);
     }
@@ -35,7 +35,7 @@ HTML;
 <span class="whitespace-nowrap">123,456.79</span>
 
 HTML;
-        $actual = Blade::render('<x-number number="123456.789" decimals="2" />');
+        $actual = Blade::render('<x-lox::number number="123456.789" decimals="2" />');
 
         self::assertEquals($expected, $actual);
     }
@@ -46,7 +46,7 @@ HTML;
 <span class="whitespace-nowrap font-semibold">123,456.79</span>
 
 HTML;
-        $actual = Blade::render('<x-number number="123456.789" decimals="2" class="font-semibold" />');
+        $actual = Blade::render('<x-lox::number number="123456.789" decimals="2" class="font-semibold" />');
 
         self::assertEquals($expected, $actual);
     }
