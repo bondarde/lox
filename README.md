@@ -155,21 +155,19 @@ User `deployer` should be able to execute `sudo` without password prompt for `ch
 
 Page structure:
 
-    <x-page
+    <x-lox::page
         title="Page Title"
         h1="Headline"
     >
         <p>Your page content, beautifully staged.</p>
-    </x-page>
+    </x-lox::page>
 
 
-For page component you have to create page header and footer:
+For page component you may want to create HTML header, page header and footer:
 
     php artisan make:component HtmlHeader
     php artisan make:component PageHeader
     php artisan make:component PageFooter
-
-    php artisan make:component AdminPage
 
 
 ### Forms
