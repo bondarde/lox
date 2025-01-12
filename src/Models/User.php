@@ -2,6 +2,7 @@
 
 namespace BondarDe\Lox\Models;
 
+use BondarDe\Lox\Constants\Acl\Role;
 use BondarDe\Lox\Constants\ModelCastTypes;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
@@ -54,6 +55,7 @@ class User extends Authenticatable implements FilamentUser
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return $this->hasPermissionTo('panel_' . $panel->getId());
+        return $this->hasRole(Role::SuperAdmin)
+            || $this->hasPermissionTo('panel_' . $panel->getId());
     }
 }
