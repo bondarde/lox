@@ -35,18 +35,14 @@ If needed, add middleware aliases to the `app/Http/Kernel.php` file, in the `$mi
     ];
 
 
-If needed, grant "super-admin" role all permissions in `AuthServiceProvider`'s `boot()` method:
+Create "Super Admin" user or assign role to the user:
 
-    Gate::before(
-        fn($user, $ability) => $user->hasRole(AclSetupData::ROLE_SUPER_ADMIN) && $ability !== AclSetupData::PERMISSION_VIEW_MODEL_META_DATA
-            ? true
-            : null
-    );
+    php artisan shield:super-admin --user=1
 
+Create permissions required by LOX admin panel. Provide `--super-admin` to assign it to the user (ID or e-mail)
 
-Create super-admin role and all configured roles/permissions:
+    php artisan lox:update-acl --super-admin=1
 
-    php artisan acl:update-roles-and-permission
 
 
 After signing up, assign admin group to (your) user by ID or e-mail address:

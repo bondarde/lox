@@ -8,6 +8,7 @@ use BondarDe\Lox\Console\AboutCommandIntegration;
 use BondarDe\Lox\Console\Commands\Cms\ExecuteCmsTasksCommand;
 use BondarDe\Lox\Console\Commands\MigrateSsoIdentifiersCommand;
 use BondarDe\Lox\Console\Commands\Search\ScoutRefreshCommand;
+use BondarDe\Lox\Console\Commands\UpdateAclCommand;
 use BondarDe\Lox\Constants\Environment;
 use BondarDe\Lox\Contracts\View\PageConfig;
 use BondarDe\Lox\Http\Controllers\Web\CmsContentController;
@@ -216,6 +217,7 @@ class LoxServiceProvider extends ServiceProvider
             ScoutRefreshCommand::class,
             ExecuteCmsTasksCommand::class,
             MigrateSsoIdentifiersCommand::class,
+            UpdateAclCommand::class,
         ]);
     }
 
