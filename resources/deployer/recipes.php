@@ -304,7 +304,7 @@ task('deploy:update_code', function () {
     upload('{{build_path}}/', '{{release_path}}/');
 });
 
-task('artisan:acl-update', artisan('shield:generate --panel=admin --all'))
+task('artisan:acl-update', artisan('shield:generate --panel=admin --all --option=permissions'))
     ->desc('Update ACL setup');
 
 task('artisan:scout:refresh', function () {
