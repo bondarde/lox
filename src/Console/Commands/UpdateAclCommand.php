@@ -2,8 +2,9 @@
 
 namespace BondarDe\Lox\Console\Commands;
 
+use App\Models\User;
 use BezhanSalleh\FilamentShield\Commands\GenerateCommand;
-use BondarDe\Lox\Models\User;
+use BondarDe\Lox\Models\User as LoxUser;
 use Illuminate\Console\Command;
 use Spatie\Permission\Models\Permission;
 
@@ -37,9 +38,9 @@ class UpdateAclCommand extends Command
             $user = User::query()->where(
                 is_numeric($superAdminUserId)
                     ? [
-                        User::FIELD_ID => $superAdminUserId,
+                        LoxUser::FIELD_ID => $superAdminUserId,
                     ] : [
-                        User::FIELD_EMAIL => $superAdminUserId,
+                        LoxUser::FIELD_EMAIL => $superAdminUserId,
                     ],
             )->sole();
 

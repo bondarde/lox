@@ -2,8 +2,8 @@
 
 namespace BondarDe\Lox\Console\Commands;
 
+use App\Models\User;
 use BondarDe\Lox\Models\SsoIdentifier;
-use BondarDe\Lox\Models\User;
 use Illuminate\Console\Command;
 
 class MigrateSsoIdentifiersCommand extends Command
