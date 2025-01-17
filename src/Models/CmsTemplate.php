@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class CmsTemplate extends Model
 {
     const string FIELD_ID = 'id';
+    const string FIELD_CREATED_AT = self::CREATED_AT;
+    const string FIELD_UPDATED_AT = self::UPDATED_AT;
 
     const string FIELD_LABEL = 'label';
     const string FIELD_CONTENT = 'content';

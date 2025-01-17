@@ -46,6 +46,17 @@ class CmsTemplateResource extends Resource
     {
         return $table
             ->columns([
+                TextColumn::make(CmsTemplate::FIELD_CREATED_AT)
+                    ->label('Created')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make(CmsTemplate::FIELD_UPDATED_AT)
+                    ->label('Updated')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
                 TextColumn::make(CmsTemplate::FIELD_LABEL)
                     ->description(fn (CmsTemplate $cmsTemplate): string => 'Variables: ' . $cmsTemplate->{CmsTemplate::COUNT_TEMPLATE_VARIABLES})
                     ->label('Name'),
@@ -53,6 +64,7 @@ class CmsTemplateResource extends Resource
                     ->numeric()
                     ->label('Pages'),
             ])
+            ->defaultSort(CmsTemplate::FIELD_UPDATED_AT, 'desc')
             ->filters([
                 //
             ])

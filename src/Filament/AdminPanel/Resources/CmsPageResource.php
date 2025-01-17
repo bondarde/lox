@@ -151,6 +151,20 @@ class CmsPageResource extends Resource
     {
         return $table
             ->columns([
+                TextColumn::make(CmsPage::FIELD_CREATED_AT)
+                    ->label('Created')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make(CmsPage::FIELD_UPDATED_AT)
+                    ->label('Updated')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
+                TextColumn::make(CmsPage::FIELD_CREATED_AT)
+                    ->label('Updated'),
+
                 TextColumn::make(CmsPage::FIELD_PAGE_TITLE)
                     ->label('Page, URL')
                     ->description(fn (CmsPage $record) => $record->{CmsPage::FIELD_PATH})
@@ -179,6 +193,7 @@ class CmsPageResource extends Resource
                     ->boolean()
                     ->label('Follow'),
             ])
+            ->defaultSort(CmsPage::FIELD_UPDATED_AT, 'desc')
             ->filters([
                 //
             ])

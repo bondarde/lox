@@ -46,6 +46,17 @@ class CmsAssistantTaskResource extends Resource
     {
         return $table
             ->columns([
+                TextColumn::make(CmsAssistantTask::FIELD_CREATED_AT)
+                    ->label('Created')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make(CmsAssistantTask::FIELD_UPDATED_AT)
+                    ->label('Updated')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
                 IconColumn::make('status')
                     ->state(CmsAssistantTask::FIELD_LOCALE)
                     ->icon(function (CmsAssistantTask $record) {
@@ -86,7 +97,7 @@ class CmsAssistantTaskResource extends Resource
                     ->since()
                     ->dateTimeTooltip(),
             ])
-            ->defaultSort(CmsAssistantTask::FIELD_ID, 'desc')
+            ->defaultSort(CmsAssistantTask::FIELD_UPDATED_AT, 'desc')
             ->filters([
                 //
             ])

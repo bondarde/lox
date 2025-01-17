@@ -43,6 +43,17 @@ class CmsRedirectResource extends Resource
     {
         return $table
             ->columns([
+                TextColumn::make(CmsRedirect::FIELD_CREATED_AT)
+                    ->label('Created')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make(CmsRedirect::FIELD_UPDATED_AT)
+                    ->label('Updated')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
                 TextColumn::make(CmsRedirect::FIELD_ID)
                     ->label('ID')
                     ->toggleable()
@@ -55,6 +66,7 @@ class CmsRedirectResource extends Resource
                     ->label('Target')
                     ->searchable(),
             ])
+            ->defaultSort(CmsRedirect::FIELD_UPDATED_AT, 'desc')
             ->filters([
                 //
             ])
