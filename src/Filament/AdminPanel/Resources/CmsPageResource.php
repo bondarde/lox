@@ -162,9 +162,6 @@ class CmsPageResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
-                TextColumn::make(CmsPage::FIELD_CREATED_AT)
-                    ->label('Updated'),
-
                 TextColumn::make(CmsPage::FIELD_PAGE_TITLE)
                     ->label('Page, URL')
                     ->description(fn (CmsPage $record) => $record->{CmsPage::FIELD_PATH})
