@@ -2,6 +2,7 @@
 
 namespace BondarDe\Lox;
 
+use App\Models\User;
 use BezhanSalleh\FilamentShield\Facades\FilamentShield;
 use BondarDe\FilamentRouteList\Models\LaravelRoute;
 use BondarDe\Lox\Console\AboutCommandIntegration;
@@ -26,6 +27,7 @@ use BondarDe\Lox\Models\CmsTemplate;
 use BondarDe\Lox\Models\Sushi\ApplicationModel;
 use BondarDe\Lox\Models\Sushi\DatabaseRelation;
 use BondarDe\Lox\Policies\AclPermissionPolicy;
+use BondarDe\Lox\Policies\AclRolePolicy;
 use BondarDe\Lox\Policies\ApplicationModelPolicy;
 use BondarDe\Lox\Policies\CmsAssistantTaskPolicy;
 use BondarDe\Lox\Policies\CmsPagePolicy;
@@ -33,6 +35,7 @@ use BondarDe\Lox\Policies\CmsRedirectPolicy;
 use BondarDe\Lox\Policies\CmsTemplatePolicy;
 use BondarDe\Lox\Policies\DatabaseRelationPolicy;
 use BondarDe\Lox\Policies\LaravelRoutePolicy;
+use BondarDe\Lox\Policies\UserPolicy;
 use BondarDe\Lox\View\Components\Button;
 use BondarDe\Lox\View\Components\Content;
 use BondarDe\Lox\View\Components\FileSize;
@@ -73,6 +76,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Livewire\Livewire;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class LoxServiceProvider extends ServiceProvider
 {
@@ -272,6 +276,8 @@ class LoxServiceProvider extends ServiceProvider
     private function registerPolicies(): void
     {
         Gate::policy(Permission::class, AclPermissionPolicy::class);
+        Gate::policy(Role::class, AclRolePolicy::class);
+        Gate::policy(User::class, UserPolicy::class);
 
         Gate::policy(LaravelRoute::class, LaravelRoutePolicy::class);
         Gate::policy(DatabaseRelation::class, DatabaseRelationPolicy::class);
