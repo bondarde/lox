@@ -10,6 +10,7 @@ class MonthFilter
 {
     public static function make(
         string $field,
+        ?string $filterName = null,
     ): SelectFilter {
         $options = [];
 
@@ -19,7 +20,8 @@ class MonthFilter
             $options[$m] = $date->isoFormat('MMMM');
         }
 
-        return SelectFilter::make($field . '.month')
+        $filterName ??= $field . '.month';
+        return SelectFilter::make($filterName)
             ->options($options)
             ->query(
                 fn (Builder $query, array $state) => $state['value'] && $query->whereMonth($field, $state['value']),
