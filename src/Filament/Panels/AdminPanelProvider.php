@@ -2,23 +2,12 @@
 
 namespace BondarDe\Lox\Filament\Panels;
 
-use App\Models\User;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use BondarDe\FilamentRouteList\FilamentRouteListPlugin;
 use Exception;
 use Filament\Facades\Filament;
-use Filament\Http\Middleware\Authenticate;
-use Filament\Http\Middleware\DisableBladeIconComponents;
-use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Panel;
 use Filament\SpatieLaravelTranslatablePlugin;
-use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
-use Illuminate\Cookie\Middleware\EncryptCookies;
-use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
-use Illuminate\Routing\Middleware\SubstituteBindings;
-use Illuminate\Session\Middleware\AuthenticateSession;
-use Illuminate\Session\Middleware\StartSession;
-use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Saade\FilamentLaravelLog\FilamentLaravelLogPlugin;
 
 class AdminPanelProvider extends BasePanelProvider
@@ -28,16 +17,17 @@ class AdminPanelProvider extends BasePanelProvider
      */
     public function panel(Panel $panel): Panel
     {
-        parent::panel($panel)
+        return parent::panel($panel)
             ->default()
             ->id('admin')
             ->path('admin')
+            ->icons([
+                'heroicon-o-cog-6-tooth',
+            ])
             ->discoverPages(in: __DIR__ . '/../AdminPanel/Pages', for: 'BondarDe\\Lox\\Filament\\AdminPanel\\Pages')
             ->discoverPages(in: app_path('Filament/AdminPanel/Pages'), for: 'App\\Filament\\AdminPanel\\Pages')
             ->discoverResources(in: __DIR__ . '/../AdminPanel/Resources', for: 'BondarDe\\Lox\\Filament\\AdminPanel\\Resources')
             ->discoverResources(in: app_path('Filament/AdminPanel/Resources'), for: 'App\\Filament\\AdminPanel\\Resources')
-            ->pages([
-            ])
             ->plugin(
                 FilamentLaravelLogPlugin::make()
                     ->authorize(fn () => Filament::auth()->user()->can('page_ViewLog')),
@@ -51,23 +41,6 @@ class AdminPanelProvider extends BasePanelProvider
             ->plugin(
                 SpatieLaravelTranslatablePlugin::make()
                     ->defaultLocales(config('lox.filament.locales')),
-            )
-            ->middleware([
-                EncryptCookies::class,
-                AddQueuedCookiesToResponse::class,
-                StartSession::class,
-                AuthenticateSession::class,
-                ShareErrorsFromSession::class,
-                VerifyCsrfToken::class,
-                SubstituteBindings::class,
-                DisableBladeIconComponents::class,
-                DispatchServingFilamentEvent::class,
-            ])
-            ->authMiddleware([
-                Authenticate::class,
-            ])
-            ->favicon('/img/favicons/favicon-192x192.png');
-
-        return $panel;
+            );
     }
 }
