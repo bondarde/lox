@@ -27,13 +27,6 @@ abstract class BasePanelProvider extends PanelProvider
                 'primary' => Color::Indigo,
             ]);
 
-        $panel->navigationItems([
-            NavigationItem::make('Home')
-                ->sort(-100)
-                ->url('/')
-                ->icon('heroicon-o-home'),
-        ]);
-
         if (config('lox.filament.panels.with_user_menu')) {
             $panel->userMenuItems([
                 'profile' => MenuItem::make()
