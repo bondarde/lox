@@ -11,4 +11,6 @@ $config['shield_resource']['navigation_sort'] = 101;
 $config['exclude']['pages'] = [];
 $config['exclude']['widgets'] = [];
 
+$config['register_role_policy']['enabled'] = false;
+
 return $config;
