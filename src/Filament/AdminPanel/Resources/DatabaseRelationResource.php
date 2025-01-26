@@ -10,6 +10,7 @@ use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Components\View;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
+use Filament\Support\Colors\Color;
 use Filament\Support\Enums\FontWeight;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -92,9 +93,16 @@ class DatabaseRelationResource extends Resource
                     ->sortable()
                     ->alignEnd(),
                 TextColumn::make('rows')
+                    ->numeric()
                     ->sortable()
                     ->alignEnd(),
                 TextColumn::make('engine')
+                    ->badge()
+                    ->color(fn (string $state) => match ($state) {
+                        'InnoDB' => Color::Green,
+                        'MyISAM' => Color::Red,
+                        default => Color::Gray,
+                    })
                     ->placeholder('n/a'),
                 TextColumn::make('collation')
                     ->placeholder('n/a'),
