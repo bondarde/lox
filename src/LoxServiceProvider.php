@@ -64,6 +64,8 @@ use BondarDe\Lox\View\Components\SurveyView;
 use BondarDe\Lox\View\Components\UserMessages;
 use BondarDe\Lox\View\Components\ValidationErrors;
 use BondarDe\Lox\View\DefaultPageConfig;
+use Filament\Support\Facades\FilamentView;
+use Filament\View\PanelsRenderHook;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Console\AboutCommand;
@@ -74,6 +76,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 use Livewire\Livewire;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -137,6 +140,7 @@ class LoxServiceProvider extends ServiceProvider
 
         $this->configureConfig();
         $this->configureLivewire();
+        $this->configureFilament();
         $this->configureAboutCommand();
 
         $this->configureFilamentShield();
@@ -260,6 +264,14 @@ class LoxServiceProvider extends ServiceProvider
             ->flatMap(fn (string $path) => $filesystem->glob($path . '*_' . $migrationFileName))
             ->push($this->app->databasePath() . "/migrations/{$timestamp}_$migrationFileName")
             ->first();
+    }
+
+    private function configureFilament(): void
+    {
+        FilamentView::registerRenderHook(
+            PanelsRenderHook::BODY_START,
+            fn (): View => view('lox::filament.session-expired'),
+        );
     }
 
     private function configureFilamentShield(): void
