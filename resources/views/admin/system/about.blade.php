@@ -21,14 +21,17 @@
                                     @case('string')
                                         @php
                                             $isSuccess = in_array($value, [
+                                                'YES',
                                                 'ENABLED',
                                                 'PUBLISHED',
                                                 'CACHED',
                                             ]);
                                             $isDanger = in_array($value, [
+                                                'NO',
                                                 'DISABLED',
                                                 'NOT PUBLISHED',
                                                 'NOT CACHED',
+                                                'NOT SET',
                                             ]);
                                         @endphp
                                         @if($isSuccess || $isDanger)

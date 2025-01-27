@@ -39,8 +39,28 @@ class ApplicationModelResource extends Resource
                         . $record->className,
                     ))
                     ->weight(FontWeight::Bold)
+                    ->columnSpanFull()
                     ->label('Model'),
+
+                TextEntry::make('dbTableName')
+                    ->placeholder('n/a')
+                    ->url(function (?string $state): ?string {
+                        if (! $state) {
+                            return null;
+                        }
+
+                        return DatabaseRelationResource::getUrl(
+                            'view',
+                            [
+                                'table:' . $state,
+                            ],
+                        );
+                    })
+                    ->label('DB table'),
+
                 TextEntry::make('dbEntriesCount')
+                    ->placeholder('n/a')
+                    ->numeric()
                     ->label('DB entries'),
             ]);
     }
@@ -49,6 +69,7 @@ class ApplicationModelResource extends Resource
     {
         return $table
             ->columns([
+
                 TextColumn::make('fullyQualifiedClassName')
                     ->formatStateUsing(fn (ApplicationModel $record) => new HtmlString(
                         '<span class="opacity-65 font-normal mr-px">' . $record->namespace . '\</span>'
@@ -56,13 +77,31 @@ class ApplicationModelResource extends Resource
                     ))
                     ->weight(FontWeight::Bold)
                     ->label('Model'),
+
                 TextColumn::make('dbTableName')
                     ->label('DB table')
+                    ->placeholder('n/a')
+                    ->url(function (?string $state): ?string {
+                        if (! $state) {
+                            return null;
+                        }
+
+                        return DatabaseRelationResource::getUrl(
+                            'view',
+                            [
+                                'table:' . $state,
+                            ],
+                        );
+                    })
                     ->sortable(),
+
                 TextColumn::make('dbEntriesCount')
                     ->label('DB entries')
+                    ->placeholder('n/a')
+                    ->numeric()
                     ->alignEnd()
                     ->sortable(),
+
             ])
             ->defaultSort('table')
             ->filters([
