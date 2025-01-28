@@ -32,6 +32,7 @@
                                                 'NOT PUBLISHED',
                                                 'NOT CACHED',
                                                 'NOT SET',
+                                                'MISSING DSN',
                                             ]);
                                         @endphp
                                         @if($isSuccess || $isDanger)
