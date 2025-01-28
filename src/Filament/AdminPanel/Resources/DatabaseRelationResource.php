@@ -56,7 +56,7 @@ class DatabaseRelationResource extends Resource
                 TextEntry::make('collation')
                     ->placeholder('n/a'),
                 TextEntry::make('size')
-                    ->helperText(fn (int $state) => Number::format($state))
+                    ->tooltip(fn (int $state) => Number::format($state))
                     ->formatStateUsing(fn (int $state) => Number::fileSize($state)),
                 TextEntry::make('rows'),
                 TextEntry::make('engine')
