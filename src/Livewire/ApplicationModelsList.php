@@ -13,6 +13,7 @@ use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Livewire\Component;
@@ -30,6 +31,8 @@ class ApplicationModelsList extends Component implements HasForms, HasTable
         /** @var Model $model */
         $model = new $this->model();
         $dbTableColumns = DB::connection()->getSchemaBuilder()->getColumnListing($this->dbTableName);
+        $toggleableColumns = [];
+        $toggledHiddenByDefaultColumns = [];
         $casts = $model->getCasts();
 
         $defaultSortColumn = null;
@@ -39,26 +42,54 @@ class ApplicationModelsList extends Component implements HasForms, HasTable
         if ($model->getKeyType() === 'int') {
             $defaultSortColumn = $primaryKeyName;
         }
+        $toggleableColumns[] = $primaryKeyName;
+
+        $columnsOrder = [
+            $primaryKeyName,
+        ];
 
         if ($model->usesTimestamps()) {
+            $createdAtColumn = $model->getCreatedAtColumn();
+            $updatedAtColumn = $model->getUpdatedAtColumn();
+
+            $columnsOrder[] = $createdAtColumn;
+            $columnsOrder[] = $updatedAtColumn;
+
+            $toggleableColumns[] = $createdAtColumn;
+            $toggleableColumns[] = $updatedAtColumn;
+
+            $toggledHiddenByDefaultColumns[] = $updatedAtColumn;
+
             $casts = [
-                $model->getCreatedAtColumn() => ModelCastTypes::DATETIME,
-                $model->getUpdatedAtColumn() => ModelCastTypes::DATETIME,
+                $createdAtColumn => ModelCastTypes::DATETIME,
+                $updatedAtColumn => ModelCastTypes::DATETIME,
                 ...$casts,
             ];
 
-            $defaultSortColumn = $model->getCreatedAtColumn();
+            $defaultSortColumn = $createdAtColumn;
         }
+
+        if (in_array(SoftDeletes::class, class_uses($model))) {
+            $deletedAtColumn = $model->getDeletedAtColumn();
+            $columnsOrder[] = $deletedAtColumn;
+
+            $toggleableColumns[] = $deletedAtColumn;
+            $toggledHiddenByDefaultColumns[] = $deletedAtColumn;
+
+            $casts[$deletedAtColumn] ??= ModelCastTypes::DATETIME;
+        }
+
+        $dbTableColumns = self::sortColumns($dbTableColumns, $columnsOrder);
 
         return $table
             ->query($this->model::query())
             ->columns(
                 collect($dbTableColumns)
                     ->map(
-                        function (string $columnName) use ($casts): Column {
+                        function (string $columnName) use ($casts, $toggleableColumns, $toggledHiddenByDefaultColumns): Column {
                             $cast = $casts[$columnName] ?? null;
 
-                            return match ($cast) {
+                            $column = match ($cast) {
                                 ModelCastTypes::FLOAT,
                                 ModelCastTypes::DECIMAL,
                                 ModelCastTypes::INTEGER => TextColumn::make($columnName)
@@ -76,6 +107,14 @@ class ApplicationModelsList extends Component implements HasForms, HasTable
                                     ->searchable()
                                     ->placeholder('n/a'),
                             };
+
+                            if (in_array($columnName, $toggleableColumns)) {
+                                $column->toggleable(
+                                    isToggledHiddenByDefault: in_array($columnName, $toggledHiddenByDefaultColumns),
+                                );
+                            }
+
+                            return $column;
                         },
                     )
                     ->toArray(),
@@ -90,6 +129,24 @@ class ApplicationModelsList extends Component implements HasForms, HasTable
             ->bulkActions([
                 // ...
             ]);
+    }
+
+    private static function sortColumns(array $columns, array $columnsOrder): array
+    {
+        $res = [];
+
+        foreach ($columnsOrder as $column) {
+            $res[] = $column;
+        }
+
+        foreach ($columns as $column) {
+            if (in_array($column, $res)) {
+                continue;
+            }
+            $res[] = $column;
+        }
+
+        return $res;
     }
 
     public function render(): View
