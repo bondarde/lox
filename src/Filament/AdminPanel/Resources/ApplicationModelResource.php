@@ -66,6 +66,7 @@ class ApplicationModelResource extends Resource
 
                 ModelsListEntry::make('models')
                     ->columnSpanFull()
+                    ->visible(fn (ApplicationModel $record) => $record->dbTableName)
                     ->label('Models'),
             ]);
     }
