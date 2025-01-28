@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 
 class ApplicationModelsList extends Component implements HasForms, HasTable
@@ -28,6 +29,15 @@ class ApplicationModelsList extends Component implements HasForms, HasTable
 
     public string $model;
     public string $dbTableName;
+
+    #[Url]
+    public ?array $tableFilters = null;
+    #[Url]
+    public $tableSearch = '';
+    #[Url]
+    public ?string $tableSortColumn = null;
+    #[Url]
+    public ?string $tableSortDirection = null;
 
     public function table(Table $table): Table
     {
