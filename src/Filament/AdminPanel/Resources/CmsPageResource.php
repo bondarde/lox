@@ -28,6 +28,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
 
@@ -192,7 +193,18 @@ class CmsPageResource extends Resource
             ])
             ->defaultSort(CmsPage::FIELD_UPDATED_AT, 'desc')
             ->filters([
-                //
+                TernaryFilter::make(CmsPage::FIELD_IS_PUBLIC)
+                    ->boolean()
+                    ->label('Published'),
+                TernaryFilter::make(CmsPage::FIELD_IS_INDEX)
+                    ->boolean()
+                    ->label('Meta: index'),
+                TernaryFilter::make(CmsPage::FIELD_IS_FOLLOW)
+                    ->boolean()
+                    ->label('Meta: follow'),
+                TernaryFilter::make(CmsPage::FIELD_CMS_TEMPLATE_ID)
+                    ->nullable()
+                    ->label('Template'),
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
