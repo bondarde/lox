@@ -2,6 +2,7 @@
 
 namespace BondarDe\Lox\Filament\AdminPanel\Resources;
 
+use BondarDe\Lox\Filament\AdminPanel\Infolists\Components\ModelsListEntry;
 use BondarDe\Lox\Filament\AdminPanel\Resources\ApplicationModelResource\Pages\ListApplicationModelResources;
 use BondarDe\Lox\Filament\AdminPanel\Resources\ApplicationModelResource\Pages\ViewApplicationModelResource;
 use BondarDe\Lox\Filament\HasModelCountNavigationBadge;
@@ -62,6 +63,10 @@ class ApplicationModelResource extends Resource
                     ->placeholder('n/a')
                     ->numeric()
                     ->label('DB entries'),
+
+                ModelsListEntry::make('models')
+                    ->columnSpanFull()
+                    ->label('Models'),
             ]);
     }
 
