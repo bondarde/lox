@@ -10,8 +10,17 @@ use Illuminate\Support\Str;
 
 trait HasModelCountNavigationBadge
 {
+    protected static function isNavigationBadgeEnabled(): bool
+    {
+        return config('lox.filament.panels.admin.model_count_navigation_badge.enabled');
+    }
+
     public static function getNavigationBadge(): ?string
     {
+        if (! static::isNavigationBadgeEnabled()) {
+            return null;
+        }
+
         /** @var Model $model */
         $model = static::getModel();
         $query = $model::query();

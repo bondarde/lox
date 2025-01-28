@@ -50,6 +50,12 @@ return [
             'with_user_menu' => env('LOX_FILAMENT_WITH_USER_MENU', true),
             'with_js' => env('LOX_FILAMENT_WITH_JS', true),
             'with_css' => env('LOX_FILAMENT_WITH_CSS', true),
+
+            'admin' => [
+                'model_count_navigation_badge' => [
+                    'enabled' => env('LOX_FILAMENT_ADMIN_PANEL_MODEL_COUNT_BADGE_ENABLED', false),
+                ],
+            ],
         ],
         'locales' => explode(',', env('LOX_FILAMENT_LOCALES', config('app.locale') . ',' . config('app.fallback_locale'))),
     ],

@@ -3,6 +3,7 @@
 namespace BondarDe\Lox\Filament\AdminPanel\Resources;
 
 use BondarDe\Lox\Filament\AdminPanel\Resources\CmsAssistantTaskResource\Pages;
+use BondarDe\Lox\Filament\HasModelCountNavigationBadge;
 use BondarDe\Lox\Models\CmsAssistantTask;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -11,10 +12,11 @@ use Filament\Tables;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Support\Number;
 
 class CmsAssistantTaskResource extends Resource
 {
+    use HasModelCountNavigationBadge;
+
     protected static ?string $model = CmsAssistantTask::class;
     protected static ?string $slug = 'cms-assistant-tasks';
 
@@ -130,10 +132,5 @@ class CmsAssistantTaskResource extends Resource
             'view' => Pages\ViewCmsAssistantTask::route('/{record}'),
             'edit' => Pages\EditCmsAssistantTask::route('/{record}/edit'),
         ];
-    }
-
-    public static function getNavigationBadge(): ?string
-    {
-        return Number::format(static::getModel()::count());
     }
 }
