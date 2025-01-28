@@ -3,6 +3,8 @@
 namespace BondarDe\Lox\Livewire;
 
 use BondarDe\Lox\Constants\ModelCastTypes;
+use BondarDe\Lox\Filament\Tables\Filters\MonthFilter;
+use BondarDe\Lox\Filament\Tables\Filters\YearFilter;
 use Carbon\Carbon;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
@@ -11,6 +13,7 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
+use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -81,6 +84,8 @@ class ApplicationModelsList extends Component implements HasForms, HasTable
 
         $dbTableColumns = self::sortColumns($dbTableColumns, $columnsOrder);
 
+        $filters = self::makeFilters($dbTableColumns, $casts);
+
         return $table
             ->query($this->model::query())
             ->columns(
@@ -120,9 +125,7 @@ class ApplicationModelsList extends Component implements HasForms, HasTable
                     ->toArray(),
             )
             ->defaultSort($defaultSortColumn, $defaultSortDirection)
-            ->filters([
-                // ...
-            ])
+            ->filters($filters)
             ->actions([
                 // ...
             ])
@@ -147,6 +150,31 @@ class ApplicationModelsList extends Component implements HasForms, HasTable
         }
 
         return $res;
+    }
+
+    private static function makeFilters(array $dbTableColumns, array $casts): array
+    {
+        $filters = [];
+
+        foreach ($dbTableColumns as $column) {
+            $cast = $casts[$column] ?? null;
+            if (
+                $cast === ModelCastTypes::DATETIME
+                || $cast === ModelCastTypes::DATE
+                || $cast === ModelCastTypes::TIMESTAMP
+            ) {
+                $filters[] = YearFilter::make($column)
+                    ->label($column . ': year');
+                $filters[] = MonthFilter::make($column)
+                    ->label($column . ': month');
+            } elseif ($cast === ModelCastTypes::BOOLEAN) {
+                $filters[] = TernaryFilter::make($column)
+                    ->boolean()
+                    ->label($column);
+            }
+        }
+
+        return $filters;
     }
 
     public function render(): View
