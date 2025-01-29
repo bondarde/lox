@@ -51,25 +51,31 @@ abstract class BasePanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->favicon('/img/favicons/favicon-192x192.png');
+            ->homeUrl(fn () => route('home'))
+            ->bootUsing(function (Panel $panel) {
+                $panel->userMenuItems(
+                    collect(Filament::getPanels())
+                        ->map(
+                            fn (Panel $registeredPanel) => MenuItem::make()
+                                ->visible(
+                                    function () use ($registeredPanel) {
+                                        $panelId = $registeredPanel->getId();
 
-        $panel->userMenuItems(
-            collect(Filament::getPanels())
-                ->map(
-                    fn (Panel $registeredPanel) => MenuItem::make()
-                        ->visible(
-                            fn () => Auth::user()->can('panel_' . $registeredPanel->getId()),
+                                        return $panelId !== 'me' && Auth::user()->can('panel_' . $panelId);
+                                    },
+                                )
+                                ->label(
+                                    Str::ucfirst($registeredPanel->getId()),
+                                )
+                                ->icon(
+                                    $registeredPanel->getIcons()[0] ?? null,
+                                )
+                                ->url('/' . $registeredPanel->getPath()),
                         )
-                        ->label(
-                            Str::ucfirst($registeredPanel->getId()),
-                        )
-                        ->icon(
-                            $registeredPanel->getIcons()[0] ?? null,
-                        )
-                        ->url($registeredPanel->getPath()),
-                )
-                ->toArray(),
-        );
+                        ->toArray(),
+                );
+            })
+            ->favicon('/img/favicons/favicon-192x192.png');
 
         if (config('lox.filament.panels.with_user_menu')) {
             $panel->userMenuItems([
