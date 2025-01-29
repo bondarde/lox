@@ -5,6 +5,7 @@ namespace BondarDe\Lox\Models;
 use BondarDe\Lox\Constants\Acl\Role;
 use BondarDe\Lox\Constants\ModelCastTypes;
 use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasName;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -13,7 +14,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements FilamentUser
+class User extends Authenticatable implements FilamentUser, HasName
 {
     use HasFactory;
     use HasRoles;
@@ -51,6 +52,11 @@ class User extends Authenticatable implements FilamentUser
     public function sso_identifiers(): HasMany
     {
         return $this->hasMany(SsoIdentifier::class);
+    }
+
+    public function getFilamentName(): string
+    {
+        return $this->{self::FIELD_NAME} ?: $this->{self::FIELD_EMAIL};
     }
 
     public function canAccessPanel(Panel $panel): bool

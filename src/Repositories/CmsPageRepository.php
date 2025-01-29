@@ -3,7 +3,7 @@
 namespace BondarDe\Lox\Repositories;
 
 use BondarDe\Lox\Database\ModelRepository;
-use BondarDe\Lox\Filament\AdminPanel\Resources\CmsPageResource;
+use BondarDe\Lox\Filament\AdminPanel\Resources\CmsPage\CmsPageResource;
 use BondarDe\Lox\Models\CmsPage;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;

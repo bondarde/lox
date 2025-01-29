@@ -55,6 +55,18 @@ return [
                 'model_count_navigation_badge' => [
                     'enabled' => env('LOX_FILAMENT_ADMIN_PANEL_MODEL_COUNT_BADGE_ENABLED', false),
                 ],
+                'load_resources' => [
+                    'user' => true,
+                    'permission' => true,
+
+                    'application_model' => true,
+                    'database_relation' => true,
+
+                    'cms_assistant_task' => true,
+                    'cms_page' => true,
+                    'cms_redirect' => true,
+                    'cms_template' => true,
+                ],
             ],
         ],
         'locales' => explode(',', env('LOX_FILAMENT_LOCALES', config('app.locale') . ',' . config('app.fallback_locale'))),

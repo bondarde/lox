@@ -3,8 +3,8 @@
 namespace BondarDe\Lox\Repositories;
 
 use BondarDe\Lox\Database\ModelRepository;
-use BondarDe\Lox\Filament\AdminPanel\Resources\CmsPageResource;
-use BondarDe\Lox\Filament\AdminPanel\Resources\CmsTemplateResource;
+use BondarDe\Lox\Filament\AdminPanel\Resources\CmsPage\CmsPageResource;
+use BondarDe\Lox\Filament\AdminPanel\Resources\CmsTemplate\CmsTemplateResource;
 use BondarDe\Lox\Models\CmsPage;
 use BondarDe\Lox\Models\CmsTemplate;
 
