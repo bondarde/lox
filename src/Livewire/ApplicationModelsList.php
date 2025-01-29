@@ -119,6 +119,8 @@ class ApplicationModelsList extends Component implements HasForms, HasTable
                                 ModelCastTypes::BOOLEAN => IconColumn::make($columnName)
                                     ->boolean(),
                                 default => TextColumn::make($columnName)
+                                    ->wrap()
+                                    ->lineClamp(3)
                                     ->searchable()
                                     ->placeholder('n/a'),
                             };
