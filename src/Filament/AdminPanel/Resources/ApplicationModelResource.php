@@ -82,6 +82,8 @@ class ApplicationModelResource extends Resource
                         . $record->className,
                     ))
                     ->weight(FontWeight::Bold)
+                    ->searchable()
+                    ->sortable()
                     ->label('Model'),
 
                 TextColumn::make('dbTableName')
@@ -99,6 +101,7 @@ class ApplicationModelResource extends Resource
                             ],
                         );
                     })
+                    ->searchable()
                     ->sortable(),
 
                 TextColumn::make('dbEntriesCount')
@@ -109,7 +112,7 @@ class ApplicationModelResource extends Resource
                     ->sortable(),
 
             ])
-            ->defaultSort('table')
+            ->defaultSort('fullyQualifiedClassName')
             ->filters([
             ]);
     }
