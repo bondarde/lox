@@ -36,7 +36,7 @@ class FilterItemCount extends Component
 
         $this->dispatch('filter-count:updated', $this->filterName, $count);
 
-        return view('lox::livewire.model-list.filter-item-count', [
+        return view('lox::components.livewire.model-list.filter-item-count', [
             'count' => $count,
         ]);
     }

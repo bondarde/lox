@@ -43,7 +43,7 @@ class Actions extends Component
 
     public function render(): ?View
     {
-        return view('lox::livewire.model-list.actions', [
+        return view('lox::components.livewire.model-list.actions', [
             'actions' => $this->actions(),
         ]);
     }

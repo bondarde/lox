@@ -23,7 +23,7 @@
         <option disabled value="" {{ $old === null ? 'selected' : '' }}>– bitte auswählen –</option>
 
         @foreach($options as $value => $label)
-            @include(\BondarDe\Lox\LoxServiceProvider::$namespace.'::form._select-option')
+            @include(\BondarDe\Lox\LoxServiceProvider::$namespace.'::components.form._select-option')
         @endforeach
     </select>
 </label>

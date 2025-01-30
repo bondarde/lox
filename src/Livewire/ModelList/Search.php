@@ -18,6 +18,6 @@ class Search extends Component
 
     public function render(): ?View
     {
-        return view('lox::livewire.model-list.search');
+        return view('lox::components.livewire.model-list.search');
     }
 }

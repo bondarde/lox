@@ -69,7 +69,7 @@ class Content extends Component
     public function render(): View
     {
         if ($this->items->isEmpty()) {
-            return view('lox::livewire.model-list.empty');
+            return view('lox::components.livewire.model-list.empty');
         }
 
         /** @var Model $firstItem */
@@ -92,7 +92,7 @@ class Content extends Component
 
         $renderItem = fn(Model $item, string $key) => $this->renderItem($item, $key, $this->searchQuery);
 
-        return view('lox::livewire.model-list.content', compact(
+        return view('lox::components.livewire.model-list.content', compact(
             'renderItem',
         ));
     }

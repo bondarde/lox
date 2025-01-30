@@ -84,7 +84,7 @@ class Filter extends Component
         $allFilters = ModelListUtil::allFilters($this->model);
         $allSorts = ModelListUtil::allSorts($this->model);
 
-        return view('lox::livewire.model-list.filter', [
+        return view('lox::components.livewire.model-list.filter', [
             'allFilters' => $allFilters,
             'allSorts' => $allSorts,
         ]);

@@ -112,7 +112,7 @@ class FileUpload extends Component
 
     public function render(): View
     {
-        return view('lox::livewire.file-upload', [
+        return view('lox::components.livewire.file-upload', [
             'id' => Str::uuid(),
         ]);
     }

@@ -261,7 +261,7 @@ class LiveModelList extends Component
             : null;
         $pageTitle = self::toPageTitle($this->pageTitle, $itemsPaginator->total());
 
-        return view('lox::livewire.model-list.index', compact(
+        return view('lox::components.livewire.model-list.index', compact(
             'items',
             'links',
             'pageTitle'

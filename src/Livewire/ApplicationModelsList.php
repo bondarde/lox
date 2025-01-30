@@ -191,6 +191,6 @@ class ApplicationModelsList extends Component implements HasForms, HasTable
 
     public function render(): View
     {
-        return view('lox::livewire.application-models-list');
+        return view('lox::components.livewire.application-models-list');
     }
 }
