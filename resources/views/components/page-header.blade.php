@@ -9,15 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 ?>
-@if(!App::environment(Environment::PROD))
-    <div
-        class="bg-yellow-200 dark:bg-yellow-900 border-b border-yellow-400 dark:border-yellow-800 text-yellow-800 dark:text-yellow-400 text-sm font-bold py-0.5 shadow"
-    >
-        <div class="container">
-            {{ ucfirst(App::environment()) }} Environment
-        </div>
-    </div>
-@endif
+
+<x-lox::banners.environment />
+<x-lox::banners.impersonate />
 
 <div class="container pt-4 pb-8 lg:flex gap-4">
     <div class="flex justify-between">

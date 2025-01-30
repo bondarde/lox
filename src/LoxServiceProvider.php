@@ -37,6 +37,8 @@ use BondarDe\Lox\Policies\CmsTemplatePolicy;
 use BondarDe\Lox\Policies\DatabaseRelationPolicy;
 use BondarDe\Lox\Policies\LaravelRoutePolicy;
 use BondarDe\Lox\Policies\UserPolicy;
+use BondarDe\Lox\View\Components\Banners\Environment as EnvironmentBanner;
+use BondarDe\Lox\View\Components\Banners\Impersonate;
 use BondarDe\Lox\View\Components\Button;
 use BondarDe\Lox\View\Components\Content;
 use BondarDe\Lox\View\Components\FileSize;
@@ -119,6 +121,9 @@ class LoxServiceProvider extends ServiceProvider
         'rendering-stats' => RenderingStats::class,
         'nav-item' => NavItem::class,
         'search-highlighted-text' => SearchHighlightedText::class,
+
+        'banners.impersonate' => Impersonate::class,
+        'banners.environment' => EnvironmentBanner::class,
     ];
 
     public function register(): void
@@ -272,8 +277,18 @@ class LoxServiceProvider extends ServiceProvider
     private function configureFilament(): void
     {
         FilamentView::registerRenderHook(
-            PanelsRenderHook::BODY_START,
-            fn (): View => view('lox::filament.session-expired'),
+            name: PanelsRenderHook::BODY_START,
+            hook: fn (): View => view('lox::filament.banner.session-expired'),
+        );
+
+        FilamentView::registerRenderHook(
+            name: PanelsRenderHook::BODY_START,
+            hook: fn (): string => Blade::render('<x-lox::banners.environment />'),
+        );
+
+        FilamentView::registerRenderHook(
+            name: PanelsRenderHook::BODY_START,
+            hook: fn (): string => Blade::render('<x-lox::banners.impersonate />'),
         );
     }
 

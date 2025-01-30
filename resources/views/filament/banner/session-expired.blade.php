@@ -1,5 +1,5 @@
 <div
-    id="livewire-expired-banner"
+    id="lox-livewire-expired-banner"
     style="display: none"
 >
     <div class="text-sm bg-pink-900 text-white
@@ -51,7 +51,7 @@
 
                     sessionExpiredNotified = true;
 
-                    document.getElementById('livewire-expired-banner').style.display = 'block'
+                    document.getElementById('lox-livewire-expired-banner').style.display = 'block'
                 }
             })
         })
