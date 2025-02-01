@@ -334,8 +334,16 @@ task('artisan:scout:refresh', function () {
 })
     ->desc('Import models into Laravel Scout after migrations applied');
 
+task('filament:assets', function () {
+    $cmd = artisan('filament:assets', ['showOutput']);
+    $cmd();
+
+    writeln('<fg=green>✔ Filament done.</>');
+})->desc('Update Filament assets');
+
 task('deploy:data-update', [
     'artisan:acl-update',
+    'filament:assets',
     'artisan:scout:refresh',
 ]);
 after('artisan:migrate', 'deploy:data-update');
