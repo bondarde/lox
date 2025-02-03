@@ -13,4 +13,6 @@ $config['exclude']['widgets'] = [];
 
 $config['register_role_policy']['enabled'] = false;
 
+$config['entities']['custom_permissions'] = true;
+
 return $config;
