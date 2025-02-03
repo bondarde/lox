@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Route;
 
 ?>
 
-<x-lox::banners.environment />
-<x-lox::banners.impersonate />
+<x-lox::banners.environment/>
+<x-lox::banners.impersonate/>
 
 <div class="container pt-4 pb-8 lg:flex gap-4">
     <div class="flex justify-between">
