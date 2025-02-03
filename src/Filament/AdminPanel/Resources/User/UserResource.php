@@ -15,9 +15,13 @@ use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\BulkAction;
+use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Role;
 use STS\FilamentImpersonate\Tables\Actions\Impersonate;
 
 class UserResource extends Resource
@@ -149,9 +153,53 @@ class UserResource extends Resource
                 ]),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
+                BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
+                BulkActionGroup::make(
+                    Role::query()->get()
+                        ->map(
+                            fn (Role $role): BulkAction => BulkAction::make('assign-role-' . $role->id)
+                                ->label($role->name)
+                                ->action(
+                                    fn (Collection $selectedRecords, BulkAction $action) => $selectedRecords
+                                        ->filter(fn (LoxUser $user) => ! $user->hasRole($role))
+                                        ->each(
+                                            function (LoxUser $user) use ($role, $action) {
+                                                $user->assignRole($role);
+
+                                                $action
+                                                    ->successNotificationTitle($user->getFilamentName() . ' has been assigned to role ' . $role->name)
+                                                    ->sendSuccessNotification();
+                                            },
+                                        ),
+                                )
+                                ->deselectRecordsAfterCompletion(),
+                        )
+                        ->toArray(),
+                )
+                    ->label('Assign to role'),
+                BulkActionGroup::make(
+                    Role::query()->get()
+                        ->map(
+                            fn (Role $role): BulkAction => BulkAction::make('remove-role-' . $role->id)
+                                ->label($role->name)
+                                ->action(
+                                    fn (Collection $selectedRecords, BulkAction $action) => $selectedRecords
+                                        ->filter(fn (LoxUser $user) => $user->hasRole($role))
+                                        ->each(function (LoxUser $user) use ($role, $action) {
+                                            $user->removeRole($role);
+
+                                            $action
+                                                ->successNotificationTitle($user->getFilamentName() . ' has been removed from role ' . $role->name)
+                                                ->sendSuccessNotification();
+                                        }),
+                                )
+                                ->deselectRecordsAfterCompletion(),
+                        )
+                        ->toArray(),
+                )
+                    ->label('Remove role'),
             ]);
     }
 
