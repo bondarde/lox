@@ -97,7 +97,7 @@ class LiveModelList extends Component
     private function updateFilterBadgeCount(): void
     {
         $this->filterBadgeCount = collect($this->activeFilters)
-            ->filter(fn(string $s) => $s !== ModelFilters::ALL)
+            ->filter(fn (string $s) => $s !== ModelFilters::ALL)
             ->count();
     }
 
@@ -113,7 +113,7 @@ class LiveModelList extends Component
         $this->currentPage = null;
 
         if ($filterName === ModelFilters::ALL) {
-            if (!in_array(ModelFilters::ALL, $this->activeFilters)) {
+            if (! in_array(ModelFilters::ALL, $this->activeFilters)) {
                 // remove all other filters, set active to "all"
                 $this->activeFilters = [ModelFilters::ALL];
                 $this->filters = '';
@@ -128,14 +128,14 @@ class LiveModelList extends Component
         $this->removeActiveFilter(ModelFilters::ALL);
 
         $providedFilterRemoved = $this->removeActiveFilter($filterName);
-        if (!$providedFilterRemoved) {
+        if (! $providedFilterRemoved) {
             // add filter
             $this->activeFilters[] = $filterName;
         }
 
         $this->filters = implode(',', $this->activeFilters);
 
-        if (!count($this->activeFilters)) {
+        if (! count($this->activeFilters)) {
             $this->activeFilters[] = ModelFilters::ALL;
         }
 
@@ -193,9 +193,8 @@ class LiveModelList extends Component
 
     private static function toPageTitle(
         string $pageTitle,
-        int    $totalCount,
-    ): string
-    {
+        int $totalCount,
+    ): string {
         return trans_choice($pageTitle, $totalCount, [
             'count' => NumbersFormatter::format($totalCount),
         ]);
@@ -206,7 +205,7 @@ class LiveModelList extends Component
      */
     private static function assertIsSubclassOf(string $className, string $parentClassName): void
     {
-        if (!is_subclass_of($className, $parentClassName)) {
+        if (! is_subclass_of($className, $parentClassName)) {
             throw new IllegalStateException($className . ' must be a subclass of ' . $parentClassName);
         }
     }
@@ -222,7 +221,7 @@ class LiveModelList extends Component
 
         $paginator = $query
             ->paginate(
-                (new $this->model)->getPerPage(),
+                (new $this->model())->getPerPage(),
                 ['*'],
                 'page',
                 $this->currentPage ?: '',
@@ -264,7 +263,7 @@ class LiveModelList extends Component
         return view('lox::components.livewire.model-list.index', compact(
             'items',
             'links',
-            'pageTitle'
+            'pageTitle',
         ));
     }
 }

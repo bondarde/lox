@@ -33,7 +33,7 @@ class FileUpload extends Component
      */
     public function mount(): void
     {
-        if (!($this->name ?? null)) {
+        if (! ($this->name ?? null)) {
             throw new IllegalStateException('Attribute "name" is required.');
         }
 
@@ -93,7 +93,7 @@ class FileUpload extends Component
      */
     public function removeOldFile(string $fileId): void
     {
-        if (!isset($this->oldFiles[$fileId])) {
+        if (! isset($this->oldFiles[$fileId])) {
             throw new IllegalStateException('File not found: "' . $fileId . '"');
         }
 
@@ -102,12 +102,12 @@ class FileUpload extends Component
 
     public function updatedFiles(): void
     {
-        if (!$this->handler) {
+        if (! $this->handler) {
             return;
         }
 
         $lastFile = last($this->files);
-        (new $this->handler)($lastFile);
+        (new $this->handler())($lastFile);
     }
 
     public function render(): View
