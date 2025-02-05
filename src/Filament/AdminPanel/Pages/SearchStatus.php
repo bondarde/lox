@@ -22,7 +22,7 @@ class SearchStatus extends Page
     protected static ?string $navigationLabel = 'Search Status';
 
     protected static ?string $navigationIcon = 'heroicon-o-magnifying-glass';
-    protected static ?string $navigationGroup = 'System';
+    protected static ?string $navigationGroup = 'Application Data';
 
     protected static ?int $navigationSort = 900;
 

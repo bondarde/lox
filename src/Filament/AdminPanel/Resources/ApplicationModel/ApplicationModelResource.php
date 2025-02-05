@@ -24,7 +24,7 @@ class ApplicationModelResource extends Resource
     protected static ?string $slug = 'models';
 
     protected static ?string $navigationIcon = 'heroicon-o-cube-transparent';
-    protected static ?string $navigationGroup = 'System';
+    protected static ?string $navigationGroup = 'Application Data';
     protected static ?int $navigationSort = 110;
 
     protected static ?string $navigationLabel = 'Models';

@@ -27,7 +27,7 @@ class DatabaseRelationResource extends Resource
     protected static ?string $slug = 'database';
 
     protected static ?string $navigationIcon = 'heroicon-o-circle-stack';
-    protected static ?string $navigationGroup = 'System';
+    protected static ?string $navigationGroup = 'Application Data';
     protected static ?int $navigationSort = 100;
 
     protected static ?string $navigationLabel = 'Database';

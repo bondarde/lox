@@ -28,6 +28,7 @@ class Events extends Page implements HasForms, HasTable
 
     protected static ?string $navigationIcon = 'heroicon-o-megaphone';
     protected static ?string $navigationGroup = 'System';
+    protected static ?int $navigationSort = 900;
 
     public function table(Table $table): Table
     {

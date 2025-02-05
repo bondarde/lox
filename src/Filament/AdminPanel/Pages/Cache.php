@@ -20,11 +20,9 @@ class Cache extends Page
 
     protected static string $view = 'lox::admin.system.cache';
 
-    protected static ?string $navigationLabel = 'Cache';
-
     protected static ?string $navigationIcon = 'heroicon-o-archive-box';
-    protected static ?string $navigationGroup = 'System';
-
+    protected static ?string $navigationGroup = 'Application Data';
+    protected static ?string $navigationLabel = 'Cache';
     protected static ?int $navigationSort = 900;
 
     public object|array $systemStatus;

@@ -21,8 +21,7 @@ class About extends Page
 
     protected static ?string $navigationIcon = 'heroicon-o-question-mark-circle';
     protected static ?string $navigationGroup = 'System';
-
-    protected static ?int $navigationSort = 900;
+    protected static ?int $navigationSort = -10;
 
     public object|array $systemStatus;
 
