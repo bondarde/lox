@@ -35,7 +35,8 @@
         "teamtnt/laravel-scout-tntsearch-driver": "^14.0",
         "tinymce/tinymce": "^7.0",
         "tweeb/tinymce-i18n": "^2.0",
-        "filament/spatie-laravel-translatable-plugin": "^3.2"
+        "filament/spatie-laravel-translatable-plugin": "^3.2",
+        "sentry/sentry-laravel": "^4.12"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
