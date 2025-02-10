@@ -371,7 +371,7 @@ task('deploy:assign_search_indexes_to_server_user', function () {
     run("find ./ -type f -name \"*.index*\" -exec $sudo chown $serverUser {} \;");
 });
 
-before('deploy:make-dirs-writable-for-deployer-user', function () {
+task('deploy:make-dirs-writable-for-deployer-user', function () {
     $sudo = get('chown_use_sudo') ? 'sudo' : '';
     writeln('Make dirs writable for deployer user (group)…');
 
