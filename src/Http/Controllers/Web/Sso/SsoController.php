@@ -9,10 +9,9 @@ use Laravel\Fortify\Features;
 abstract class SsoController
 {
     protected function validateSsoProvider(
-        string  $provider,
+        string $provider,
         Request $request,
-    )
-    {
+    ) {
         $key = self::toKey($request);
 
         // user is blocked by IPs

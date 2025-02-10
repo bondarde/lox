@@ -10,7 +10,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
+use Sentry\State\Scope as SentryScope;
 use Throwable;
+
+use function Sentry\configureScope;
 
 class SsoCallbackController extends SsoController
 {
@@ -34,23 +37,29 @@ class SsoCallbackController extends SsoController
         }
 
         try {
-            $user = self::toUser($provider);
+            $providerUser = self::toUser($provider);
         } catch (Exception $e) {
             self::logLoginError('Fetching user failed', $request, $e);
 
             return self::toRedirect($provider);
         }
 
-        $id = $user->id;
-        $email = $user->email;
-        $name = self::toName($user, $provider);
+        $id = $providerUser->id;
+        $email = $providerUser->email;
+        $name = self::toName($providerUser, $provider);
 
         if (! $email) {
             // generate unique email if none received from login provider
             $email = $provider . '-login-' . $id . '@example.com';
         }
 
-        $user = $userRepository->findOrCreateUserForSsoProvider($provider, $id, $email, $name);
+        $user = $userRepository->findOrCreateUserForSsoProvider(
+            $provider,
+            $id,
+            $email,
+            $name,
+            (array) $providerUser,
+        );
 
         Auth::login($user, true);
 
@@ -63,6 +72,10 @@ class SsoCallbackController extends SsoController
     private static function logLoginError(string $message, Request $request, ?Throwable $previous = null)
     {
         $socialLoginErrorException = new SocialLoginErrorException($message, 0, $previous);
+
+        configureScope(function (SentryScope $scope) use ($request): void {
+            $scope->setExtras($request->all());
+        });
 
         app('sentry')->captureException($socialLoginErrorException);
     }
