@@ -40,7 +40,6 @@
     "require-dev": {
         "fakerphp/faker": "^1.23",
         "laravel/pint": "^1.14",
-        "laravel/sail": "^1.29",
         "nunomaduro/collision": "^8.0",
         "orchestra/testbench": "^9.0",
         "phpunit/phpunit": "^11.5",
