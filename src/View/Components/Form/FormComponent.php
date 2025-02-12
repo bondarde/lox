@@ -12,8 +12,8 @@ use Illuminate\View\Component;
 
 abstract class FormComponent extends Component
 {
-    protected const CONTAINER_CLASS_DEFAULT = 'focus-within:border-blue-300 dark:focus-within:border-blue-700 focus-within:ring-blue-100 dark:focus-within:ring-blue-900';
-    protected const CONTAINER_CLASS_ERROR = 'border-red-400 text-red-900 bg-red-50 focus-within:ring-red-100';
+    protected const string CONTAINER_CLASS_DEFAULT = 'focus-within:border-blue-300 dark:focus-within:border-blue-700 focus-within:ring-blue-100 dark:focus-within:ring-blue-900';
+    protected const string CONTAINER_CLASS_ERROR = 'border-red-400 text-red-900 bg-red-50 focus-within:ring-red-100';
 
     protected static function toValue($value, string $name, ?Model $model = null)
     {
@@ -27,7 +27,7 @@ abstract class FormComponent extends Component
             return $old;
         }
 
-        if (!$model) {
+        if (! $model) {
             return null;
         }
 
@@ -36,7 +36,7 @@ abstract class FormComponent extends Component
 
     protected static function hasErrors(string $name): bool
     {
-        $errors = Session::get('errors', new MessageBag);
+        $errors = Session::get('errors', new MessageBag());
         $messages = $errors->getMessages();
 
         return isset($messages[$name]);
@@ -58,7 +58,7 @@ abstract class FormComponent extends Component
         switch ($type) {
             case 'array':
                 $keys = array_keys($options);
-                $keyTypes = array_map(fn($key) => gettype($key), $keys);
+                $keyTypes = array_map(fn ($key) => gettype($key), $keys);
                 $uniqueKeyTypes = array_unique($keyTypes);
 
                 if (count($uniqueKeyTypes) > 1) {

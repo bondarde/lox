@@ -12,19 +12,18 @@ class Select extends FormComponent
     public string $name;
     public string $cssClasses;
     public bool $showErrors;
-    public $old;
+    public mixed $old;
 
     public function __construct(
         string $name,
-               $options,
-               $value = null,
+        $options,
+        $value = null,
         string $pattern = '*',
         string $label = '',
         string $containerClass = '',
-        bool   $showErrors = false,
-        ?Model $model = null
-    )
-    {
+        bool $showErrors = false,
+        ?Model $model = null,
+    ) {
         $this->label = $label;
         $this->name = $name;
         /** @noinspection PhpUnhandledExceptionInspection */
@@ -49,7 +48,7 @@ class Select extends FormComponent
     {
         $isSelected = $this->old !== null && $value == $this->old;
 
-        if (!$isSelected) {
+        if (! $isSelected) {
             return '';
         }
 

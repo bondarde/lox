@@ -13,12 +13,11 @@ class Boolean extends FormComponent
 
     public function __construct(
         string $name,
-        ?bool  $checked = null,
-        object $model = null,
+        ?bool $checked = null,
+        ?object $model = null,
         string $label = '',
-        bool   $showErrors = false
-    )
-    {
+        bool $showErrors = false,
+    ) {
         $this->name = $name;
         $this->label = $label;
         $this->showErrors = $showErrors;
@@ -31,7 +30,7 @@ class Boolean extends FormComponent
 
     public function checked(): string
     {
-        if (!$this->isChecked) {
+        if (! $this->isChecked) {
             return '';
         }
 

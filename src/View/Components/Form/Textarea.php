@@ -8,7 +8,7 @@ class Textarea extends FormComponent
 {
     public string $label;
     public string $name;
-    public $value;
+    public mixed $value;
     public string $containerClass;
     public string $inputClass;
 
@@ -20,11 +20,10 @@ class Textarea extends FormComponent
         string $label = '',
         string $containerClass = '',
         string $inputClass = '',
-               $model = null,
-               $value = null,
-        bool   $showErrors = false
-    )
-    {
+        $model = null,
+        $value = null,
+        bool $showErrors = false,
+    ) {
         $this->name = $name;
         $this->label = $label;
         $this->value = self::toValue($value, $name, $model);

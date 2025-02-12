@@ -30,8 +30,7 @@ class Button extends Component
         private readonly ?string $color = null,
         private readonly ?string $type = null,
         private readonly ?string $href = null,
-    )
-    {
+    ) {
         switch ($this->color) {
             case 'info':
             case 'blue':
@@ -99,7 +98,7 @@ class Button extends Component
     /**
      * @throws IllegalStateException
      */
-    function makeAttributes(): array
+    private function makeAttributes(): array
     {
         $attributes = [
             'class' => collect([
@@ -133,7 +132,7 @@ class Button extends Component
                 $attributes['type'] = 'submit';
             }
 
-            if (!$this->enabled) {
+            if (! $this->enabled) {
                 $attributes['disabled'] = 'disabled';
             }
         }

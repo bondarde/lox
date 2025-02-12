@@ -16,9 +16,8 @@ class Checkbox extends Choice
         int $display = self::DISPLAY_BLOCK,
         ?Model $model = null,
         bool $showErrors = false,
-        $value = null
-    )
-    {
+        $value = null,
+    ) {
         parent::__construct(
             $label,
             $name,
@@ -29,7 +28,7 @@ class Checkbox extends Choice
             $display,
             $model,
             $showErrors,
-            $value
+            $value,
         );
     }
 }

@@ -16,14 +16,13 @@ class FormRow extends FormComponent
     public string $labelProps;
 
     public function __construct(
-        string $for = null,
+        ?string $for = null,
         string $label = '',
         string $info = '',
         string $description = '',
-        bool $showErrors = true
-    )
-    {
-        if ($showErrors && !$for) {
+        bool $showErrors = true,
+    ) {
+        if ($showErrors && ! $for) {
             /** @noinspection PhpUnhandledExceptionInspection */
             throw new IllegalStateException('Input name ("for" attribute) is required if errors are enabled.');
         }
@@ -39,7 +38,7 @@ class FormRow extends FormComponent
 
     public function makeLabelProps(): string
     {
-        if (!$this->for) {
+        if (! $this->for) {
             return '';
         }
 

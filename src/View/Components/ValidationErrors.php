@@ -10,9 +10,8 @@ class ValidationErrors extends Component
     public int $limit = 5;
 
     public function __construct(
-        int $limit = 5
-    )
-    {
+        int $limit = 5,
+    ) {
         $this->limit = $limit;
     }
 

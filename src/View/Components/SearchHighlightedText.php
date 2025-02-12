@@ -10,9 +10,9 @@ class SearchHighlightedText extends Component
 {
     public function __construct(
         public readonly ?string $q,
-        public readonly string  $cssClass = 'search-highlight',
-    )
-    {
+        public readonly string $cssClass = 'search-highlight',
+    ) {
+        //
     }
 
     public function highlight(string $text): string

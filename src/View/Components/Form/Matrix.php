@@ -17,17 +17,16 @@ class Matrix extends FormComponent
     public bool $showErrors;
 
     public function __construct(
-        array   $fields,
-                $options,
-        string  $pattern = '*',
+        array $fields,
+        $options,
+        string $pattern = '*',
         ?string $minValue = '',
         ?string $maxValue = '',
-        bool    $showPropLabel = true,
-        bool    $strictCheck = false,
-        bool    $showErrors = true,
-        ?Model  $model = null
-    )
-    {
+        bool $showPropLabel = true,
+        bool $strictCheck = false,
+        bool $showErrors = true,
+        ?Model $model = null,
+    ) {
         $this->props = $fields;
         $this->options = self::toOptions($options, $pattern);
         $this->minValue = $minValue;
@@ -46,7 +45,7 @@ class Matrix extends FormComponent
             return $old;
         }
 
-        if (!$this->model) {
+        if (! $this->model) {
             return null;
         }
 
@@ -63,7 +62,7 @@ class Matrix extends FormComponent
 
         $isChecked = $this->strictCheck ? $old === $val : $old == $val;
 
-        if (!$isChecked) {
+        if (! $isChecked) {
             return '';
         }
 

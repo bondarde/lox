@@ -14,8 +14,8 @@ class Content extends Component
         public readonly string $background = 'bg-white dark:bg-gray-900',
         public readonly string $shadow = 'shadow',
         public readonly string $rounded = 'rounded-lg',
-    )
-    {
+    ) {
+        //
     }
 
     public function render(): View

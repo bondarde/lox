@@ -15,10 +15,9 @@ class RelativeTimestamp extends Component
         ?Model $model,
         string $attr,
         bool $showTimestamp = true,
-        string $timestampFormat = 'j. M Y H:i'
-    )
-    {
-        if (!$model || !$model->{$attr}) {
+        string $timestampFormat = 'j. M Y H:i',
+    ) {
+        if (! $model || ! $model->{$attr}) {
             return;
         }
 

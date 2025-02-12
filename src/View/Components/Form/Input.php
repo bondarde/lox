@@ -6,13 +6,13 @@ use Illuminate\Contracts\View\View;
 
 class Input extends FormComponent
 {
-    public const TYPE_TEXT = 'text';
-    public const TYPE_NUMBER = 'number';
-    public const TYPE_DATE = 'date';
+    public const string TYPE_TEXT = 'text';
+    public const string TYPE_NUMBER = 'number';
+    public const string TYPE_DATE = 'date';
 
     public string $label;
     public string $name;
-    public $value;
+    public mixed $value;
     public string $containerClass;
     public string $inputClass;
     public $type;
@@ -31,18 +31,17 @@ class Input extends FormComponent
         string $label = '',
         string $containerClass = '',
         string $inputClass = '',
-               $type = self::TYPE_TEXT,
-               $step = 1,
-               $min = null,
-               $max = null,
-               $placeholder = '',
-               $prefix = '',
-               $suffix = '',
-               $model = null,
-               $value = null,
-        bool   $showErrors = false
-    )
-    {
+        $type = self::TYPE_TEXT,
+        $step = 1,
+        $min = null,
+        $max = null,
+        $placeholder = '',
+        $prefix = '',
+        $suffix = '',
+        $model = null,
+        $value = null,
+        bool $showErrors = false,
+    ) {
         $this->name = $name;
         $this->label = $label;
         $this->value = self::toValue($value, $name, $model);

@@ -8,11 +8,11 @@ use JetBrains\PhpStorm\ExpectedValues;
 
 abstract class Choice extends FormComponent
 {
-    public const TYPE_RADIO = 'radio';
-    public const TYPE_CHECKBOX = 'checkbox';
+    public const string TYPE_RADIO = 'radio';
+    public const string TYPE_CHECKBOX = 'checkbox';
 
-    public const DISPLAY_BLOCK = 1;
-    public const DISPLAY_INLINE = 2;
+    public const int DISPLAY_BLOCK = 1;
+    public const int DISPLAY_INLINE = 2;
 
     public string $containerClass;
 
@@ -34,16 +34,15 @@ abstract class Choice extends FormComponent
     public function __construct(
         string $label,
         string $name,
-        array  $options,
-        bool   $isList = false,
+        array $options,
+        bool $isList = false,
         string $containerClass = '',
         string $type = self::TYPE_CHECKBOX,
-        int    $display = self::DISPLAY_BLOCK,
+        int $display = self::DISPLAY_BLOCK,
         ?Model $model = null,
-        bool   $showErrors = false,
-               $value = null
-    )
-    {
+        bool $showErrors = false,
+        $value = null,
+    ) {
         $this->isList = $isList;
 
         $this->options = $options;
@@ -66,7 +65,7 @@ abstract class Choice extends FormComponent
             $isChecked = $old !== null && $value === $old;
         }
 
-        if (!$isChecked) {
+        if (! $isChecked) {
             return '';
         }
 

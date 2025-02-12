@@ -15,12 +15,11 @@ class TinyMce extends Component
 
     public function __construct(
         string $selector,
-        array  $config = [],
-        bool   $enableImageUpload = false,
+        array $config = [],
+        bool $enableImageUpload = false,
         string $imagesUploadUrl = '/tinymce-upload',
-        string $src = '/tinymce/tinymce.min.js'
-    )
-    {
+        string $src = '/tinymce/tinymce.min.js',
+    ) {
         $this->editorConfig = self::makeConfig($selector, $config);
 
         if (defined('LOX_TINY_MCE_LIB_LOADED')) {
@@ -36,9 +35,8 @@ class TinyMce extends Component
 
     private static function makeConfig(
         string $selector,
-        array  $config
-    ): array
-    {
+        array $config,
+    ): array {
         return array_merge([
             'selector' => $selector,
             'plugins' => 'autoresize code wordcount link image',

@@ -10,9 +10,8 @@ class InputError extends Component
     public string $for;
 
     public function __construct(
-        string $for
-    )
-    {
+        string $for,
+    ) {
         $this->for = $for;
     }
 

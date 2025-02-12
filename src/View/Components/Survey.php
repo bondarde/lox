@@ -27,16 +27,15 @@ class Survey extends Component
     public bool $allowNextStepNavigation;
 
     public function __construct(
-        string  $survey,
-        string  $formActionUri,
-        string  $cancelUri = null,
-        string  $cancelInfo = null,
-        bool    $allowNextStepNavigation = true,
-        Model   $model = null,
-        Request $request = null
-    )
-    {
-        $this->survey = new $survey;
+        string $survey,
+        string $formActionUri,
+        ?string $cancelUri = null,
+        ?string $cancelInfo = null,
+        bool $allowNextStepNavigation = true,
+        ?Model $model = null,
+        ?Request $request = null,
+    ) {
+        $this->survey = new $survey();
         $this->model = $model;
 
         $this->formActionUri = $formActionUri;
@@ -58,9 +57,8 @@ class Survey extends Component
     private function initSteps(array $steps): void
     {
         $this->steps = array_map(function (string $stepClassName): SurveyStep {
-            return new $stepClassName;
+            return new $stepClassName();
         }, $steps);
-
 
         $this->stepFormTemplate = $this->makeCurrentStepFormTemplate();
 
@@ -80,7 +78,7 @@ class Survey extends Component
         $stepTemplateId = $currentStep->getId();
 
         return sprintf(
-            "surveys.%s.%s.%s",
+            'surveys.%s.%s.%s',
             $surveyTemplateId,
             SurveyStep::MODE_EDIT,
             $stepTemplateId,
@@ -89,13 +87,13 @@ class Survey extends Component
 
     public function showStepLink($stepIndex): bool
     {
-        if (!$this->model) {
+        if (! $this->model) {
             return false;
         }
         if ($this->currentStepIndex === $stepIndex) {
             return false;
         }
-        if ($stepIndex > $this->currentStepIndex && !$this->allowNextStepNavigation) {
+        if ($stepIndex > $this->currentStepIndex && ! $this->allowNextStepNavigation) {
             return false;
         }
 

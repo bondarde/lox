@@ -17,10 +17,9 @@ class SurveyView extends Component
 
     public function __construct(
         string $survey,
-        Model  $model = null
-    )
-    {
-        $this->survey = new $survey;
+        ?Model $model = null,
+    ) {
+        $this->survey = new $survey();
         $this->model = $model;
         $this->initSteps($this->survey->getSteps());
         $this->templates = array_map(function ($idx) {
@@ -31,7 +30,7 @@ class SurveyView extends Component
     private function initSteps(array $steps): void
     {
         $this->steps = array_map(function (string $stepClassName): SurveyStep {
-            return new $stepClassName;
+            return new $stepClassName();
         }, $steps);
     }
 
@@ -42,7 +41,7 @@ class SurveyView extends Component
         $stepTemplateId = $step->getId();
 
         return sprintf(
-            "surveys.%s.%s.%s",
+            'surveys.%s.%s.%s',
             $surveyTemplateId,
             SurveyStep::MODE_VIEW,
             $stepTemplateId,

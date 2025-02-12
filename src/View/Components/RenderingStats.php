@@ -17,8 +17,8 @@ class RenderingStats extends Component
         global $dbQueriesCount;
         global $dbQueriesTimeMs;
 
-        $this->renderingTimeMs = (int)(1000 * (microtime(true) - LARAVEL_START));
-        $this->dbQueriesTimeMs = (int)$dbQueriesTimeMs ?? -1;
+        $this->renderingTimeMs = (int) (1000 * (microtime(true) - LARAVEL_START));
+        $this->dbQueriesTimeMs = (int) $dbQueriesTimeMs ?? -1;
         $this->dbQueriesCount = $dbQueriesCount ?? -1;
         $this->memoryPeakUsageBytes = memory_get_peak_usage(true);
     }
