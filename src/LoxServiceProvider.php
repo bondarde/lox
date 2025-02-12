@@ -296,9 +296,8 @@ class LoxServiceProvider extends ServiceProvider
     {
         FilamentShield::configurePermissionIdentifierUsing(
             fn (string $resource) => Str::of($resource)
-                ->afterLast('Resources\\')
+                ->afterLast('\\')
                 ->before('Resource')
-                ->replace('\\', '')
                 ->kebab(),
         );
     }
