@@ -42,17 +42,17 @@ abstract class ColumnConfigurations
                 $content = $model->{$column};
 
                 return self::highlightSearchQuery($content, $q);
-            }
+            },
         );
     }
 
     protected static function highlightSearchQuery(?string $content, ?string $q): string
     {
-        if (!$content) {
+        if (! $content) {
             return '';
         }
 
-        return Blade::render('<x-search-highlighted-text :q="$q">{{ $content }}</x-search-highlighted-text>', compact(
+        return Blade::render('<x-lox::search-highlighted-text :q="$q">{{ $content }}</x-lox::search-highlighted-text>', compact(
             'content',
             'q',
         ));
