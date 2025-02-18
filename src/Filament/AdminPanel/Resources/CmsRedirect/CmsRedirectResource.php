@@ -17,14 +17,8 @@ class CmsRedirectResource extends Resource
     use HasModelCountNavigationBadge;
 
     protected static ?string $model = CmsRedirect::class;
-    protected static ?string $slug = 'cms-redirects';
-
     protected static ?string $navigationIcon = 'heroicon-o-arrow-right-start-on-rectangle';
-    protected static ?string $navigationGroup = 'CMS';
     protected static ?int $navigationSort = 110;
-
-    protected static ?string $label = 'Redirect';
-    protected static ?string $pluralLabel = 'Redirects';
 
     public static function form(Form $form): Form
     {
@@ -89,6 +83,26 @@ class CmsRedirectResource extends Resource
         return [
             //
         ];
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('lox::lox.admin.cms.navigation_group_name');
+    }
+
+    public static function getSlug(): string
+    {
+        return __('lox::lox.admin.cms.redirects.slug');
+    }
+
+    public static function getLabel(): string
+    {
+        return __('lox::lox.admin.cms.redirects.label');
+    }
+
+    public static function getPluralLabel(): string
+    {
+        return __('lox::lox.admin.cms.redirects.plural_label');
     }
 
     public static function getPages(): array

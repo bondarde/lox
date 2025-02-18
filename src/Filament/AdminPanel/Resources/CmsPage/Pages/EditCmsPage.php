@@ -83,7 +83,8 @@ class EditCmsPage extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            ViewAction::make(),
+            ViewAction::make()
+                ->label(__('Cancel')),
             DeleteAction::make(),
             LocaleSwitcher::make(),
         ];

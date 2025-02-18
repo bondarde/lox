@@ -22,7 +22,7 @@ class CmsTemplateRepository extends ModelRepository
             ->get()
             ->keyBy(CmsTemplate::FIELD_ID)
             ->map(fn (CmsTemplate $cmsTemplate) => $cmsTemplate->{CmsTemplate::FIELD_LABEL} . ' [' . $cmsTemplate->{CmsTemplate::FIELD_ID} . ']')
-            ->prepend(__('No template'), CmsPageResource::$defaultNoTemplateValue)
+            ->prepend(__('lox::lox.admin.cms.pages.no_template'), CmsPageResource::$defaultNoTemplateValue)
             ->toArray();
     }
 }

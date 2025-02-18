@@ -4,6 +4,7 @@ namespace BondarDe\Lox\Filament\AdminPanel\Resources\CmsPage\Pages;
 
 use BondarDe\Lox\Filament\AdminPanel\Resources\CmsPage\CmsPageResource;
 use BondarDe\Lox\Models\CmsPage;
+use Filament\Actions\Action;
 use Filament\Actions\EditAction;
 use Filament\Actions\LocaleSwitcher;
 use Filament\Resources\Pages\ViewRecord;
@@ -27,6 +28,11 @@ class ViewCmsPage extends ViewRecord
     protected function getHeaderActions(): array
     {
         return [
+            Action::make('open-page-path')
+                ->label(mb_ucfirst(__('lox::lox.admin.cms.pages.open')))
+                ->url(
+                    fn (CmsPage $cmsPage) => '/' . $cmsPage->{CmsPage::FIELD_PATH},
+                ),
             EditAction::make(),
             LocaleSwitcher::make(),
         ];

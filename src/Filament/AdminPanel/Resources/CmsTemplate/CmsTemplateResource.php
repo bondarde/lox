@@ -19,14 +19,8 @@ class CmsTemplateResource extends Resource
     use HasModelCountNavigationBadge;
 
     protected static ?string $model = CmsTemplate::class;
-    protected static ?string $slug = 'cms-templates';
-
     protected static ?string $navigationIcon = 'heroicon-o-document';
-    protected static ?string $navigationGroup = 'CMS';
     protected static ?int $navigationSort = 120;
-
-    protected static ?string $label = 'Template';
-    protected static ?string $pluralLabel = 'Templates';
 
     public static function form(Form $form): Form
     {
@@ -87,6 +81,26 @@ class CmsTemplateResource extends Resource
         return [
             TemplateVariablesRelationManager::class,
         ];
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('lox::lox.admin.cms.navigation_group_name');
+    }
+
+    public static function getSlug(): string
+    {
+        return __('lox::lox.admin.cms.templates.slug');
+    }
+
+    public static function getLabel(): string
+    {
+        return __('lox::lox.admin.cms.templates.label');
+    }
+
+    public static function getPluralLabel(): string
+    {
+        return __('lox::lox.admin.cms.templates.plural_label');
     }
 
     public static function getPages(): array

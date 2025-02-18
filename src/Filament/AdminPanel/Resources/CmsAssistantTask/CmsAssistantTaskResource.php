@@ -18,14 +18,8 @@ class CmsAssistantTaskResource extends Resource
     use HasModelCountNavigationBadge;
 
     protected static ?string $model = CmsAssistantTask::class;
-    protected static ?string $slug = 'cms-assistant-tasks';
-
     protected static ?string $navigationIcon = 'heroicon-o-sparkles';
-    protected static ?string $navigationGroup = 'CMS';
     protected static ?int $navigationSort = 130;
-
-    protected static ?string $label = 'Task';
-    protected static ?string $pluralLabel = 'Tasks';
 
     public static function form(Form $form): Form
     {
@@ -122,6 +116,26 @@ class CmsAssistantTaskResource extends Resource
         return [
             //
         ];
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('lox::lox.admin.cms.navigation_group_name');
+    }
+
+    public static function getSlug(): string
+    {
+        return __('lox::lox.admin.cms.tasks.slug');
+    }
+
+    public static function getLabel(): string
+    {
+        return __('lox::lox.admin.cms.tasks.label');
+    }
+
+    public static function getPluralLabel(): string
+    {
+        return __('lox::lox.admin.cms.tasks.plural_label');
     }
 
     public static function getPages(): array
