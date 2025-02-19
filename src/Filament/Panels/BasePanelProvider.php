@@ -37,6 +37,7 @@ abstract class BasePanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Indigo,
             ])
+            ->navigationGroups($this->getNavigationGroups())
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -108,5 +109,10 @@ abstract class BasePanelProvider extends PanelProvider
         }
 
         return $panel;
+    }
+
+    protected function getNavigationGroups(): array
+    {
+        return [];
     }
 }

@@ -49,12 +49,6 @@ class AdminPanelProvider extends BasePanelProvider
             ->discoverPages(in: __DIR__ . '/../AdminPanel/Pages', for: 'BondarDe\\Lox\\Filament\\AdminPanel\\Pages')
             ->discoverPages(in: app_path('Filament/AdminPanel/Pages'), for: 'App\\Filament\\AdminPanel\\Pages')
             ->discoverResources(in: app_path('Filament/AdminPanel/Resources'), for: 'App\\Filament\\AdminPanel\\Resources')
-            ->navigationGroups([
-                'Application Data',
-                'System',
-                'CMS',
-                __('filament-shield::filament-shield.nav.group'),
-            ])
             ->plugin(
                 FilamentLaravelLogPlugin::make()
                     ->navigationSort(100)
@@ -92,5 +86,15 @@ class AdminPanelProvider extends BasePanelProvider
         }
 
         return $panel;
+    }
+
+    protected function getNavigationGroups(): array
+    {
+        return [
+            'CMS',
+            __('filament-shield::filament-shield.nav.group'),
+            'System',
+            'Application Data',
+        ];
     }
 }
