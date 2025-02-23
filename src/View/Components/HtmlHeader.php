@@ -17,7 +17,7 @@ class HtmlHeader extends Component
         //
     }
 
-    private static function cssVariables(): string
+    protected static function cssVariables(): string
     {
         /** @var AssetManager $assetManager */
         $assetManager = app(AssetManager::class);
