@@ -58,7 +58,8 @@ class DatabaseRelationResource extends Resource
                 TextEntry::make('size')
                     ->tooltip(fn (int $state) => Number::format($state))
                     ->formatStateUsing(fn (int $state) => Number::fileSize($state)),
-                TextEntry::make('rows'),
+                TextEntry::make('rows')
+                    ->numeric(),
                 TextEntry::make('engine')
                     ->placeholder('n/a'),
                 TextEntry::make('comment')
@@ -126,6 +127,11 @@ class DatabaseRelationResource extends Resource
                             ->pluck('collation', 'collation'),
                     ),
             ]);
+    }
+
+    public static function getRecordTitleAttribute(): ?string
+    {
+        return 'label';
     }
 
     public static function getPages(): array

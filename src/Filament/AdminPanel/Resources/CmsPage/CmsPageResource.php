@@ -389,6 +389,11 @@ class CmsPageResource extends Resource
         return __('lox::lox.admin.cms.pages.plural_label');
     }
 
+    public static function getRecordTitleAttribute(): string
+    {
+        return CmsPage::FIELD_PAGE_TITLE;
+    }
+
     public static function getPages(): array
     {
         return [

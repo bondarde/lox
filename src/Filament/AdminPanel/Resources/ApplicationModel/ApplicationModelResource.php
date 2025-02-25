@@ -118,6 +118,11 @@ class ApplicationModelResource extends Resource
             ]);
     }
 
+    public static function getRecordTitleAttribute(): ?string
+    {
+        return 'className';
+    }
+
     public static function getPages(): array
     {
         return [
