@@ -18,7 +18,7 @@
         "bondarde/php-utils": "^0.5.0",
         "calebporzio/sushi": "^2.5",
         "deployer/deployer": "^7.0",
-        "diglactic/laravel-breadcrumbs": "^9.0",
+        "diglactic/laravel-breadcrumbs": "^10.0",
         "filament/filament": "^3.2",
         "firebase/php-jwt": "^6.3",
         "jenssegers/agent": "^2.6",
