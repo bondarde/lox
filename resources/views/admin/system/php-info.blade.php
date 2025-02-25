@@ -7,11 +7,13 @@
         }
     </script>
 
-    <iframe
-        class="mb-16 shadow-lg rounded"
-        srcdoc="{{ $phpInfoContents }}"
-        width="100%"
-        onload="onIframeLoad(this)"
-    ></iframe>
+    <x-filament::section>
+        <iframe
+            class="rounded"
+            srcdoc="{{ $phpInfoContents }}"
+            width="100%"
+            onload="onIframeLoad(this)"
+        ></iframe>
+    </x-filament::section>
 
 </x-filament-panels::page>
