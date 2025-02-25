@@ -13,8 +13,11 @@ use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Support\Enums\FontWeight;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\HtmlString;
+use Illuminate\Support\Str;
 
 class ApplicationModelResource extends Resource
 {
@@ -74,6 +77,21 @@ class ApplicationModelResource extends Resource
 
     public static function table(Table $table): Table
     {
+        $namespaces = ApplicationModel::query()
+            ->select('namespace')
+            ->distinct()
+            ->pluck('namespace')
+            ->unique()
+            ->mapWithKeys(
+                function (string $fullNamespace) {
+                    $namespace = Str::before($fullNamespace, '\\');
+
+                    return [
+                        $namespace => $namespace,
+                    ];
+                },
+            );
+
         return $table
             ->columns([
 
@@ -115,6 +133,16 @@ class ApplicationModelResource extends Resource
             ])
             ->defaultSort('fullyQualifiedClassName')
             ->filters([
+
+                SelectFilter::make('namespace')
+                    ->options($namespaces)
+                    ->modifyQueryUsing(
+                        fn (array $data, Builder $query) => $data['value']
+                            ? $query->whereLike('namespace', $data['value'] . '%')
+                            : null,
+                    )
+                    ->label('Namespace'),
+
             ]);
     }
 
