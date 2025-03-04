@@ -11,10 +11,10 @@ class DateTimeEntry extends TextEntry
     {
         return parent::make($name)
             ->formatStateUsing(
-                fn (Carbon $state) => $state->diffForHumans(),
+                fn (?Carbon $state) => $state?->diffForHumans(),
             )
             ->helperText(
-                fn (Carbon $state) => $state->format('d.m.Y H:i'),
+                fn (?Carbon $state) => $state?->format('d.m.Y H:i'),
             );
     }
 }

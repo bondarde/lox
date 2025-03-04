@@ -11,10 +11,10 @@ class DateTimeColumn extends TextColumn
     {
         return parent::make($name)
             ->formatStateUsing(
-                fn (Carbon $state) => $state->diffForHumans(),
+                fn (?Carbon $state) => $state?->diffForHumans(),
             )
             ->description(
-                fn (Carbon $state) => $state->format('d.m.Y H:i'),
+                fn (?Carbon $state) => $state?->format('d.m.Y H:i'),
             );
     }
 }
