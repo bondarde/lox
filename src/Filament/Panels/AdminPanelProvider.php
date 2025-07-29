@@ -16,6 +16,7 @@ use Exception;
 use Filament\Facades\Filament;
 use Filament\Panel;
 use Filament\SpatieLaravelTranslatablePlugin;
+use Filament\Support\Enums\Platform;
 use Illuminate\Support\Str;
 use Saade\FilamentLaravelLog\FilamentLaravelLogPlugin;
 
@@ -46,6 +47,12 @@ class AdminPanelProvider extends BasePanelProvider
             ->icons([
                 'heroicon-o-cog-6-tooth',
             ])
+            ->globalSearchKeyBindings(['command+k', 'ctrl+k'])
+            ->globalSearchFieldSuffix(fn (): ?string => match (Platform::detect()) {
+                Platform::Windows, Platform::Linux => 'CTRL+K',
+                Platform::Mac => '⌘+K',
+                default => null,
+            })
             ->discoverPages(in: __DIR__ . '/../AdminPanel/Pages', for: 'BondarDe\\Lox\\Filament\\AdminPanel\\Pages')
             ->discoverPages(in: app_path('Filament/AdminPanel/Pages'), for: 'App\\Filament\\AdminPanel\\Pages')
             ->discoverWidgets(in: app_path('Filament/AdminPanel/Widgets'), for: 'App\\Filament\\AdminPanel\\Widgets')

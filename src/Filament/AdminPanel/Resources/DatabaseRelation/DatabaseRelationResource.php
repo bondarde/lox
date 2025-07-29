@@ -34,6 +34,8 @@ class DatabaseRelationResource extends Resource
     protected static ?string $label = 'Database relation';
     protected static ?string $pluralLabel = 'Database relations';
 
+    protected static bool $isGloballySearchable = false;
+
     public static function infolist(Infolist $infolist): Infolist
     {
         $model = $infolist->getRecord();
