@@ -20,7 +20,7 @@
         "deployer/deployer": "^7.0",
         "diglactic/laravel-breadcrumbs": "^10.0",
         "filament/filament": "^3.2",
-        "firebase/php-jwt": "^6.3",
+        "firebase/php-jwt": "^7",
         "jenssegers/agent": "^2.6",
         "laravel/fortify": "^1.10",
         "laravel/framework": "^11|^12",
